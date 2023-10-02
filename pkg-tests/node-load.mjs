@@ -1,4 +1,4 @@
-import * as vault from '@iiif/helpers/vault';
+import * as vault from '@iiif/helpers/vault-node';
 import * as events from '@iiif/helpers/events';
 import * as i18n from '@iiif/helpers/i18n';
 import * as styles from '@iiif/helpers/styles';

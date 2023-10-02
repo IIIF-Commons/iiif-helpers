@@ -1,4 +1,4 @@
-const { Vault } = require('@iiif/helpers/vault');
+const { Vault } = require('@iiif/helpers/vault-node');
 const events = require('@iiif/helpers/events');
 const i18n = require('@iiif/helpers/i18n');
 const styles = require('@iiif/helpers/styles');
