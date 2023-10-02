@@ -5,6 +5,7 @@
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
   "types": ".build/types/index.d.ts",
+  "typings": ".build/types/index.d.ts",
   "files": [
     ".build",
     "dist"
