@@ -4,10 +4,10 @@
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
-  "types": ".build/types/index.d.ts",
-  "typings": ".build/types/index.d.ts",
+  "types": "build/types/index.d.ts",
+  "typings": "build/types/index.d.ts",
   "files": [
-    ".build",
+    "build",
     "dist"
   ],
   "sideEffects": false,
@@ -84,98 +84,68 @@
       "require": "./dist/vault-utility/cjs/vault-utility.js",
       "import": "./dist/vault-utility/esm/vault-utility.mjs"
     },
-    "./.build/types/index.d.ts": {
-      "import": "./.build/types/index.d.ts"
-    },
-    "./.build/types/events.d.ts": {
-      "import": "./.build/types/events.d.ts"
-    },
-    "./.build/types/i18n.d.ts": {
-      "import": "./.build/types/i18n.d.ts"
-    },
-    "./.build/types/styles.d.ts": {
-      "import": "./.build/types/styles.d.ts"
-    },
-    "./.build/types/thumbnail.d.ts": {
-      "import": "./.build/types/thumbnail.d.ts"
-    },
-    "./.build/types/annotation-targets.d.ts": {
-      "import": "./.build/types/annotation-targets.d.ts"
-    },
-    "./.build/types/content-state.d.ts": {
-      "import": "./.build/types/content-state.d.ts"
-    },
-    "./.build/types/painting-annotations.d.ts": {
-      "import": "./.build/types/painting-annotations.d.ts"
-    },
-    "./.build/types/ranges.d.ts": {
-      "import": "./.build/types/ranges.d.ts"
-    },
-    "./.build/types/fetch.d.ts": {
-      "import": "./.build/types/fetch.d.ts"
-    },
-    "./.build/types/sequences.d.ts": {
-      "import": "./.build/types/sequences.d.ts"
-    },
-    "./.build/types/vault.d.ts":  {
-      "import": "./.build/types/vault.d.ts"
-    },
-    "./.build/types/vault-actions.d.ts": {
-      "import": "./.build/types/vault-actions.d.ts"
-    },
-    "./.build/types/vault-store.d.ts":  {
-      "import": "./.build/types/vault-store.d.ts"
-    },
-    "./.build/types/vault-utility.d.ts": {
-      "import": "./.build/types/vault-utility.d.ts"
-    }
+    "./build/types/index.d.ts": "./build/types/index.d.ts",
+    "./build/types/events.d.ts": "./build/types/events.d.ts",
+    "./build/types/i18n.d.ts": "./build/types/i18n.d.ts",
+    "./build/types/styles.d.ts": "./build/types/styles.d.ts",
+    "./build/types/thumbnail.d.ts": "./build/types/thumbnail.d.ts",
+    "./build/types/annotation-targets.d.ts": "./build/types/annotation-targets.d.ts",
+    "./build/types/content-state.d.ts": "./build/types/content-state.d.ts",
+    "./build/types/painting-annotations.d.ts": "./build/types/painting-annotations.d.ts",
+    "./build/types/ranges.d.ts": "./build/types/ranges.d.ts",
+    "./build/types/fetch.d.ts": "./build/types/fetch.d.ts",
+    "./build/types/sequences.d.ts": "./build/types/sequences.d.ts",
+    "./build/types/vault.d.ts": "./build/types/vault.d.ts",
+    "./build/types/vault-actions.d.ts": "./build/types/vault-actions.d.ts",
+    "./build/types/vault-store.d.ts": "./build/types/vault-store.d.ts",
+    "./build/types/vault-utility.d.ts": "./build/types/vault-utility.d.ts"
   },
   "typesVersions": {
     "*": {
       "*": [
-        ".build/types/index.d.ts"
+        "build/types/index.d.ts"
       ],
       "events": [
-        ".build/types/events.d.ts"
+        "build/types/events.d.ts"
       ],
       "i18n": [
-        ".build/types/i18n.d.ts"
+        "build/types/i18n.d.ts"
       ],
       "styles": [
-        ".build/types/styles.d.ts"
+        "build/types/styles.d.ts"
       ],
       "thumbnail": [
-        ".build/types/thumbnail.d.ts"
+        "build/types/thumbnail.d.ts"
       ],
       "annotation-targets": [
-        ".build/types/annotation-targets.d.ts"
+        "build/types/annotation-targets.d.ts"
       ],
       "content-state": [
-        ".build/types/content-state.d.ts"
+        "build/types/content-state.d.ts"
       ],
       "painting-annotations": [
-        ".build/types/painting-annotations.d.ts"
+        "build/types/painting-annotations.d.ts"
       ],
       "ranges": [
-        ".build/types/ranges.d.ts"
+        "build/types/ranges.d.ts"
       ],
       "fetch": [
-        ".build/types/fetch.d.ts"
+        "build/types/fetch.d.ts"
       ],
       "sequences": [
-        ".build/types/sequences.d.ts"
+        "build/types/sequences.d.ts"
       ],
       "vault": [
-        ".build/types/vault.d.ts"
+        "build/types/vault.d.ts"
       ],
       "vault/actions": [
-        ".build/types/vault-actions.d.ts"
+        "build/types/vault-actions.d.ts"
       ],
       "vault/store": [
-        ".build/types/vault-store.d.ts"
+        "build/types/vault-store.d.ts"
       ],
       "vault/utility": [
-        ".build/types/vault-utility.d.ts"
+        "build/types/vault-utility.d.ts"
       ]
     }
   },
