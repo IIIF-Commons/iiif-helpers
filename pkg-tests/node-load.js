@@ -1,7 +1,6 @@
 const { Vault } = require('@iiif/helpers/vault');
 const events = require('@iiif/helpers/events');
 const i18n = require('@iiif/helpers/i18n');
-const reacti18next = require('@iiif/helpers/react-i18next');
 const styles = require('@iiif/helpers/styles');
 const thumbnail = require('@iiif/helpers/thumbnail');
 const annotationTargets = require('@iiif/helpers/annotation-targets');
@@ -13,7 +12,6 @@ const vault = new Vault();
 console.log(vault);
 console.log(events);
 console.log(i18n);
-console.log(reacti18next);
 console.log(styles);
 console.log(thumbnail);
 console.log(annotationTargets);
