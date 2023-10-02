@@ -29,7 +29,7 @@ import chalk from 'chalk';
       entry: `src/index.ts`,
       name: 'index',
       outDir: 'dist',
-      globalName: 'VaultHelpers',
+      globalName: 'IIIFHelpers',
       external: [],
     })
   );
