@@ -15,7 +15,8 @@
     ".": {
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.mjs",
-      "default": "./dist/index.umd.js"
+      "default": "./dist/index.umd.js",
+      "types": "./build/types/index.d.ts"
     },
     "./events": {
       "require": "./dist/events/cjs/events.js",
