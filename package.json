@@ -15,8 +15,7 @@
     ".": {
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.mjs",
-      "default": "./dist/index.umd.js",
-      "types": "./build/types/index.d.ts"
+      "default": "./dist/index.umd.js"
     },
     "./events": {
       "require": "./dist/events/cjs/events.js",
@@ -69,17 +68,14 @@
       "types": "./build/types/sequences.d.ts"
     },
     "./vault": {
-      "node": {
-        "require": "./dist/vault-node/cjs/vault-node.js",
-        "import": "./dist/vault-node/esm/vault-node.mjs",
-        "default": "./dist/vault-node/cjs/vault-node.js",
-        "types": "./build/types/vault.d.ts"
-      },
-      "browser": {
-        "require": "./dist/vault/cjs/vault.js",
-        "import": "./dist/vault/esm/vault.mjs",
-        "types": "./build/types/vault.d.ts"
-      }
+      "require": "./dist/vault/cjs/vault.js",
+      "import": "./dist/vault/esm/vault.mjs",
+      "types": "./build/types/vault.d.ts"
+    },
+    "./vault-node": {
+      "require": "./dist/vault-node/cjs/vault-node.js",
+      "import": "./dist/vault-node/esm/vault-node.mjs",
+      "types": "./build/types/vault-node.d.ts"
     },
     "./vault/global-vault": {
       "require": "./npm/global-vault.js",
@@ -138,6 +134,9 @@
       ],
       "vault": [
         "build/types/vault.d.ts"
+      ],
+      "vault-node": [
+        "build/types/vault-node.d.ts"
       ],
       "vault/actions": [
         "build/types/vault-actions.d.ts"
