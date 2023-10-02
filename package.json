@@ -48,10 +48,6 @@
       "require": "./dist/painting-annotations/cjs/painting-annotations.js",
       "import": "./dist/painting-annotations/esm/painting-annotations.mjs"
     },
-    "./objects": {
-      "require": "./dist/objects/cjs/objects.js",
-      "import": "./dist/objects/esm/objects.mjs"
-    },
     "./ranges": {
       "require": "./dist/ranges/cjs/ranges.js",
       "import": "./dist/ranges/esm/ranges.mjs"
@@ -62,13 +58,13 @@
     },
     "./vault": {
       "node": {
-        "require": "./dist/vault-node/cjs/index.js",
-        "import": "./dist/vault-node/esm/index.mjs",
-        "default": "./dist/vault-node/cjs/index.js"
+        "require": "./dist/vault-node/cjs/vault-node.js",
+        "import": "./dist/vault-node/esm/vault-node.mjs",
+        "default": "./dist/vault-node/cjs/vault-node.js"
       },
       "browser": {
-        "require": "./dist/vault/cjs/index.js",
-        "import": "./dist/vault/esm/index.mjs"
+        "require": "./dist/vault/cjs/vault.js",
+        "import": "./dist/vault/esm/vault.mjs"
       }
     },
     "./vault/global-vault": {
@@ -76,16 +72,16 @@
       "import": "./npm/global-vault.mjs"
     },
     "./vault/actions": {
-      "require": "./dist/vault-actions/cjs/index.js",
-      "import": "./dist/vault-actions/esm/index.mjs"
+      "require": "./dist/vault-actions/cjs/vault-actions.js",
+      "import": "./dist/vault-actions/esm/vault-actions.mjs"
     },
     "./vault/store": {
-      "require": "./dist/vault-store/cjs/index.js",
-      "import": "./dist/vault-store/esm/index.mjs"
+      "require": "./dist/vault-store/cjs/vault-store.js",
+      "import": "./dist/vault-store/esm/vault-store.mjs"
     },
     "./vault/utility": {
-      "require": "./dist/vault-utility/cjs/index.js",
-      "import": "./dist/vault-utility/esm/index.mjs"
+      "require": "./dist/vault-utility/cjs/vault-utility.js",
+      "import": "./dist/vault-utility/esm/vault-utility.mjs"
     },
     "./.build/types/index.d.ts": {
       "import": "./.build/types/index.d.ts"
@@ -110,9 +106,6 @@
     },
     "./.build/types/painting-annotations.d.ts": {
       "import": "./.build/types/painting-annotations.d.ts"
-    },
-    "./.build/types/objects.d.ts": {
-      "import": "./.build/types/objects.d.ts"
     },
     "./.build/types/ranges.d.ts": {
       "import": "./.build/types/ranges.d.ts"
@@ -161,9 +154,6 @@
       ],
       "painting-annotations": [
         ".build/types/painting-annotations.d.ts"
-      ],
-      "objects": [
-        ".build/types/objects.d.ts"
       ],
       "ranges": [
         ".build/types/ranges.d.ts"
