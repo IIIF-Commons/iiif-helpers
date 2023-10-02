@@ -15,57 +15,70 @@
     ".": {
       "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.mjs",
-      "default": "./dist/index.umd.js"
+      "default": "./dist/index.umd.js",
+      "types": "./build/types/index.d.ts"
     },
     "./events": {
       "require": "./dist/events/cjs/events.js",
-      "import": "./dist/events/esm/events.mjs"
+      "import": "./dist/events/esm/events.mjs",
+      "types": "./build/types/events.d.ts"
     },
     "./i18n": {
       "require": "./dist/i18n/cjs/i18n.js",
-      "import": "./dist/i18n/esm/i18n.mjs"
+      "import": "./dist/i18n/esm/i18n.mjs",
+      "types": "./build/types/i18n.d.ts"
     },
     "./styles": {
       "require": "./dist/styles/cjs/styles.js",
-      "import": "./dist/styles/esm/styles.mjs"
+      "import": "./dist/styles/esm/styles.mjs",
+      "types": "./build/types/styles.d.ts"
     },
     "./thumbnail": {
       "require": "./dist/thumbnail/cjs/thumbnail.js",
-      "import": "./dist/thumbnail/esm/thumbnail.mjs"
+      "import": "./dist/thumbnail/esm/thumbnail.mjs",
+        "types": "./build/types/thumbnail.d.ts"
     },
     "./annotation-targets": {
       "require": "./dist/annotation-targets/cjs/annotation-targets.js",
-      "import": "./dist/annotation-targets/esm/annotation-targets.mjs"
+      "import": "./dist/annotation-targets/esm/annotation-targets.mjs",
+      "types": "./build/types/annotation-targets.d.ts"
     },
     "./content-state": {
       "require": "./dist/content-state/cjs/content-state.js",
-      "import": "./dist/content-state/esm/content-state.mjs"
+      "import": "./dist/content-state/esm/content-state.mjs",
+      "types": "./build/types/content-state.d.ts"
     },
     "./fetch": {
       "require": "./dist/fetch/cjs/fetch.js",
-      "import": "./dist/fetch/esm/fetch.mjs"
+      "import": "./dist/fetch/esm/fetch.mjs",
+      "types": "./build/types/fetch.d.ts"
     },
     "./painting-annotations": {
       "require": "./dist/painting-annotations/cjs/painting-annotations.js",
-      "import": "./dist/painting-annotations/esm/painting-annotations.mjs"
+      "import": "./dist/painting-annotations/esm/painting-annotations.mjs",
+      "types": "./build/types/painting-annotations.d.ts"
     },
     "./ranges": {
       "require": "./dist/ranges/cjs/ranges.js",
-      "import": "./dist/ranges/esm/ranges.mjs"
+      "import": "./dist/ranges/esm/ranges.mjs",
+      "types": "./build/types/ranges.d.ts"
     },
     "./sequences": {
       "require": "./dist/sequences/cjs/sequences.js",
-      "import": "./dist/sequences/esm/sequences.mjs"
+      "import": "./dist/sequences/esm/sequences.mjs",
+      "types": "./build/types/sequences.d.ts"
     },
     "./vault": {
       "node": {
         "require": "./dist/vault-node/cjs/vault-node.js",
         "import": "./dist/vault-node/esm/vault-node.mjs",
-        "default": "./dist/vault-node/cjs/vault-node.js"
+        "default": "./dist/vault-node/cjs/vault-node.js",
+        "types": "./build/types/vault.d.ts"
       },
       "browser": {
         "require": "./dist/vault/cjs/vault.js",
-        "import": "./dist/vault/esm/vault.mjs"
+        "import": "./dist/vault/esm/vault.mjs",
+        "types": "./build/types/vault.d.ts"
       }
     },
     "./vault/global-vault": {
@@ -74,31 +87,19 @@
     },
     "./vault/actions": {
       "require": "./dist/vault-actions/cjs/vault-actions.js",
-      "import": "./dist/vault-actions/esm/vault-actions.mjs"
+      "import": "./dist/vault-actions/esm/vault-actions.mjs",
+      "types": "./build/types/vault-actions.d.ts"
     },
     "./vault/store": {
       "require": "./dist/vault-store/cjs/vault-store.js",
-      "import": "./dist/vault-store/esm/vault-store.mjs"
+      "import": "./dist/vault-store/esm/vault-store.mjs",
+      "types": "./build/types/vault-store.d.ts"
     },
     "./vault/utility": {
       "require": "./dist/vault-utility/cjs/vault-utility.js",
-      "import": "./dist/vault-utility/esm/vault-utility.mjs"
-    },
-    "./build/types/index.d.ts": "./build/types/index.d.ts",
-    "./build/types/events.d.ts": "./build/types/events.d.ts",
-    "./build/types/i18n.d.ts": "./build/types/i18n.d.ts",
-    "./build/types/styles.d.ts": "./build/types/styles.d.ts",
-    "./build/types/thumbnail.d.ts": "./build/types/thumbnail.d.ts",
-    "./build/types/annotation-targets.d.ts": "./build/types/annotation-targets.d.ts",
-    "./build/types/content-state.d.ts": "./build/types/content-state.d.ts",
-    "./build/types/painting-annotations.d.ts": "./build/types/painting-annotations.d.ts",
-    "./build/types/ranges.d.ts": "./build/types/ranges.d.ts",
-    "./build/types/fetch.d.ts": "./build/types/fetch.d.ts",
-    "./build/types/sequences.d.ts": "./build/types/sequences.d.ts",
-    "./build/types/vault.d.ts": "./build/types/vault.d.ts",
-    "./build/types/vault-actions.d.ts": "./build/types/vault-actions.d.ts",
-    "./build/types/vault-store.d.ts": "./build/types/vault-store.d.ts",
-    "./build/types/vault-utility.d.ts": "./build/types/vault-utility.d.ts"
+      "import": "./dist/vault-utility/esm/vault-utility.mjs",
+      "types": "./build/types/vault-utility.d.ts"
+    }
   },
   "typesVersions": {
     "*": {
