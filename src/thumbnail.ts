@@ -21,7 +21,7 @@ import { compatVault, CompatVault } from './compat';
 
 export const imageServiceLoader = new ImageServiceLoader();
 
-let helper: ReturnType<typeof createThumbnailHelper> | null = null;
+const helpers: Map<CompatVault, ReturnType<typeof createThumbnailHelper>> = new Map();
 export function getThumbnail(
   input:
     | string
@@ -45,7 +45,11 @@ export function getThumbnail(
     ...options
   }: ImageCandidateRequest & { vault?: CompatVault; dereference?: boolean } = {}
 ) {
-  helper = helper || createThumbnailHelper(vault);
+  let helper = helpers.get(vault);
+  if (!helper) {
+    helper = createThumbnailHelper(vault);
+    helpers.set(vault, helper);
+  }
   return helper.getBestThumbnailAtSize(input, options, dereference);
 }
 
