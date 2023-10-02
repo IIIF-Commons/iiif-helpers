@@ -12,6 +12,9 @@ export const defaultExternal = [
  */
 export function defineConfig(options) {
   return {
+    define: {
+      'process.env.NODE_ENV': '"production"',
+    },
     build: {
       sourcemap: true,
       outDir: options.outDir || `dist/${options.name}`,
