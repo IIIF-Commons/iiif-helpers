@@ -1,7 +1,7 @@
 export type CompatVault = {
-  get: import('@iiif/vault').Vault['get'];
-  setMetaValue: import('@iiif/vault').Vault['setMetaValue'];
-  getResourceMeta: import('@iiif/vault').Vault['getResourceMeta'];
+  get: import('./vault').Vault['get'];
+  setMetaValue: import('./vault').Vault['setMetaValue'];
+  getResourceMeta: import('./vault').Vault['getResourceMeta'];
 };
 
 const metaState: any = {};

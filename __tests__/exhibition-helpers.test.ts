@@ -1,5 +1,5 @@
 import novieten from '../fixtures/exhibitions/novieten.json';
-import { Vault } from '@iiif/vault';
+import { Vault } from '../src/vault';
 import invariant from 'tiny-invariant';
 import { createPaintingAnnotationsHelper } from '../src/painting-annotations';
 import { expandTarget } from '../src';

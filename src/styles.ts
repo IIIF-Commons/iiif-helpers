@@ -1,4 +1,3 @@
-import type { Vault } from '@iiif/vault';
 import { Reference } from '@iiif/presentation-3';
 import { compatVault, CompatVault } from './compat';
 

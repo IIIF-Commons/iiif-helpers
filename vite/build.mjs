@@ -11,10 +11,15 @@ import chalk from 'chalk';
     'annotation-targets',
     'content-state',
     'painting-annotations',
-    'objects',
     'ranges',
     'sequences',
     'fetch',
+    // Vault.
+    'vault',
+    'vault-node',
+    'vault-store',
+    'vault-actions',
+    'vault-utility',
   ];
 
   // Main UMD build.
@@ -31,24 +36,19 @@ import chalk from 'chalk';
 
   for (const singleFileLib of singleFileLibraries) {
     buildMsg(singleFileLib);
+    let extraExternal = [];
+    if (singleFileLib === 'vault-node') {
+      extraExternal = ['node-fetch'];
+    }
+
     await build(
       defineConfig({
         entry: `src/${singleFileLib}.ts`,
         name: singleFileLib,
-        external: [...defaultExternal],
+        external: [...defaultExternal, ...extraExternal],
       })
     );
   }
-
-  // React library special case
-  buildMsg('react-i18next');
-  await build(
-    defineConfig({
-      entry: `src/react-i18next.ts`,
-      name: 'react-i18next',
-      external: [...defaultExternal, 'react'],
-    })
-  );
 
   console.log('')
 

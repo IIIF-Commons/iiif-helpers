@@ -1,10 +1,10 @@
 import { thumbnailFixtures } from '../fixtures.mjs';
 import { expect, test } from 'vitest';
-import { Vault } from '@iiif/vault';
+import { Vault } from '../src/vault';
 import { createThumbnailHelper } from '../src/thumbnail';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { ManifestNormalized } from '@iiif/presentation-3';
+import { ManifestNormalized } from '@iiif/presentation-3-normalized';
 import { upgrade } from '@iiif/parser/upgrader';
 
 describe('Thumbnail helper', function () {

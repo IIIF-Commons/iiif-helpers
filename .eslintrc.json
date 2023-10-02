@@ -7,11 +7,9 @@
     },
     "plugins": [
         "@typescript-eslint",
-        "prettier",
-        "json"
+        "prettier"
     ],
     "extends": [
-        "plugin:json/recommended",
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
         "plugin:@typescript-eslint/recommended"
@@ -23,6 +21,7 @@
         "@typescript-eslint/semi": "warn",
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/ban-ts-comment": "off",
         "curly": "warn",
         "no-throw-literal": "warn",
         "semi": "off"

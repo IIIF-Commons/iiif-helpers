@@ -1,7 +1,7 @@
 import { describe, expect } from 'vitest';
 import choice from '../fixtures/cookbook/choice.json';
 import composite from '../fixtures/cookbook/composite.json';
-import { Vault } from '@iiif/vault';
+import { Vault } from '../src/vault';
 import invariant from 'tiny-invariant';
 import { createPaintingAnnotationsHelper } from '../src/painting-annotations';
 

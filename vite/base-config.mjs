@@ -1,7 +1,6 @@
 import react from '@vitejs/plugin-react';
 
 export const defaultExternal = [
-  '@iiif/vault',
   '@iiif/parser',
   '@atlas-viewer/iiif-image-api',
   'redux',

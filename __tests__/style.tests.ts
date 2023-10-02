@@ -1,4 +1,4 @@
-import { Vault } from '@iiif/vault';
+import { Vault } from '../src/vault';
 import { createStylesHelper } from '../src/styles';
 
 describe('style helper', function () {
