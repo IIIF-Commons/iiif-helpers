@@ -7,3 +7,4 @@ export * from './annotation-targets';
 export * from './painting-annotations';
 export * from './ranges';
 export * from './sequences';
+export * from './vault';
