@@ -8,3 +8,4 @@ export * from './painting-annotations';
 export * from './ranges';
 export * from './sequences';
 export * from './vault';
+export * from './fetch';
