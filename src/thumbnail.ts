@@ -77,7 +77,7 @@ export function createThumbnailHelper(
       | ContentResource
       | undefined,
     request: ImageCandidateRequest,
-    dereference?: boolean,
+    dereference = false,
     candidates: Array<ImageCandidate> = [],
     dimensions?: { width: number; height: number }
   ): Promise<{
