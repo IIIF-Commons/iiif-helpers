@@ -6,7 +6,7 @@ export function getClosestLanguage(
   i18nLanguages: string[] = [],
   strictFallback = false
 ) {
-  if (!i18nLanguage || !languages || languages.length === 0) {
+  if (!languages || languages.length === 0) {
     return undefined;
   }
 
@@ -15,15 +15,19 @@ export function getClosestLanguage(
     return languages[0];
   }
 
-  // Exact match.
-  if (languages.indexOf(i18nLanguage) !== -1) {
-    return i18nLanguage;
-  }
+  if (!i18nLanguage && languages.indexOf('none') !== -1) {
+    return 'none';
+  } else {
+    // Exact match.
+    if (languages.indexOf(i18nLanguage) !== -1) {
+      return i18nLanguage;
+    }
 
-  // Root match (en-us === en)
-  const root = i18nLanguage.indexOf('-') !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf('-')) : null;
-  if (root && languages.indexOf(root) !== -1) {
-    return root;
+    // Root match (en-us === en)
+    const root = i18nLanguage.indexOf('-') !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf('-')) : null;
+    if (root && languages.indexOf(root) !== -1) {
+      return root;
+    }
   }
 
   // All of the fall backs.
@@ -33,7 +37,7 @@ export function getClosestLanguage(
     }
   }
 
-  if (!strictFallback) {
+  if (!strictFallback && i18nLanguage) {
     // Inverse root match (en === en-us)
     const inverseRoot = languages.map((l) => (l.indexOf('-') !== -1 ? l.slice(0, l.indexOf('-')) : null));
     const inverseIdx = inverseRoot.indexOf(i18nLanguage);
@@ -103,7 +107,11 @@ export function buildLocaleString(
 
 export function getValue(
   inputText: string | InternationalString | null | undefined,
-  options: { defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}
+  options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}
 ) {
-  return buildLocaleString(inputText, typeof navigator !== 'undefined' ? navigator.language : 'en', options);
+  return buildLocaleString(
+    inputText,
+    options.language || (typeof navigator !== 'undefined' ? navigator.language : 'en'),
+    options
+  );
 }
