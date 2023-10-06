@@ -20,7 +20,7 @@
     "sourceMap": true,
     "allowJs": true,
     "resolveJsonModule": true,
-    "outDir": "./.build/types",
+    "outDir": "./build/types",
     "declaration": true,
     "emitDeclarationOnly": true,
     "rootDir": "./src",

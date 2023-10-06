@@ -19,11 +19,45 @@ import {
 } from '@atlas-viewer/iiif-image-api';
 import { compatVault, CompatVault } from './compat';
 
+export const imageServiceLoader = new ImageServiceLoader();
+
+const helpers: Map<CompatVault, ReturnType<typeof createThumbnailHelper>> = new Map();
+export function getThumbnail(
+  input:
+    | string
+    | Reference<CollectionItemSchemas>
+    | Reference<'Collection'>
+    | Reference<'Manifest'>
+    | Reference<'Canvas'>
+    | Reference<'Annotation'>
+    | Reference<'AnnotationPage'>
+    | Reference<'ContentResource'>
+    | CollectionNormalized
+    | ManifestNormalized
+    | CanvasNormalized
+    | AnnotationNormalized
+    | AnnotationPageNormalized
+    | ContentResource
+    | undefined,
+  {
+    vault = compatVault,
+    dereference = false,
+    ...options
+  }: ImageCandidateRequest & { vault?: CompatVault; dereference?: boolean } = {}
+) {
+  let helper = helpers.get(vault);
+  if (!helper) {
+    helper = createThumbnailHelper(vault);
+    helpers.set(vault, helper);
+  }
+  return helper.getBestThumbnailAtSize(input, options, dereference);
+}
+
 export function createThumbnailHelper(
   vault: CompatVault = compatVault,
   dependencies: { imageServiceLoader?: ImageServiceLoader } = {}
 ) {
-  const imageServiceLoader = dependencies.imageServiceLoader || new ImageServiceLoader();
+  const loader = dependencies.imageServiceLoader || imageServiceLoader;
 
   async function getBestThumbnailAtSize(
     input:
@@ -43,7 +77,7 @@ export function createThumbnailHelper(
       | ContentResource
       | undefined,
     request: ImageCandidateRequest,
-    dereference?: boolean,
+    dereference = false,
     candidates: Array<ImageCandidate> = [],
     dimensions?: { width: number; height: number }
   ): Promise<{
@@ -51,12 +85,11 @@ export function createThumbnailHelper(
     fallback: Array<ImageCandidate>;
     log: string[];
   }> {
-    const thumbnailNotFound = () =>
-      imageServiceLoader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
+    const thumbnailNotFound = () => loader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
 
     if (!input) {
       // We might have candidates already to pick from.
-      return await imageServiceLoader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
+      return await loader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
     }
 
     if (typeof input === 'string') {
@@ -65,7 +98,7 @@ export function createThumbnailHelper(
         candidates.push(fixed);
       }
 
-      return await imageServiceLoader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
+      return await loader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
     }
 
     // Run through from ref, just in case.
@@ -91,7 +124,7 @@ export function createThumbnailHelper(
     const parseThumbnail = async (resource: DescriptiveNormalized) => {
       if (resource && resource.thumbnail && resource.thumbnail.length) {
         const thumbnail = vault.get(resource.thumbnail[0]);
-        const potentialThumbnails = await imageServiceLoader.getImageCandidates(thumbnail as any, dereference);
+        const potentialThumbnails = await loader.getImageCandidates(thumbnail as any, dereference);
         if (potentialThumbnails && potentialThumbnails.length) {
           candidates.push(...potentialThumbnails);
         }
@@ -111,12 +144,7 @@ export function createThumbnailHelper(
           (firstContentResources as any).height = dimensions.height;
         }
 
-        return await imageServiceLoader.getThumbnailFromResource(
-          firstContentResources as any,
-          request,
-          dereference,
-          candidates
-        );
+        return await loader.getThumbnailFromResource(firstContentResources as any, request, dereference, candidates);
       }
 
       case 'Canvas': {
@@ -173,7 +201,7 @@ export function createThumbnailHelper(
           (fullInput as any).height = dimensions.height;
         }
 
-        return imageServiceLoader.getThumbnailFromResource(fullInput as any, request, dereference, candidates);
+        return loader.getThumbnailFromResource(fullInput as any, request, dereference, candidates);
 
       // Seems unlikely these would appear, but it would be an error..
       // case 'Service': // @todo could do something with vault.

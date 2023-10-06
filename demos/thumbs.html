@@ -22,11 +22,10 @@
     <pre id="data"></pre>
 </div>
 <script type="module">
-  import * as IIIFVault from '@iiif/vault';
-  import * as IIIFVaultHelpers from '../src';
+  import * as IIIFHelpers from '../src';
 
   let manifestUri = "https://digirati-co-uk.github.io/finsbury.json";
-  const vault = new IIIFVault.Vault();
+  const vault = new IIIFHelpers.Vault();
 
   // a couple of helpers for displaying what we find
   function show(obj, label) {
@@ -58,8 +57,8 @@
   async function LoadManifest(manifestId) {
 
     const manifest = await vault.loadManifest(manifestId);
-    const events = IIIFVaultHelpers.createEventsHelper(vault);
-    const thumbHelper = IIIFVaultHelpers.createThumbnailHelper(vault);
+    const events = IIIFHelpers.createEventsHelper(vault);
+    const thumbHelper = IIIFHelpers.createThumbnailHelper(vault);
 
     for (const canvas of manifest.items) {
       // give these handlers a scope, we may wish to have other click handlers for the same canvases elsewhere

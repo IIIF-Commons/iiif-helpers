@@ -1,6 +1,18 @@
-import { buildLocaleString } from '../src/i18n';
+/**
+ * @jest-environment node
+ */
+import { buildLocaleString, getValue } from '../src/i18n';
+
 describe('i18n helper', () => {
   describe('buildLocaleString()', () => {
+    test('get value works on node', () => {
+      expect(getValue({ en: ['Testing a value'] })).toEqual('Testing a value');
+      expect(getValue({ none: ['Testing a value'] })).toEqual('Testing a value');
+      expect(getValue({ es: ['Testing a value'] })).toEqual('Testing a value');
+      expect(getValue({ en: ['This value instead'], es: ['Testing a value'] })).toEqual('This value instead');
+      expect(getValue({ es: ['Testing a value'], en: ['This value instead'] })).toEqual('This value instead');
+    });
+
     test('it can empty values', () => {
       expect(buildLocaleString(null, 'none')).toEqual('');
       expect(buildLocaleString(undefined, 'none')).toEqual('');

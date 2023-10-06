@@ -1,6 +1,6 @@
 {
   "sandboxes": [
-    "new",
+    "vanilla-typescript",
     "vanilla"
   ],
   "node": "18"
