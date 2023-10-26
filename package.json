@@ -1,6 +1,6 @@
 {
   "name": "@iiif/helpers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.mjs",
@@ -36,7 +36,7 @@
     "./thumbnail": {
       "require": "./dist/thumbnail/cjs/thumbnail.js",
       "import": "./dist/thumbnail/esm/thumbnail.mjs",
-        "types": "./build/types/thumbnail.d.ts"
+      "types": "./build/types/thumbnail.d.ts"
     },
     "./annotation-targets": {
       "require": "./dist/annotation-targets/cjs/annotation-targets.js",
