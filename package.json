@@ -164,7 +164,7 @@
     "@iiif/presentation-2": "1.0.4",
     "@iiif/presentation-3": "2.1.3",
     "@iiif/presentation-3-normalized": "0.9.7",
-    "@iiif/parser": "https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser/_pkg.tgz"
+    "@iiif/parser": "https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",
