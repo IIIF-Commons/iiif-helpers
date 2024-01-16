@@ -50,8 +50,7 @@ import chalk from 'chalk';
     );
   }
 
-  console.log('')
-
+  console.log('');
 
   function buildMsg(name) {
     console.log(chalk.grey(`\n\nBuilding ${chalk.blue(name)}\n`));

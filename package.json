@@ -163,8 +163,7 @@
   "dependencies": {
     "@iiif/presentation-2": "1.0.4",
     "@iiif/presentation-3": "2.1.3",
-    "@iiif/presentation-3-normalized": "0.9.7",
-    "@iiif/parser": "https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser"
+    "@iiif/presentation-3-normalized": "0.9.7"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",
@@ -176,6 +175,7 @@
   },
   "devDependencies": {
     "@atlas-viewer/iiif-image-api": "^2.1.1",
+    "@iiif/parser": "https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser",
     "@types/jsdom": "^21.1.3",
     "@types/svg-arc-to-cubic-bezier": "^3.2.0",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
