@@ -1,3 +1,3 @@
-const IIIFVaultHelpers = require('../dist/index.umd');
+const IIIFHelpers = require('../dist/index.umd');
 
-console.log(IIIFVaultHelpers);
+console.log(IIIFHelpers);

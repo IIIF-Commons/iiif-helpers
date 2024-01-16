@@ -1,4 +1,4 @@
-import { expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { parseSelector } from '../src/annotation-targets/parse-selector';
 import { JSDOM } from 'jsdom';
 

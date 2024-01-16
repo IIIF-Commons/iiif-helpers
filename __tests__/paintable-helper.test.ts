@@ -1,4 +1,4 @@
-import { describe, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 import choice from '../fixtures/cookbook/choice.json';
 import composite from '../fixtures/cookbook/composite.json';
 import { Vault } from '../src/vault';

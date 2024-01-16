@@ -1,19 +1,17 @@
-const { Vault } = require('@iiif/vault');
-const events = require('@iiif/vault-helpers/events');
-const i18n = require('@iiif/vault-helpers/i18n');
-const reacti18next = require('@iiif/vault-helpers/react-i18next');
-const styles = require('@iiif/vault-helpers/styles');
-const thumbnail = require('@iiif/vault-helpers/thumbnail');
-const annotationTargets = require('@iiif/vault-helpers/annotation-targets');
-const contentState = require('@iiif/vault-helpers/content-state');
-const paintingAnnotations = require('@iiif/vault-helpers/painting-annotations');
+const { Vault } = require('@iiif/helpers/vault-node');
+const events = require('@iiif/helpers/events');
+const i18n = require('@iiif/helpers/i18n');
+const styles = require('@iiif/helpers/styles');
+const thumbnail = require('@iiif/helpers/thumbnail');
+const annotationTargets = require('@iiif/helpers/annotation-targets');
+const contentState = require('@iiif/helpers/content-state');
+const paintingAnnotations = require('@iiif/helpers/painting-annotations');
 
 const vault = new Vault();
 
 console.log(vault);
 console.log(events);
 console.log(i18n);
-console.log(reacti18next);
 console.log(styles);
 console.log(thumbnail);
 console.log(annotationTargets);

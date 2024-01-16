@@ -29,7 +29,7 @@ import chalk from 'chalk';
       entry: `src/index.ts`,
       name: 'index',
       outDir: 'dist',
-      globalName: 'VaultHelpers',
+      globalName: 'IIIFHelpers',
       external: [],
     })
   );
@@ -50,8 +50,7 @@ import chalk from 'chalk';
     );
   }
 
-  console.log('')
-
+  console.log('');
 
   function buildMsg(name) {
     console.log(chalk.grey(`\n\nBuilding ${chalk.blue(name)}\n`));

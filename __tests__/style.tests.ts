@@ -1,5 +1,6 @@
 import { Vault } from '../src/vault';
 import { createStylesHelper } from '../src/styles';
+import { describe, expect, test } from 'vitest';
 
 describe('style helper', function () {
   test('setting styles', () => {
