@@ -9,9 +9,6 @@ overrides:
   '@iiif/presentation-3-normalized': 0.9.7
 
 dependencies:
-  '@iiif/parser':
-    specifier: https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser
-    version: '@pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser'
   '@iiif/presentation-2':
     specifier: 1.0.4
     version: 1.0.4(@iiif/presentation-3@2.1.3)
@@ -37,6 +34,9 @@ devDependencies:
   '@atlas-viewer/iiif-image-api':
     specifier: ^2.1.1
     version: 2.1.1
+  '@iiif/parser':
+    specifier: https://pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser
+    version: '@pkg.csb.dev/IIIF-Commons/parser/commit/5974107a/@iiif/parser'
   '@types/jsdom':
     specifier: ^21.1.3
     version: 21.1.4
@@ -600,13 +600,11 @@ packages:
       '@iiif/presentation-3': ^2.1.3
     dependencies:
       '@iiif/presentation-3': 2.1.3
-    dev: false
 
   /@iiif/presentation-3-normalized@0.9.7:
     resolution: {integrity: sha512-Aqk0sYBFIH5W3wmVxW02tnAFbNzUU5oPygGQjvszB3PP2nSkFQ1skVjqJhQPPZTyi/de1qcJUrgSy0vp6s+c5A==}
     dependencies:
       '@iiif/presentation-3': 2.1.3
-    dev: false
 
   /@iiif/presentation-3@2.1.3:
     resolution: {integrity: sha512-0V9LL+UPGknn4vdEJuJnuK0BsOL93dmr4PrdXg9fSE9HUq/2P0jkp4yGJR13f7N9OpmcRsEQjqWqVceWHB8Bow==}
@@ -2878,4 +2876,4 @@ packages:
       '@iiif/presentation-3': 2.1.3
       '@iiif/presentation-3-normalized': 0.9.7
       '@types/geojson': 7946.0.12
-    dev: false
+    dev: true
