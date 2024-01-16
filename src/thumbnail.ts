@@ -21,24 +21,32 @@ import { compatVault, CompatVault } from './compat';
 
 export const imageServiceLoader = new ImageServiceLoader();
 
+export type ThumbnailInput =
+  | string
+  | Reference<CollectionItemSchemas>
+  | Reference<'Collection'>
+  | Reference<'Manifest'>
+  | Reference<'Canvas'>
+  | Reference<'Annotation'>
+  | Reference<'AnnotationPage'>
+  | Reference<'ContentResource'>
+  | CollectionNormalized
+  | ManifestNormalized
+  | CanvasNormalized
+  | AnnotationNormalized
+  | AnnotationPageNormalized
+  | ContentResource
+  | undefined;
+
+export type ThumbnailOutput = Promise<{
+  best: null | undefined | FixedSizeImage | FixedSizeImageService | VariableSizeImage | UnknownSizeImage;
+  fallback: Array<ImageCandidate>;
+  log: string[];
+}>;
+
 const helpers: Map<CompatVault, ReturnType<typeof createThumbnailHelper>> = new Map();
 export function getThumbnail(
-  input:
-    | string
-    | Reference<CollectionItemSchemas>
-    | Reference<'Collection'>
-    | Reference<'Manifest'>
-    | Reference<'Canvas'>
-    | Reference<'Annotation'>
-    | Reference<'AnnotationPage'>
-    | Reference<'ContentResource'>
-    | CollectionNormalized
-    | ManifestNormalized
-    | CanvasNormalized
-    | AnnotationNormalized
-    | AnnotationPageNormalized
-    | ContentResource
-    | undefined,
+  input: ThumbnailInput,
   {
     vault = compatVault,
     dereference = false,
@@ -60,31 +68,12 @@ export function createThumbnailHelper(
   const loader = dependencies.imageServiceLoader || imageServiceLoader;
 
   async function getBestThumbnailAtSize(
-    input:
-      | string
-      | Reference<CollectionItemSchemas>
-      | Reference<'Collection'>
-      | Reference<'Manifest'>
-      | Reference<'Canvas'>
-      | Reference<'Annotation'>
-      | Reference<'AnnotationPage'>
-      | Reference<'ContentResource'>
-      | CollectionNormalized
-      | ManifestNormalized
-      | CanvasNormalized
-      | AnnotationNormalized
-      | AnnotationPageNormalized
-      | ContentResource
-      | undefined,
+    input: ThumbnailInput,
     request: ImageCandidateRequest,
     dereference = false,
     candidates: Array<ImageCandidate> = [],
     dimensions?: { width: number; height: number }
-  ): Promise<{
-    best: null | undefined | FixedSizeImage | FixedSizeImageService | VariableSizeImage | UnknownSizeImage;
-    fallback: Array<ImageCandidate>;
-    log: string[];
-  }> {
+  ): ThumbnailOutput {
     const thumbnailNotFound = () => loader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
 
     if (!input) {

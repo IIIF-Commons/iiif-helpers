@@ -1,7 +1,7 @@
 import { thumbnailFixtures } from '../fixtures.mjs';
-import { expect, test } from 'vitest';
+import { describe, expect, test } from 'vitest';
 import { Vault } from '../src/vault';
-import { createThumbnailHelper } from '../src/thumbnail';
+import { ThumbnailOutput, createThumbnailHelper } from '../src/thumbnail';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { ManifestNormalized } from '@iiif/presentation-3-normalized';
@@ -20,7 +20,7 @@ describe('Thumbnail helper', function () {
       expect.fail(`Invalid manifest`);
     }
 
-    const thumbnails = [];
+    const thumbnails: ThumbnailOutput[] = [];
     for (const canvas of manifest.items) {
       thumbnails.push(helper.getBestThumbnailAtSize(canvas, { width: 256, height: 256 }));
     }
@@ -42,7 +42,7 @@ describe('Thumbnail helper', function () {
         expect.fail(`Invalid manifest`);
       }
 
-      const thumbnails = [];
+      const thumbnails: ThumbnailOutput[] = [];
       for (const canvas of manifest.items) {
         thumbnails.push(helper.getBestThumbnailAtSize(canvas, { width: 256, height: 256 }));
       }

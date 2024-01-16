@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^2.1.1
     version: 2.1.1
   '@iiif/parser':
-    specifier: ^2.0.0
-    version: 2.0.0
+    specifier: ^2.0.1
+    version: 2.0.1
   '@types/jsdom':
     specifier: ^21.1.3
     version: 21.1.4
@@ -594,8 +594,8 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iiif/parser@2.0.0:
-    resolution: {integrity: sha512-9OQkHczw0CFSZoLt6MwB/JrxYzISAlYw2tAOkahtfQB2ID/2/yhkrmSWvT8oNZD916NSc6nEPXanAW57ZwfqEg==}
+  /@iiif/parser@2.0.1:
+    resolution: {integrity: sha512-RnHzBnYiI49I+cV9uxkhvUBqNSqj90pX+0hRRZgQ51EO0Sww7l1G44e6pg66PFxiDsIRXrkk34I63fYB9L1VrA==}
     dependencies:
       '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.1.3)
       '@iiif/presentation-3': 2.1.3

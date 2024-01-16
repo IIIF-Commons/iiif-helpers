@@ -2,6 +2,7 @@
  * @jest-environment node
  */
 import { buildLocaleString, getValue } from '../src/i18n';
+import { describe, test, expect } from 'vitest';
 
 describe('i18n helper', () => {
   describe('buildLocaleString()', () => {
@@ -11,6 +12,7 @@ describe('i18n helper', () => {
       expect(getValue({ es: ['Testing a value'] })).toEqual('Testing a value');
       expect(getValue({ en: ['This value instead'], es: ['Testing a value'] })).toEqual('This value instead');
       expect(getValue({ es: ['Testing a value'], en: ['This value instead'] })).toEqual('This value instead');
+      expect(getValue({ en: [''], nl: ['Testing a value'] })).toEqual('Testing a value');
     });
 
     test('it can empty values', () => {

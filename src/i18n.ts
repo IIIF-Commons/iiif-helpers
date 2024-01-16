@@ -4,8 +4,13 @@ export function getClosestLanguage(
   i18nLanguage: string,
   languages: string[],
   i18nLanguages: string[] = [],
-  strictFallback = false
+  strictFallback = false,
+  skipLanguages: string[] = []
 ) {
+  if (skipLanguages.length) {
+    languages = languages.filter((l) => skipLanguages.indexOf(l) === -1);
+  }
+
   if (!languages || languages.length === 0) {
     return undefined;
   }
@@ -77,13 +82,21 @@ export function buildLocaleString(
     separator?: string;
     fallbackLanguages?: string[];
     closest?: boolean;
+    skipLanguages?: string[];
   } = {}
 ) {
-  const { strictFallback = false, defaultText = '', separator = '\n', fallbackLanguages = [], closest } = options;
+  const {
+    strictFallback = false,
+    defaultText = '',
+    separator = '\n',
+    fallbackLanguages = [],
+    closest,
+    skipLanguages,
+  } = options;
   const languages = Object.keys(inputText || {});
   const language = closest
     ? i18nLanguage
-    : getClosestLanguage(i18nLanguage as any, languages, fallbackLanguages, strictFallback);
+    : getClosestLanguage(i18nLanguage as any, languages, fallbackLanguages, strictFallback, skipLanguages);
 
   if (!inputText) {
     return defaultText;
@@ -94,10 +107,18 @@ export function buildLocaleString(
   }
 
   const candidateText = language ? inputText[language] : undefined;
-  if (candidateText) {
+  if (candidateText && language) {
     // Slightly tolerant of typos in IIIF like: `{"en": "Some value"}`
     if (typeof candidateText === 'string') {
       return candidateText;
+    }
+    // Skip empty strings.
+    if (candidateText.length === 1 && candidateText[0] === '') {
+      const skip: string[] = options.skipLanguages || [];
+      return buildLocaleString(inputText, i18nLanguage, {
+        ...options,
+        skipLanguages: [...skip, language],
+      });
     }
     return candidateText.join(separator);
   }
