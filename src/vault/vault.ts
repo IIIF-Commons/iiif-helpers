@@ -54,7 +54,7 @@ export class Vault {
   private isBatching = false;
   private batchQueue: AllActions[] = [];
   remoteFetcher: (str: string, options?: any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any) => Promise<NormalizedEntity | undefined>;
+  staticFetcher: (str: string, json: any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
@@ -326,9 +326,24 @@ export class Vault {
   load<T>(id: string | Reference<any>, json?: unknown): Promise<T | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     if (json) {
-      return this.staticFetcher(_id, json) as Promise<T | undefined>;
+      return Promise.resolve(this.staticFetcher(_id, json)) as Promise<T | undefined>;
     }
-    return this.remoteFetcher(_id) as Promise<T | undefined>;
+    return Promise.resolve(this.remoteFetcher(_id)) as Promise<T | undefined>;
+  }
+
+  loadSync<T>(id: string | Reference<any>, json: unknown): T | undefined {
+    const _id = typeof id === 'string' ? id : id.id;
+    return this.staticFetcher(_id, json) as T | undefined;
+  }
+
+  loadManifestSync(id: string | Reference<any>, json: unknown): ManifestNormalized | undefined {
+    const _id = typeof id === 'string' ? id : id.id;
+    return this.loadSync<ManifestNormalized>(_id, json);
+  }
+
+  loadCollectionSync(id: string | Reference<any>, json: unknown): CollectionNormalized | undefined {
+    const _id = typeof id === 'string' ? id : id.id;
+    return this.loadSync<CollectionNormalized>(_id, json);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
