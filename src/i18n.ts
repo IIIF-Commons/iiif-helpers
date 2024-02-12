@@ -1,7 +1,7 @@
 import { InternationalString } from '@iiif/presentation-3';
 
 export function getClosestLanguage(
-  i18nLanguage: string,
+  i18nLanguage: string | undefined,
   languages: string[],
   i18nLanguages: string[] = [],
   strictFallback = false,
@@ -20,19 +20,22 @@ export function getClosestLanguage(
     return languages[0];
   }
 
-  if (!i18nLanguage && languages.indexOf('none') !== -1) {
-    return 'none';
-  } else {
-    // Exact match.
-    if (languages.indexOf(i18nLanguage) !== -1) {
-      return i18nLanguage;
+  if (!i18nLanguage) {
+    if (languages.indexOf('none') !== -1) {
+      return 'none';
     }
+    return languages[0];
+  }
 
-    // Root match (en-us === en)
-    const root = i18nLanguage.indexOf('-') !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf('-')) : null;
-    if (root && languages.indexOf(root) !== -1) {
-      return root;
-    }
+  // Exact match.
+  if (languages.indexOf(i18nLanguage) !== -1) {
+    return i18nLanguage;
+  }
+
+  // Root match (en-us === en)
+  const root = i18nLanguage.indexOf('-') !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf('-')) : null;
+  if (root && languages.indexOf(root) !== -1) {
+    return root;
   }
 
   // All of the fall backs.
@@ -96,7 +99,7 @@ export function buildLocaleString(
   const languages = Object.keys(inputText || {});
   const language = closest
     ? i18nLanguage
-    : getClosestLanguage(i18nLanguage as any, languages, fallbackLanguages, strictFallback, skipLanguages);
+    : getClosestLanguage(i18nLanguage, languages, fallbackLanguages, strictFallback, skipLanguages);
 
   if (!inputText) {
     return defaultText;
