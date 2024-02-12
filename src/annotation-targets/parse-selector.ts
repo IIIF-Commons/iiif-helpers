@@ -497,7 +497,7 @@ function resolveHints(supported: ParsedSelector): ParsedSelector {
   if (supported.iiifRenderingHints) {
     const source = supported.iiifRenderingHints;
     if (source.rotation) {
-      const parsedRotation = parseRotation(source.rotation);
+      const parsedRotation = parseRotation(`${source.rotation}`);
       if (parsedRotation) {
         if (supported.selectors.length) {
           for (const selector of supported.selectors) {
