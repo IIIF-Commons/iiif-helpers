@@ -1,11 +1,6 @@
 import react from '@vitejs/plugin-react';
 
-export const defaultExternal = [
-  '@iiif/parser',
-  '@atlas-viewer/iiif-image-api',
-  'redux',
-  'typesafe-actions',
-];
+export const defaultExternal = ['@iiif/parser', '@atlas-viewer/iiif-image-api'];
 
 /**
  * @param options {{ external: string[]; entry: string; name: string; globalName: string; outDir?: string; react?: boolean }}
@@ -32,9 +27,7 @@ export function defineConfig(options) {
           return `${format}/${options.name}.js`;
         },
       },
-      plugins: [
-        options.react ? react({}) : false,
-      ].filter(Boolean),
+      plugins: [options.react ? react({}) : false].filter(Boolean),
       rollupOptions: {
         external: options.external,
         output: {
