@@ -44,7 +44,7 @@ export function flattenCubicBezier(
 ): Point[] {
   return new CubicBezier(
     new Float64Array([start.x, start.y, startControl.x, startControl.y, end.x, end.y, endControl.x, endControl.y])
-  ).subdivide(tolerance);
+  ).subdivide(tolerance) as Point[];
 }
 
 function hypot2(p: Point): number {

@@ -12,7 +12,7 @@ describe('vault', () => {
     const vault = new Vault();
     const manifestJson = JSON.parse(JSON.stringify(nlsManifest));
     const manifest = vault.loadSync<ManifestNormalized>(manifestJson['@id'], manifestJson);
-    expect(manifest.id).toEqual(manifestJson['@id']);
+    expect(manifest!.id).toEqual(manifestJson['@id']);
   });
 
   test('nls manifest 2', async () => {
