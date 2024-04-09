@@ -700,7 +700,7 @@ describe('vault', () => {
             "label": {},
             "value": {
               "none": [
-                "<a href=\\"http://digital.nls.uk/128693590\\">View in our digital gallery</a>",
+                "<a href="http://digital.nls.uk/128693590">View in our digital gallery</a>",
               ],
             },
           },
@@ -712,7 +712,7 @@ describe('vault', () => {
             },
             "value": {
               "none": [
-                "You have permission to make copies of this work under the <a target=\\"_top\\" href=\\"http://creativecommons.org/licenses/by/4.0/\\">Creative Commons Attribution 4.0 International Licence</a> unless otherwise stated.",
+                "You have permission to make copies of this work under the <a target="_top" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International Licence</a> unless otherwise stated.",
               ],
             },
           },
@@ -730,7 +730,7 @@ describe('vault', () => {
           },
           "value": {
             "none": [
-              "National Library of Scotland<br/>License: <a target=\\"_top\\" href=\\"http://creativecommons.org/licenses/by/4.0/\\">CC BY 4.0</a>",
+              "National Library of Scotland<br/>License: <a target="_top" href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>",
             ],
           },
         },
