@@ -9,7 +9,7 @@ import {
   SupportedSelectors,
   SupportedTarget,
   expandTarget,
-} from '@iiif/vault-helpers/annotation-targets';
+} from '@iiif/helpers/annotation-targets';
 
 import {
   ContentState,
@@ -21,9 +21,9 @@ import {
   serialiseContentState,
   validateContentState,
   StateSource,
-} from '@iiif/vault-helpers/content-state';
+} from '@iiif/helpers/content-state';
 
-import { createEventsHelper } from '@iiif/vault-helpers/events';
-import { createThumbnailHelper } from '@iiif/vault-helpers/thumbnail';
-import { createStylesHelper } from '@iiif/vault-helpers/styles';
-import { getValue } from '@iiif/vault-helpers/i18n';
+import { createEventsHelper } from '@iiif/helpers/events';
+import { createThumbnailHelper } from '@iiif/helpers/thumbnail';
+import { createStylesHelper } from '@iiif/helpers/styles';
+import { getValue } from '@iiif/helpers/i18n';

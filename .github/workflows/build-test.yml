@@ -40,6 +40,5 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
       - run: pnpm run test
-      - run: node pkg-tests/node-load.js
+      - run: node pkg-tests/node-load.cjs
       - run: node pkg-tests/node-load.mjs
-      - run: node pkg-tests/node-umd.js

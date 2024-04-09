@@ -26,4 +26,4 @@ import {
   SupportedTarget,
   expandTarget,
   getClosestLanguage,
-} from '@iiif/vault-helpers';
+} from '@iiif/helpers';
