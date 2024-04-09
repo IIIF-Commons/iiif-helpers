@@ -5,22 +5,22 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@iiif/presentation-3': ^2.1.3
+  '@iiif/presentation-3': 2.2.2
   '@iiif/presentation-3-normalized': 0.9.7
 
 dependencies:
   '@atlas-viewer/iiif-image-api':
-    specifier: ^2.1.1
-    version: 2.1.1
+    specifier: ^2.2.0
+    version: 2.2.0
   '@iiif/parser':
-    specifier: ^2.0.2
-    version: 2.0.2
+    specifier: ^2.1.0
+    version: 2.1.0
   '@iiif/presentation-2':
     specifier: 1.0.4
-    version: 1.0.4(@iiif/presentation-3@2.1.3)
+    version: 1.0.4(@iiif/presentation-3@2.2.2)
   '@iiif/presentation-3':
-    specifier: ^2.1.3
-    version: 2.1.3
+    specifier: 2.2.2
+    version: 2.2.2
   '@iiif/presentation-3-normalized':
     specifier: 0.9.7
     version: 0.9.7
@@ -119,11 +119,11 @@ packages:
       '@jridgewell/trace-mapping': 0.3.20
     dev: true
 
-  /@atlas-viewer/iiif-image-api@2.1.1:
-    resolution: {integrity: sha512-g7gleRz0Guxwj/JqtppiqloabUTCew61GBzon+ZZ7mXpnMQ+zMupLaI1jHfGxM1Xy9a1+zMwPuUTXqTFkEyueA==}
+  /@atlas-viewer/iiif-image-api@2.2.0:
+    resolution: {integrity: sha512-Rc+16yzhr1gzuWcFFxlAIqXQxi6Jjxr02wCEGaxjuW0SzNlusPgi5o6rMmnjA5F7p0Flq3XHNtDkWd/F/Hekiw==}
+    engines: {node: '>=18.14.1'}
     dependencies:
-      '@iiif/presentation-3': 2.1.3
-      node-fetch: 3.3.0
+      '@iiif/presentation-3': 2.2.2
     dev: false
 
   /@babel/code-frame@7.22.13:
@@ -597,31 +597,31 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iiif/parser@2.0.2:
-    resolution: {integrity: sha512-ffqki1eJVVbWp1A+ulRgiojeCJH8eGyRIrAkyT60tHNXBWfYlkLTadFjFfyHlwWavT5BFI4nZtFTrwQXDtylQA==}
+  /@iiif/parser@2.1.0:
+    resolution: {integrity: sha512-Bke5OG/g6IyrCLdFrmhWUi5KJxvN6KCxXPrUiMxOtpATjb8ZKj6IWHLB/tDC7pZcxPhFch43D/eq4Gdgca4MvQ==}
     dependencies:
-      '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.1.3)
-      '@iiif/presentation-3': 2.1.3
+      '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.2.2)
+      '@iiif/presentation-3': 2.2.2
       '@iiif/presentation-3-normalized': 0.9.7
       '@types/geojson': 7946.0.13
     dev: false
 
-  /@iiif/presentation-2@1.0.4(@iiif/presentation-3@2.1.3):
+  /@iiif/presentation-2@1.0.4(@iiif/presentation-3@2.2.2):
     resolution: {integrity: sha512-hJakpq62VBajesLJrYPtFm6hcn6c/HkKP7CmKZ5atuzu40m0nifWYsqigR1l9sZGvhhHb/DRshPmiW/0GNrJoA==}
     peerDependencies:
-      '@iiif/presentation-3': ^2.1.3
+      '@iiif/presentation-3': 2.2.2
     dependencies:
-      '@iiif/presentation-3': 2.1.3
+      '@iiif/presentation-3': 2.2.2
     dev: false
 
   /@iiif/presentation-3-normalized@0.9.7:
     resolution: {integrity: sha512-Aqk0sYBFIH5W3wmVxW02tnAFbNzUU5oPygGQjvszB3PP2nSkFQ1skVjqJhQPPZTyi/de1qcJUrgSy0vp6s+c5A==}
     dependencies:
-      '@iiif/presentation-3': 2.1.3
+      '@iiif/presentation-3': 2.2.2
     dev: false
 
-  /@iiif/presentation-3@2.1.3:
-    resolution: {integrity: sha512-0V9LL+UPGknn4vdEJuJnuK0BsOL93dmr4PrdXg9fSE9HUq/2P0jkp4yGJR13f7N9OpmcRsEQjqWqVceWHB8Bow==}
+  /@iiif/presentation-3@2.2.2:
+    resolution: {integrity: sha512-rPYOMSg8DgkeRUQQkd4ABXHfmEr4OcvFX+gAg0V85+95Ax956Dl7ZTKSSgGxUKTUGe8ch0W/e7AExB6AJz+ViA==}
     dependencies:
       '@types/geojson': 7946.0.13
     dev: false
@@ -1217,6 +1217,7 @@ packages:
   /data-uri-to-buffer@4.0.1:
     resolution: {integrity: sha512-0R9ikRb668HB7QDxT1vkpuUBtqc53YyAwMwGeUFKRojY/NWKvdZ+9UYtRfGmhqNbRkTSVpMbmyhXipFFv2cb/A==}
     engines: {node: '>= 12'}
+    dev: true
 
   /data-urls@4.0.0:
     resolution: {integrity: sha512-/mMTei/JXPqvFqQtfyTowxmJVwr2PVAeCcDxyFf6LhoOu/09TX2OX3kb2wzi4DMXcfj4OItwDOnhl5oziPnT6g==}
@@ -1552,6 +1553,7 @@ packages:
     dependencies:
       node-domexception: 1.0.0
       web-streams-polyfill: 3.2.1
+    dev: true
 
   /file-entry-cache@6.0.1:
     resolution: {integrity: sha512-7Gps/XWymbLk2QLYK4NzpMOrYjMhdIxXuIvy2QBsLE6ljuodKvdkWs/cpyJJ3CVIVpH0Oi1Hvg1ovbMzLdFBBg==}
@@ -1602,6 +1604,7 @@ packages:
     engines: {node: '>=12.20.0'}
     dependencies:
       fetch-blob: 3.2.0
+    dev: true
 
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
@@ -2063,6 +2066,7 @@ packages:
   /node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
+    dev: true
 
   /node-fetch@3.3.0:
     resolution: {integrity: sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==}
@@ -2071,6 +2075,7 @@ packages:
       data-uri-to-buffer: 4.0.1
       fetch-blob: 3.2.0
       formdata-polyfill: 4.0.10
+    dev: true
 
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
@@ -2771,6 +2776,7 @@ packages:
   /web-streams-polyfill@3.2.1:
     resolution: {integrity: sha512-e0MO3wdXWKrLbL0DgGnUV7WHVuw9OUvL4hjgnPkIeEvESk74gAITi5G606JtZPp39cd8HA9VQzCIvA49LpPN5Q==}
     engines: {node: '>= 8'}
+    dev: true
 
   /webidl-conversions@7.0.0:
     resolution: {integrity: sha512-VwddBukDzu71offAQR975unBIGqfKZpM+8ZX6ySk8nYhVoo5CYaZyzt3YBvYtRtO+aoGlqxPg/B87NGVZ/fu6g==}
