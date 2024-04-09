@@ -95,7 +95,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     return {
       types,
       items,
-      choice: choices.items.length < 2 ? choices.items[0] : choices,
+      choice: choices.items.length < 2 ? (choices.items[0] || null) : choices,
     };
   }
 
