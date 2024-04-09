@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - ImageService' (no vault) 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - I…' (no vault) 1`] = `
 [
   {
     "best": {
@@ -27,7 +27,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - Ima
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - ImageService' 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - I…' 1`] = `
 [
   {
     "best": {
@@ -54,7 +54,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - Ima
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - level0 image' (no vault) 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - l…' (no vault) 1`] = `
 [
   {
     "best": {
@@ -81,7 +81,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - lev
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - level0 image' 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - l…' 1`] = `
 [
   {
     "best": {
@@ -108,7 +108,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - lev
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - simple image' (no vault) 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - s…' (no vault) 1`] = `
 [
   {
     "best": {
@@ -122,14 +122,14 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - sim
     "log": [],
   },
   {
-    "best": undefined,
+    "best": null,
     "fallback": [],
     "log": [],
   },
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - simple image' 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - s…' 1`] = `
 [
   {
     "best": {
@@ -143,14 +143,51 @@ exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - sim
     "log": [],
   },
   {
-    "best": undefined,
+    "best": null,
     "fallback": [],
     "log": [],
   },
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which is an image URL with dimensions' (no vault) 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' (no vault) 2`] = `
 [
   {
     "best": {
@@ -193,7 +230,44 @@ exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which 
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which is an image URL with dimensions' 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' 1`] = `
+[
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' 2`] = `
 [
   {
     "best": {
@@ -236,81 +310,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which 
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which is an image URL' (no vault) 1`] = `
-[
-  {
-    "best": {
-      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
-      "type": "unknown",
-    },
-    "fallback": [
-      {
-        "height": 7230,
-        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
-        "type": "fixed",
-        "unsafe": true,
-        "width": 5428,
-      },
-    ],
-    "log": [],
-  },
-  {
-    "best": {
-      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
-      "type": "unknown",
-    },
-    "fallback": [
-      {
-        "height": 7230,
-        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
-        "type": "fixed",
-        "unsafe": true,
-        "width": 5428,
-      },
-    ],
-    "log": [],
-  },
-]
-`;
-
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property which is an image URL' 1`] = `
-[
-  {
-    "best": {
-      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
-      "type": "unknown",
-    },
-    "fallback": [
-      {
-        "height": 7230,
-        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
-        "type": "fixed",
-        "unsafe": true,
-        "width": 5428,
-      },
-    ],
-    "log": [],
-  },
-  {
-    "best": {
-      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
-      "type": "unknown",
-    },
-    "fallback": [
-      {
-        "height": 7230,
-        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
-        "type": "fixed",
-        "unsafe": true,
-        "width": 5428,
-      },
-    ],
-    "log": [],
-  },
-]
-`;
-
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with level0 image service (Most optimised option)' (no vault) 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with…' (no vault) 1`] = `
 [
   {
     "best": {
@@ -337,7 +337,7 @@ exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with l
 ]
 `;
 
-exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with level0 image service (Most optimised option)' 1`] = `
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with…' 1`] = `
 [
   {
     "best": {

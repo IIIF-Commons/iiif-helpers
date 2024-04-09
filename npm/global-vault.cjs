@@ -1,4 +1,4 @@
-export function getGlobal() {
+function getGlobal() {
   if (typeof self !== 'undefined') {
     return self;
   }
@@ -11,7 +11,7 @@ export function getGlobal() {
   return {};
 }
 
-export function getGlobalVault() {
+module.exports = function getGlobalVault() {
   const g = getGlobal();
 
   // Found a vault.

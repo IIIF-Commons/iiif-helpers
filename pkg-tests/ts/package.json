@@ -1,5 +1,6 @@
 {
+  "type": "module",
   "dependencies": {
-    "@iiif/vault-helpers": "../.."
+    "@iiif/helpers": "../.."
   }
 }
