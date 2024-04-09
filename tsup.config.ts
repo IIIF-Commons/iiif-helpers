@@ -1,21 +1,3 @@
-// Exports:
-// "."
-// "./events"
-// "./i18n"
-// "./styles"
-// "./thumbnail"
-// "./annotation-targets"
-// "./content-state"
-// "./fetch"
-// "./painting-annotations"
-// "./ranges"
-// "./sequences"
-// "./vault"
-// "./vault-node"
-// "./vault/global-vault"
-// "./vault/actions"
-// "./vault/store"
-// "./vault/utility"
 import { defineConfig, type Options } from 'tsup';
 
 export default defineConfig((options: Options) => ({
@@ -40,6 +22,7 @@ export default defineConfig((options: Options) => ({
     'vault-store': 'src/vault-store.ts',
     'vault-actions': 'src/vault-actions.ts',
     'vault-utility': 'src/vault-utility.ts',
+    // New helpers can be added here.
   },
   minify: false,
   external: [],
