@@ -1,6 +1,6 @@
 import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
 import { AnnotationNormalized, CanvasNormalized } from '@iiif/presentation-3-normalized';
-import { Paintables } from './types';
+import { ComplexChoice, Paintables } from './types';
 import { parseSpecificResource } from './parse-specific-resource';
 import { compatVault, CompatVault } from '../compat';
 
@@ -32,7 +32,10 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
       : getAllPaintingAnnotations(paintingAnnotationsOrCanvas);
 
     const types: string[] = [];
-    let choice: Paintables['choice'] = null;
+    let choices: ComplexChoice = {
+      items: [],
+      type: 'complex-choice'
+    };
     const items: Paintables['items'] = [];
 
     for (const annotation of paintingAnnotations) {
@@ -59,7 +62,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
           }
 
           // Store choice.
-          choice = {
+          choices.items.push({
             type: 'single-choice',
             items: nestedBodies.map((b) => ({
               id: b.id,
@@ -67,7 +70,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
               selected: selected.indexOf(b) !== -1,
             })) as any[],
             label: (ref as any).label,
-          };
+          });
 
           // @todo insert in the right order.
           references.push(...(selected as any[]));
@@ -92,7 +95,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     return {
       types,
       items,
-      choice,
+      choice: choices.items.length < 2 ? (choices.items[0] || null) : choices,
     };
   }
 
