@@ -212,9 +212,9 @@
   "scripts": {
     "build": "tsup",
     "dev": "tsup --watch",
+    "prepack": "tsup",
     "typecheck": "tsc --noEmit",
     "start": "vite demos",
-    "prepack": "tsup",
     "test": "vitest",
     "lint": "publint"
   },
