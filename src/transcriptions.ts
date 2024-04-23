@@ -119,29 +119,13 @@ interface Transcription {
   source: any;
   plaintext: string;
   segments: Array<{
-    start?: number;
-    end?: number;
     text: string;
     textRaw: string;
-    positionRaw?: string;
     granularity?: 'word' | 'line' | 'paragraph' | 'block' | 'page';
     language?: string;
-    temporal?: boolean;
-    spatial?: boolean;
-    region?: {
-      x: number;
-      y: number;
-      width: number;
-      height: number;
-    };
     selector?: ParsedSelector;
-    regionRaw?: string;
     startRaw?: string;
     endRaw?: string;
-  }>;
-  vttRegions?: Array<{
-    id: string;
-    properties: Record<string, string>;
   }>;
 }
 
@@ -243,6 +227,7 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
     const end = match[2];
     const text = match[3].trim();
 
+    // @todo support more VTT including styles and positioning.
     const selector: TemporalSelector = {
       type: 'TemporalSelector',
       temporal: {
@@ -252,13 +237,10 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
     };
 
     segments.push({
-      start: selector.temporal.startTime,
-      end: selector.temporal.endTime,
       startRaw: start,
       endRaw: end,
       text: text.replace(/(<([^>]+)>)/gi, ''),
       textRaw: text,
-      temporal: true,
       selector: {
         selector,
         selectors: [selector],
@@ -326,23 +308,10 @@ export async function annotationPageToTranscription(
 
             transcription.plaintext += segmentText;
             if (annotation.target) {
-              const expanded = expandTarget(annotation.target as any);
-              if (
-                expanded.selector &&
-                (expanded.selector.type === 'TemporalSelector' || expanded.selector.type === 'TemporalBoxSelector')
-              ) {
-                segment.temporal = true;
-                segment.start = expanded.selector.temporal.startTime;
-                segment.end = expanded.selector.temporal.endTime;
-              }
-
-              if (
-                expanded.selector &&
-                (expanded.selector.type === 'BoxSelector' ||
-                  expanded.selector.type === 'TemporalBoxSelector' ||
-                  expanded.selector.type === 'SvgSelector')
-              ) {
-                segment.region = expanded.selector.spatial;
+              try {
+                segment.selector = expandTarget(annotation.target as any);
+              } catch (e) {
+                // Ignore?
               }
             } else {
               // Not a segment?
