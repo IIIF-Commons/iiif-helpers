@@ -22,6 +22,7 @@ export default defineConfig((options: Options) => ({
     'vault-store': 'src/vault-store.ts',
     'vault-actions': 'src/vault-actions.ts',
     'vault-utility': 'src/vault-utility.ts',
+    transcriptions: 'src/transcriptions.ts',
     // New helpers can be added here.
   },
   minify: false,
