@@ -162,6 +162,140 @@ describe('nav-date helper', () => {
         Thu Jan 01 1987
           1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"
       `);
+
+      // Final of the full count
+      expect(byCentury).toMatchInlineSnapshot(`
+        [
+          {
+            "count": 2,
+            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/century/1900",
+            "items": [
+              {
+                "count": 2,
+                "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/decade/1980",
+                "items": [
+                  {
+                    "count": 1,
+                    "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/year/1986",
+                    "items": [
+                      {
+                        "count": 1,
+                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/0",
+                        "items": [
+                          {
+                            "count": 1,
+                            "day": 1,
+                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
+                            "items": [
+                              {
+                                "count": 1,
+                                "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_2-manifest.json",
+                                "label": {
+                                  "en": [
+                                    "1986 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide",
+                                  ],
+                                },
+                                "navDate": "1986-01-01T00:00:00+00:00",
+                                "type": "Manifest",
+                              },
+                            ],
+                            "label": {
+                              "en": [
+                                "Wed Jan 01 1986",
+                              ],
+                            },
+                            "type": "day",
+                          },
+                        ],
+                        "label": {
+                          "en": [
+                            "January",
+                          ],
+                        },
+                        "month": 0,
+                        "type": "month",
+                      },
+                    ],
+                    "label": {
+                      "en": [
+                        "1986",
+                      ],
+                    },
+                    "type": "year",
+                    "year": 1986,
+                  },
+                  {
+                    "count": 1,
+                    "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/year/1987",
+                    "items": [
+                      {
+                        "count": 1,
+                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/0",
+                        "items": [
+                          {
+                            "count": 1,
+                            "day": 1,
+                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
+                            "items": [
+                              {
+                                "count": 1,
+                                "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_1-manifest.json",
+                                "label": {
+                                  "en": [
+                                    "1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide",
+                                  ],
+                                },
+                                "navDate": "1987-01-01T00:00:00+00:00",
+                                "type": "Manifest",
+                              },
+                            ],
+                            "label": {
+                              "en": [
+                                "Thu Jan 01 1987",
+                              ],
+                            },
+                            "type": "day",
+                          },
+                        ],
+                        "label": {
+                          "en": [
+                            "January",
+                          ],
+                        },
+                        "month": 0,
+                        "type": "month",
+                      },
+                    ],
+                    "label": {
+                      "en": [
+                        "1987",
+                      ],
+                    },
+                    "type": "year",
+                    "year": 1987,
+                  },
+                ],
+                "label": {
+                  "en": [
+                    "1980 - 1989",
+                  ],
+                },
+                "type": "decade",
+                "yearEnd": 1989,
+                "yearStart": 1980,
+              },
+            ],
+            "label": {
+              "en": [
+                "1900 - 1999",
+              ],
+            },
+            "type": "century",
+            "yearEnd": 1999,
+            "yearStart": 1900,
+          },
+        ]
+      `);
     });
   });
 });

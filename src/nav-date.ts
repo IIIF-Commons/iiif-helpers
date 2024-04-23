@@ -11,7 +11,6 @@ import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-n
 interface DateNavigationResource {
   id: string;
   type: 'Manifest' | 'Canvas';
-  count: number;
   label: InternationalString;
   navDate: string;
 }
@@ -118,6 +117,8 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
           items.push(centuryItem as T);
         }
         centuries.push(centuryItem);
+      } else {
+        centuryItem.count++;
       }
 
       let decadeItem = centuryItem.items.find((i) => i.yearStart === decade);
@@ -135,6 +136,8 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         if (type === 'decade') {
           items.push(decadeItem as T);
         }
+      } else {
+        decadeItem.count++;
       }
       let yearItem = decadeItem.items.find((i) => i.year === year);
       if (!yearItem) {
@@ -150,6 +153,8 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         if (type === 'year') {
           items.push(yearItem as T);
         }
+      } else {
+        yearItem.count++;
       }
       let monthItem = yearItem.items.find((i) => i.month === month);
       if (!monthItem) {
@@ -172,6 +177,8 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         if (type === 'month') {
           items.push(monthItem as T);
         }
+      } else {
+        monthItem.count++;
       }
       let dayItem = monthItem.items.find((i) => i.day === day);
       if (!dayItem) {
@@ -187,13 +194,14 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         if (type === 'day') {
           items.push(dayItem as T);
         }
+      } else {
+        dayItem.count++;
       }
       dayItem.items.push({
         id: item.id,
         type: item.type as any,
         label: item.label || { en: [`${year}-${month + 1}-${day}`] },
         navDate: item.navDate,
-        count: 1,
       });
     }
   }
