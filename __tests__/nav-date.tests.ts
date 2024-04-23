@@ -188,7 +188,6 @@ describe('nav-date helper', () => {
                             "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
                             "items": [
                               {
-                                "count": 1,
                                 "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_2-manifest.json",
                                 "label": {
                                   "en": [
@@ -238,7 +237,6 @@ describe('nav-date helper', () => {
                             "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
                             "items": [
                               {
-                                "count": 1,
                                 "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_1-manifest.json",
                                 "label": {
                                   "en": [
