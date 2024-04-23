@@ -212,7 +212,8 @@ async function canvasLoadExternalAnnotationPages(
   return annotationPages;
 }
 
-const vttRegex = /(?m)^(\d{2}:\d{2}:\d{2}\.\d+) +--> +(\d{2}:\d{2}:\d{2}\.\d+).*[\r\n]+\s*(?s)((?:(?!\r?\n\r?\n).)*)/g;
+// Credit: https://gist.github.com/brospars/0bd13de8a22530c87d0945cf8e611225
+const vttRegex = /^(\d{2}:\d{2}:\d{2}[.,]\d{3})\s-->\s(\d{2}:\d{2}:\d{2}[.,]\d{3})(.*)\n(.*(?:\r?\n(?!\r?\n).*)*)/gm;
 
 export function timeStampToSeconds(time: string) {
   const [hours, minutes, seconds] = time.split(':').map((t) => parseFloat(t || '0'));
@@ -225,7 +226,7 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
   while ((match = vttRegex.exec(vtt))) {
     const start = match[1];
     const end = match[2];
-    const text = match[3].trim();
+    const text = match[4].trim();
 
     // @todo support more VTT including styles and positioning.
     const selector: TemporalSelector = {
@@ -278,10 +279,12 @@ export async function annotationPageToTranscription(
 
   for (const annotationRef of annotationPage.items) {
     const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+
     if (annotation.motivation?.includes('supplementing')) {
       if (annotation.body) {
         // @todo smarter ordering based on position?
-        const body = vault.get<ContentResource>(annotation.body as any);
+        const bodies = vault.get<ContentResource>(annotation.body as any);
+        const body = Array.isArray(bodies) ? bodies[0] : bodies;
         if (body.format === 'text/plain') {
           if (body.value && typeof body.value === 'string') {
             let segmentText = body.value;
@@ -331,7 +334,11 @@ export async function annotationPageToTranscription(
   return transcription;
 }
 
-export async function getCanvasTranscription(vault: CompatVault, canvasRef: Canvas): Promise<Transcription | null> {
+export async function getCanvasTranscription(
+  vault: CompatVault,
+  canvasRef: Canvas,
+  networkCache: Record<string, any> = {}
+): Promise<Transcription | null> {
   // @todo how to avoid loading all external annotation pages? Chicken and egg.
   const canvas = vault.get<CanvasNormalized | Canvas>(canvasRef);
   const annotationPages = await canvasLoadExternalAnnotationPages(vault, canvas);
@@ -356,7 +363,7 @@ export async function getCanvasTranscription(vault: CompatVault, canvasRef: Canv
             const body = vault.get<ContentResource>(annotation.body as any);
             if (body.format === 'text/vtt') {
               if (body.id) {
-                const vtt = await fetch(body.id, { method: 'GET' }).then((r) => r.text());
+                const vtt = networkCache[body.id] || (await fetch(body.id, { method: 'GET' }).then((r) => r.text()));
                 const transcription = await vttToTranscription(vtt, body.id);
                 if (transcription) {
                   return transcription;
@@ -395,7 +402,8 @@ export async function getCanvasTranscription(vault: CompatVault, canvasRef: Canv
     for (const renderingRef of canvas.rendering) {
       const rendering = vault.get<ContentResource>(renderingRef as any);
       if (rendering.format === 'text/plain') {
-        const plaintext = await fetch(rendering.id, { method: 'GET' }).then((r) => r.text());
+        const plaintext =
+          networkCache[rendering.id] || (await fetch(rendering.id, { method: 'GET' }).then((r) => r.text()));
         return { ...transcription, plaintext };
       }
     }
