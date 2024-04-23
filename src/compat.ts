@@ -2,6 +2,8 @@ export type CompatVault = {
   get: import('./vault').Vault['get'];
   setMetaValue: import('./vault').Vault['setMetaValue'];
   getResourceMeta: import('./vault').Vault['getResourceMeta'];
+  load: import('./vault').Vault['load'];
+  requestStatus: import('./vault').Vault['requestStatus'];
 };
 
 const metaState: any = {};
@@ -33,4 +35,14 @@ export const compatVault: CompatVault = {
 
     return resourceMeta[metaKey];
   }) as any,
+  async load(id: string | { type: any; id: string }) {
+    const idToLoad = typeof id === 'string' ? id : id.id;
+
+    // @todo this could do an upgrade..
+    return fetch(idToLoad).then((response) => response.json());
+  },
+  requestStatus(id: string) {
+    // Never any request status in this context.
+    return undefined;
+  },
 };
