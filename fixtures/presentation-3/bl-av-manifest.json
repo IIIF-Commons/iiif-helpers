@@ -1,0 +1,3557 @@
+{
+  "@context": ["http://iiif.io/api/auth/1/context.json", "http://iiif.io/api/presentation/3/context.json"],
+  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/manifest.json",
+  "type": "Manifest",
+  "label": {
+    "en": ["C604/16 C604/17 Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
+  },
+  "metadata": [
+    {
+      "label": {
+        "en": ["Full title"]
+      },
+      "value": {
+        "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Collection"]
+      },
+      "value": {
+        "en": ["Peter Kennedy Collection"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Format"]
+      },
+      "value": {
+        "en": ["1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Usage"]
+      },
+      "value": {
+        "en": ["<span>Rights unassigned - staff access only</span>"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Held by"]
+      },
+      "value": {
+        "en": ["The British Library"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Digitised by"]
+      },
+      "value": {
+        "en": ["The British Library, 2018"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Digitisation funded by"]
+      },
+      "value": {
+        "en": [
+          "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+        ]
+      }
+    },
+    {
+      "label": {
+        "en": ["Identifier"]
+      },
+      "value": {
+        "en": ["C604/16-C604/17"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Shelfmark"]
+      },
+      "value": {
+        "en": ["C604/16", "C604/17"]
+      }
+    },
+    {
+      "label": {
+        "en": ["Link to catalogue"]
+      },
+      "value": {
+        "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"]
+      }
+    }
+  ],
+  "requiredStatement": {
+    "label": {
+      "en": ["Usage"]
+    },
+    "value": {
+      "en": [
+        "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+      ]
+    }
+  },
+  "provider": [
+    {
+      "id": "https://www.bl.uk/about-us",
+      "type": "Agent",
+      "label": {
+        "en": ["The British Library"]
+      },
+      "homepage": [
+        {
+          "id": "https://www.bl.uk/",
+          "type": "Text",
+          "format": "text/html",
+          "label": {
+            "en": ["The British Library"]
+          }
+        }
+      ],
+      "logo": [
+        {
+          "id": "https://www.bl.uk/images/bl_logo_100.gif",
+          "type": "Image",
+          "format": "image/gif"
+        }
+      ]
+    }
+  ],
+  "service": [
+    {
+      "id": "https://api.bl.uk/auth/iiif/login",
+      "type": "AuthCookieService1",
+      "profile": "http://iiif.io/api/auth/1/login",
+      "description": "Some portions of this recording may be unavailable due to rights restrictions.",
+      "header": "Please Log-In",
+      "label": "Login to The British Library",
+      "service": [
+        {
+          "id": "https://api.bl.uk/auth/iiif/token",
+          "type": "AuthTokenService1",
+          "profile": "http://iiif.io/api/auth/1/token"
+        }
+      ]
+    },
+    {
+      "id": "http://access.bl.uk/item/share/ark:/81055/vdc_100082592360.0x000002",
+      "type": "Service",
+      "profile": "http://universalviewer.io/share-extensions-profile"
+    }
+  ],
+  "accompanyingCanvas": {
+    "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/poster",
+    "type": "Canvas",
+    "label": {
+      "en": ["world"]
+    },
+    "width": 962,
+    "height": 962,
+    "items": [
+      {
+        "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/a1",
+        "type": "AnnotationPage",
+        "items": [
+          {
+            "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/a1/a1",
+            "type": "Annotation",
+            "motivation": "painting",
+            "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/poster",
+            "body": {
+              "id": "https://iiif-commons.github.io/iiif-av-component/examples/data/bl/sounds-tests/posters/world.jpg",
+              "type": "Image",
+              "width": 962,
+              "height": 962,
+              "format": "image/jpeg"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "homepage": [
+    {
+      "id": "http://access.bl.uk/item/viewer/ark:/81055/vdc_100082592360.0x000002",
+      "type": "Text",
+      "format": "text/html",
+      "label": {
+        "en": ["View at the British Library"]
+      }
+    }
+  ],
+  "behavior": ["auto-advance"],
+  "items": [
+    {
+      "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004",
+      "type": "Canvas",
+      "label": {
+        "en": ["Tape 1 Side 1"]
+      },
+      "duration": 1417.56,
+      "items": [
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004/anno1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004/anno1/1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=0,1417.56",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x00002f/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100082592360.0x00002f/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x00002f/index.m3u8",
+                    "format": "vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100082592360.0x00002f/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100082592360.0x00002e.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006",
+      "type": "Canvas",
+      "label": {
+        "en": ["Tape 2 Side 1"]
+      },
+      "duration": 1520.04,
+      "items": [
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/1",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=0,378.72",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000031/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100082592360.0x000031/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000031/index.m3u8",
+                    "format": "vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100082592360.0x000031/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100082592360.0x000030.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/2",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=378.72,1374.4",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000033/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100082592360.0x000033/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000033/index.m3u8",
+                    "format": "vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100082592360.0x000033/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100082592360.0x000032.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/3",
+              "type": "Annotation",
+              "motivation": "painting",
+              "target": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1374.4,1520.04",
+              "body": {
+                "type": "Choice",
+                "items": [
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000035/manifest.mpd",
+                    "format": "application/dash+xml",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/dash/ark:/81055/vdc_100082592360.0x000035/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  },
+                  {
+                    "id": "https://api.bl.uk/media/iiif/ark:/81055/vdc_100082592360.0x000035/index.m3u8",
+                    "format": "vnd.apple.mpegURL",
+                    "type": "Sound",
+                    "service": [
+                      {
+                        "id": "https://api.bl.uk/media/hls/ark:/81055/vdc_100082592360.0x000035/probe.json",
+                        "type": "AuthProbeService1",
+                        "profile": "http://iiif.io/api/auth/1/probe"
+                      }
+                    ]
+                  }
+                ]
+              },
+              "seeAlso": [
+                {
+                  "id": "https://iiif-waveforms.s3.amazonaws.com/vdc_100082592360.0x000034.dat",
+                  "type": "Dataset",
+                  "format": "application/octet-stream",
+                  "profile": "http://waveform.prototyping.bbc.co.uk"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "structures": [
+    {
+      "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/top",
+      "type": "Range",
+      "label": {
+        "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)"]
+      },
+      "metadata": [
+        {
+          "label": {
+            "en": ["Full title"]
+          },
+          "value": {
+            "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Collection"]
+          },
+          "value": {
+            "en": ["Peter Kennedy Collection"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Format"]
+          },
+          "value": {
+            "en": ["1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Usage"]
+          },
+          "value": {
+            "en": ["<span>Rights unassigned - staff access only</span>"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Held by"]
+          },
+          "value": {
+            "en": ["The British Library"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Digitised by"]
+          },
+          "value": {
+            "en": ["The British Library, 2018"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Digitisation funded by"]
+          },
+          "value": {
+            "en": [
+              "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+            ]
+          }
+        },
+        {
+          "label": {
+            "en": ["Identifier"]
+          },
+          "value": {
+            "en": ["C604/16-C604/17"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Shelfmark"]
+          },
+          "value": {
+            "en": ["C604/16", "C604/17"]
+          }
+        },
+        {
+          "label": {
+            "en": ["Link to catalogue"]
+          },
+          "value": {
+            "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"]
+          }
+        }
+      ],
+      "requiredStatement": {
+        "label": {
+          "en": ["Usage"]
+        },
+        "value": {
+          "en": [
+            "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+          ]
+        }
+      },
+      "rendering": [
+        {
+          "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000002/top",
+          "type": "Audio",
+          "label": {
+            "en": ["Download this recording"]
+          },
+          "format": "audio/mp4"
+        }
+      ],
+      "items": [
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000007",
+          "type": "Range",
+          "label": {
+            "en": ["The turmut hoeing (02:29)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["The turmut hoeing"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": ["Perrier, Fred (singer, male)", "unidentified (singers)", "Kennedy, Peter, (sound recordist)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["2 min. 29 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C1"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176753'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "This song is also known by the title 'The vly on the turmut'.",
+                  "Dubbed from BBC 78 rpm disc 21493. For another dubbing from the same source see C604/26.",
+                  "Fred Perrier introduces the song and then proceeds to sing it.",
+                  "Preceded by talk."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176753\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000007",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=0,148.76",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000007/nn2",
+          "type": "Range",
+          "behavior": ["no-nav"],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=148.76,148.8",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000009",
+          "type": "Range",
+          "label": {
+            "en": ["She stole my heart away (02:08)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["She stole my heart away"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["2 min. 07 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C2"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176766'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Dubbed from BBC 78 rpm disc 21493. For another dubbing from the same source see C604/26.",
+                  "This song is also known by the title 'Twas on a Monday morning'.",
+                  "Preceded by talk."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176766\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000009",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=148.8,276.64",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000b",
+          "type": "Range",
+          "label": {
+            "en": ["Dumble dum dollicky (Richard of Taunton Dean) (03:01)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["Dumble dum dollicky (Richard of Taunton Dean)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": ["Rumble, Fanny (singer, female)", "Kennedy, Peter, (sound recordist)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["3 min. 00 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["English"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C3"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176767'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": ["Dubbed from BBC 78 rpm disc 21494."]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176767\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000b",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=276.64,458",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000d",
+          "type": "Range",
+          "label": {
+            "en": ["Mrs Fanny Rumble talks about herself (01:44)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["Mrs Fanny Rumble talks about herself"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": ["Rumble, Fanny (speaker, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["1 min. 44 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C4"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176768'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Dubbed from BBC 78 rpm disc 21494.",
+                  "Fanny Rumble talks about where she learnt the songs she knows, and about her father and her husband."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176768\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000d",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=458,562.4",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000f",
+          "type": "Range",
+          "label": {
+            "en": ["What shall I wear to the wedding, John? (03:25)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["What shall I wear to the wedding, John?"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": [
+                  "Rumble, Fanny (singer, female)",
+                  "Collins, Albert (folk singer) (singer, male)",
+                  "Kennedy, Peter, (sound recordist)"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["3 min. 24 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["English"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C5"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176769'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Dubbed from BBC 78 rpm disc 21493.",
+                  "A duet in dialogue form between a fictional soon-to-be-married couple."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176769\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000f",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=562.4,767.24",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000011",
+          "type": "Range",
+          "label": {
+            "en": ["Country courtship (05:50)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["Country courtship"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": [
+                  "Cox, Edwin 'Ned' (speaker and singer, male)",
+                  "Stephens, Harry (folk musician) (speaker and singer, male)",
+                  "Kennedy, Peter, (sound recordist)"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-08 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Wool, Dorset, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["5 min. 50 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["Accents and dialects - English language - England: Dorset"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C6"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176770'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Dubbed from BBC 78 rpm discs 21496-7.",
+                  "A courtship song between a lady from London and a man from the country; performed by two men. During the introductory talk the two performers recount how both they and their uncles before them used to publicly perform this song in full costume.",
+                  "Preceded by a few seconds of silence and short talk."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176770\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000011",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=767.24,1117.28",
+              "type": "Canvas"
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013",
+          "type": "Range",
+          "label": {
+            "en": ["Herbert Prince (05:00)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["Herbert Prince"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": [
+                  "Prince, Herbert (speaker and singer, male)",
+                  "Kennedy, Peter, (sound recordist / speaker, male)"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["5 min. 00 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/16 C7-8"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/16"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176833'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Individual items listed separately.",
+                  "Dubbed from BBC 78 rpm discs 21497 and 21474.",
+                  "Herbert Prince talks about learning the song 'The young sailor cut down in his prime', then proceeds to sing it. This is followed by a fragment of Prince talking about a song he used to sing on Shrove Tuesday as a child.",
+                  "Some crackle, increasing towards the end of the recording."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176833\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000013",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013/nn1",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1117.28,1119.76",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000014",
+              "type": "Range",
+              "label": {
+                "en": ["Introductory talk: 'The young sailor cut down in his prime' (01:25)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["Introductory talk: 'The young sailor cut down in his prime'"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Prince, Herbert (speaker, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["1 min. 25 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/16 C7"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/16"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176825'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "Dubbed from BBC 78 rpm disc 21497.",
+                      "Herbert Prince talks about learning the song 'The young sailor cut down in his prime' from his grandfather."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176825\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000014",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1119.76,1204.96",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000014/nn2",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1204.96,1209.4",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000015",
+              "type": "Range",
+              "label": {
+                "en": ["The young sailor cut down in his prime (02:49)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["The young sailor cut down in his prime"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Prince, Herbert (singer, male)", "Kennedy, Peter, (sound recordist)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["2 min. 48 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["English"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/16 C8"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/16"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176829'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": ["Dubbed from BBC 78 rpm disc 21497."]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176829\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000015",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1209.4,1377.96",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013/nn2",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1377.96,1417.56",
+                  "type": "Canvas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000019",
+          "type": "Range",
+          "label": {
+            "en": ["Fanny Rumble / Albert Collins / Fred Perrier (25:17)"]
+          },
+          "metadata": [
+            {
+              "label": {
+                "en": ["Full title"]
+              },
+              "value": {
+                "en": ["Fanny Rumble / Albert Collins / Fred Perrier"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Creator"]
+              },
+              "value": {
+                "en": [
+                  "Rumble, Fanny (singer and speaker, female)",
+                  "Collins, Albert (folk singer) (singer, male)",
+                  "Perrier, Fred (singer and speaker, male)",
+                  "Jenkins, Ioan (fiddle)",
+                  "Kennedy, Peter, (sound recordist / speaker, male)"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Date"]
+              },
+              "value": {
+                "en": ["1954-10-06 (recorded)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Place of creation"]
+              },
+              "value": {
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Duration"]
+              },
+              "value": {
+                "en": ["25 min. 20 sec."]
+              }
+            },
+            {
+              "label": {
+                "en": ["Language"]
+              },
+              "value": {
+                "en": ["English"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Collection"]
+              },
+              "value": {
+                "en": ["Peter Kennedy Collection"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Usage"]
+              },
+              "value": {
+                "en": ["<span>Rights unassigned - staff access only</span>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Held by"]
+              },
+              "value": {
+                "en": ["The British Library"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitised by"]
+              },
+              "value": {
+                "en": ["The British Library, 2018"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Digitisation funded by"]
+              },
+              "value": {
+                "en": [
+                  "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                ]
+              }
+            },
+            {
+              "label": {
+                "en": ["Identifier"]
+              },
+              "value": {
+                "en": ["C604/17 C1-C8"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Shelfmark"]
+              },
+              "value": {
+                "en": ["C604/17"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Link to catalogue"]
+              },
+              "value": {
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177150'>View the catalogue record</a>"]
+              }
+            },
+            {
+              "label": {
+                "en": ["Description"]
+              },
+              "value": {
+                "en": [
+                  "Individual items listed separately.",
+                  "A recording session in Tilshead, Wiltshire, with Fanny Rumble, Albert Collins and Fred Perrier. Some of the songs recorded for filming.",
+                  "Fanny Rumble and Albert Collins sing 'O what shall I wear to the wedding, John?' [two takes, the second of which was filmed with fiddle accompaniment].",
+                  "Fred Perrier sings 'The vly on the turmut' [two takes, the second of which was filmed] and 'Twas on a Monday morning' [two takes].",
+                  "Fanny Rumble sings 'Dumble dum dollicky' and then talks about herself, her father and her husband.",
+                  "Breaks and silences in the recording between individual tracks.",
+                  "Introduced by a short talk by Fanny Rumble."
+                ]
+              }
+            }
+          ],
+          "requiredStatement": {
+            "label": {
+              "en": ["Usage"]
+            },
+            "value": {
+              "en": [
+                "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177150\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+              ]
+            }
+          },
+          "rendering": [
+            {
+              "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000019",
+              "type": "Audio",
+              "label": {
+                "en": ["Download this recording"]
+              },
+              "format": "audio/mp4"
+            }
+          ],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000019/nn1",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=0,28.04",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001a",
+              "type": "Range",
+              "label": {
+                "en": ["O what shall I wear to the wedding, John? (03:57)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["O what shall I wear to the wedding, John?"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": [
+                      "Rumble, Fanny (singer, female)",
+                      "Collins, Albert (folk singer) (singer, male)",
+                      "Kennedy, Peter, (sound recordist / speaker, male)"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["3 min. 58 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["English"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C1"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177128'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": ["Preceded by talk."]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177128\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001a",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=406.76000000000005,644.12",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001a/nn2",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=644.12,718.6400000000001",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001b",
+              "type": "Range",
+              "label": {
+                "en": ["O what shall I wear to the wedding, John? (02:47)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["O what shall I wear to the wedding, John?"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": [
+                      "Rumble, Fanny (singer, female)",
+                      "Collins, Albert (folk singer) (singer, male)",
+                      "Jenkins, Ioan (fiddle)",
+                      "Kennedy, Peter, (sound recordist)"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["2 min. 47 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["English"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C2"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177132'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "Note on original tape box says this song was recorded for filming ('Rumble 1').",
+                      "A duet between a fictional soon-to-be-married couple, performed for filming.",
+                      "Inconsistent speed due to wow and flutter issues on original tape."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177132\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001b",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=718.6400000000001,885.52",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001b/nn3",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=885.52,885.6",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001c",
+              "type": "Range",
+              "label": {
+                "en": ["The vly on the turmut (03:10)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["The vly on the turmut"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": [
+                      "Perrier, Fred (singer, male)",
+                      "unidentified (singers)",
+                      "Kennedy, Peter, (sound recordist)"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["3 min. 10 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C3"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177136'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "This song is also known by the title 'The turmut hoeing'.",
+                      "Note on original tape box says this song was 'not filmed'.",
+                      "Fred Perrier introduces the song and then proceeds to sing it."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177136\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001c",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=885.6,1075.6",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001c/nn4",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1075.6,1148.8000000000002",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001d",
+              "type": "Range",
+              "label": {
+                "en": ["The vly on the turmut (01:37)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["The vly on the turmut"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": [
+                      "Perrier, Fred (singer, male)",
+                      "unidentified (singers)",
+                      "Kennedy, Peter, (sound recordist)"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["1 min. 37 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C4"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177139'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "This song is also known by the title 'The turmut hoeing'.",
+                      "Note on original tape box says this song was filmed for the film 'Rumble 1'.",
+                      "Fred Perrier introduces the song and then proceeds to sing it."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177139\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001d",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1148.8000000000002,1245.68",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001d/nn5",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1245.68,1250.72",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001e",
+              "type": "Range",
+              "label": {
+                "en": ["Twas on a Monday morning (02:04)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["Twas on a Monday morning"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["2 min. 08 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C5"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177140'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "This song is also known by the title 'She stole my heart away'.",
+                      "Fred Perrier introduces the song and then proceeds to sing it.",
+                      "Distortion and inconsistent speed due to wow and flutter issues on original tape."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177140\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001e",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1250.72,1374.4",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001e/nn6",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1374.4,1376.2",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001f",
+              "type": "Range",
+              "label": {
+                "en": ["Twas on a Monday morning (02:22)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["Twas on a Monday morning"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["2 min. 22 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C6"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177149'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "This song is also known by the title 'She stole my heart away'.",
+                      "Fred Perrier introduces the song and then proceeds to sing it. At the end, he repeats the last verse of the song, because he sang the wrong lyrics the first time around.",
+                      "Distortion and inconsistent speed due to wow and flutter issues on original tape."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177149\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001f",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1376.2,1518.44",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000020",
+              "type": "Range",
+              "label": {
+                "en": ["Dumble dum dollicky (04:23)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["Dumble dum dollicky"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Rumble, Fanny (singer, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["2 min. 08 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C7"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177146'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "Fanny Rumble [also noted by recordist as 'Aunt Fanny'] introduces the song and then proceeds to sing it.",
+                      "False start at the beginning, followed by the complete version of the song.",
+                      "Some tape print-through, resulting in an echo-like effect before or after louder passages."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177146\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000020",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1.84,264.64",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000020/nn8",
+              "type": "Range",
+              "behavior": ["no-nav"],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=264.64,266.08",
+                  "type": "Canvas"
+                }
+              ]
+            },
+            {
+              "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000021",
+              "type": "Range",
+              "label": {
+                "en": ["Talk about herself (01:53)"]
+              },
+              "metadata": [
+                {
+                  "label": {
+                    "en": ["Full title"]
+                  },
+                  "value": {
+                    "en": ["Talk about herself"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Creator"]
+                  },
+                  "value": {
+                    "en": ["Rumble, Fanny (speaker, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Date"]
+                  },
+                  "value": {
+                    "en": ["1954-10-06 (recorded)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Place of creation"]
+                  },
+                  "value": {
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Duration"]
+                  },
+                  "value": {
+                    "en": ["1 min. 52 sec."]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Language"]
+                  },
+                  "value": {
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Collection"]
+                  },
+                  "value": {
+                    "en": ["Peter Kennedy Collection"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Usage"]
+                  },
+                  "value": {
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Held by"]
+                  },
+                  "value": {
+                    "en": ["The British Library"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitised by"]
+                  },
+                  "value": {
+                    "en": ["The British Library, 2018"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Digitisation funded by"]
+                  },
+                  "value": {
+                    "en": [
+                      "<span>National Lottery Heritage Fund<br><br><img src='https://www.heritagefund.org.uk/sites/default/files/media/attachments/TNLHLF_Colour_Logo_English_RGB_0_0.jpg'/></span>"
+                    ]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Identifier"]
+                  },
+                  "value": {
+                    "en": ["C604/17 C8"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Shelfmark"]
+                  },
+                  "value": {
+                    "en": ["C604/17"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Link to catalogue"]
+                  },
+                  "value": {
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177148'>View the catalogue record</a>"]
+                  }
+                },
+                {
+                  "label": {
+                    "en": ["Description"]
+                  },
+                  "value": {
+                    "en": [
+                      "Fanny Rumble talks about where she learnt the songs she recorded on the day, and about her father and her husband."
+                    ]
+                  }
+                }
+              ],
+              "requiredStatement": {
+                "label": {
+                  "en": ["Usage"]
+                },
+                "value": {
+                  "en": [
+                    "<span><a href=\"http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177148\">Please read the full information about this object</a><br>Rights unassigned - staff access only</span>"
+                  ]
+                }
+              },
+              "rendering": [
+                {
+                  "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000021",
+                  "type": "Audio",
+                  "label": {
+                    "en": ["Download this recording"]
+                  },
+                  "format": "audio/mp4"
+                }
+              ],
+              "items": [
+                {
+                  "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=266.08,378.72",
+                  "type": "Canvas"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/top/nn8",
+          "type": "Range",
+          "behavior": ["no-nav"],
+          "items": [
+            {
+              "id": "https://api.bl.uk/metadata/iiif/#t=378.72,1520.04",
+              "type": "Canvas"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
