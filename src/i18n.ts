@@ -1,4 +1,5 @@
-import { InternationalString } from '@iiif/presentation-3';
+import { Traverse } from '@iiif/parser';
+import { Canvas, Collection, InternationalString, Manifest } from '@iiif/presentation-3';
 
 export function getClosestLanguage(
   i18nLanguage: string | undefined,
@@ -138,4 +139,71 @@ export function getValue(
     options.language || (typeof navigator !== 'undefined' ? navigator.language : 'en'),
     options
   );
+}
+
+function getLanguagesFromLanguageMap(languageMap: InternationalString) {
+  if (!languageMap) return [];
+  if (typeof languageMap === 'string') return [];
+  if (Array.isArray(languageMap)) return [];
+  return Object.keys(languageMap).filter((l) => l !== 'none');
+}
+
+export function getAvailableLanguagesFromResource(item: Collection | Manifest | Canvas | Range) {
+  const foundLanguages = new Set();
+
+  const findLanguages = Traverse.all((resource) => {
+    // List of properties that can contain language.
+    // - language
+    // - summary
+    // - required statement (label, value)
+    // - metadata pairs (array of label, value)
+
+    if ('label' in resource) {
+      const languages = getLanguagesFromLanguageMap(resource.label);
+      languages.forEach((l) => foundLanguages.add(l));
+    }
+
+    if ('summary' in resource) {
+      const languages = getLanguagesFromLanguageMap(resource.summary);
+      languages.forEach((l) => foundLanguages.add(l));
+    }
+
+    if ('language' in resource) {
+      if (typeof resource.language === 'string') {
+        foundLanguages.add(resource.language);
+      }
+    }
+
+    if ('requiredStatement' in resource) {
+      if (resource.requiredStatement && !Array.isArray(resource.requiredStatement)) {
+        if ('label' in resource.requiredStatement) {
+          const languages = getLanguagesFromLanguageMap(resource.requiredStatement.label);
+          languages.forEach((l) => foundLanguages.add(l));
+        }
+        if ('value' in resource.requiredStatement) {
+          const languages = getLanguagesFromLanguageMap(resource.requiredStatement.value);
+          languages.forEach((l) => foundLanguages.add(l));
+        }
+      }
+    }
+
+    if ('metadata' in resource) {
+      if (Array.isArray(resource.metadata)) {
+        (resource.metadata as any[]).forEach((m) => {
+          if ('label' in m) {
+            const languages = getLanguagesFromLanguageMap(m.label);
+            languages.forEach((l) => foundLanguages.add(l));
+          }
+          if ('value' in m) {
+            const languages = getLanguagesFromLanguageMap(m.value);
+            languages.forEach((l) => foundLanguages.add(l));
+          }
+        });
+      }
+    }
+  });
+
+  findLanguages.traverseUnknown(item);
+
+  return Array.from(foundLanguages);
 }
