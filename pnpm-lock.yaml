@@ -13,8 +13,8 @@ dependencies:
     specifier: ^2.2.0
     version: 2.2.0
   '@iiif/parser':
-    specifier: ^2.1.0
-    version: 2.1.0
+    specifier: ^2.1.1
+    version: 2.1.1
   '@iiif/presentation-2':
     specifier: 1.0.4
     version: 1.0.4(@iiif/presentation-3@2.2.2)
@@ -736,8 +736,8 @@ packages:
     dev: true
     optional: true
 
-  /@iiif/parser@2.1.0:
-    resolution: {integrity: sha512-Bke5OG/g6IyrCLdFrmhWUi5KJxvN6KCxXPrUiMxOtpATjb8ZKj6IWHLB/tDC7pZcxPhFch43D/eq4Gdgca4MvQ==}
+  /@iiif/parser@2.1.1:
+    resolution: {integrity: sha512-UqDbaoiliCSH/iVOyNHU2OXScoQ1YdciNo1n+M7BS647Ld9+WG+TUFavDlQXWMInTwR1Jm3MZLcIuYjY2ikNwg==}
     dependencies:
       '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.2.2)
       '@iiif/presentation-3': 2.2.2
