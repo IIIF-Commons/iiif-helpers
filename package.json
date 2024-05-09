@@ -128,6 +128,16 @@
         "default": "./dist/sequences.js"
       }
     },
+    "./nav-date": {
+      "require": {
+        "types": "./dist/nav-date.d.ts",
+        "default": "./dist/nav-date.cjs"
+      },
+      "import": {
+        "types": "./dist/nav-date.d.ts",
+        "default": "./dist/nav-date.js"
+      }
+    },
     "./vault": {
       "require": {
         "types": "./dist/vault.d.ts",

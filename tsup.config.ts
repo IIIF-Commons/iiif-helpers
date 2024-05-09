@@ -17,6 +17,7 @@ export default defineConfig((options: Options) => ({
     'painting-annotations': 'src/painting-annotations.ts',
     ranges: 'src/ranges.ts',
     sequences: 'src/sequences.ts',
+    'nav-date': 'src/nav-date.ts',
     vault: 'src/vault.ts',
     'vault-node': 'src/vault-node.ts',
     'vault-store': 'src/vault-store.ts',
