@@ -168,16 +168,9 @@ export function getAvailableLanguagesFromResource(item: Collection | Manifest | 
       languages.forEach((l) => foundLanguages.add(l));
     }
 
-    if (resource.type === 'Annotation') {
-      const body = resource.body;
-      if (body) {
-        if (Array.isArray(body)) {
-          for (const b of body) {
-            if (b.language) foundLanguages.add(b.language);
-          }
-        } else {
-          if (body && body.language) foundLanguages.add(body.language);
-        }
+    if ('language' in resource) {
+      if (typeof resource.language === 'string') {
+        foundLanguages.add(resource.language);
       }
     }
 
