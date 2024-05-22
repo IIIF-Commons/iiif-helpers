@@ -224,7 +224,7 @@
     "svg-arc-to-cubic-bezier": "^3.2.0"
   },
   "peerDependencies": {
-    "@iiif/parser": "^2.1.1",
+    "@iiif/parser": "^2.1.2",
     "@atlas-viewer/iiif-image-api": "^2.2.0"
   },
   "devDependencies": {
