@@ -1,0 +1,365 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - I…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "height": 4032,
+      "id": "https://iiif.io/api/image/2.1/example/reference/918ecd18c2592080851777620de9bcb5-fountain/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 3024,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 1008,
+      "id": "https://iiif.io/api/image/2.1/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/756,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 756,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - I…' 1`] = `
+[
+  {
+    "best": {
+      "height": 4032,
+      "id": "https://iiif.io/api/image/2.1/example/reference/918ecd18c2592080851777620de9bcb5-fountain/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 3024,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 1008,
+      "id": "https://iiif.io/api/image/2.1/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/756,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 756,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - l…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "height": 3023,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/no_thum_prop/v2/level0/tractor/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 4031,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 3024,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/no_thum_prop/v2/level0/van/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 4032,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - l…' 1`] = `
+[
+  {
+    "best": {
+      "height": 3023,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/no_thum_prop/v2/level0/tractor/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 4031,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 3024,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/no_thum_prop/v2/level0/van/full/full/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 4032,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - s…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "height": 4032,
+      "id": "https://fixtures.iiif.io/images/Glen/photos/fountain.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 3024,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": null,
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvas with no thumbnail property - s…' 1`] = `
+[
+  {
+    "best": {
+      "height": 4032,
+      "id": "https://fixtures.iiif.io/images/Glen/photos/fountain.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 3024,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": null,
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' (no vault) 2`] = `
+[
+  {
+    "best": {
+      "height": 682,
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 512,
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 682,
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 512,
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' 1`] = `
+[
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "unknown",
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property whic…' 2`] = `
+[
+  {
+    "best": {
+      "height": 682,
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/512,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 512,
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-4_titlepage1_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 682,
+      "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/512,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": true,
+      "width": 512,
+    },
+    "fallback": [
+      {
+        "height": 7230,
+        "id": "https://iiif.io/api/image/2.1/example/reference/15f769d62ca9a3a2deca390efed75d73-6_titlepage2_verso/full/full/0/default.jpg",
+        "type": "fixed",
+        "unsafe": true,
+        "width": 5428,
+      },
+    ],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with…' (no vault) 1`] = `
+[
+  {
+    "best": {
+      "height": 452,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/thum_prop/v2/canvas_thum_level0/titlepage1_verso/full/340,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 340,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 452,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/thum_prop/v2/canvas_thum_level0/titlepage2_verso/full/340,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 340,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
+
+exports[`Thumbnail helper > Thumbnail - 'Canvases with thumbnail property with…' 1`] = `
+[
+  {
+    "best": {
+      "height": 452,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/thum_prop/v2/canvas_thum_level0/titlepage1_verso/full/340,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 340,
+    },
+    "fallback": [],
+    "log": [],
+  },
+  {
+    "best": {
+      "height": 452,
+      "id": "https://iiif-commons.github.io/fixtures/examples/thumbnail/canvas/thum_prop/v2/canvas_thum_level0/titlepage2_verso/full/340,/0/default.jpg",
+      "type": "fixed",
+      "unsafe": false,
+      "width": 340,
+    },
+    "fallback": [],
+    "log": [],
+  },
+]
+`;
