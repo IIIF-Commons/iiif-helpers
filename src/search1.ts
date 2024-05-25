@@ -119,7 +119,7 @@ export const createSearch1AutocompleteStore = (
             errorMessage: '',
           });
         } else {
-          set({ results: [], error: true, errorMessage: error });
+          set({ results: [], error: true, errorMessage: error || undefined });
         }
       });
     },
@@ -139,7 +139,7 @@ export interface Search1Store {
   hasSearch: boolean;
   errorMessage: string;
   highlight: SearchServiceSearchResponse['resources'][number] | null;
-  search: (query: SearchServiceQueryParams, options?: { headers?: HeadersInit }) => void;
+  search: (query: SearchServiceQueryParams, options?: { headers?: HeadersInit }) => void | Promise<void>;
   clearSearch: () => void;
   highlightResult: (id: string) => void;
   nextResult: () => void;
@@ -228,7 +228,7 @@ export const createSearch1Store = (
 
       set({ loading: true });
 
-      fetcher(`${endpoint}?${params.toString()}`, {
+      return fetcher(`${endpoint}?${params.toString()}`, {
         signal: abort.signal,
         headers: options.headers,
       }).then(([json, errorMessage]) => {
@@ -242,7 +242,7 @@ export const createSearch1Store = (
             errorMessage: '',
           });
         } else {
-          set({ resources: [], error: true, errorMessage: errorMessage });
+          set({ resources: [], error: true, errorMessage: errorMessage || undefined });
         }
       });
     },

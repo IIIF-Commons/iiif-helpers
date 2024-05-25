@@ -128,6 +128,16 @@
         "default": "./dist/sequences.js"
       }
     },
+    "./search1": {
+      "require": {
+        "types": "./dist/search1.d.ts",
+        "default": "./dist/search1.cjs"
+      },
+      "import": {
+        "types": "./dist/search1.d.ts",
+        "default": "./dist/search1.js"
+      }
+    },
     "./nav-date": {
       "require": {
         "types": "./dist/nav-date.d.ts",
