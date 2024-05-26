@@ -7,12 +7,14 @@ import {
   SearchServiceSearchResponse,
   SearchServiceQueryParams,
   Manifest,
+  SearchServiceCommonHitSelectors,
 } from '@iiif/presentation-3';
 import { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import { g } from 'vitest/dist/suite-a18diDsI.js';
 import { createStore } from 'zustand/vanilla';
 
 export type Search1Service = _SearchService & {
-  service: SearchServiceAutocomplete | SearchServiceAutocomplete[];
+  service?: SearchServiceAutocomplete | SearchServiceAutocomplete[] | undefined;
 };
 
 const getId = (idOrAtId: IdOrAtId<any>): string => (idOrAtId as any).id || (idOrAtId as any)['@id'];
@@ -48,6 +50,7 @@ export function findSearch1Service(manifest: ManifestNormalized | Manifest): Sea
 }
 
 export function findAutocompleteService(service: Search1Service): SearchServiceAutocomplete | undefined {
+  if (!service || !service.service) return;
   const services = Array.isArray(service.service) ? service.service : [service.service];
   return services.find(
     (s: any) =>
@@ -169,22 +172,37 @@ export const createSearch1AutocompleteStore = (
   }));
 };
 
+export type SingleSearchHit = {
+  '@type': 'search:Hit';
+  annotations: string[];
+  selectors: Array<SearchServiceCommonHitSelectors>;
+  match?: string;
+  before?: string;
+  after?: string;
+};
+
 export interface Search1Store {
   endpoint: string | undefined;
   service: Search1Service | undefined;
   lastQuery: SearchServiceQueryParams;
   resources: SearchServiceSearchResponse['resources'];
+  hits: SingleSearchHit[];
   loading: boolean;
   error: boolean;
   hasAutocomplete: boolean;
   hasSearch: boolean;
   errorMessage: string;
-  highlight: SearchServiceSearchResponse['resources'][number] | null;
+  hitIndex: number;
+  highlight: {
+    results: SearchServiceSearchResponse['resources'] | null;
+    hit: SingleSearchHit | null;
+  };
   search: (query: SearchServiceQueryParams, options?: { headers?: HeadersInit }) => void | Promise<void>;
   setSearchService: (service: Search1Service) => void;
   clearSearch: () => void;
-  highlightResult: (id: string) => void;
-  nextResult: () => void;
+  highlightHit: (index: number) => void;
+  nextHit: () => void;
+  previousHit: () => void;
 }
 
 type FetcherReturn<T> = Promise<[T | null, error: string | null]>;
@@ -236,14 +254,19 @@ export const createSearch1Store = (
     endpoint: searchService ? getId(searchService) : undefined,
     service: searchService,
     resources: [],
+    hits: [],
     lastQuery: {} as SearchServiceQueryParams,
     loading: false,
     error: false,
-    highlight: null,
+    highlight: {
+      results: null,
+      hit: null,
+    },
+    hitIndex: -1,
     hasSearch: !!searchService,
     hasAutocomplete: searchService ? !!findAutocompleteService(searchService) : false,
     errorMessage: '',
-    search(query: SearchServiceQueryParams, options: { headers?: HeadersInit } = {}) {
+    async search(query: SearchServiceQueryParams, options: { headers?: HeadersInit } = {}) {
       const endpoint = get().endpoint;
       if (!endpoint) {
         throw new Error('No search service found.');
@@ -268,9 +291,12 @@ export const createSearch1Store = (
         params.set('user', query.user);
       }
 
-      set({ loading: true });
+      set({
+        lastQuery: query,
+        loading: true,
+      });
 
-      return fetcher(`${endpoint}?${params.toString()}`, {
+      const response = await fetcher(`${endpoint}?${params.toString()}`, {
         signal: abort.signal,
         headers: options.headers,
       }).then(([json, errorMessage]) => {
@@ -279,14 +305,38 @@ export const createSearch1Store = (
         }
         if (json) {
           set({
-            resources: json.resources,
+            resources: (json.resources || []).map((result: any) => {
+              if (result.search && !result.url) {
+                result.url = result.search;
+              }
+              return result;
+            }),
+            hits:
+              json.hits ||
+              (json.resources || []).map((result: any) => {
+                return {
+                  '@type': 'search:Hit',
+                  after: '',
+                  annotations: [result['@id']],
+                  before: '',
+                  match: result.resource.chars,
+                };
+              }),
             error: false,
             errorMessage: '',
+            loading: false,
           });
         } else {
-          set({ resources: [], error: true, errorMessage: errorMessage || undefined });
+          set({
+            loading: false,
+            resources: [],
+            error: true,
+            errorMessage: errorMessage || undefined,
+          });
         }
       });
+
+      return response;
     },
 
     setSearchService(newService: Search1Service) {
@@ -299,7 +349,7 @@ export const createSearch1Store = (
         resources: [],
         error: false,
         errorMessage: '',
-        highlight: null,
+        highlight: { results: null, hit: null },
       });
     },
 
@@ -307,46 +357,31 @@ export const createSearch1Store = (
     clearSearch() {
       set({ resources: [], error: false, errorMessage: '' });
     },
-    highlightResult(id: string) {
-      const highlight = get().resources.find((r) => r['@id'] === id);
-      set({ highlight });
+
+    highlightHit(index: number) {
+      const state = get();
+      const hit = state.hits[index];
+      if (!hit) {
+        return;
+      }
+      const results = state.resources.filter((r) => hit.annotations.includes(r['@id']));
+      set({ hitIndex: index, highlight: { results, hit } });
     },
-    nextResult() {
-      const results = get().resources;
-      const highlight = get().highlight;
-      if (!highlight) {
-        set({ highlight: results[0] || null });
+    nextHit() {
+      const state = get();
+      const nextIndex = state.hitIndex + 1;
+      if (nextIndex >= state.hits.length) {
         return;
       }
-
-      const index = results.findIndex((r) => r['@id'] === highlight['@id']);
-      if (index === -1) {
-        set({ highlight: results[0] || null });
-        return;
-      }
-
-      set({ highlight: results[index + 1] || results[0] || null });
+      state.highlightHit(nextIndex);
     },
-    previousResult() {
-      const results = get().resources;
-      const highlight = get().highlight;
-      if (!highlight) {
-        set({ highlight: results[results.length - 1] || null });
+    previousHit() {
+      const state = get();
+      const nextIndex = state.hitIndex - 1;
+      if (nextIndex < 0) {
         return;
       }
-
-      const index = results.findIndex((r) => r['@id'] === highlight['@id']);
-      if (index === -1) {
-        set({ highlight: results[results.length - 1] || null });
-        return;
-      }
-
-      if (index === 0) {
-        set({ highlight: results[results.length - 1] || null });
-        return;
-      }
-
-      set({ highlight: results[index - 1] || results[results.length - 1] || null });
+      state.highlightHit(nextIndex);
     },
   }));
 };

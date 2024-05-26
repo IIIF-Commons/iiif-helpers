@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  '@iiif/presentation-3': 2.2.2
+  '@iiif/presentation-3': 2.2.3
   '@iiif/presentation-3-normalized': 0.9.7
 
 dependencies:
@@ -17,10 +17,10 @@ dependencies:
     version: 2.1.2
   '@iiif/presentation-2':
     specifier: 1.0.4
-    version: 1.0.4(@iiif/presentation-3@2.2.2)
+    version: 1.0.4(@iiif/presentation-3@2.2.3)
   '@iiif/presentation-3':
-    specifier: 2.2.2
-    version: 2.2.2
+    specifier: 2.2.3
+    version: 2.2.3
   '@iiif/presentation-3-normalized':
     specifier: 0.9.7
     version: 0.9.7
@@ -103,7 +103,7 @@ packages:
     resolution: {integrity: sha512-Rc+16yzhr1gzuWcFFxlAIqXQxi6Jjxr02wCEGaxjuW0SzNlusPgi5o6rMmnjA5F7p0Flq3XHNtDkWd/F/Hekiw==}
     engines: {node: '>=18.14.1'}
     dependencies:
-      '@iiif/presentation-3': 2.2.2
+      '@iiif/presentation-3': 2.2.3
     dev: false
 
   /@babel/code-frame@7.22.13:
@@ -739,28 +739,28 @@ packages:
   /@iiif/parser@2.1.2:
     resolution: {integrity: sha512-bv+Y6de7vmYpMtLevhxjjdTilrzNzwq8cYjanOOCsbC0r1LeAD+Cu8UET4rWsyKKm3UhsKOIYgUHpk17unD6sA==}
     dependencies:
-      '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.2.2)
-      '@iiif/presentation-3': 2.2.2
+      '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.2.3)
+      '@iiif/presentation-3': 2.2.3
       '@iiif/presentation-3-normalized': 0.9.7
       '@types/geojson': 7946.0.13
     dev: false
 
-  /@iiif/presentation-2@1.0.4(@iiif/presentation-3@2.2.2):
+  /@iiif/presentation-2@1.0.4(@iiif/presentation-3@2.2.3):
     resolution: {integrity: sha512-hJakpq62VBajesLJrYPtFm6hcn6c/HkKP7CmKZ5atuzu40m0nifWYsqigR1l9sZGvhhHb/DRshPmiW/0GNrJoA==}
     peerDependencies:
-      '@iiif/presentation-3': 2.2.2
+      '@iiif/presentation-3': 2.2.3
     dependencies:
-      '@iiif/presentation-3': 2.2.2
+      '@iiif/presentation-3': 2.2.3
     dev: false
 
   /@iiif/presentation-3-normalized@0.9.7:
     resolution: {integrity: sha512-Aqk0sYBFIH5W3wmVxW02tnAFbNzUU5oPygGQjvszB3PP2nSkFQ1skVjqJhQPPZTyi/de1qcJUrgSy0vp6s+c5A==}
     dependencies:
-      '@iiif/presentation-3': 2.2.2
+      '@iiif/presentation-3': 2.2.3
     dev: false
 
-  /@iiif/presentation-3@2.2.2:
-    resolution: {integrity: sha512-rPYOMSg8DgkeRUQQkd4ABXHfmEr4OcvFX+gAg0V85+95Ax956Dl7ZTKSSgGxUKTUGe8ch0W/e7AExB6AJz+ViA==}
+  /@iiif/presentation-3@2.2.3:
+    resolution: {integrity: sha512-xCLbUr9euqegsrxGe65M2fWbv6gKpiUhHXCpOn+V+qtawkMbOSNWbYOISo2aLQdYVg4DGYD0g2bMzSCF33uNOQ==}
     dependencies:
       '@types/geojson': 7946.0.13
     dev: false
