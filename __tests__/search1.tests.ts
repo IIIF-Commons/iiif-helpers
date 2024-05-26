@@ -1,6 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import wunderAutoComplete from '../fixtures/search1/autocomplete.json';
-import { createSearch1AutocompleteStore } from '../src/search1';
+import searchResponse from '../fixtures/search1/search.json';
+import { createSearch1AutocompleteStore, createSearch1Store } from '../src/search1';
 import invariant from 'tiny-invariant';
 
 describe('Search 1 helper', () => {
@@ -20,7 +21,7 @@ describe('Search 1 helper', () => {
       } as any,
       {
         fetcher: async (url: string, options: RequestInit) => {
-          return [wunderAutoComplete, null];
+          return [wunderAutoComplete as any, null];
         },
       }
     );
@@ -78,6 +79,94 @@ describe('Search 1 helper', () => {
           "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wundervolles",
         },
       ]
+    `);
+  });
+
+  test('Search 1 example', async () => {
+    const search = createSearch1Store(
+      {
+        '@context': 'http://iiif.io/api/search/1/context.json',
+        '@id': 'https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231',
+        profile: 'http://iiif.io/api/search/1/search',
+      },
+      {
+        fetcher: async (url: string, options: RequestInit) => {
+          return [searchResponse as any, null];
+        },
+      }
+    );
+
+    const $actions = search.getState();
+
+    expect($actions.hasSearch).toBe(true);
+
+    await $actions.search({ q: 'test' });
+
+    expect(search.getState().errorMessage).toBe('');
+    expect(search.getState().error).toBe(false);
+    expect(search.getState().loading).toBe(false);
+    expect(search.getState().lastQuery).toMatchInlineSnapshot(`
+      {
+        "q": "test",
+      }
+    `);
+
+    expect(search.getState().resources).not.toHaveLength(0);
+    expect(search.getState().hits).not.toHaveLength(0);
+
+    // Highlight.
+    $actions.highlightHit(0);
+    expect(search.getState().highlight).toMatchInlineSnapshot(`
+      {
+        "hit": {
+          "@type": "search:Hit",
+          "after": " in nachfolgender Weise zugetragen hat.",
+          "annotations": [
+            "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/fd5845c8c1a96fd0",
+          ],
+          "before": "Erstens beschreibt sie was sich im Jahre ",
+          "match": "1615",
+        },
+        "results": [
+          {
+            "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/fd5845c8c1a96fd0",
+            "@type": "oa:Annotation",
+            "motivation": "sc:painting",
+            "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10267231/canvas/10#xywh=921,516,82,44",
+            "resource": {
+              "@type": "cnt:ContentAsText",
+              "chars": "1615",
+            },
+          },
+        ],
+      }
+    `);
+
+    $actions.nextHit();
+    expect(search.getState().highlight).toMatchInlineSnapshot(`
+      {
+        "hit": {
+          "@type": "search:Hit",
+          "after": " zur Nachtszeit sowohl von Schmerzen als Durst geplagt wurde, kamen meine heiligen Engel zu mir und sprachen: Liebe Schwester! komme hieher; der Herr ruft dich.",
+          "annotations": [
+            "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/1bb78ba8497ff704",
+          ],
+          "before": "Als ich im Juni ",
+          "match": "1615",
+        },
+        "results": [
+          {
+            "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/1bb78ba8497ff704",
+            "@type": "oa:Annotation",
+            "motivation": "sc:painting",
+            "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10267231/canvas/37#xywh=526,1509,83,43",
+            "resource": {
+              "@type": "cnt:ContentAsText",
+              "chars": "1615",
+            },
+          },
+        ],
+      }
     `);
   });
 });

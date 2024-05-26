@@ -1,0 +1,51 @@
+{
+  "@context": ["http://iiif.io/api/presentation/2/context.json", "http://iiif.io/api/search/1/context.json"],
+  "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231?q=1615",
+  "@type": "sc:AnnotationList",
+  "resources": [
+    {
+      "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/fd5845c8c1a96fd0",
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": { "@type": "cnt:ContentAsText", "chars": "1615" },
+      "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10267231/canvas/10#xywh=921,516,82,44"
+    },
+    {
+      "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/1bb78ba8497ff704",
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": { "@type": "cnt:ContentAsText", "chars": "1615" },
+      "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10267231/canvas/37#xywh=526,1509,83,43"
+    },
+    {
+      "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/24096cdccaf36187",
+      "@type": "oa:Annotation",
+      "motivation": "sc:painting",
+      "resource": { "@type": "cnt:ContentAsText", "chars": "1615" },
+      "on": "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10267231/canvas/62#xywh=935,792,85,44"
+    }
+  ],
+  "hits": [
+    {
+      "annotations": ["https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/fd5845c8c1a96fd0"],
+      "match": "1615",
+      "before": "Erstens beschreibt sie was sich im Jahre ",
+      "after": " in nachfolgender Weise zugetragen hat.",
+      "@type": "search:Hit"
+    },
+    {
+      "annotations": ["https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/1bb78ba8497ff704"],
+      "match": "1615",
+      "before": "Als ich im Juni ",
+      "after": " zur Nachtszeit sowohl von Schmerzen als Durst geplagt wurde, kamen meine heiligen Engel zu mir und sprachen: Liebe Schwester! komme hieher; der Herr ruft dich.",
+      "@type": "search:Hit"
+    },
+    {
+      "annotations": ["https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231/anno/24096cdccaf36187"],
+      "match": "1615",
+      "before": "Hier wollen wir anfügen was ihr der Herr aus gleichem Grunde als sie einst heftige Schmerzen erlitt durch ein Gleichniß erklärte. Dieß erzählt sie als im Jahre ",
+      "after": " vorgefallen, fol- gender Weise.",
+      "@type": "search:Hit"
+    }
+  ]
+}
