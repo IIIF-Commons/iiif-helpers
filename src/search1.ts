@@ -16,12 +16,16 @@ export type Search1Service = _SearchService & {
 const getId = (idOrAtId: IdOrAtId<any>): string => (idOrAtId as any).id || (idOrAtId as any)['@id'];
 
 export interface Search1AutocompleteStore {
+  hasAutocomplete: boolean;
+  endpoint: string | undefined;
   results: SearchServiceAutocompleteResponse['terms'];
   lastQuery: SearchServiceAutocompleteQueryParams | null;
   loading: boolean;
   error: boolean;
   errorMessage: string;
   ignored: string[];
+  setSearchService: (service: Search1Service) => void;
+  clearSearch: () => void;
   search: (
     query: string,
     options?: { motivation?: string; date?: string; user?: string; headers?: HeadersInit }
@@ -39,33 +43,52 @@ export function findAutocompleteService(service: Search1Service): SearchServiceA
 }
 
 export const createSearch1AutocompleteStore = (
-  service: Search1Service,
+  service?: Search1Service | undefined,
   options?: { fetcher?: Fetcher<SearchServiceAutocompleteResponse> }
 ) => {
   const fetcher: Fetcher<SearchServiceAutocompleteResponse> = options?.fetcher || defaultFetcher;
-  const autocomplete = findAutocompleteService(service);
-  if (!autocomplete) {
-    // Does not have one.
-    return null;
-  }
-
-  const endpoint = getId(autocomplete);
+  const autocomplete = service ? findAutocompleteService(service) : undefined;
+  const autocompleteEndpoint = autocomplete ? getId(autocomplete) : undefined;
 
   let abort: AbortController | null = null;
 
   return createStore<Search1AutocompleteStore>((set, get) => ({
     results: [],
-
     lastQuery: {} as SearchServiceAutocompleteQueryParams,
+    hasAutocomplete: !!autocomplete,
+    endpoint: autocompleteEndpoint,
     loading: false,
     error: false,
     errorMessage: '',
     ignored: [],
 
+    setSearchService(newService: Search1Service) {
+      const autocomplete = findAutocompleteService(newService);
+      if (autocomplete) {
+        set({
+          endpoint: getId(autocomplete),
+          hasAutocomplete: true,
+          results: [],
+          loading: false,
+          lastQuery: null,
+          error: false,
+          errorMessage: '',
+        });
+      }
+    },
+
+    clearSearch() {
+      set({ results: [], loading: false, lastQuery: null });
+    },
+
     async search(
       query: string,
       options: { motivation?: string; date?: string; user?: string; headers?: HeadersInit } = {}
     ) {
+      const endpoint = get().endpoint;
+      if (get().hasAutocomplete === false) {
+        return;
+      }
       if (abort && !abort.signal.aborted) {
         abort.abort();
       }
@@ -123,8 +146,6 @@ export const createSearch1AutocompleteStore = (
         }
       });
     },
-
-    //
   }));
 };
 
