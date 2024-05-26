@@ -9,3 +9,4 @@ export * from './ranges';
 export * from './sequences';
 export * from './vault';
 export * from './fetch';
+export * from './search1';

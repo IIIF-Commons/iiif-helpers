@@ -1,0 +1,39 @@
+{
+  "@context": "http://iiif.io/api/search/1/context.json",
+  "@id": "https://iiif.wellcomecollection.org/search/autocomplete/v1/b18035723?q=wunder",
+  "@type": "search:TermList",
+  "terms": [
+    {
+      "match": "wunder",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunder"
+    },
+    {
+      "match": "wunderbar",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunderbar"
+    },
+    {
+      "match": "wunderbare",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunderbare"
+    },
+    {
+      "match": "wundervoll",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wundervoll"
+    },
+    {
+      "match": "wunderbarer",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunderbarer"
+    },
+    {
+      "match": "wunderblume",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunderblume"
+    },
+    {
+      "match": "wunderblumen",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wunderblumen"
+    },
+    {
+      "match": "wundervolles",
+      "search": "https://iiif.wellcomecollection.org/search/v1/b18035723?q=wundervolles"
+    }
+  ]
+}
