@@ -288,8 +288,8 @@ export const createSearch1Store = (
       set({
         service: newService,
         endpoint: newService ? getId(newService) : undefined,
-        hasSearch: !!searchService,
-        hasAutocomplete: searchService ? !!findAutocompleteService(searchService) : false,
+        hasSearch: !!newService,
+        hasAutocomplete: newService ? !!findAutocompleteService(newService) : false,
         loading: false,
         resources: [],
         error: false,
