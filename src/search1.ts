@@ -6,7 +6,9 @@ import {
   SearchServiceAutocompleteResponse,
   SearchServiceSearchResponse,
   SearchServiceQueryParams,
+  Manifest,
 } from '@iiif/presentation-3';
+import { ManifestNormalized } from '@iiif/presentation-3-normalized';
 import { createStore } from 'zustand/vanilla';
 
 export type Search1Service = _SearchService & {
@@ -30,6 +32,19 @@ export interface Search1AutocompleteStore {
     query: string,
     options?: { motivation?: string; date?: string; user?: string; headers?: HeadersInit }
   ) => void | Promise<void>;
+}
+
+export function findSearch1Service(manifest: ManifestNormalized | Manifest): Search1Service | null {
+  if (!manifest || !manifest.service) {
+    return null;
+  }
+  return manifest
+    ? (manifest.service.find(
+        (service: any) =>
+          (service as any).profile === 'SearchService1' ||
+          (service as any).profile === 'http://iiif.io/api/search/1/search'
+      ) as any)
+    : null;
 }
 
 export function findAutocompleteService(service: Search1Service): SearchServiceAutocomplete | undefined {
