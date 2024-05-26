@@ -176,6 +176,7 @@ export interface Search1Store {
   errorMessage: string;
   highlight: SearchServiceSearchResponse['resources'][number] | null;
   search: (query: SearchServiceQueryParams, options?: { headers?: HeadersInit }) => void | Promise<void>;
+  setSearchService: (service: Search1Service) => void;
   clearSearch: () => void;
   highlightResult: (id: string) => void;
   nextResult: () => void;
