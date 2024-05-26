@@ -122,13 +122,14 @@ export const createSearch1AutocompleteStore = (
         params.set('user', options.user);
       }
 
+      let shouldLoad = true;
+
       if ((!query || query.length < 3) && !options.motivation && !options.date && !options.user) {
-        set({ results: [], loading: false, lastQuery: null });
-        return;
+        shouldLoad = false;
       }
 
       set({
-        loading: true,
+        loading: shouldLoad,
         lastQuery: {
           q: query,
           motivation: options.motivation,
@@ -136,6 +137,10 @@ export const createSearch1AutocompleteStore = (
           user: options.user,
         },
       });
+
+      if (!shouldLoad) {
+        return;
+      }
 
       return fetcher(`${endpoint}?${params.toString()}`, {
         signal: abort.signal,
