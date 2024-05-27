@@ -207,6 +207,16 @@
         "types": "./dist/vault-utility.d.ts",
         "default": "./dist/vault-utility.js"
       }
+    },
+    "./transcriptions": {
+      "require": {
+        "types": "./dist/transcriptions.d.ts",
+        "default": "./dist/transcriptions.cjs"
+      },
+      "import": {
+        "types": "./dist/transcriptions.d.ts",
+        "default": "./dist/transcriptions.js"
+      }
     }
   },
   "scripts": {
