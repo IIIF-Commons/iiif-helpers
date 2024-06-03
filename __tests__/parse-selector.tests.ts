@@ -2002,7 +2002,7 @@ describe('parse selector', () => {
           "selector": {
             "temporal": {
               "endTime": undefined,
-              "startTime": 0.5,
+              "startTime": 10.5,
             },
             "type": "TemporalSelector",
           },
@@ -2010,7 +2010,7 @@ describe('parse selector', () => {
             {
               "temporal": {
                 "endTime": undefined,
-                "startTime": 0.5,
+                "startTime": 10.5,
               },
               "type": "TemporalSelector",
             },
@@ -2029,7 +2029,7 @@ describe('parse selector', () => {
           "selector": {
             "temporal": {
               "endTime": 20.5,
-              "startTime": 0.5,
+              "startTime": 10.5,
             },
             "type": "TemporalSelector",
           },
@@ -2037,7 +2037,35 @@ describe('parse selector', () => {
             {
               "temporal": {
                 "endTime": 20.5,
-                "startTime": 0.5,
+                "startTime": 10.5,
+              },
+              "type": "TemporalSelector",
+            },
+          ],
+        }
+      `);
+    });
+
+    test('temporal with start offset', () => {
+      const selector: Selector = {
+        type: 'FragmentSelector',
+        value: 't=302.05,3971.24',
+      };
+
+      expect(parseSelector(selector)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "temporal": {
+              "endTime": 3971.24,
+              "startTime": 302.05,
+            },
+            "type": "TemporalSelector",
+          },
+          "selectors": [
+            {
+              "temporal": {
+                "endTime": 3971.24,
+                "startTime": 302.05,
               },
               "type": "TemporalSelector",
             },

@@ -143,7 +143,7 @@ export function parseSelector(
       const selector: TemporalSelector = {
         type: 'TemporalSelector',
         temporal: {
-          startTime: matchTimeSelector[4] ? parseFloat(matchTimeSelector[4]) : 0,
+          startTime: matchTimeSelector[3] ? parseFloat(matchTimeSelector[3]) : 0,
           endTime: matchTimeSelector[6] ? parseFloat(matchTimeSelector[6]) : undefined,
         },
       };
