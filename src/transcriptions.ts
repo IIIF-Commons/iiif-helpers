@@ -109,9 +109,21 @@
 //     }
 //   }
 // ],
-import { AnnotationNormalized, AnnotationPageNormalized, CanvasNormalized } from '@iiif/presentation-3-normalized';
+import {
+  AnnotationNormalized,
+  AnnotationPageNormalized,
+  CanvasNormalized,
+  ManifestNormalized,
+} from '@iiif/presentation-3-normalized';
 import { CompatVault } from './compat';
-import { Annotation, AnnotationPage, Canvas, ContentResource } from '@iiif/presentation-3';
+import {
+  Annotation,
+  AnnotationPage,
+  Canvas,
+  ContentResource,
+  Manifest,
+  ManifestDescriptive,
+} from '@iiif/presentation-3';
 import { ParsedSelector, TemporalSelector, expandTarget, parseSelector } from './annotation-targets';
 
 interface Transcription {
@@ -448,4 +460,33 @@ export async function getCanvasTranscription(
   }
 
   return null;
+}
+
+export async function manifestHasTranscriptions(
+  vault: CompatVault,
+  manifest: string | { id: string; type: string } | ManifestNormalized | Manifest,
+  pagesToCheck: number = 5
+): Promise<boolean> {
+  const canvases = vault.get(manifest)?.items || [];
+  let hasTranscription = false;
+  for (const canvas of canvases) {
+    const fullCanvas = vault.get(canvas);
+    const canvasHasTranscription = canvasHasTranscriptionSync(vault, fullCanvas);
+    if (canvasHasTranscription) {
+      hasTranscription = true;
+      break;
+    }
+
+    // Load external annotations
+    if (pagesToCheck > 0) {
+      pagesToCheck--;
+      const annotationPages = await canvasLoadExternalAnnotationPages(vault, fullCanvas);
+      const canvasHasTranscription = canvasHasTranscriptionSync(vault, fullCanvas, annotationPages);
+      if (canvasHasTranscription) {
+        hasTranscription = true;
+        break;
+      }
+    }
+  }
+  return hasTranscription;
 }
