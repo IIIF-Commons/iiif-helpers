@@ -15,7 +15,7 @@ const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;
 
 // Does not support 00:00:00 or 00:00 formats.
-const TEMPORAL_SELECTOR = /&?(t=)(npt:)?([0-9]+(.[0-9]+)?)?(,([0-9]+(.[0-9]+)?))?/;
+const TEMPORAL_SELECTOR = /&?(t=)(npt:)?([0-9]+(\.[0-9]+)?)?(,([0-9]+(\.[0-9]+)?))?/;
 
 const RGBA_COLOR = /^rgba\((\d+),(\d+),(\d+),([0-9.]+)\)$/;
 
@@ -144,7 +144,7 @@ export function parseSelector(
         type: 'TemporalSelector',
         temporal: {
           startTime: matchTimeSelector[4] ? parseFloat(matchTimeSelector[4]) : 0,
-          endTime: matchTimeSelector[7] ? parseFloat(matchTimeSelector[7]) : undefined,
+          endTime: matchTimeSelector[6] ? parseFloat(matchTimeSelector[6]) : undefined,
         },
       };
 

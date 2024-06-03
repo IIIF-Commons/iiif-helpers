@@ -1,16 +1,18 @@
 import { describe, expect, test } from 'vitest';
 import { parseSelector } from '../src/annotation-targets/parse-selector';
 import { JSDOM } from 'jsdom';
+import { Selector } from '@iiif/presentation-3';
 
-describe('SVG Selectors', () => {
-  test('Parsing a rectangle selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><rect x="100" y="100" width="300" height="300" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+describe('parse selector', () => {
+  describe('SVG Selectors', () => {
+    test('Parsing a rectangle selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><rect x="100" y="100" width="300" height="300" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -92,16 +94,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a circle selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><circle r="147.5" cy="199.83333" cx="225.5" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing a circle selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><circle r="147.5" cy="199.83333" cx="225.5" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -391,16 +393,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing an ellipse selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><ellipse ry="31.5" rx="346.5" id="svg_2" cy="77.83333" cx="399.5" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing an ellipse selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><ellipse ry="31.5" rx="346.5" id="svg_2" cy="77.83333" cx="399.5" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -690,16 +692,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a cubic bézier selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing a cubic bézier selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1093,16 +1095,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a quadratic bézier selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333 q -270.12536,222.67568 -108.78352,-65.06757" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing a quadratic bézier selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333 q -270.12536,222.67568 -108.78352,-65.06757" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1280,16 +1282,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a polygon selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polygon points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing a polygon selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polygon points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1371,16 +1373,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a polyline selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polyline points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing a polyline selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polyline points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1454,16 +1456,16 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing the cookbook polygon selector', () => {
-    expect(
-      parseSelector({
-        type: 'SvgSelector',
-        value:
-          "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g><path d='M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000' /></g></svg>",
-      })
-    ).toMatchInlineSnapshot(`
+    test('Parsing the cookbook polygon selector', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g><path d='M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000' /></g></svg>",
+        })
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1579,19 +1581,19 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
-  });
+    });
 
-  test('Parsing a cubic bézier selector with jsdom', () => {
-    expect(
-      parseSelector(
-        {
-          type: 'SvgSelector',
-          value:
-            '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
-        },
-        { domParser: new new JSDOM().window.DOMParser() }
-      )
-    ).toMatchInlineSnapshot(`
+    test('Parsing a cubic bézier selector with jsdom', () => {
+      expect(
+        parseSelector(
+          {
+            type: 'SvgSelector',
+            value:
+              '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
+          },
+          { domParser: new new JSDOM().window.DOMParser() }
+        )
+      ).toMatchInlineSnapshot(`
       {
         "selector": {
           "points": [
@@ -1985,5 +1987,91 @@ describe('SVG Selectors', () => {
         ],
       }
     `);
+    });
+  });
+
+  describe('temporal selectors', () => {
+    test('temporal with start only', () => {
+      const selector: Selector = {
+        type: 'FragmentSelector',
+        value: 't=10.5',
+      };
+
+      expect(parseSelector(selector)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "temporal": {
+              "endTime": undefined,
+              "startTime": 0.5,
+            },
+            "type": "TemporalSelector",
+          },
+          "selectors": [
+            {
+              "temporal": {
+                "endTime": undefined,
+                "startTime": 0.5,
+              },
+              "type": "TemporalSelector",
+            },
+          ],
+        }
+      `);
+    });
+    test('temporal with start and end', () => {
+      const selector: Selector = {
+        type: 'FragmentSelector',
+        value: 't=10.5,20.5',
+      };
+
+      expect(parseSelector(selector)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "temporal": {
+              "endTime": 20.5,
+              "startTime": 0.5,
+            },
+            "type": "TemporalSelector",
+          },
+          "selectors": [
+            {
+              "temporal": {
+                "endTime": 20.5,
+                "startTime": 0.5,
+              },
+              "type": "TemporalSelector",
+            },
+          ],
+        }
+      `);
+    });
+
+    test('temporal with start and end decimals', () => {
+      const selector: Selector = {
+        type: 'FragmentSelector',
+        value: 't=0.1,302.05',
+      };
+
+      expect(parseSelector(selector)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "temporal": {
+              "endTime": 302.05,
+              "startTime": 0.1,
+            },
+            "type": "TemporalSelector",
+          },
+          "selectors": [
+            {
+              "temporal": {
+                "endTime": 302.05,
+                "startTime": 0.1,
+              },
+              "type": "TemporalSelector",
+            },
+          ],
+        }
+      `);
+    });
   });
 });
