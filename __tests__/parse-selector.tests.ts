@@ -1,7 +1,9 @@
 import { describe, expect, test } from 'vitest';
 import { parseSelector } from '../src/annotation-targets/parse-selector';
+import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';
 import { JSDOM } from 'jsdom';
 import { Selector } from '@iiif/presentation-3';
+import { expandTarget } from '../src';
 
 describe('parse selector', () => {
   describe('SVG Selectors', () => {
@@ -1987,6 +1989,115 @@ describe('parse selector', () => {
         ],
       }
     `);
+    });
+
+    test('Parsing a real world example selector', () => {
+      const annotations: any[] = ghentChoices.items[0]!.annotations[0].items;
+
+      const firstTarget = annotations[0].target;
+
+      expect(expandTarget(firstTarget)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "points": [
+              [
+                905.7663277587891,
+                824.1576701660156,
+              ],
+              [
+                891.7238851318359,
+                878.9430197753907,
+              ],
+              [
+                890.8197407226562,
+                905.6661394042969,
+              ],
+              [
+                825.7214197998047,
+                905.6661394042969,
+              ],
+              [
+                798.2355216064453,
+                852.1408363037109,
+              ],
+              [
+                827.1680661621094,
+                820.3150755615235,
+              ],
+              [
+                883.5865854492188,
+                801.5089024658204,
+              ],
+              [
+                905.7663277587891,
+                824.1576701660156,
+              ],
+            ],
+            "spatial": {
+              "height": 104.15723693847656,
+              "unit": "pixel",
+              "width": 107.53080615234376,
+              "x": 798.2355216064453,
+              "y": 801.5089024658204,
+            },
+            "style": undefined,
+            "svg": "<svg><path d="M905.7663277587891,824.1576701660156 891.7238851318359,878.9430197753907 890.8197407226562,905.6661394042969 825.7214197998047,905.6661394042969 798.2355216064453,852.1408363037109 827.1680661621094,820.3150755615235 883.5865854492188,801.5089024658204z"></path></svg>",
+            "svgShape": "polygon",
+            "type": "SvgSelector",
+          },
+          "selectors": [
+            {
+              "points": [
+                [
+                  905.7663277587891,
+                  824.1576701660156,
+                ],
+                [
+                  891.7238851318359,
+                  878.9430197753907,
+                ],
+                [
+                  890.8197407226562,
+                  905.6661394042969,
+                ],
+                [
+                  825.7214197998047,
+                  905.6661394042969,
+                ],
+                [
+                  798.2355216064453,
+                  852.1408363037109,
+                ],
+                [
+                  827.1680661621094,
+                  820.3150755615235,
+                ],
+                [
+                  883.5865854492188,
+                  801.5089024658204,
+                ],
+                [
+                  905.7663277587891,
+                  824.1576701660156,
+                ],
+              ],
+              "spatial": {
+                "height": 104.15723693847656,
+                "unit": "pixel",
+                "width": 107.53080615234376,
+                "x": 798.2355216064453,
+                "y": 801.5089024658204,
+              },
+              "style": undefined,
+              "svg": "<svg><path d="M905.7663277587891,824.1576701660156 891.7238851318359,878.9430197753907 890.8197407226562,905.6661394042969 825.7214197998047,905.6661394042969 798.2355216064453,852.1408363037109 827.1680661621094,820.3150755615235 883.5865854492188,801.5089024658204z"></path></svg>",
+              "svgShape": "polygon",
+              "type": "SvgSelector",
+            },
+          ],
+          "source": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001",
+          "type": "SpecificResource",
+        }
+      `);
     });
   });
 

@@ -430,7 +430,7 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
   if (selectorElement.hasAttribute('fill')) {
     style.fill = selectorElement.getAttribute('fill')!;
     selectorElement.removeAttribute('fill');
-  } else if (selectorElement.style.fill) {
+  } else if (selectorElement.style && selectorElement.style.fill) {
     style.fill = selectorElement.style.fill;
   }
   if (style.fill) {
@@ -443,14 +443,14 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
   if (selectorElement.hasAttribute('fill-opacity')) {
     style.fillOpacity = parseFloat(selectorElement.getAttribute('fill-opacity')!);
     selectorElement.removeAttribute('fill-opacity');
-  } else if (selectorElement.style.fillOpacity) {
+  } else if (selectorElement.style && selectorElement.style.fillOpacity) {
     style.fillOpacity = parseFloat(selectorElement.style.fillOpacity);
   }
 
   if (selectorElement.hasAttribute('stroke')) {
     style.stroke = selectorElement.getAttribute('stroke')!;
     selectorElement.removeAttribute('stroke');
-  } else if (selectorElement.style.stroke) {
+  } else if (selectorElement.style && selectorElement.style.stroke) {
     style.stroke = selectorElement.style.stroke;
   }
   if (style.stroke) {
@@ -463,19 +463,19 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
   if (selectorElement.hasAttribute('stroke-opacity')) {
     style.strokeOpacity = parseFloat(selectorElement.getAttribute('stroke-opacity')!);
     selectorElement.removeAttribute('stroke-opacity');
-  } else if (selectorElement.style.strokeOpacity) {
+  } else if (selectorElement.style && selectorElement.style.strokeOpacity) {
     style.strokeOpacity = parseFloat(selectorElement.style.strokeOpacity);
   }
   if (selectorElement.hasAttribute('stroke-width')) {
     style.strokeWidth = selectorElement.getAttribute('stroke-width')!;
     selectorElement.removeAttribute('stroke-width');
-  } else if (selectorElement.style.strokeWidth) {
+  } else if (selectorElement.style && selectorElement.style.strokeWidth) {
     style.strokeWidth = selectorElement.style.strokeWidth;
   }
   if (selectorElement.hasAttribute('stroke-dasharray')) {
     style.strokeDasharray = selectorElement.getAttribute('stroke-dasharray')!;
     selectorElement.removeAttribute('stroke-dasharray');
-  } else if (selectorElement.style.strokeDasharray) {
+  } else if (selectorElement.style && selectorElement.style.strokeDasharray) {
     style.strokeDasharray = selectorElement.style.strokeDasharray;
   }
 
