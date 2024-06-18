@@ -2213,4 +2213,35 @@ describe('parse selector', () => {
       `);
     });
   });
+
+  describe('point selector', () => {
+    test('point selector', () => {
+      const examplePointSelector: Selector = {
+        type: 'PointSelector',
+        x: 3385,
+        y: 1464,
+      };
+
+      expect(parseSelector(examplePointSelector)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "spatial": {
+              "x": 3385,
+              "y": 1464,
+            },
+            "type": "PointSelector",
+          },
+          "selectors": [
+            {
+              "spatial": {
+                "x": 3385,
+                "y": 1464,
+              },
+              "type": "PointSelector",
+            },
+          ],
+        }
+      `);
+    });
+  });
 });

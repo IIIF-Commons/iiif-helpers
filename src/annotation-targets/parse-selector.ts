@@ -98,6 +98,22 @@ export function parseSelector(
         iiifRenderingHints,
       });
     }
+
+    if (source.type === 'PointSelector' && source.x && source.y) {
+      const selector: SupportedSelectors = {
+        type: 'PointSelector',
+        spatial: {
+          x: source.x,
+          y: source.y,
+        },
+      };
+
+      return resolveHints({
+        selector,
+        selectors: [selector],
+        iiifRenderingHints,
+      });
+    }
   }
 
   if (isImageApiSelector(source)) {
