@@ -20,6 +20,7 @@ export type ChoiceDescription = SingleChoice | ComplexChoice;
 
 export interface Paintables {
   choice: ChoiceDescription | null;
+  allChoices: ComplexChoice | null;
   types: string[];
   items: Array<{
     type: string;

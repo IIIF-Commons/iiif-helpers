@@ -34,7 +34,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     const types: string[] = [];
     let choices: ComplexChoice = {
       items: [],
-      type: 'complex-choice'
+      type: 'complex-choice',
     };
     const items: Paintables['items'] = [];
 
@@ -95,7 +95,8 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     return {
       types,
       items,
-      choice: choices.items.length < 2 ? (choices.items[0] || null) : choices,
+      choice: choices.items.length < 2 ? choices.items[0] || null : choices,
+      allChoices: choices.items.length ? choices : null,
     };
   }
 
