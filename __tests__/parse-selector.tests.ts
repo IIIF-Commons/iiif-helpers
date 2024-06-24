@@ -2214,6 +2214,55 @@ describe('parse selector', () => {
     });
   });
 
+  describe('temporal box selector', () => {
+    test('temporal box selector', () => {
+      const target =
+        'https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas#xywh=200,200,480,360&t=27,57';
+
+      const expanded = expandTarget(target);
+
+      expect(expanded).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "spatial": {
+              "height": 360,
+              "unit": "pixel",
+              "width": 480,
+              "x": 200,
+              "y": 200,
+            },
+            "temporal": {
+              "endTime": 57,
+              "startTime": 27,
+            },
+            "type": "TemporalBoxSelector",
+          },
+          "selectors": [
+            {
+              "spatial": {
+                "height": 360,
+                "unit": "pixel",
+                "width": 480,
+                "x": 200,
+                "y": 200,
+              },
+              "temporal": {
+                "endTime": 57,
+                "startTime": 27,
+              },
+              "type": "TemporalBoxSelector",
+            },
+          ],
+          "source": {
+            "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas",
+            "type": "Unknown",
+          },
+          "type": "SpecificResource",
+        }
+      `);
+    });
+  });
+
   describe('point selector', () => {
     test('point selector', () => {
       const examplePointSelector: Selector = {

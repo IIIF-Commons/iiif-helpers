@@ -6,6 +6,7 @@ import {
   SvgSelector,
   SelectorStyle,
   SvgShapeType,
+  TemporalBoxSelector,
 } from './selector-types';
 import { ImageApiSelector, Selector } from '@iiif/presentation-3';
 import { NormalizedSvgPathCommand, NormalizedSvgPathCommandType, parseAndNormalizeSvgPath } from './normalize-svg';
@@ -136,7 +137,7 @@ export function parseSelector(
   if (source.type === 'FragmentSelector') {
     const matchBoxSelector = BOX_SELECTOR.exec(source.value);
     if (matchBoxSelector) {
-      const selector: SupportedSelectors = {
+      let selector: SupportedSelectors = {
         type: 'BoxSelector',
         spatial: {
           unit: matchBoxSelector[2] === 'percent:' || matchBoxSelector[2] === 'pct:' ? 'percent' : 'pixel',
@@ -146,6 +147,18 @@ export function parseSelector(
           height: parseFloat(matchBoxSelector[6]),
         },
       };
+
+      const matchBoxTimeSelector = source.value.match(TEMPORAL_SELECTOR);
+      if (matchBoxTimeSelector) {
+        selector = {
+          type: 'TemporalBoxSelector',
+          spatial: selector.spatial,
+          temporal: {
+            startTime: matchBoxTimeSelector[3] ? parseFloat(matchBoxTimeSelector[3]) : 0,
+            endTime: matchBoxTimeSelector[6] ? parseFloat(matchBoxTimeSelector[6]) : undefined,
+          },
+        };
+      }
 
       return resolveHints({
         selector,
