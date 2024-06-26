@@ -180,12 +180,12 @@ describe('nav-date helper', () => {
                     "items": [
                       {
                         "count": 1,
-                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/0",
+                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/1986/1",
                         "items": [
                           {
                             "count": 1,
                             "day": 1,
-                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
+                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1986/1/1",
                             "items": [
                               {
                                 "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_2-manifest.json",
@@ -229,12 +229,12 @@ describe('nav-date helper', () => {
                     "items": [
                       {
                         "count": 1,
-                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/0",
+                        "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/month/1987/1",
                         "items": [
                           {
                             "count": 1,
                             "day": 1,
-                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1",
+                            "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json/day/1987/1/1",
                             "items": [
                               {
                                 "id": "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_1-manifest.json",

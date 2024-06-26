@@ -159,7 +159,7 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
       let monthItem = yearItem.items.find((i) => i.month === month);
       if (!monthItem) {
         monthItem = {
-          id: `${resource.id}/month/${month}`,
+          id: `${resource.id}/month/${year}/${month + 1}`,
           // Month as string
           label: {
             en: [
@@ -183,7 +183,7 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
       let dayItem = monthItem.items.find((i) => i.day === day);
       if (!dayItem) {
         dayItem = {
-          id: `${resource.id}/day/${day}`,
+          id: `${resource.id}/day/${year}/${month + 1}/${day}`,
           label: { en: [`${d.toDateString()}`] },
           type: 'day',
           day: day,
