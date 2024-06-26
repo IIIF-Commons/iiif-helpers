@@ -2958,7 +2958,7 @@ describe('transcription helper', () => {
 16
 00:01:21.058 --> 00:01:23.868
 - [ Bats Screeching ]
-- They won't get in your hair. They're after the bugs.    
+- They won't get in your hair. They're after the bugs.
     `,
           'example-1'
         )
@@ -3340,6 +3340,838 @@ What are you waiting for?`,
           "source": {
             "format": "text/vtt",
             "id": "example-4",
+            "type": "Text",
+          },
+        }
+      `);
+    });
+
+    test('utk webvtt parsing', async () => {
+      const transcript = `WEBVTT
+
+00:00:03.630 --> 00:00:06.540
+One of the drawings that I did was I took from a
+
+00:00:06.930 --> 00:00:10.170
+researcher who talked about--she, she researches and
+
+00:00:10.170 --> 00:00:16.890
+studies businesses after disasters, and she was
+
+00:00:16.890 --> 00:00:19.320
+talking about how none of the businesses had any
+
+00:00:19.320 --> 00:00:22.110
+kind of natural disaster plan, that if it was
+
+00:00:22.110 --> 00:00:25.230
+anything, it was an unused manual on a shelf, and
+
+00:00:25.230 --> 00:00:27.330
+that was it. So I think that's one thing that's
+
+00:00:27.330 --> 00:00:29.760
+probably changed in that community now. But I
+
+00:00:29.760 --> 00:00:33.600
+think that's a lesson for all of us just to maybe
+
+00:00:33.990 --> 00:00:37.050
+spend a little time thinking ahead of time just to
+
+00:00:37.050 --> 00:00:39.900
+prepare for for the unexpected, the best that you
+
+00:00:39.900 --> 00:00:44.760
+can. What did you find from the question, you know, were
+
+00:00:44.780 --> 00:00:49.230
+people prepared for this fire? No. Most of them
+
+00:00:49.230 --> 00:00:52.520
+thought it could never happen. That it would have
+
+00:00:52.520 --> 00:00:55.850
+been stopped before it got into town.
+
+00:00:57.940 --> 00:01:02.510
+The only organization that had any kind of plan
+
+00:01:02.510 --> 00:01:06.590
+was a hotel chain, and that was a corporate
+
+00:01:06.740 --> 00:01:10.970
+disaster plan, but it wasn't specific to that
+
+00:01:10.970 --> 00:01:15.650
+locale or the disaster. But, many of them didn't
+
+00:01:15.650 --> 00:01:19.910
+have insurance that covered what they were finding
+
+00:01:20.240 --> 00:01:26.060
+they needed for recovery. So not, not a lot of pre-thinking
+
+00:01:26.080 --> 00:01:31.340
+about disasters. So the businesses that
+
+00:01:31.340 --> 00:01:35.020
+did have a disaster plan, how did they, you know,
+
+00:01:35.090 --> 00:01:38.430
+did they train their employees? No, they didn't.
+
+00:01:38.450 --> 00:01:43.800
+They just had a manual, and they really didn't sit
+
+00:01:43.800 --> 00:01:47.160
+down with their employees and show, or show them
+
+00:01:47.160 --> 00:01:49.530
+the manual and have them read it or train them
+
+00:01:49.890 --> 00:01:53.550
+from it. It was just a plan that was on somebody's
+
+00:01:54.090 --> 00:01:54.720
+bookshelf.
+`;
+
+      const parsed = await vttToTranscription(transcript, 'example');
+
+      expect(parsed).toMatchInlineSnapshot(`
+        {
+          "id": "example",
+          "plaintext": "One of the drawings that I did was I took from a
+        researcher who talked about--she, she researches and
+        studies businesses after disasters, and she was
+        talking about how none of the businesses had any
+        kind of natural disaster plan, that if it was
+        anything, it was an unused manual on a shelf, and
+        that was it. So I think that's one thing that's
+        probably changed in that community now. But I
+        think that's a lesson for all of us just to maybe
+        spend a little time thinking ahead of time just to
+        prepare for for the unexpected, the best that you
+        can. What did you find from the question, you know, were
+        people prepared for this fire? No. Most of them
+        thought it could never happen. That it would have
+        been stopped before it got into town.
+        The only organization that had any kind of plan
+        was a hotel chain, and that was a corporate
+        disaster plan, but it wasn't specific to that
+        locale or the disaster. But, many of them didn't
+        have insurance that covered what they were finding
+        they needed for recovery. So not, not a lot of pre-thinking
+        about disasters. So the businesses that
+        did have a disaster plan, how did they, you know,
+        did they train their employees? No, they didn't.
+        They just had a manual, and they really didn't sit
+        down with their employees and show, or show them
+        the manual and have them read it or train them
+        from it. It was just a plan that was on somebody's
+        bookshelf.",
+          "segments": [
+            {
+              "endRaw": "00:00:06.540",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 6.54,
+                    "startTime": 3.63,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 6.54,
+                      "startTime": 3.63,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:03.630",
+              "text": "One of the drawings that I did was I took from a",
+              "textRaw": "One of the drawings that I did was I took from a",
+            },
+            {
+              "endRaw": "00:00:10.170",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 10.17,
+                    "startTime": 6.93,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 10.17,
+                      "startTime": 6.93,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:06.930",
+              "text": "researcher who talked about--she, she researches and",
+              "textRaw": "researcher who talked about--she, she researches and",
+            },
+            {
+              "endRaw": "00:00:16.890",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 16.89,
+                    "startTime": 10.17,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 16.89,
+                      "startTime": 10.17,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:10.170",
+              "text": "studies businesses after disasters, and she was",
+              "textRaw": "studies businesses after disasters, and she was",
+            },
+            {
+              "endRaw": "00:00:19.320",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 19.32,
+                    "startTime": 16.89,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 19.32,
+                      "startTime": 16.89,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:16.890",
+              "text": "talking about how none of the businesses had any",
+              "textRaw": "talking about how none of the businesses had any",
+            },
+            {
+              "endRaw": "00:00:22.110",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 22.11,
+                    "startTime": 19.32,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 22.11,
+                      "startTime": 19.32,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:19.320",
+              "text": "kind of natural disaster plan, that if it was",
+              "textRaw": "kind of natural disaster plan, that if it was",
+            },
+            {
+              "endRaw": "00:00:25.230",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 25.23,
+                    "startTime": 22.11,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 25.23,
+                      "startTime": 22.11,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:22.110",
+              "text": "anything, it was an unused manual on a shelf, and",
+              "textRaw": "anything, it was an unused manual on a shelf, and",
+            },
+            {
+              "endRaw": "00:00:27.330",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 27.33,
+                    "startTime": 25.23,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 27.33,
+                      "startTime": 25.23,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:25.230",
+              "text": "that was it. So I think that's one thing that's",
+              "textRaw": "that was it. So I think that's one thing that's",
+            },
+            {
+              "endRaw": "00:00:29.760",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 29.76,
+                    "startTime": 27.33,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 29.76,
+                      "startTime": 27.33,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:27.330",
+              "text": "probably changed in that community now. But I",
+              "textRaw": "probably changed in that community now. But I",
+            },
+            {
+              "endRaw": "00:00:33.600",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 33.6,
+                    "startTime": 29.76,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 33.6,
+                      "startTime": 29.76,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:29.760",
+              "text": "think that's a lesson for all of us just to maybe",
+              "textRaw": "think that's a lesson for all of us just to maybe",
+            },
+            {
+              "endRaw": "00:00:37.050",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 37.05,
+                    "startTime": 33.99,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 37.05,
+                      "startTime": 33.99,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:33.990",
+              "text": "spend a little time thinking ahead of time just to",
+              "textRaw": "spend a little time thinking ahead of time just to",
+            },
+            {
+              "endRaw": "00:00:39.900",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 39.9,
+                    "startTime": 37.05,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 39.9,
+                      "startTime": 37.05,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:37.050",
+              "text": "prepare for for the unexpected, the best that you",
+              "textRaw": "prepare for for the unexpected, the best that you",
+            },
+            {
+              "endRaw": "00:00:44.760",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 44.76,
+                    "startTime": 39.9,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 44.76,
+                      "startTime": 39.9,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:39.900",
+              "text": "can. What did you find from the question, you know, were",
+              "textRaw": "can. What did you find from the question, you know, were",
+            },
+            {
+              "endRaw": "00:00:49.230",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 49.23,
+                    "startTime": 44.78,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 49.23,
+                      "startTime": 44.78,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:44.780",
+              "text": "people prepared for this fire? No. Most of them",
+              "textRaw": "people prepared for this fire? No. Most of them",
+            },
+            {
+              "endRaw": "00:00:52.520",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 52.52,
+                    "startTime": 49.23,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 52.52,
+                      "startTime": 49.23,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:49.230",
+              "text": "thought it could never happen. That it would have",
+              "textRaw": "thought it could never happen. That it would have",
+            },
+            {
+              "endRaw": "00:00:55.850",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 55.85,
+                    "startTime": 52.52,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 55.85,
+                      "startTime": 52.52,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:52.520",
+              "text": "been stopped before it got into town.",
+              "textRaw": "been stopped before it got into town.",
+            },
+            {
+              "endRaw": "00:01:02.510",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 62.51,
+                    "startTime": 57.94,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 62.51,
+                      "startTime": 57.94,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:00:57.940",
+              "text": "The only organization that had any kind of plan",
+              "textRaw": "The only organization that had any kind of plan",
+            },
+            {
+              "endRaw": "00:01:06.590",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 66.59,
+                    "startTime": 62.51,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 66.59,
+                      "startTime": 62.51,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:02.510",
+              "text": "was a hotel chain, and that was a corporate",
+              "textRaw": "was a hotel chain, and that was a corporate",
+            },
+            {
+              "endRaw": "00:01:10.970",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 70.97,
+                    "startTime": 66.74,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 70.97,
+                      "startTime": 66.74,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:06.740",
+              "text": "disaster plan, but it wasn't specific to that",
+              "textRaw": "disaster plan, but it wasn't specific to that",
+            },
+            {
+              "endRaw": "00:01:15.650",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 75.65,
+                    "startTime": 70.97,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 75.65,
+                      "startTime": 70.97,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:10.970",
+              "text": "locale or the disaster. But, many of them didn't",
+              "textRaw": "locale or the disaster. But, many of them didn't",
+            },
+            {
+              "endRaw": "00:01:19.910",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 79.91,
+                    "startTime": 75.65,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 79.91,
+                      "startTime": 75.65,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:15.650",
+              "text": "have insurance that covered what they were finding",
+              "textRaw": "have insurance that covered what they were finding",
+            },
+            {
+              "endRaw": "00:01:26.060",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 86.06,
+                    "startTime": 80.24,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 86.06,
+                      "startTime": 80.24,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:20.240",
+              "text": "they needed for recovery. So not, not a lot of pre-thinking",
+              "textRaw": "they needed for recovery. So not, not a lot of pre-thinking",
+            },
+            {
+              "endRaw": "00:01:31.340",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 91.34,
+                    "startTime": 86.08,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 91.34,
+                      "startTime": 86.08,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:26.080",
+              "text": "about disasters. So the businesses that",
+              "textRaw": "about disasters. So the businesses that",
+            },
+            {
+              "endRaw": "00:01:35.020",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 95.02000000000001,
+                    "startTime": 91.34,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 95.02000000000001,
+                      "startTime": 91.34,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:31.340",
+              "text": "did have a disaster plan, how did they, you know,",
+              "textRaw": "did have a disaster plan, how did they, you know,",
+            },
+            {
+              "endRaw": "00:01:38.430",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 98.43,
+                    "startTime": 95.09,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 98.43,
+                      "startTime": 95.09,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:35.090",
+              "text": "did they train their employees? No, they didn't.",
+              "textRaw": "did they train their employees? No, they didn't.",
+            },
+            {
+              "endRaw": "00:01:43.800",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 103.8,
+                    "startTime": 98.45,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 103.8,
+                      "startTime": 98.45,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:38.450",
+              "text": "They just had a manual, and they really didn't sit",
+              "textRaw": "They just had a manual, and they really didn't sit",
+            },
+            {
+              "endRaw": "00:01:47.160",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 107.16,
+                    "startTime": 103.8,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 107.16,
+                      "startTime": 103.8,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:43.800",
+              "text": "down with their employees and show, or show them",
+              "textRaw": "down with their employees and show, or show them",
+            },
+            {
+              "endRaw": "00:01:49.530",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 109.53,
+                    "startTime": 107.16,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 109.53,
+                      "startTime": 107.16,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:47.160",
+              "text": "the manual and have them read it or train them",
+              "textRaw": "the manual and have them read it or train them",
+            },
+            {
+              "endRaw": "00:01:53.550",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 113.55,
+                    "startTime": 109.89,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 113.55,
+                      "startTime": 109.89,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:49.890",
+              "text": "from it. It was just a plan that was on somebody's",
+              "textRaw": "from it. It was just a plan that was on somebody's",
+            },
+            {
+              "endRaw": "00:01:54.720",
+              "selector": {
+                "selector": {
+                  "temporal": {
+                    "endTime": 114.72,
+                    "startTime": 114.09,
+                  },
+                  "type": "TemporalSelector",
+                },
+                "selectors": [
+                  {
+                    "temporal": {
+                      "endTime": 114.72,
+                      "startTime": 114.09,
+                    },
+                    "type": "TemporalSelector",
+                  },
+                ],
+              },
+              "startRaw": "00:01:54.090",
+              "text": "bookshelf.",
+              "textRaw": "bookshelf.",
+            },
+          ],
+          "source": {
+            "format": "text/vtt",
+            "id": "example",
             "type": "Text",
           },
         }

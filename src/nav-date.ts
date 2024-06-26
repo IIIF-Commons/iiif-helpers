@@ -8,14 +8,14 @@ import { Collection, InternationalString, Manifest } from '@iiif/presentation-3'
 import { CompatVault } from './compat';
 import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
 
-interface DateNavigationResource {
+export interface DateNavigationResource {
   id: string;
   type: 'Manifest' | 'Canvas';
   label: InternationalString;
   navDate: string;
 }
 
-interface DateNavigationDay {
+export interface DateNavigationDay {
   id: string;
   type: 'day';
   count: number;
@@ -24,7 +24,7 @@ interface DateNavigationDay {
   items: Array<DateNavigationResource>;
 }
 
-interface DateNavigationMonth {
+export interface DateNavigationMonth {
   id: string;
   type: 'month';
   month: number;
@@ -33,7 +33,7 @@ interface DateNavigationMonth {
   items: Array<DateNavigationDay>;
 }
 
-interface DateNavigationYear {
+export interface DateNavigationYear {
   id: string;
   type: 'year';
   year: number;
@@ -42,7 +42,7 @@ interface DateNavigationYear {
   items: Array<DateNavigationMonth>;
 }
 
-interface DateNavigationDecade {
+export interface DateNavigationDecade {
   id: string;
   type: 'decade';
   yearStart: number;
@@ -52,7 +52,7 @@ interface DateNavigationDecade {
   items: Array<DateNavigationYear>;
 }
 
-interface DateNavigationCentury {
+export interface DateNavigationCentury {
   id: string;
   type: 'century';
   yearStart: number;
@@ -62,7 +62,7 @@ interface DateNavigationCentury {
   items: Array<DateNavigationDecade>;
 }
 
-type DateNavigationTypes =
+export type DateNavigationTypes =
   | DateNavigationCentury
   | DateNavigationDecade
   | DateNavigationYear
