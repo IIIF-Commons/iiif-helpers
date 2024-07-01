@@ -98,6 +98,109 @@ describe('parse selector', () => {
     `);
     });
 
+    test('Parsing svg without size', () => {
+      expect(
+        parseSelector({
+          type: 'SvgSelector',
+          value:
+            '<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" fill="#FF0055" stroke="#FF0055" stroke-width="1" fill-opacity="0.1" d="M 2596,6948 L 2571,6952 L 2597,6959 L 2616,6953 L 2596,6948 Z"/></svg>',
+        })
+      ).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "points": [
+              [
+                2596,
+                6948,
+              ],
+              [
+                2571,
+                6952,
+              ],
+              [
+                2597,
+                6959,
+              ],
+              [
+                2616,
+                6953,
+              ],
+              [
+                2596,
+                6948,
+              ],
+              [
+                2596,
+                6948,
+              ],
+            ],
+            "spatial": {
+              "height": 11,
+              "unit": "pixel",
+              "width": 45,
+              "x": 2571,
+              "y": 6948,
+            },
+            "style": {
+              "fill": "#FF0055",
+              "fillOpacity": 0.1,
+              "stroke": "#FF0055",
+              "strokeWidth": "1",
+            },
+            "svg": "<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M 2596,6948 L 2571,6952 L 2597,6959 L 2616,6953 L 2596,6948 Z"></path></svg>",
+            "svgShape": "polygon",
+            "type": "SvgSelector",
+          },
+          "selectors": [
+            {
+              "points": [
+                [
+                  2596,
+                  6948,
+                ],
+                [
+                  2571,
+                  6952,
+                ],
+                [
+                  2597,
+                  6959,
+                ],
+                [
+                  2616,
+                  6953,
+                ],
+                [
+                  2596,
+                  6948,
+                ],
+                [
+                  2596,
+                  6948,
+                ],
+              ],
+              "spatial": {
+                "height": 11,
+                "unit": "pixel",
+                "width": 45,
+                "x": 2571,
+                "y": 6948,
+              },
+              "style": {
+                "fill": "#FF0055",
+                "fillOpacity": 0.1,
+                "stroke": "#FF0055",
+                "strokeWidth": "1",
+              },
+              "svg": "<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M 2596,6948 L 2571,6952 L 2597,6959 L 2616,6953 L 2596,6948 Z"></path></svg>",
+              "svgShape": "polygon",
+              "type": "SvgSelector",
+            },
+          ],
+        }
+      `);
+    });
+
     test('Parsing a circle selector', () => {
       expect(
         parseSelector({
@@ -2095,6 +2198,82 @@ describe('parse selector', () => {
             },
           ],
           "source": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001",
+          "type": "SpecificResource",
+        }
+      `);
+    });
+
+    test('Parsing svg target', () => {
+      const target = {
+        source: 'https://data.globalise.huygens.knaw.nl/manifests/maps/4.VEL/B/B.3/B.3.3/229.json/canvas/p1',
+        selector: {
+          type: 'SvgSelector',
+          value:
+            '<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" fill="#FF0055" stroke="#FF0055" stroke-width="1" fill-opacity="0.1" d="M 29234,89 Z"/></svg>',
+        },
+      };
+
+      expect(expandTarget(target as any)).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "points": [
+              [
+                29234,
+                89,
+              ],
+              [
+                29234,
+                89,
+              ],
+            ],
+            "spatial": {
+              "height": 0,
+              "unit": "pixel",
+              "width": 0,
+              "x": 29234,
+              "y": 89,
+            },
+            "style": {
+              "fill": "#FF0055",
+              "fillOpacity": 0.1,
+              "stroke": "#FF0055",
+              "strokeWidth": "1",
+            },
+            "svg": "<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M 29234,89 Z"></path></svg>",
+            "svgShape": "polygon",
+            "type": "SvgSelector",
+          },
+          "selectors": [
+            {
+              "points": [
+                [
+                  29234,
+                  89,
+                ],
+                [
+                  29234,
+                  89,
+                ],
+              ],
+              "spatial": {
+                "height": 0,
+                "unit": "pixel",
+                "width": 0,
+                "x": 29234,
+                "y": 89,
+              },
+              "style": {
+                "fill": "#FF0055",
+                "fillOpacity": 0.1,
+                "stroke": "#FF0055",
+                "strokeWidth": "1",
+              },
+              "svg": "<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M 29234,89 Z"></path></svg>",
+              "svgShape": "polygon",
+              "type": "SvgSelector",
+            },
+          ],
+          "source": "https://data.globalise.huygens.knaw.nl/manifests/maps/4.VEL/B/B.3/B.3.3/229.json/canvas/p1",
           "type": "SpecificResource",
         }
       `);
