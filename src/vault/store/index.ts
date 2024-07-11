@@ -48,9 +48,20 @@ export function createStore(options: CreateStoreOptions = {}) {
   } = options;
 
   const rootReducer = createBatchReducer(combineReducers({ [iiifStoreName]: reducers, ...customReducers }));
-  const dv: typeof devtools = process.env.NODE_ENV === 'test' ? (a: any) => a : devtools;
+  const enabled = Boolean(typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION__);
+  const dv: typeof devtools = !enabled || process.env.NODE_ENV === 'test' ? (a: any, r: any) => a : devtools;
 
-  return create(subscribeWithSelector(dv(redux(rootReducer, defaultState), { enabled: enableDevtools })));
+  return create(
+    //
+    subscribeWithSelector(
+      //
+      dv(
+        //
+        redux(rootReducer, defaultState),
+        { enabled: enableDevtools }
+      )
+    )
+  );
 }
 
 export type VaultZustandStore = ReturnType<typeof createStore>;
