@@ -82,7 +82,7 @@ export class Vault {
       if (r.status === 200) {
         return r.json();
       } else {
-        const err = Error(`${r.status} ${r.statusText}`);
+        const err = new Error(`${r.status} ${r.statusText}`);
         err.name = `HTTPError`;
         throw err;
       }
