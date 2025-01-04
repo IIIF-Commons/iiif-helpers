@@ -7,6 +7,7 @@ import {
   DescriptiveNormalized,
   ManifestNormalized,
 } from '@iiif/presentation-3-normalized';
+import { compatVault, CompatVault } from './compat';
 import {
   FixedSizeImage,
   FixedSizeImageService,
@@ -16,8 +17,7 @@ import {
   ImageServiceLoader,
   UnknownSizeImage,
   VariableSizeImage,
-} from '@atlas-viewer/iiif-image-api';
-import { compatVault, CompatVault } from './compat';
+} from './image-service';
 
 export const imageServiceLoader = new ImageServiceLoader();
 
