@@ -4,13 +4,13 @@ import mitt, { Emitter, Handler } from 'mitt';
 import { ImageService } from '@iiif/presentation-3';
 import { getId } from '@iiif/parser/image-3';
 
-type ImageServiceDetail = {
+export type LoadImageServiceDetail = {
   width: number;
   height: number;
   force?: boolean;
 };
 
-interface ImageServiceStore {
+export interface ImageServiceStore {
   loaded: Record<
     string,
     {
@@ -24,18 +24,18 @@ interface ImageServiceStore {
 
   loadServiceSync: (
     service: ImageService,
-    detail?: ImageServiceDetail,
+    detail?: LoadImageServiceDetail,
     backgroundRequest?: boolean
   ) => ImageService | null;
-  loadService: (service: ImageService, detail?: ImageServiceDetail) => Promise<ImageService | null>;
+  loadService: (service: ImageService, detail?: LoadImageServiceDetail) => Promise<ImageService | null>;
 }
 
-interface ImageServiceStoreOptions {
+export interface ImageServiceStoreOptions {
   loader?: ImageServiceLoader;
   events?: Emitter<ImageServiceStoreEvents>;
 }
 
-type ImageServiceStoreEvents = {
+export type ImageServiceStoreEvents = {
   'image-service.loaded': {
     id: string;
     service: ImageService | null;
