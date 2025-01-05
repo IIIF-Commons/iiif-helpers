@@ -670,7 +670,11 @@ describe('vault', () => {
                 "Description",
               ],
             },
-            "value": {},
+            "value": {
+              "none": [
+                "",
+              ],
+            },
           },
           {
             "label": {
@@ -697,7 +701,11 @@ describe('vault', () => {
             },
           },
           {
-            "label": {},
+            "label": {
+              "none": [
+                "",
+              ],
+            },
             "value": {
               "none": [
                 "<a href="http://digital.nls.uk/128693590">View in our digital gallery</a>",

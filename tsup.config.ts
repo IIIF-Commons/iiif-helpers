@@ -9,6 +9,7 @@ export default defineConfig((options: Options) => ({
     index: 'src/index.ts',
     events: 'src/events.ts',
     i18n: 'src/i18n.ts',
+    'image-service': 'src/image-service.ts',
     styles: 'src/styles.ts',
     thumbnail: 'src/thumbnail.ts',
     'annotation-targets': 'src/annotation-targets.ts',
