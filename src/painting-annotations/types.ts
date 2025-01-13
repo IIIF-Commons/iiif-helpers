@@ -1,5 +1,6 @@
 import { IIIFExternalWebResource, SpecificResource } from '@iiif/presentation-3';
 import { InternationalString } from '@iiif/presentation-3';
+import { AnnotationNormalized } from '@iiif/presentation-3-normalized';
 
 export interface SingleChoice {
   type: 'single-choice';
@@ -26,6 +27,7 @@ export interface Paintables {
     type: string;
     resource: IIIFExternalWebResource | SpecificResource;
     annotationId: string;
+    annotation: AnnotationNormalized;
     target: any;
     selector: any;
   }>;
