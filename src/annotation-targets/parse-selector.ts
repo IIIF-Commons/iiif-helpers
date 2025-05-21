@@ -1,15 +1,19 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
-  ParsedSelector,
-  SupportedSelectors,
-  TemporalSelector,
-  SvgSelector,
-  SelectorStyle,
-  SvgShapeType,
+  type ParsedSelector,
+  type SupportedSelectors,
+  type TemporalSelector,
+  type SvgSelector,
+  type SelectorStyle,
+  type SvgShapeType,
   TemporalBoxSelector,
 } from './selector-types';
-import { ImageApiSelector, Selector } from '@iiif/presentation-3';
-import { NormalizedSvgPathCommand, NormalizedSvgPathCommandType, parseAndNormalizeSvgPath } from './normalize-svg';
+import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
+import {
+  type NormalizedSvgPathCommand,
+  type NormalizedSvgPathCommandType,
+  parseAndNormalizeSvgPath,
+} from './normalize-svg';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
 
 const BOX_SELECTOR =
@@ -26,7 +30,7 @@ export function parseSelector(
     domParser,
     svgPreprocessor,
     iiifRenderingHints,
-  }: { domParser?: DOMParser; svgPreprocessor?: (svg: string) => string; iiifRenderingHints?: ImageApiSelector } = {}
+  }: { domParser?: DOMParser; svgPreprocessor?: (svg: string) => string; iiifRenderingHints?: ImageApiSelector } = {},
 ): ParsedSelector {
   if (Array.isArray(source)) {
     return resolveHints(
@@ -53,8 +57,8 @@ export function parseSelector(
           selector: null,
           selectors: [],
           iiifRenderingHints,
-        } as ParsedSelector
-      )
+        } as ParsedSelector,
+      ),
     );
   }
 
@@ -80,7 +84,7 @@ export function parseSelector(
 
     return parseSelector(
       { type: 'FragmentSelector', value: fragment },
-      { svgPreprocessor, iiifRenderingHints, domParser }
+      { svgPreprocessor, iiifRenderingHints, domParser },
     );
   }
 
@@ -122,7 +126,7 @@ export function parseSelector(
     if (source.region) {
       const parsedRegion = parseSelector(
         { type: 'FragmentSelector', value: 'xywh=' + source.region },
-        { domParser, svgPreprocessor, iiifRenderingHints }
+        { domParser, svgPreprocessor, iiifRenderingHints },
       );
       selectors.push(...parsedRegion.selectors);
     }
@@ -141,10 +145,10 @@ export function parseSelector(
         type: 'BoxSelector',
         spatial: {
           unit: matchBoxSelector[2] === 'percent:' || matchBoxSelector[2] === 'pct:' ? 'percent' : 'pixel',
-          x: parseFloat(matchBoxSelector[3]),
-          y: parseFloat(matchBoxSelector[4]),
-          width: parseFloat(matchBoxSelector[5]),
-          height: parseFloat(matchBoxSelector[6]),
+          x: Number.parseFloat(matchBoxSelector[3]),
+          y: Number.parseFloat(matchBoxSelector[4]),
+          width: Number.parseFloat(matchBoxSelector[5]),
+          height: Number.parseFloat(matchBoxSelector[6]),
         },
       };
 
@@ -154,8 +158,8 @@ export function parseSelector(
           type: 'TemporalBoxSelector',
           spatial: selector.spatial,
           temporal: {
-            startTime: matchBoxTimeSelector[3] ? parseFloat(matchBoxTimeSelector[3]) : 0,
-            endTime: matchBoxTimeSelector[6] ? parseFloat(matchBoxTimeSelector[6]) : undefined,
+            startTime: matchBoxTimeSelector[3] ? Number.parseFloat(matchBoxTimeSelector[3]) : 0,
+            endTime: matchBoxTimeSelector[6] ? Number.parseFloat(matchBoxTimeSelector[6]) : undefined,
           },
         };
       }
@@ -172,8 +176,8 @@ export function parseSelector(
       const selector: TemporalSelector = {
         type: 'TemporalSelector',
         temporal: {
-          startTime: matchTimeSelector[3] ? parseFloat(matchTimeSelector[3]) : 0,
-          endTime: matchTimeSelector[6] ? parseFloat(matchTimeSelector[6]) : undefined,
+          startTime: matchTimeSelector[3] ? Number.parseFloat(matchTimeSelector[3]) : 0,
+          endTime: matchTimeSelector[6] ? Number.parseFloat(matchTimeSelector[6]) : undefined,
         },
       };
 
@@ -197,7 +201,7 @@ export function parseSelector(
         domParser = new window.DOMParser();
       } else {
         console.warn(
-          'No DOMParser available, cannot parse SVG selector, `points`, `spatial` and `style` will be unavailable and the SVG will not be normalized.'
+          'No DOMParser available, cannot parse SVG selector, `points`, `spatial` and `style` will be unavailable and the SVG will not be normalized.',
         );
       }
     }
@@ -268,7 +272,7 @@ function getShapeTypeFromPath(svgPath: NormalizedSvgPathCommand[]): SvgShapeType
         acc[cmd] += 1;
         return acc;
       },
-      { C: 0, Q: 0, L: 0, M: 0 }
+      { C: 0, Q: 0, L: 0, M: 0 },
     );
   const cmdTypes = new Set(svgPath.map((seg) => seg[0]));
   if (cmdFrequencies.C > 0 || cmdFrequencies.Q > 0) {
@@ -315,9 +319,9 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
         return { element, points: pathToPoints(normalized), shapeType: getShapeTypeFromPath(normalized) };
       }
       case 'circle': {
-        const cx = parseFloat(element.getAttribute('cx') ?? '0');
-        const cy = parseFloat(element.getAttribute('cy') ?? '0');
-        const r = parseFloat(element.getAttribute('r') ?? '0');
+        const cx = Number.parseFloat(element.getAttribute('cx') ?? '0');
+        const cy = Number.parseFloat(element.getAttribute('cy') ?? '0');
+        const r = Number.parseFloat(element.getAttribute('r') ?? '0');
         if (!r) {
           continue;
         }
@@ -330,10 +334,10 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
         return { element, points, shapeType: 'circle' };
       }
       case 'ellipse': {
-        const cx = parseFloat(element.getAttribute('cx') ?? '0');
-        const cy = parseFloat(element.getAttribute('cy') ?? '0');
-        const rx = parseFloat(element.getAttribute('rx') ?? '0');
-        const ry = parseFloat(element.getAttribute('ry') ?? '0');
+        const cx = Number.parseFloat(element.getAttribute('cx') ?? '0');
+        const cy = Number.parseFloat(element.getAttribute('cy') ?? '0');
+        const rx = Number.parseFloat(element.getAttribute('rx') ?? '0');
+        const ry = Number.parseFloat(element.getAttribute('ry') ?? '0');
         if (!rx && !ry) {
           continue;
         }
@@ -347,10 +351,10 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
         return { element, points, shapeType: 'ellipse' };
       }
       case 'line': {
-        const x0 = parseFloat(element.getAttribute('x0') ?? '0');
-        const y0 = parseFloat(element.getAttribute('y0') ?? '0');
-        const x1 = parseFloat(element.getAttribute('x1') ?? '0');
-        const y1 = parseFloat(element.getAttribute('y1') ?? '0');
+        const x0 = Number.parseFloat(element.getAttribute('x0') ?? '0');
+        const y0 = Number.parseFloat(element.getAttribute('y0') ?? '0');
+        const x1 = Number.parseFloat(element.getAttribute('x1') ?? '0');
+        const y1 = Number.parseFloat(element.getAttribute('y1') ?? '0');
         if (x0 === x1 && y0 === y1) {
           continue;
         }
@@ -369,7 +373,7 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
           element
             .getAttribute('points')
             ?.split(' ')
-            .map((ps) => ps.split(',').map(parseFloat) as [number, number]) ?? [];
+            .map((ps) => ps.split(',').map(Number.parseFloat) as [number, number]) ?? [];
         if (!points.length) {
           continue;
         }
@@ -382,10 +386,10 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
         return { element, points, shapeType };
       }
       case 'rect': {
-        const x = parseFloat(element.getAttribute('x') ?? '0');
-        const y = parseFloat(element.getAttribute('y') ?? '0');
-        const width = parseFloat(element.getAttribute('width') ?? '0');
-        const height = parseFloat(element.getAttribute('height') ?? '0');
+        const x = Number.parseFloat(element.getAttribute('x') ?? '0');
+        const y = Number.parseFloat(element.getAttribute('y') ?? '0');
+        const width = Number.parseFloat(element.getAttribute('width') ?? '0');
+        const height = Number.parseFloat(element.getAttribute('height') ?? '0');
         if (!width || !height) {
           continue;
         }
@@ -425,10 +429,10 @@ function pathToPoints(normalizedPath: NormalizedSvgPathCommand[]): [number, numb
             { x: startPoint[0], y: startPoint[1] },
             { x: seg[1], y: seg[2] },
             { x: seg[3], y: seg[4] },
-            { x: seg[5], y: seg[6] }
+            { x: seg[5], y: seg[6] },
           )
             .map((p) => [p.x, p.y] as [number, number])
-            .slice(1) // skip first point, already part of output
+            .slice(1), // skip first point, already part of output
         );
         continue;
       case 'Q':
@@ -436,10 +440,10 @@ function pathToPoints(normalizedPath: NormalizedSvgPathCommand[]): [number, numb
           ...flattenQuadraticBezier(
             { x: startPoint[0], y: startPoint[1] },
             { x: seg[1], y: seg[2] },
-            { x: seg[3], y: seg[4] }
+            { x: seg[3], y: seg[4] },
           )
             .map((p) => [p.x, p.y] as [number, number])
-            .slice(1) // skip first point, already part of output
+            .slice(1), // skip first point, already part of output
         );
         continue;
     }
@@ -465,15 +469,15 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
   if (style.fill) {
     const rgbaMatch = RGBA_COLOR.exec(style.fill);
     if (rgbaMatch) {
-      style.fillOpacity = parseFloat(rgbaMatch[4]);
+      style.fillOpacity = Number.parseFloat(rgbaMatch[4]);
       style.fill = `rgb(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]})`;
     }
   }
   if (selectorElement.hasAttribute('fill-opacity')) {
-    style.fillOpacity = parseFloat(selectorElement.getAttribute('fill-opacity')!);
+    style.fillOpacity = Number.parseFloat(selectorElement.getAttribute('fill-opacity')!);
     selectorElement.removeAttribute('fill-opacity');
   } else if (selectorElement.style && selectorElement.style.fillOpacity) {
-    style.fillOpacity = parseFloat(selectorElement.style.fillOpacity);
+    style.fillOpacity = Number.parseFloat(selectorElement.style.fillOpacity);
   }
 
   if (selectorElement.hasAttribute('stroke')) {
@@ -485,15 +489,15 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
   if (style.stroke) {
     const rgbaMatch = RGBA_COLOR.exec(style.stroke);
     if (rgbaMatch) {
-      style.strokeOpacity = parseFloat(rgbaMatch[4]);
+      style.strokeOpacity = Number.parseFloat(rgbaMatch[4]);
       style.stroke = `rgb(${rgbaMatch[1]}, ${rgbaMatch[2]}, ${rgbaMatch[3]})`;
     }
   }
   if (selectorElement.hasAttribute('stroke-opacity')) {
-    style.strokeOpacity = parseFloat(selectorElement.getAttribute('stroke-opacity')!);
+    style.strokeOpacity = Number.parseFloat(selectorElement.getAttribute('stroke-opacity')!);
     selectorElement.removeAttribute('stroke-opacity');
   } else if (selectorElement.style && selectorElement.style.strokeOpacity) {
-    style.strokeOpacity = parseFloat(selectorElement.style.strokeOpacity);
+    style.strokeOpacity = Number.parseFloat(selectorElement.style.strokeOpacity);
   }
   if (selectorElement.hasAttribute('stroke-width')) {
     style.strokeWidth = selectorElement.getAttribute('stroke-width')!;
@@ -519,7 +523,10 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
 }
 
 export function isImageApiSelector(t: unknown): t is ImageApiSelector {
-  return !!t && (t as any).type === 'iiif:ImageApiSelector' && (t as any).type === 'iiif:ImageApiSelector';
+  if (!t) return false;
+  const type = (t as any).type || (t as any)['@type'];
+
+  return type === 'iiif:ImageApiSelector' || type === 'ImageApiSelector';
 }
 
 function resolveHints(supported: ParsedSelector): ParsedSelector {
@@ -551,7 +558,7 @@ function resolveHints(supported: ParsedSelector): ParsedSelector {
  * Parse rotation "90", "180", "!90"
  */
 export function parseRotation(input: string) {
-  let num = parseFloat(input);
+  let num = Number.parseFloat(input);
   if (num && input.startsWith('!')) {
     // @note we don't support mirroring..
     num = 360 - num;
