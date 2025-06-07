@@ -151,7 +151,7 @@ function getLanguagesFromLanguageMap(languageMap: InternationalString) {
 export function getAvailableLanguagesFromResource(item: Collection | Manifest | Canvas | Range) {
   const foundLanguages = new Set();
 
-  const findLanguages = Traverse.all((resource) => {
+  const findLanguages = Traverse.all((resource: any) => {
     // List of properties that can contain language.
     // - language
     // - summary
@@ -231,7 +231,7 @@ export function createStringHelper(options: { language?: string; defaultText?: s
         } else {
           // For InternationalString objects, get the value using the getValue function
           // which will handle localization based on the user's language
-          result += getValue(param, options);
+          result += getValue(param as any, options);
         }
       }
     }
