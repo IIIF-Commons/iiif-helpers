@@ -3,7 +3,7 @@ import { Vault } from '../src/vault';
 
 describe('Paged collections', () => {
 
-  test.only('Single page of collections', async () => {
+  test('Single page of collections', async () => {
     const collection = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
       id: 'https://example.org/collection',
