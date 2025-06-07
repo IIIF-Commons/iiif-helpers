@@ -495,9 +495,12 @@ export class Vault {
 
     const fullCollection = this.get(id);
     const combinedItems = [
-      ...(fullCollection.items || []),
-      ...(collectionPage.items || []),
-    ];
+        ...(fullCollection.items || []),
+        ...(collectionPage.items || []),
+      ].map(resource => ({
+        id: resource.id, type: resource.type
+      }));
+
     this.modifyEntityField({ id, type: "Collection" }, "items", combinedItems);
     const latestState = this.getPaginationState(resource);
     if (!latestState) throw new Error("Pagination state not found");
