@@ -207,3 +207,35 @@ export function getAvailableLanguagesFromResource(item: Collection | Manifest | 
 
   return Array.from(foundLanguages);
 }
+
+export const iiifString = createStringHelper();
+
+export function createStringHelper(options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}) {
+  return (template: TemplateStringsArray, ...params: Array<null | string[] | undefined | string | InternationalString>) => {
+    let result = '';
+
+    for (let i = 0; i < template.length; i++) {
+      // Add the template part
+      result += template[i];
+
+      // If there's a parameter for this position
+      if (i < params.length) {
+        const param = params[i];
+
+        if (param === null || param === undefined) {
+          // Skip null or undefined params
+          continue;
+        } else if (typeof param === 'string') {
+          // Add string params directly
+          result += param;
+        } else {
+          // For InternationalString objects, get the value using the getValue function
+          // which will handle localization based on the user's language
+          result += getValue(param, options);
+        }
+      }
+    }
+
+    return result;
+  }
+}

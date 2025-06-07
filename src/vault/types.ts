@@ -45,6 +45,27 @@ export type RequestState = {
   };
 };
 
+export type PaginationState = {
+  pages: Array<{
+    id: string;
+    type: "Collection";
+    order: number;
+    startIndex: number;
+    pageLength: number;
+  }>;
+  page: number;
+  totalItems?: number;
+  totalPages?: number;
+  currentLength: number;
+  next: string | null;
+  previous: string | null;
+  currentPage: string | null;
+  currentPageIndex: number | null;
+  isFullyLoaded: boolean;
+  isFetching: boolean;
+  error?: any;
+};
+
 export type NormalizedEntity =
   | CollectionNormalized
   | ManifestNormalized
