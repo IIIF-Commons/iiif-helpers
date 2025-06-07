@@ -68,6 +68,7 @@ describe('Paged collections', () => {
 
     expect(pagination).toMatchInlineSnapshot(`
       {
+        "currentLength": 0,
         "currentPage": null,
         "currentPageIndex": null,
         "isFetching": false,

@@ -423,6 +423,7 @@ export class Vault {
         pages: [],
         previous: null,
         totalItems: fullResource.total,
+        currentLength: 0,
       };
 
       this.setMetaValue([id, '@vault/pagination', 'state'], initialState)
