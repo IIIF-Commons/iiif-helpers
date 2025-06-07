@@ -54,8 +54,8 @@ export class Vault {
   private readonly emitter: Emitter<any>;
   private isBatching = false;
   private batchQueue: AllActions[] = [];
-  remoteFetcher: (str: string, options?: any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
+  remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
+  staticFetcher: (str: string, json: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
@@ -322,37 +322,37 @@ export class Vault {
     return fn;
   }
 
-  loadManifest(id: string | Reference<any>, json?: unknown): Promise<ManifestNormalized | undefined> {
+  loadManifest(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<ManifestNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<ManifestNormalized>(_id, json);
+    return this.load<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollection(id: string | Reference<any>, json?: unknown): Promise<CollectionNormalized | undefined> {
+  loadCollection(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<CollectionNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<CollectionNormalized>(_id, json);
+    return this.load<CollectionNormalized>(_id, json, mapper);
   }
 
-  load<T>(id: string | Reference<any>, json?: unknown): Promise<T | undefined> {
+  load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     if (json) {
-      return Promise.resolve(this.staticFetcher(_id, json)) as Promise<T | undefined>;
+      return Promise.resolve(this.staticFetcher(_id, json, mapper)) as Promise<T | undefined>;
     }
-    return Promise.resolve(this.remoteFetcher(_id)) as Promise<T | undefined>;
+    return Promise.resolve(this.remoteFetcher(_id, {}, mapper)) as Promise<T | undefined>;
   }
 
-  loadSync<T>(id: string | Reference<any>, json: unknown): T | undefined {
+  loadSync<T>(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): T | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.staticFetcher(_id, json) as T | undefined;
+    return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
-  loadManifestSync(id: string | Reference<any>, json: unknown): ManifestNormalized | undefined {
+  loadManifestSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): ManifestNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<ManifestNormalized>(_id, json);
+    return this.loadSync<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollectionSync(id: string | Reference<any>, json: unknown): CollectionNormalized | undefined {
+  loadCollectionSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): CollectionNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<CollectionNormalized>(_id, json);
+    return this.loadSync<CollectionNormalized>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -436,7 +436,7 @@ export class Vault {
     return null;
   }
 
-  async loadNextPage<T = any>(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
+  async loadNextPage(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
     const id = typeof resource === 'string' ? resource : resource.id;
     if (!id) return [null, null];
 
@@ -450,7 +450,7 @@ export class Vault {
       return [state, null];
     }
 
-    const nextPage = state.next;
+    const nextPage = typeof state.next === 'string' ? state.next : (state.next as any).id;
     const previousPage = state.currentPage;
 
     // 1. Update the meta state.
@@ -463,7 +463,16 @@ export class Vault {
     // 2. Make the fetch request.
     let collectionPage;
     try {
-      collectionPage = await this.loadCollection(nextPage, json)
+      collectionPage = await this.loadCollection(nextPage, json, mapped => {
+        // This is required because the page MIGHT have the same id.
+        const { id, ['@id']: _id, ...properties } = mapped || {};
+
+        if (_id) {
+          return { ['@id']: nextPage, ...properties };
+        }
+
+        return { id: nextPage, ...properties };
+      })
     } catch (err) {
       const errState: PaginationState = {
         ...state,

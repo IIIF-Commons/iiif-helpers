@@ -15,7 +15,7 @@ describe('Paged collections', () => {
 
     const collectionPage1 = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
-      id: 'https://example.org/collection?page=1',
+      id: 'https://example.org/collection',
       type: 'Collection',
       label: { en: ['Example Collection Page 1'] },
       next: {id: 'https://example.org/collection?page=2', type: 'Collection'},
@@ -39,7 +39,7 @@ describe('Paged collections', () => {
 
     const collectionPage2 = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
-      id: 'https://example.org/collection?page=2',
+      id: 'https://example.org/collection',
       type: 'Collection',
       label: { en: ['Example Collection Page 2'] },
       prev: { id: 'https://example.org/collection?page=1', type: 'Collection' },
