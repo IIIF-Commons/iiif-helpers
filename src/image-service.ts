@@ -15,3 +15,4 @@ export * from './image-service/infer-size-from-url';
 export * from './image-service/image-sizes-match';
 export * from './image-service/get-smallest-scale-factor-as-single-image';
 export * from './image-service/types';
+export * from './image-service/image-service-try';
