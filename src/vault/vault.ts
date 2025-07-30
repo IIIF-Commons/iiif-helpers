@@ -6,6 +6,7 @@ import {
   Entities,
   IIIFStore,
   NormalizedEntity,
+  PaginationState,
   RefToNormalized,
   RequestState,
 } from './types';
@@ -53,8 +54,8 @@ export class Vault {
   private readonly emitter: Emitter<any>;
   private isBatching = false;
   private batchQueue: AllActions[] = [];
-  remoteFetcher: (str: string, options?: any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
+  remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
+  staticFetcher: (str: string, json: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
@@ -321,37 +322,37 @@ export class Vault {
     return fn;
   }
 
-  loadManifest(id: string | Reference<any>, json?: unknown): Promise<ManifestNormalized | undefined> {
+  loadManifest(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<ManifestNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<ManifestNormalized>(_id, json);
+    return this.load<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollection(id: string | Reference<any>, json?: unknown): Promise<CollectionNormalized | undefined> {
+  loadCollection(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<CollectionNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<CollectionNormalized>(_id, json);
+    return this.load<CollectionNormalized>(_id, json, mapper);
   }
 
-  load<T>(id: string | Reference<any>, json?: unknown): Promise<T | undefined> {
+  load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     if (json) {
-      return Promise.resolve(this.staticFetcher(_id, json)) as Promise<T | undefined>;
+      return Promise.resolve(this.staticFetcher(_id, json, mapper)) as Promise<T | undefined>;
     }
-    return Promise.resolve(this.remoteFetcher(_id)) as Promise<T | undefined>;
+    return Promise.resolve(this.remoteFetcher(_id, {}, mapper)) as Promise<T | undefined>;
   }
 
-  loadSync<T>(id: string | Reference<any>, json: unknown): T | undefined {
+  loadSync<T>(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): T | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.staticFetcher(_id, json) as T | undefined;
+    return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
-  loadManifestSync(id: string | Reference<any>, json: unknown): ManifestNormalized | undefined {
+  loadManifestSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): ManifestNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<ManifestNormalized>(_id, json);
+    return this.loadSync<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollectionSync(id: string | Reference<any>, json: unknown): CollectionNormalized | undefined {
+  loadCollectionSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): CollectionNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<CollectionNormalized>(_id, json);
+    return this.loadSync<CollectionNormalized>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -396,6 +397,141 @@ export class Vault {
       return state.iiif.requests[id];
     });
   }
+
+
+  // Pagination built on "meta".
+  getPaginationState<T = any>(resource: string | Reference): PaginationState | null {
+    // This will return the pagination state of a resource from it's meta.
+    // If there is no pagination state, it will create it if needed.
+    const id = typeof resource === 'string' ? resource : resource.id;
+    if (!id) return null;
+
+    const existing = this.getResourceMeta(id, '@vault/pagination');
+    if (existing?.state) {
+      return existing.state;
+    }
+
+    const fullResource = this.get(resource);
+    if (fullResource.first) {
+      const initialState: PaginationState = {
+        currentPage: null,
+        currentPageIndex: null,
+        isFetching: false,
+        isFullyLoaded: false,
+        next: fullResource.first,
+        page: 1,
+        pages: [],
+        previous: null,
+        totalItems: fullResource.total,
+        currentLength: 0,
+      };
+
+      this.setMetaValue([id, '@vault/pagination', 'state'], initialState)
+
+      return initialState;
+    }
+
+    // @todo generate from resource.
+
+    return null;
+  }
+
+  async loadNextPage(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
+    const id = typeof resource === 'string' ? resource : resource.id;
+    if (!id) return [null, null];
+
+    // This will get the pagination state and fetch the next page and load it into the vault.
+    const state = this.getPaginationState(resource);
+    if (!state || state.isFullyLoaded || !state.next) {
+      return [null, null];
+    }
+
+    if (state.isFetching) {
+      return [state, null];
+    }
+
+    const nextPage = typeof state.next === 'string' ? state.next : (state.next as any).id;
+    const previousPage = state.currentPage;
+
+    // 1. Update the meta state.
+    const newState: PaginationState = {
+      ...state,
+      isFetching: true,
+    };
+    this.setMetaValue([id, '@vault/pagination', 'state'], newState);
+
+    // 2. Make the fetch request.
+    let collectionPage;
+    try {
+      collectionPage = await this.loadCollection(nextPage, json, mapped => {
+        // This is required because the page MIGHT have the same id.
+        const { id, ['@id']: _id, ...properties } = mapped || {};
+
+        if (_id) {
+          return { ['@id']: nextPage, ...properties };
+        }
+
+        return { id: nextPage, ...properties };
+      })
+    } catch (err) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        error: err,
+      };
+      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      return [errState, null];
+    }
+
+    if (!collectionPage) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        error: new Error("Collection not found"),
+      };
+      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      return [errState, null];
+    }
+
+    const fullCollection = this.get(id);
+    const combinedItems = [
+        ...(fullCollection.items || []),
+        ...(collectionPage.items || []),
+      ].map(resource => ({
+        id: resource.id, type: resource.type
+      }));
+
+    this.modifyEntityField({ id, type: "Collection" }, "items", combinedItems);
+    const latestState = this.getPaginationState(resource);
+    if (!latestState) throw new Error("Pagination state not found");
+    const successState: PaginationState = {
+      ...latestState,
+      isFetching: false,
+      error: null,
+      currentPage: collectionPage.id,
+      next: (collectionPage as any).next?.id || null,
+      currentPageIndex: latestState.pages.length,
+      currentLength: combinedItems.length,
+      pages: [
+        ...latestState.pages,
+        {
+          id: collectionPage.id,
+          type: "Collection",
+          startIndex: fullCollection.items.length,
+          pageLength: collectionPage.items.length,
+          order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
+        }
+      ],
+      isFullyLoaded: !(collectionPage as any).next,
+      previous: previousPage,
+      page: latestState.pages.length + 1,
+    };
+
+    this.setMetaValue([id, '@vault/pagination', 'state'], successState);
+
+    return [successState, collectionPage];
+  }
+
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
   getResourceMeta<T = any, Key extends keyof T = keyof T>(resource: string, metaKey: Key): T[Key] | undefined;

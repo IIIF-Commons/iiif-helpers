@@ -151,7 +151,7 @@ function getLanguagesFromLanguageMap(languageMap: InternationalString) {
 export function getAvailableLanguagesFromResource(item: Collection | Manifest | Canvas | Range) {
   const foundLanguages = new Set();
 
-  const findLanguages = Traverse.all((resource) => {
+  const findLanguages = Traverse.all((resource: any) => {
     // List of properties that can contain language.
     // - language
     // - summary
@@ -206,4 +206,36 @@ export function getAvailableLanguagesFromResource(item: Collection | Manifest | 
   findLanguages.traverseUnknown(item);
 
   return Array.from(foundLanguages);
+}
+
+export const iiifString = createStringHelper();
+
+export function createStringHelper(options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}) {
+  return (template: TemplateStringsArray, ...params: Array<null | string[] | undefined | string | InternationalString>) => {
+    let result = '';
+
+    for (let i = 0; i < template.length; i++) {
+      // Add the template part
+      result += template[i];
+
+      // If there's a parameter for this position
+      if (i < params.length) {
+        const param = params[i];
+
+        if (param === null || param === undefined) {
+          // Skip null or undefined params
+          continue;
+        } else if (typeof param === 'string') {
+          // Add string params directly
+          result += param;
+        } else {
+          // For InternationalString objects, get the value using the getValue function
+          // which will handle localization based on the user's language
+          result += getValue(param as any, options);
+        }
+      }
+    }
+
+    return result;
+  }
 }

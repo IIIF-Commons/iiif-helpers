@@ -17,7 +17,7 @@ export function createFetchHelper<T>(
   fetcher: (url: string, options?: T) => any | Promise<any>,
   { waitTimeout = 30 }: { waitTimeout?: number } = {}
 ) {
-  return (url: string, options?: T): NormalizedEntity | undefined | Promise<NormalizedEntity | undefined> => {
+  return (url: string, options?: T, mapper?: (r: any) => any): NormalizedEntity | undefined | Promise<NormalizedEntity | undefined> => {
     const store = vault.getStore();
     const state = store.getState();
 
@@ -119,7 +119,11 @@ export function createFetchHelper<T>(
       if (isPromise(resourceOrPromise)) {
         return (async () => {
           try {
-            return importResource(await resourceOrPromise);
+            let data = await resourceOrPromise;
+            if (mapper) {
+              data = mapper(data);
+            }
+            return importResource(data);
           } catch (err) {
             vault.dispatch(requestError({ id: url, message: (err as any).toString() }));
             // Rethrow.
@@ -129,7 +133,7 @@ export function createFetchHelper<T>(
       }
 
       // Assume it is a resource.
-      return importResource(resourceOrPromise);
+      return importResource(mapper ? mapper(resourceOrPromise) : resourceOrPromise);
     } catch (err) {
       vault.dispatch(requestError({ id: url, message: (err as any).toString() }));
       // Rethrow.
