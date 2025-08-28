@@ -1,6 +1,6 @@
-import { defineConfig, type Options } from 'tsdown';
+import { defineConfig } from 'tsdown';
 
-export default defineConfig((options: Options) => ({
+export default defineConfig({
   dts: true,
   target: ['es2020'],
   format: ['esm', 'cjs'],
@@ -32,5 +32,4 @@ export default defineConfig((options: Options) => ({
   external: [],
   // @todo re-enable.
   // globalName: 'IIIFHelpers',
-  ...options,
-}));
+});
