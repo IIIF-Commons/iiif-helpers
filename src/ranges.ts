@@ -190,6 +190,7 @@ export function rangeToTableOfContentsTree(
     untitled: !range.label,
     isCanvasLeaf: false,
     isRangeLeaf: false,
+    isVirtual: range.id.startsWith('vault://virtual-root/'),
     items: [],
   };
 
