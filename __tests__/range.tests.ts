@@ -138,6 +138,7 @@ describe('range helper', () => {
           "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r0",
           "isCanvasLeaf": false,
           "isRangeLeaf": false,
+          "isVirtual": false,
           "items": [
             {
               "firstCanvas": {
@@ -151,6 +152,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r1",
               "isCanvasLeaf": false,
               "isRangeLeaf": true,
+              "isVirtual": false,
               "items": [
                 {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p1",
@@ -213,6 +215,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2",
               "isCanvasLeaf": false,
               "isRangeLeaf": false,
+              "isVirtual": false,
               "items": [
                 {
                   "firstCanvas": {
@@ -226,6 +229,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/1",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p3",
@@ -288,6 +292,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p5",
@@ -392,6 +397,7 @@ describe('range helper', () => {
           "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/1",
           "isCanvasLeaf": false,
           "isRangeLeaf": false,
+          "isVirtual": false,
           "items": [
             {
               "firstCanvas": {
@@ -408,6 +414,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/2",
               "isCanvasLeaf": false,
               "isRangeLeaf": false,
+              "isVirtual": false,
               "items": [
                 {
                   "firstCanvas": {
@@ -424,6 +431,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/3",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=0,302.05",
@@ -472,6 +480,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/4",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=302.05,3971.24",
@@ -529,6 +538,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/5",
               "isCanvasLeaf": false,
               "isRangeLeaf": true,
+              "isVirtual": false,
               "items": [
                 {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=3971.24",
