@@ -14,6 +14,7 @@ import {
   rangeToTableOfContentsTree,
   Vault,
 } from '../src';
+import { emptyManifest } from '@iiif/parser';
 
 // Test utility.
 // Render range in ascii with children + indentation.
@@ -55,7 +56,29 @@ function rangeMaker(fn: (r: RangeMakerHelper) => Range) {
       } as RangeItems;
     },
   };
-  return [fn(ctx as any), { canvasIds, canvases: canvasIds.map((c) => ({ id: c, type: 'Canvas' as const })) }] as const;
+  const response = fn(ctx as any);
+  return [
+    response,
+    {
+      canvasIds,
+      getManifest() {
+        return {
+          ...emptyManifest,
+          id: 'https://example.org/manifest',
+          label: { en: 'Manifest' },
+          items: canvasIds.map((c, idx) => ({
+            id: c,
+            type: 'Canvas' as const,
+            width: 1000,
+            height: 1000,
+            label: { en: [`Canvas ${idx}`] },
+          })),
+          structures: [response],
+        };
+      },
+      canvases: canvasIds.map((c) => ({ id: c, type: 'Canvas' as const })),
+    },
+  ] as const;
 }
 
 function renderRange(range: RangeTableOfContentsNode | null, skipCanvases = false, indent = 0) {
@@ -609,6 +632,28 @@ describe('range helper', () => {
           └── Talk about herself (01:53)
         "
       `);
+    });
+
+    test('very basic range', () => {
+      const vault = new Vault();
+
+      const [range, { getManifest }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      const manifest = getManifest();
+      vault.loadSync(manifest.id, manifest);
+
+      const toc = rangeToTableOfContentsTree(vault, range);
+
+      expect(toc?.items?.length).toEqual(6);
     });
   });
 

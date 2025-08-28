@@ -226,6 +226,8 @@ export function rangeToTableOfContentsTree(
       }
 
       seenIds.push(foundCanvas.id);
+
+      toc.items!.push(foundCanvas);
       continue;
     }
     if (inner.type === 'SpecificResource' && inner.source?.type === 'Canvas') {
@@ -272,6 +274,8 @@ export function rangeToTableOfContentsTree(
       }
 
       seenIds.push(foundCanvas.id);
+
+      toc.items!.push(foundCanvas);
       continue;
     }
     if ((inner as any).type === 'Range') {
