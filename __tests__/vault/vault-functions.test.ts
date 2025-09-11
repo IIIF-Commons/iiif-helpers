@@ -1,12 +1,13 @@
-import { Vault } from '../../src/vault';
-import { AnnotationNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
-import { describe, test, expect } from 'vitest';
-import { updateReference, addReference } from '../../src/vault/actions';
+import { toRef } from '@iiif/parser';
+import type { StructuralProperties } from '@iiif/presentation-3';
+import type { AnnotationNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
+import invariant from 'tiny-invariant';
+import { describe, expect, test } from 'vitest';
 import exhibit from '../../fixtures/presentation-3/exhibit-2.json';
 import hasPart from '../../fixtures/presentation-3/has-part.json';
-
-import { StructuralProperties } from '@iiif/presentation-3';
-import invariant from 'tiny-invariant';
+import { Vault } from '../../src/vault';
+import { addReference, moveEntities, moveEntity, updateReference } from '../../src/vault/actions';
+import { rangeMaker } from '../helpers';
 
 describe('Vault functions', () => {
   test('Loading without an ID', async () => {
@@ -201,5 +202,426 @@ describe('Vault functions', () => {
       },
       { id: canvas.id, type: 'Canvas' },
     ]);
+  });
+
+  test('reordering multiple range items', async () => {
+    // todo.
+  });
+
+  test('re-parent range items', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+        ]),
+        c.range('https://example.org/range2', [
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntity({
+        subject: {
+          id: 'https://example.org/canvas1',
+          type: 'Canvas',
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range2',
+          type: 'Range',
+          key: 'items',
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+          "https://example.org/canvas4",
+        ]
+      `);
+
+    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas5",
+          "https://example.org/canvas6",
+          "https://example.org/canvas1",
+        ]
+      `);
+  });
+
+  test('re-parent range items at index', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+        ]),
+        c.range('https://example.org/range2', [
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntity({
+        subject: {
+          id: 'https://example.org/canvas1',
+          type: 'Canvas',
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range2',
+          type: 'Range',
+          key: 'items',
+          index: 0,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+          "https://example.org/canvas4",
+        ]
+      `);
+
+    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas1",
+          "https://example.org/canvas5",
+          "https://example.org/canvas6",
+        ]
+      `);
+  });
+
+  test('re-parent range items at index (middle)', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+        ]),
+        c.range('https://example.org/range2', [
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntity({
+        subject: {
+          id: 'https://example.org/canvas1',
+          type: 'Canvas',
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range2',
+          type: 'Range',
+          key: 'items',
+          index: 1,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+          "https://example.org/canvas4",
+        ]
+      `);
+
+    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas5",
+          "https://example.org/canvas1",
+          "https://example.org/canvas6",
+        ]
+      `);
+  });
+
+  test('re-parent range items at index (same target)', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+        ]),
+        c.range('https://example.org/range2', [
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntity({
+        subject: {
+          id: 'https://example.org/canvas1',
+          type: 'Canvas',
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+          index: 1,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas2",
+          "https://example.org/canvas1",
+          "https://example.org/canvas3",
+          "https://example.org/canvas4",
+        ]
+      `);
+  });
+
+  test('move multiple items into a new range (type=list)', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+        c.range('https://example.org/range2', []),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntities({
+        subjects: {
+          type: 'list',
+          items: [
+            {
+              id: 'https://example.org/canvas4',
+              type: 'Canvas',
+            },
+            {
+              id: 'https://example.org/canvas5',
+              type: 'Canvas',
+            },
+            {
+              id: 'https://example.org/canvas6',
+              type: 'Canvas',
+            },
+          ],
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range2',
+          type: 'Range',
+          key: 'items',
+          index: 0,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas1",
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+        ]
+      `);
+
+    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas4",
+          "https://example.org/canvas5",
+          "https://example.org/canvas6",
+        ]
+      `);
+  });
+
+  test('move multiple items into a new range (type=slice)', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+        c.range('https://example.org/range2', []),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntities({
+        subjects: {
+          type: 'slice',
+          startIndex: 3, // inclusive.
+          length: 3,
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range2',
+          type: 'Range',
+          key: 'items',
+          index: 0,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas1",
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+        ]
+      `);
+
+    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas4",
+          "https://example.org/canvas5",
+          "https://example.org/canvas6",
+        ]
+      `);
+  });
+
+  test('move multiple items into a new range (type=slice) same range', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ]),
+        c.range('https://example.org/range2', []),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntities({
+        subjects: {
+          type: 'slice',
+          startIndex: 3, // inclusive.
+          length: 3,
+        },
+        from: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/range1',
+          type: 'Range',
+          key: 'items',
+          index: 1,
+        },
+      })
+    );
+
+    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
+        [
+          "https://example.org/canvas1",
+          "https://example.org/canvas4",
+          "https://example.org/canvas5",
+          "https://example.org/canvas6",
+          "https://example.org/canvas2",
+          "https://example.org/canvas3",
+        ]
+      `);
   });
 });

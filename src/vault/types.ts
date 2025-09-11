@@ -1,4 +1,4 @@
-import {
+import type {
   Annotation,
   AnnotationCollection,
   AnnotationPage,
@@ -10,12 +10,7 @@ import {
   Selector,
   Service,
 } from '@iiif/presentation-3';
-import { MappingActions } from './actions/mapping-actions';
-import { EntityActions } from './actions/entity-actions';
-import { MetaActions } from './actions/meta-actions';
-import { RequestActions } from './actions/request-actions';
-
-import {
+import type {
   AnnotationNormalized,
   AnnotationPageNormalized,
   CanvasNormalized,
@@ -25,7 +20,11 @@ import {
   ResourceProviderNormalized,
   ServiceNormalized,
 } from '@iiif/presentation-3-normalized';
-import { PayloadAction } from 'typesafe-actions';
+import type { PayloadAction } from 'typesafe-actions';
+import type { EntityActions } from './actions/entity-actions';
+import type { MappingActions } from './actions/mapping-actions';
+import type { MetaActions } from './actions/meta-actions';
+import type { RequestActions } from './actions/request-actions';
 
 declare global {
   // Work around for something else.
@@ -48,7 +47,7 @@ export type RequestState = {
 export type PaginationState = {
   pages: Array<{
     id: string;
-    type: "Collection";
+    type: 'Collection';
     order: number;
     startIndex: number;
     pageLength: number;
@@ -82,46 +81,46 @@ export type NormalizedEntity =
 export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalized
   : Ref['type'] extends 'Canvas'
-  ? CanvasNormalized
-  : Ref['type'] extends 'AnnotationPage'
-  ? AnnotationPageNormalized
-  : Ref['type'] extends 'AnnotationCollection'
-  ? AnnotationCollection
-  : Ref['type'] extends 'Annotation'
-  ? AnnotationNormalized
-  : Ref['type'] extends 'Range'
-  ? RangeNormalized
-  : Ref['type'] extends 'Service'
-  ? ServiceNormalized
-  : Ref['type'] extends 'ContentResource'
-  ? ContentResource
-  : Ref['type'] extends 'ResourceProvider'
-  ? ResourceProviderNormalized
-  : Ref['type'] extends 'Collection'
-  ? CollectionNormalized
-  : any;
+    ? CanvasNormalized
+    : Ref['type'] extends 'AnnotationPage'
+      ? AnnotationPageNormalized
+      : Ref['type'] extends 'AnnotationCollection'
+        ? AnnotationCollection
+        : Ref['type'] extends 'Annotation'
+          ? AnnotationNormalized
+          : Ref['type'] extends 'Range'
+            ? RangeNormalized
+            : Ref['type'] extends 'Service'
+              ? ServiceNormalized
+              : Ref['type'] extends 'ContentResource'
+                ? ContentResource
+                : Ref['type'] extends 'ResourceProvider'
+                  ? ResourceProviderNormalized
+                  : Ref['type'] extends 'Collection'
+                    ? CollectionNormalized
+                    : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
   : Ref['type'] extends 'Canvas'
-  ? Canvas
-  : Ref['type'] extends 'AnnotationPage'
-  ? AnnotationPage
-  : Ref['type'] extends 'AnnotationCollection'
-  ? AnnotationCollection
-  : Ref['type'] extends 'Annotation'
-  ? Annotation
-  : Ref['type'] extends 'Range'
-  ? Range
-  : Ref['type'] extends 'Service'
-  ? Service
-  : Ref['type'] extends 'ContentResource'
-  ? ContentResource
-  : Ref['type'] extends 'ResourceProvider'
-  ? ResourceProvider
-  : Ref['type'] extends 'Collection'
-  ? Collection
-  : any;
+    ? Canvas
+    : Ref['type'] extends 'AnnotationPage'
+      ? AnnotationPage
+      : Ref['type'] extends 'AnnotationCollection'
+        ? AnnotationCollection
+        : Ref['type'] extends 'Annotation'
+          ? Annotation
+          : Ref['type'] extends 'Range'
+            ? Range
+            : Ref['type'] extends 'Service'
+              ? Service
+              : Ref['type'] extends 'ContentResource'
+                ? ContentResource
+                : Ref['type'] extends 'ResourceProvider'
+                  ? ResourceProvider
+                  : Ref['type'] extends 'Collection'
+                    ? Collection
+                    : any;
 
 export type Entities = {
   Collection: {
@@ -179,3 +178,8 @@ export type ActionFromType<Type, Actions extends PayloadAction<any, any> = AllAc
 }
   ? Actions
   : never;
+
+// Ranges.
+type ReparentDropEvent = {
+  target: { type: 'root' } | { type: 'item'; key: any; dropPosition: 'on' | 'before' | 'after' };
+};

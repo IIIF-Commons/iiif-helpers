@@ -1,11 +1,15 @@
-import { Entities } from '../../types';
-import { getDefaultEntities } from '../../utility';
+import { toRef } from '@iiif/parser';
+import type { ActionType } from 'typesafe-actions';
 import {
   ADD_METADATA,
   ADD_REFERENCE,
-  EntityActions,
+  type EntityActions,
   IMPORT_ENTITIES,
   MODIFY_ENTITY_FIELD,
+  MOVE_ENTITIES,
+  MOVE_ENTITY,
+  type moveEnties,
+  moveEntity,
   REMOVE_METADATA,
   REMOVE_REFERENCE,
   REORDER_ENTITY_FIELD,
@@ -13,18 +17,50 @@ import {
   UPDATE_METADATA,
   UPDATE_REFERENCE,
 } from '../../actions';
+import type { Entities } from '../../types';
+import { getDefaultEntities } from '../../utility';
 import { isReferenceList } from '../../utility/is-reference-list';
 import { quickMerge } from '../../utility/quick-merge';
 
 function payload<T extends { payload: any }>(action: T): T['payload'] {
-  return action.payload;
+  return action.payload || {};
+}
+
+function findEntity(entity: any, property: string, resource: { id: string; type: keyof Entities; index?: number }) {
+  if (!entity[property] || !Array.isArray(entity[property])) {
+    return null;
+  }
+
+  const index =
+    typeof resource.index === 'undefined'
+      ? entity[property].findIndex((item: any) => {
+          if (!item) return false;
+          return toRef(item)?.id === resource.id;
+        })
+      : resource.index;
+
+  if (index === -1) {
+    return null;
+  }
+
+  return {
+    entity: entity[property][index],
+    index,
+  };
+}
+
+function getEntity(state: Entities, entity: { id: string; type: keyof Entities } | undefined | null) {
+  if (!entity?.id || !entity?.type) {
+    return;
+  }
+  return state[entity.type]?.[entity.id];
 }
 
 function numberOr(a: number | undefined, b: number): number {
   return typeof a === 'undefined' ? b : a;
 }
 
-export const entitiesReducer = (state: Entities = getDefaultEntities(), action: EntityActions) => {
+export const entitiesReducer = (state: Entities = getDefaultEntities(), action: EntityActions): Entities => {
   const updateField = (entity: any, values: any) => {
     return {
       ...state,
@@ -50,14 +86,16 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
         return state;
       }
 
-      return updateField(entity, { [payload(action).key]: payload(action).value });
+      return updateField(entity, {
+        [payload(action).key]: payload(action).value,
+      });
     }
     case REORDER_ENTITY_FIELD: {
       if (!isReferenceList(state, payload(action).id, payload(action).type, payload(action).key)) {
         return state;
       }
 
-      const entity: any = state[payload(action).type][payload(action).id];
+      const entity = state[payload(action).type][payload(action).id];
       if (typeof entity === 'string') {
         return state;
       }
@@ -67,6 +105,88 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       result.splice(payload(action).endIndex, 0, removed);
 
       return updateField(entity, { [payload(action).key]: result });
+    }
+    case MOVE_ENTITIES: {
+      const subjects = payload(action).subjects;
+      const from = payload(action).from;
+      const to = payload(action).to || from;
+      const fromEntity = getEntity(state, from);
+      const toKey = to?.key || from.key;
+
+      if (!isReferenceList(state, from.id, from.type, from.key) || !isReferenceList(state, to.id, to.type, to.key)) {
+        return state;
+      }
+
+      let newFromItems: any[] = [];
+      let itemsToMove: any[] = [];
+
+      if (subjects.type === 'slice') {
+        // Is there a fast path here.
+        const startIndex = subjects.startIndex;
+        const length = subjects.length;
+
+        newFromItems = Array.from(fromEntity[from.key]);
+        itemsToMove = newFromItems.splice(startIndex, length);
+      } else {
+        const newFromItemsWithNulls = Array.from(fromEntity[from.key]);
+        for (const subject of subjects.items) {
+          const foundFrom = findEntity(fromEntity, from.key, subject);
+          if (foundFrom) {
+            itemsToMove.push(foundFrom.entity);
+            newFromItemsWithNulls[foundFrom.index] = null;
+          }
+          newFromItems = newFromItemsWithNulls.filter((item) => item !== null);
+        }
+      }
+
+      const fromEntityWithoutFoundItems = {
+        ...fromEntity,
+        [from.key]: newFromItems,
+      };
+
+      const stateWithUpdatedFrom = {
+        ...state,
+        [from.type]: {
+          ...state[from.type],
+          [from.id]: fromEntityWithoutFoundItems,
+        },
+      };
+
+      const toEntity = getEntity(stateWithUpdatedFrom, to);
+
+      if (!toEntity) {
+        return state; // Hoepfully not!
+      }
+
+      const toIndex = typeof to?.index === 'undefined' ? toEntity[toKey].length : to.index;
+
+      const newToItems = Array.from(toEntity[to.key]);
+      newToItems.splice(toIndex, 0, ...itemsToMove);
+      const toEntityWithItem = {
+        ...toEntity,
+        [toKey]: newToItems,
+      };
+
+      const withUpdatedTo = {
+        ...stateWithUpdatedFrom,
+        [to.type]: {
+          ...stateWithUpdatedFrom[to.type],
+          [to.id]: toEntityWithItem,
+        },
+      };
+
+      return withUpdatedTo;
+    }
+
+    case MOVE_ENTITY: {
+      return entitiesReducer(state, {
+        type: MOVE_ENTITIES,
+        payload: {
+          subjects: { type: 'list', items: [payload(action).subject] },
+          from: payload(action).from,
+          to: payload(action).to,
+        },
+      });
     }
     case IMPORT_ENTITIES: {
       const keys = Object.keys(payload(action).entities) as Array<keyof Entities>;
@@ -158,7 +278,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
     }
     case UPDATE_METADATA:
     case REMOVE_METADATA: {
-      const entity: any = state[payload(action).type][payload(action).id];
+      const entity = state[payload(action).type][payload(action).id];
       const metadata = Array.from(entity.metadata || []);
       const indexToRemove = payload(action).atIndex;
 
@@ -168,7 +288,10 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       }
 
       if (action.type === UPDATE_METADATA) {
-        metadata.splice(indexToRemove, 1, { label: payload(action).label, value: payload(action).value });
+        metadata.splice(indexToRemove, 1, {
+          label: payload(action).label,
+          value: payload(action).value,
+        });
       } else {
         metadata.splice(indexToRemove, 1);
       }
