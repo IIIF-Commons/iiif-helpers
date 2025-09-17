@@ -1,52 +1,19 @@
+import type { Range, RangeItems } from '@iiif/presentation-3';
+import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import invariant from 'tiny-invariant';
 import tableOfContentManifests from '../fixtures/cookbook/toc.json';
-import {
-  Vault,
-  getValue,
-  rangeToTableOfContentsTree,
-  rangesToTableOfContentsTree,
-  RangeTableOfContentsNode,
-} from '../src';
-import { ManifestNormalized } from '@iiif/presentation-3-normalized';
 import tableOfContentsAvManifest from '../fixtures/cookbook/toc-av.json';
+import bodleian from '../fixtures/presentation-2/bodleian.json';
 import wellcomeRange from '../fixtures/presentation-2/wellcome-range.json';
 import blManifest from '../fixtures/presentation-3/bl-av-manifest.json';
-import bodleian from '../fixtures/presentation-2/bodleian.json';
-import invariant from 'tiny-invariant';
-
-// Test utility.
-// Render range in ascii with children + indentation.
-const treeChars = {
-  vertical: '│',
-  horizontal: '─',
-  corner: '└',
-  tee: '├',
-  space: ' ',
-};
-
-function renderRange(range: RangeTableOfContentsNode | null, skipCanvases = false, indent = 0) {
-  if (!range) {
-    return '';
-  }
-  const spaces = treeChars.space.repeat(indent);
-  let str = `${getValue(range.label)}\n`;
-  const itemsCount = range.items ? range.items.length : 0;
-  range.items?.forEach((item, index) => {
-    const isLastItem = index === itemsCount - 1;
-    if (item.isCanvasLeaf && skipCanvases) return;
-    if (typeof item === 'string') {
-      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${item}\n`;
-    } else {
-      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${renderRange(item, skipCanvases, indent + 2)}`;
-    }
-  });
-  return str;
-}
+import { isRangeContiguous, rangesToTableOfContentsTree, rangeToTableOfContentsTree, Vault } from '../src';
+import { copy, rangeMaker, renderRange } from './helpers';
 
 describe('range helper', () => {
   describe('rangeToTableOfContentsTree', () => {
     test('it can make a table of contents tree', () => {
       const vault = new Vault();
-      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, tableOfContentManifests);
+      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
       invariant(manifest);
 
@@ -80,6 +47,7 @@ describe('range helper', () => {
           "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r0",
           "isCanvasLeaf": false,
           "isRangeLeaf": false,
+          "isVirtual": false,
           "items": [
             {
               "firstCanvas": {
@@ -93,6 +61,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r1",
               "isCanvasLeaf": false,
               "isRangeLeaf": true,
+              "isVirtual": false,
               "items": [
                 {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p1",
@@ -155,6 +124,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2",
               "isCanvasLeaf": false,
               "isRangeLeaf": false,
+              "isVirtual": false,
               "items": [
                 {
                   "firstCanvas": {
@@ -168,6 +138,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/1",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p3",
@@ -230,6 +201,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p5",
@@ -334,6 +306,7 @@ describe('range helper', () => {
           "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/1",
           "isCanvasLeaf": false,
           "isRangeLeaf": false,
+          "isVirtual": false,
           "items": [
             {
               "firstCanvas": {
@@ -350,6 +323,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/2",
               "isCanvasLeaf": false,
               "isRangeLeaf": false,
+              "isVirtual": false,
               "items": [
                 {
                   "firstCanvas": {
@@ -366,6 +340,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/3",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=0,302.05",
@@ -414,6 +389,7 @@ describe('range helper', () => {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/4",
                   "isCanvasLeaf": false,
                   "isRangeLeaf": true,
+                  "isVirtual": false,
                   "items": [
                     {
                       "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=302.05,3971.24",
@@ -471,6 +447,7 @@ describe('range helper', () => {
               "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/5",
               "isCanvasLeaf": false,
               "isRangeLeaf": true,
+              "isVirtual": false,
               "items": [
                 {
                   "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/canvas/1#t=3971.24",
@@ -573,6 +550,420 @@ describe('range helper', () => {
           ├── Dumble dum dollicky (04:23)
           └── Talk about herself (01:53)
         "
+      `);
+    });
+
+    test('very basic range', () => {
+      const vault = new Vault();
+
+      const [range, { getManifest }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      const manifest = getManifest();
+      vault.loadSync(manifest.id, manifest);
+
+      const toc = rangeToTableOfContentsTree(vault, range);
+
+      expect(toc?.items?.length).toEqual(6);
+    });
+  });
+
+  describe('isRangeContiguous', () => {
+    test('simple contiguous range', () => {
+      const vault = new Vault();
+      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
+
+      const firstRange = manifest?.structures[0]!;
+      const canvases = manifest?.items!;
+
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+
+      expect(isContiguous).toBe(true);
+      expect(details).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [],
+          "invalidCanvases": [],
+          "invalidRanges": [],
+          "isContiguous": true,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('simple non-contiguous range with missing canvases', () => {
+      const vault = new Vault();
+      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
+
+      const firstRange = manifest?.structures[0]!;
+      const allCanvases = manifest?.items!;
+
+      const canvases = [allCanvases[0], allCanvases[2], allCanvases[4]];
+
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+
+      expect(isContiguous).toBe(false);
+      expect(details).toMatchInlineSnapshot(`
+        {
+          "endIndex": 2,
+          "gaps": [],
+          "invalidCanvases": [
+            "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p2",
+            "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p4",
+            "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p6",
+          ],
+          "invalidRanges": [
+            {
+              "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r1",
+              "reasons": [
+                "Canvas not found",
+              ],
+            },
+            {
+              "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/1",
+              "reasons": [
+                "Canvas not found",
+              ],
+            },
+            {
+              "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
+              "reasons": [
+                "Canvas not found",
+              ],
+            },
+          ],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('crafted range', () => {
+      const vault = new Vault();
+
+      const [range, { canvases }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.canvas('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      vault.loadSync(range.id, range);
+
+      const [isContiguous, detail] = isRangeContiguous(vault, range, canvases, { detail: true });
+
+      expect(isContiguous).toBe(true);
+
+      expect(detail).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [],
+          "invalidCanvases": [],
+          "invalidRanges": [],
+          "isContiguous": true,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('crafted range with gap', () => {
+      const vault = new Vault();
+
+      const [range, { canvases }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas4'),
+          c.gap('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      vault.loadSync(range.id, range);
+
+      const [isContiguous, detail] = isRangeContiguous(vault, range, canvases, { detail: true });
+
+      expect(isContiguous).toBe(false);
+
+      expect(detail).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://example.org/canvas5",
+              ],
+              "endIndex": 5,
+              "startIndex": 3,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('crafted range with gap (length=2)', () => {
+      const vault = new Vault();
+
+      const [range, { canvases }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.gap('https://example.org/canvas4'),
+          c.gap('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      vault.loadSync(range.id, range);
+
+      const [isContiguous, detail] = isRangeContiguous(vault, range, canvases, { detail: true });
+
+      expect(isContiguous).toBe(false);
+
+      expect(detail).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://example.org/canvas4",
+                "https://example.org/canvas5",
+              ],
+              "endIndex": 5,
+              "startIndex": 2,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('crafted range with gap (allowed)', () => {
+      const vault = new Vault();
+
+      const [range, { canvases }] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.gap('https://example.org/canvas4'),
+          c.gap('https://example.org/canvas5'),
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      vault.loadSync(range.id, range);
+
+      const [isContiguous, detail] = isRangeContiguous(vault, range, canvases, {
+        allowSubset: true,
+        allowGaps: true,
+        detail: true,
+      });
+
+      expect(isContiguous).toBe(true);
+
+      expect(detail).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://example.org/canvas4",
+                "https://example.org/canvas5",
+              ],
+              "endIndex": 5,
+              "startIndex": 2,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [],
+          "isContiguous": true,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('crafted range out of order', () => {
+      const vault = new Vault();
+
+      const [range] = rangeMaker((c) =>
+        c.range('https://example.org/range1', [
+          c.canvas('https://example.org/canvas1'),
+          c.canvas('https://example.org/canvas2'),
+          c.canvas('https://example.org/canvas3'),
+          c.canvas('https://example.org/canvas5'), // <--
+          c.canvas('https://example.org/canvas4'), // <--
+          c.canvas('https://example.org/canvas6'),
+        ])
+      );
+
+      const canvases = [
+        { id: 'https://example.org/canvas1', type: 'Canvas' as const },
+        { id: 'https://example.org/canvas2', type: 'Canvas' as const },
+        { id: 'https://example.org/canvas3', type: 'Canvas' as const },
+        { id: 'https://example.org/canvas4', type: 'Canvas' as const },
+        { id: 'https://example.org/canvas5', type: 'Canvas' as const },
+        { id: 'https://example.org/canvas6', type: 'Canvas' as const },
+      ];
+
+      vault.loadSync(range.id, range);
+
+      const [isContiguous, detail] = isRangeContiguous(vault, range, canvases, {
+        allowSubset: true,
+        allowGaps: true,
+        detail: true,
+      });
+
+      expect(isContiguous).toBe(false);
+
+      expect(detail).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://example.org/canvas4",
+              ],
+              "endIndex": 4,
+              "startIndex": 2,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [
+            {
+              "id": "https://example.org/range1",
+              "reasons": [
+                "Canvas out of order",
+              ],
+            },
+          ],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('simple non-contiguous range with valid canvases but out of order', () => {
+      const vault = new Vault();
+      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
+
+      const firstRange = manifest?.structures[0]!;
+      const allCanvases = manifest?.items!;
+
+      const canvases = [
+        //
+        allCanvases[0],
+        allCanvases[1],
+        allCanvases[2],
+        allCanvases[3],
+        allCanvases[5],
+        allCanvases[4],
+      ];
+
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+
+      expect(isContiguous).toBe(false);
+      expect(details).toMatchInlineSnapshot(`
+        {
+          "endIndex": 4,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p6",
+              ],
+              "endIndex": 5,
+              "startIndex": 3,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [
+            {
+              "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
+              "reasons": [
+                "Canvas out of order",
+              ],
+            },
+          ],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
+      `);
+    });
+
+    test('simple non-contiguous range with valid canvases but out of order - different ranges', () => {
+      const vault = new Vault();
+      const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
+
+      const firstRange = manifest?.structures[0]!;
+      const allCanvases = manifest?.items!;
+
+      const canvases = [
+        //
+        allCanvases[0],
+        allCanvases[1],
+        allCanvases[2],
+        allCanvases[4],
+        allCanvases[3],
+        allCanvases[5],
+      ];
+
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+
+      expect(isContiguous).toBe(false);
+      expect(details).toMatchInlineSnapshot(`
+        {
+          "endIndex": 5,
+          "gaps": [
+            {
+              "canvasIds": [
+                "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/canvas/p5",
+              ],
+              "endIndex": 4,
+              "startIndex": 2,
+            },
+          ],
+          "invalidCanvases": [],
+          "invalidRanges": [
+            {
+              "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
+              "reasons": [
+                "Canvas out of order",
+              ],
+            },
+          ],
+          "isContiguous": false,
+          "reason": null,
+          "startIndex": 0,
+        }
       `);
     });
   });

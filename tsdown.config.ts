@@ -1,9 +1,9 @@
-import { defineConfig, type Options } from 'tsup';
+import { defineConfig } from 'tsdown';
 
-export default defineConfig((options: Options) => ({
+export default defineConfig({
   dts: true,
   target: ['es2020'],
-  format: ['esm', 'cjs', 'iife'],
+  format: ['esm', 'cjs'],
   platform: 'browser',
   entry: {
     index: 'src/index.ts',
@@ -28,8 +28,8 @@ export default defineConfig((options: Options) => ({
     search1: 'src/search1.ts',
     // New helpers can be added here.
   },
-  minify: false,
+  minify: true,
   external: [],
-  globalName: 'IIIFHelpers',
-  ...options,
-}));
+  // @todo re-enable.
+  // globalName: 'IIIFHelpers',
+});

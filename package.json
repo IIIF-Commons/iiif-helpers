@@ -230,9 +230,9 @@
     }
   },
   "scripts": {
-    "build": "tsup",
-    "dev": "tsup --watch",
-    "prepack": "tsup",
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "prepack": "tsdown",
     "typecheck": "tsc --noEmit",
     "start": "vite demos",
     "test": "vitest",
@@ -276,7 +276,7 @@
     "vite": "^5.2.8",
     "vitest": "^1.4.0",
     "zustand": "^4.5.2",
-    "tsup": "^8.0.2",
+    "tsdown": "^0.14.2",
     "publint": "^0.2.7"
   },
   "publishConfig": {

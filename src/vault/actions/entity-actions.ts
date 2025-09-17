@@ -1,14 +1,16 @@
-import { ActionType } from 'typesafe-actions';
-import { createAction } from '../utility/typesafe-actions-runtime';
+import type { InternationalString, SpecificResource } from '@iiif/presentation-3';
+import type { ActionType } from 'typesafe-actions';
 
-import { Entities } from '../types';
-import { InternationalString, SpecificResource } from '@iiif/presentation-3';
+import type { Entities } from '../types';
+import { createAction } from '../utility/typesafe-actions-runtime';
 
 export const IMPORT_ENTITIES = '@iiif/IMPORT_ENTITIES';
 
 export const MODIFY_ENTITY_FIELD = '@iiif/MODIFY_ENTITY_FIELD';
 
 export const REORDER_ENTITY_FIELD = '@iiif/REORDER_ENTITY_FIELD';
+export const MOVE_ENTITY = '@iiif/MOVE_ENTITY';
+export const MOVE_ENTITIES = '@iiif/MOVE_ENTITIES';
 
 export const ADD_REFERENCE = '@iiif/ADD_REFERENCE';
 export const UPDATE_REFERENCE = '@iiif/UPDATE_REFERENCE';
@@ -20,7 +22,9 @@ export const REMOVE_METADATA = '@iiif/REMOVE_METADATA';
 export const UPDATE_METADATA = '@iiif/UPDATE_METADATA';
 export const REORDER_METADATA = '@iiif/REORDER_METADATA';
 
-export const importEntities = createAction(IMPORT_ENTITIES)<{ entities: Partial<Entities> }>();
+export const importEntities = createAction(IMPORT_ENTITIES)<{
+  entities: Partial<Entities>;
+}>();
 
 export const modifyEntityField = createAction(MODIFY_ENTITY_FIELD)<{
   type: keyof Entities;
@@ -35,6 +39,53 @@ export const reorderEntityField = createAction(REORDER_ENTITY_FIELD)<{
   key: string;
   startIndex: number;
   endIndex: number;
+}>();
+
+export const moveEntity = createAction(MOVE_ENTITY)<{
+  subject: {
+    id: string;
+    type: keyof Entities;
+    index?: number;
+  };
+  from: {
+    id: string;
+    type: keyof Entities;
+    key: string;
+  };
+  to: {
+    id: string;
+    type: keyof Entities;
+    key: string;
+    index?: number;
+  };
+}>();
+
+export const moveEntities = createAction(MOVE_ENTITIES)<{
+  subjects:
+    | {
+        type: 'list';
+        items: Array<{
+          id: string;
+          type: keyof Entities;
+          index?: number;
+        }>;
+      }
+    | {
+        type: 'slice';
+        startIndex: number;
+        length: number;
+      };
+  from: {
+    id: string;
+    type: keyof Entities;
+    key: string;
+  };
+  to: {
+    id: string;
+    type: keyof Entities;
+    key: string;
+    index?: number;
+  };
 }>();
 
 export const addReference = createAction(ADD_REFERENCE)<{
@@ -98,6 +149,8 @@ export const entityActions = {
   removeMetadata,
   updateMetadata,
   reorderMetadata,
+  moveEntity,
+  moveEntities,
 };
 
 export type EntityActions = ActionType<typeof entityActions>;
