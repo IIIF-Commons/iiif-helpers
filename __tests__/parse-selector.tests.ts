@@ -1,9 +1,9 @@
-import { describe, expect, test } from 'vitest';
-import { parseSelector } from '../src/annotation-targets/parse-selector';
-import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';
+import type { Selector } from '@iiif/presentation-3';
 import { JSDOM } from 'jsdom';
-import { Selector } from '@iiif/presentation-3';
+import { describe, expect, test } from 'vitest';
+import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';
 import { expandTarget } from '../src';
+import { parseSelector } from '../src/annotation-targets/parse-selector';
 
 describe('parse selector', () => {
   describe('SVG Selectors', () => {
@@ -96,6 +96,113 @@ describe('parse selector', () => {
         ],
       }
     `);
+    });
+
+    test('Parsing svg with temporal element', () => {
+      expect(
+        parseSelector([
+          {
+            type: 'SvgSelector',
+            value:
+              '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616" /></svg>',
+          },
+          {
+            type: 'FragmentSelector',
+            conformsTo: 'http://www.w3.org/TR/media-frags/',
+            value: 't=10.46,10.46',
+          },
+        ])
+      ).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "points": [
+              [
+                3069,
+                1586,
+              ],
+              [
+                3069,
+                1616,
+              ],
+              [
+                3100,
+                1586,
+              ],
+              [
+                3100,
+                1616,
+              ],
+              [
+                3069,
+                1586,
+              ],
+            ],
+            "spatial": {
+              "height": 30,
+              "unit": "pixel",
+              "width": 31,
+              "x": 3069,
+              "y": 1586,
+            },
+            "style": undefined,
+            "svg": "<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616"></polygon></svg>",
+            "svgShape": "polygon",
+            "temporal": {
+              "endTime": 10.46,
+              "startTime": 10.46,
+            },
+            "type": "SvgSelector",
+          },
+          "selectors": [
+            {
+              "points": [
+                [
+                  3069,
+                  1586,
+                ],
+                [
+                  3069,
+                  1616,
+                ],
+                [
+                  3100,
+                  1586,
+                ],
+                [
+                  3100,
+                  1616,
+                ],
+                [
+                  3069,
+                  1586,
+                ],
+              ],
+              "spatial": {
+                "height": 30,
+                "unit": "pixel",
+                "width": 31,
+                "x": 3069,
+                "y": 1586,
+              },
+              "style": undefined,
+              "svg": "<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616"></polygon></svg>",
+              "svgShape": "polygon",
+              "temporal": {
+                "endTime": 10.46,
+                "startTime": 10.46,
+              },
+              "type": "SvgSelector",
+            },
+            {
+              "temporal": {
+                "endTime": 10.46,
+                "startTime": 10.46,
+              },
+              "type": "TemporalSelector",
+            },
+          ],
+        }
+      `);
     });
 
     test('Parsing svg without size', () => {

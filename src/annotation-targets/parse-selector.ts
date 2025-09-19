@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import {
-  type ParsedSelector,
-  type SupportedSelectors,
-  type TemporalSelector,
-  type SvgSelector,
-  type SelectorStyle,
-  type SvgShapeType,
-  TemporalBoxSelector,
-} from './selector-types';
+
 import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
+import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
 import {
   type NormalizedSvgPathCommand,
   type NormalizedSvgPathCommandType,
   parseAndNormalizeSvgPath,
 } from './normalize-svg';
-import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
+import {
+  type ParsedSelector,
+  type SelectorStyle,
+  type SupportedSelectors,
+  type SvgSelector,
+  type SvgShapeType,
+  TemporalBoxSelector,
+  type TemporalSelector,
+} from './selector-types';
 
 const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;
@@ -30,7 +31,11 @@ export function parseSelector(
     domParser,
     svgPreprocessor,
     iiifRenderingHints,
-  }: { domParser?: DOMParser; svgPreprocessor?: (svg: string) => string; iiifRenderingHints?: ImageApiSelector } = {},
+  }: {
+    domParser?: DOMParser;
+    svgPreprocessor?: (svg: string) => string;
+    iiifRenderingHints?: ImageApiSelector;
+  } = {}
 ): ParsedSelector {
   if (Array.isArray(source)) {
     return resolveHints(
@@ -40,15 +45,37 @@ export function parseSelector(
             selector,
             selectors,
             iiifRenderingHints: newIiifRenderingHints,
-          } = parseSelector(nextSource, { domParser, svgPreprocessor, iiifRenderingHints });
+          } = parseSelector(nextSource, {
+            domParser,
+            svgPreprocessor,
+            iiifRenderingHints,
+          });
           if (selector) {
             if (!data.selector) {
               data.selector = selector;
+            } else {
+              // @todo we could be smarter about the "main" selector.
+              if (!data.selector.temporal && selector.temporal) {
+                data.selector.temporal = selector.temporal;
+              }
+              if (!data.selector.spatial && selector.spatial) {
+                data.selector.spatial = selector.spatial;
+              }
+
+              // There is a bug here where the type won't resolve correctly... "TemporalSVGSelector" or whatever.
+              if (!data.selector.svg && selector.svg) {
+                data.selector.svg = selector.svg;
+              }
+              if (!data.selector.svgShape && selector.svgShape) {
+                data.selector.svgShape = selector.svgShape;
+              }
             }
             data.selectors.push(...selectors);
           }
           if (newIiifRenderingHints) {
-            data.iiifRenderingHints = data.iiifRenderingHints || { type: 'ImageApiSelector' };
+            data.iiifRenderingHints = data.iiifRenderingHints || {
+              type: 'ImageApiSelector',
+            };
             Object.assign(data.iiifRenderingHints, newIiifRenderingHints);
           }
           return data;
@@ -57,8 +84,8 @@ export function parseSelector(
           selector: null,
           selectors: [],
           iiifRenderingHints,
-        } as ParsedSelector,
-      ),
+        } as ParsedSelector
+      )
     );
   }
 
@@ -84,7 +111,7 @@ export function parseSelector(
 
     return parseSelector(
       { type: 'FragmentSelector', value: fragment },
-      { svgPreprocessor, iiifRenderingHints, domParser },
+      { svgPreprocessor, iiifRenderingHints, domParser }
     );
   }
 
@@ -126,7 +153,7 @@ export function parseSelector(
     if (source.region) {
       const parsedRegion = parseSelector(
         { type: 'FragmentSelector', value: 'xywh=' + source.region },
-        { domParser, svgPreprocessor, iiifRenderingHints },
+        { domParser, svgPreprocessor, iiifRenderingHints }
       );
       selectors.push(...parsedRegion.selectors);
     }
@@ -201,7 +228,7 @@ export function parseSelector(
         domParser = new window.DOMParser();
       } else {
         console.warn(
-          'No DOMParser available, cannot parse SVG selector, `points`, `spatial` and `style` will be unavailable and the SVG will not be normalized.',
+          'No DOMParser available, cannot parse SVG selector, `points`, `spatial` and `style` will be unavailable and the SVG will not be normalized.'
         );
       }
     }
@@ -242,7 +269,13 @@ export function parseSelector(
       style,
       points: points.length ? points : undefined,
       spatial: rect
-        ? { unit: 'pixel', x: rect[0], y: rect[1], width: rect[2] - rect[0], height: rect[3] - rect[1] }
+        ? {
+            unit: 'pixel',
+            x: rect[0],
+            y: rect[1],
+            width: rect[2] - rect[0],
+            height: rect[3] - rect[1],
+          }
         : undefined,
     };
     return resolveHints({
@@ -272,7 +305,7 @@ function getShapeTypeFromPath(svgPath: NormalizedSvgPathCommand[]): SvgShapeType
         acc[cmd] += 1;
         return acc;
       },
-      { C: 0, Q: 0, L: 0, M: 0 },
+      { C: 0, Q: 0, L: 0, M: 0 }
     );
   const cmdTypes = new Set(svgPath.map((seg) => seg[0]));
   if (cmdFrequencies.C > 0 || cmdFrequencies.Q > 0) {
@@ -316,7 +349,11 @@ function getSelectorElement(svgElem: SVGElement): SelectorElement | null {
           continue;
         }
         const normalized = parseAndNormalizeSvgPath(p);
-        return { element, points: pathToPoints(normalized), shapeType: getShapeTypeFromPath(normalized) };
+        return {
+          element,
+          points: pathToPoints(normalized),
+          shapeType: getShapeTypeFromPath(normalized),
+        };
       }
       case 'circle': {
         const cx = Number.parseFloat(element.getAttribute('cx') ?? '0');
@@ -429,10 +466,10 @@ function pathToPoints(normalizedPath: NormalizedSvgPathCommand[]): [number, numb
             { x: startPoint[0], y: startPoint[1] },
             { x: seg[1], y: seg[2] },
             { x: seg[3], y: seg[4] },
-            { x: seg[5], y: seg[6] },
+            { x: seg[5], y: seg[6] }
           )
             .map((p) => [p.x, p.y] as [number, number])
-            .slice(1), // skip first point, already part of output
+            .slice(1) // skip first point, already part of output
         );
         continue;
       case 'Q':
@@ -440,10 +477,10 @@ function pathToPoints(normalizedPath: NormalizedSvgPathCommand[]): [number, numb
           ...flattenQuadraticBezier(
             { x: startPoint[0], y: startPoint[1] },
             { x: seg[1], y: seg[2] },
-            { x: seg[3], y: seg[4] },
+            { x: seg[3], y: seg[4] }
           )
             .map((p) => [p.x, p.y] as [number, number])
-            .slice(1), // skip first point, already part of output
+            .slice(1) // skip first point, already part of output
         );
         continue;
     }
@@ -519,7 +556,10 @@ function extractStyles(selectorElement: SVGElement): { style?: SelectorStyle; sv
       throw new Error('Could not find root SVG element');
     }
   }
-  return { svg: rootElem.outerHTML, style: Object.keys(style).length > 0 ? style : undefined };
+  return {
+    svg: rootElem.outerHTML,
+    style: Object.keys(style).length > 0 ? style : undefined,
+  };
 }
 
 export function isImageApiSelector(t: unknown): t is ImageApiSelector {
