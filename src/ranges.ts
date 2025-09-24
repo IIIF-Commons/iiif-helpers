@@ -11,10 +11,15 @@ export function createRangeHelper(vault: CompatVault = compatVault) {
     findManifestSelectedRange: (manifest: ManifestNormalized, canvasId: string) =>
       findManifestSelectedRange(vault, manifest, canvasId),
     findSelectedRange: (range: RangeNormalized, canvasId: string) => findSelectedRange(vault, range, canvasId),
-    rangesToTableOfContentsTree: (rangeRefs: RangeNormalized[], label?: InternationalString | null) =>
-      rangesToTableOfContentsTree(vault, rangeRefs, label),
-    rangeToTableOfContentsTree: (rangeRef: RangeNormalized | Reference<'Range'>) =>
-      rangeToTableOfContentsTree(vault, rangeRef),
+    rangesToTableOfContentsTree: (
+      rangeRefs: RangeNormalized[],
+      label?: InternationalString | null,
+      options: { showNoNav?: boolean } = {}
+    ) => rangesToTableOfContentsTree(vault, rangeRefs, label, options),
+    rangeToTableOfContentsTree: (
+      rangeRef: RangeNormalized | Reference<'Range'>,
+      options: { showNoNav?: boolean } = {}
+    ) => rangeToTableOfContentsTree(vault, rangeRef, undefined, options),
     isContiguous: (
       rangeRef: RangeNormalized | Reference<'Range'>,
       canvasesRef: Canvas[] | CanvasNormalized[] | Reference<'Canvas'>[],
