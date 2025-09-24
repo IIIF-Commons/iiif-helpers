@@ -169,7 +169,7 @@ export function rangesToTableOfContentsTree(
   const ranges = vault.get(rangeRefs);
 
   if (ranges.length === 1) {
-    return rangeToTableOfContentsTree(vault, ranges[0] as any, undefined, options);
+    return rangeToTableOfContentsTree(vault, ranges[0] as any, [], options);
   }
 
   const virtualRoot: Range = {
@@ -179,7 +179,7 @@ export function rangesToTableOfContentsTree(
     items: ranges as any,
   };
 
-  return rangeToTableOfContentsTree(vault, virtualRoot, undefined, options);
+  return rangeToTableOfContentsTree(vault, virtualRoot, [], options);
 }
 
 export function rangeToTableOfContentsTree(
@@ -206,16 +206,16 @@ export function rangeToTableOfContentsTree(
     toc.id = `vault://${hash(range)}`;
   }
 
-  if (!range.items) {
-    return toc;
-  }
-
   if (range.behavior && range.behavior.includes('no-nav')) {
     if (options.showNoNav) {
       toc.isNoNav = true;
     } else {
       return null;
     }
+  }
+
+  if (!range.items) {
+    return toc;
   }
 
   for (const inner of range.items) {
