@@ -2633,7 +2633,7 @@ describe('parse selector', () => {
       `);
     });
 
-    test.only('expandTarget with CSS', () => {
+    test('expandTarget with CSS', () => {
       const expanded = expandTarget(
         {
           type: 'SpecificResource',
