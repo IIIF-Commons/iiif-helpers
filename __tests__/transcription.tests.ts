@@ -4493,6 +4493,7 @@ bookshelf.
           "granularity": "line",
           "selector": {
             "selector": {
+              "boxStyle": {},
               "spatial": {
                 "height": 53,
                 "unit": "pixel",
@@ -4500,11 +4501,11 @@ bookshelf.
                 "x": 0,
                 "y": 376,
               },
-              "style": {},
               "type": "BoxSelector",
             },
             "selectors": [
               {
+                "boxStyle": {},
                 "spatial": {
                   "height": 53,
                   "unit": "pixel",
@@ -4512,7 +4513,6 @@ bookshelf.
                   "x": 0,
                   "y": 376,
                 },
-                "style": {},
                 "type": "BoxSelector",
               },
             ],

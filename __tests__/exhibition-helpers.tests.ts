@@ -25,6 +25,7 @@ describe('Exhibition helpers', () => {
     });
     expect(expandedSelector.selector).toMatchInlineSnapshot(`
       {
+        "boxStyle": {},
         "spatial": {
           "height": 2749,
           "unit": "pixel",
@@ -32,7 +33,6 @@ describe('Exhibition helpers', () => {
           "x": 559,
           "y": 0,
         },
-        "style": {},
         "type": "BoxSelector",
       }
     `);
@@ -40,6 +40,7 @@ describe('Exhibition helpers', () => {
     const expandedTarget = expandTarget(paintables.items[0].target);
     expect(expandedTarget.selector).toMatchInlineSnapshot(`
       {
+        "boxStyle": {},
         "spatial": {
           "height": 2749,
           "unit": "pixel",
@@ -47,7 +48,6 @@ describe('Exhibition helpers', () => {
           "x": 0,
           "y": 0,
         },
-        "style": {},
         "type": "BoxSelector",
       }
     `);
