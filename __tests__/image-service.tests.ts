@@ -1,18 +1,18 @@
+import { canonicalServiceUrl, fixedSizesFromScales, isImageService, supportsCustomSizes } from '@iiif/parser/image-3';
+import type { ImageService } from '@iiif/presentation-3';
 import { describe, expect, test } from 'vitest';
-import { ImageService } from '@iiif/presentation-3';
-import { fixedSizesFromScales, canonicalServiceUrl, supportsCustomSizes, isImageService } from '@iiif/parser/image-3';
 import {
+  getCustomSizeFromService,
   getFixedSizeFromImage,
   getFixedSizesFromService,
-  getImageServerFromId,
-  getCustomSizeFromService,
-  ImageServiceLoader,
   getImageCandidates,
-  pickBestFromCandidates,
-  ImageCandidate,
-  imageSizesMatch,
+  getImageServerFromId,
   getSmallestScaleFactorAsSingleImage,
+  type ImageCandidate,
+  ImageServiceLoader,
+  imageSizesMatch,
   inferImageSizeFromUrl,
+  pickBestFromCandidates,
 } from '../src/image-service';
 
 describe('image utilities', () => {
@@ -168,7 +168,7 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 2048,
-          level: 1,
+          level: 2,
           id: 'http://example.org/service1.json',
           type: 'fixed-service',
           version: 2,
@@ -193,7 +193,7 @@ describe('image utilities', () => {
           id: 'http://example.org/service1.json',
           type: 'fixed-service',
           version: 2,
-          level: 1,
+          level: 2,
           width: 1024,
         },
         {
@@ -201,7 +201,7 @@ describe('image utilities', () => {
           id: 'http://example.org/service1.json',
           type: 'fixed-service',
           version: 2,
-          level: 1,
+          level: 2,
           width: 512,
         },
       ]);
