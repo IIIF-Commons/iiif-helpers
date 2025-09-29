@@ -19,7 +19,7 @@ export function createRangeHelper(vault: CompatVault = compatVault) {
     rangeToTableOfContentsTree: (
       rangeRef: RangeNormalized | Reference<'Range'>,
       options: { showNoNav?: boolean } = {}
-    ) => rangeToTableOfContentsTree(vault, rangeRef, undefined, options),
+    ) => rangeToTableOfContentsTree(vault, rangeRef, [], options),
     isContiguous: (
       rangeRef: RangeNormalized | Reference<'Range'>,
       canvasesRef: Canvas[] | CanvasNormalized[] | Reference<'Canvas'>[],

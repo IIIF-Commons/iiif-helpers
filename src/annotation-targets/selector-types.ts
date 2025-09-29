@@ -1,4 +1,4 @@
-import { ImageApiSelector } from '@iiif/presentation-3';
+import type { ImageApiSelector } from '@iiif/presentation-3';
 
 export type SvgShapeType = 'rect' | 'circle' | 'ellipse' | 'line' | 'polyline' | 'polygon' | 'path';
 export interface SupportedSelector {
@@ -19,7 +19,29 @@ export interface SupportedSelector {
   svg?: string;
   svgShape?: SvgShapeType;
   style?: SelectorStyle;
+  boxStyle?: BoxStyle;
 }
+
+export type BoxStyle = _BoxStyle & {
+  ':hover'?: _BoxStyle;
+  ':active'?: _BoxStyle;
+};
+
+type _BoxStyle = Partial<{
+  backgroundColor: string;
+  opacity: number;
+  boxShadow: string;
+  borderColor: string;
+  borderWidth: string;
+  borderStyle: string;
+  outlineColor: string;
+  outlineWidth: string;
+  outlineOffset: string;
+  outlineStyle: string;
+  border: string;
+  outline: string;
+  background: string;
+}>;
 
 export interface SelectorStyle {
   fill?: string;

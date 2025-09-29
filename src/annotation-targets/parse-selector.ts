@@ -2,6 +2,7 @@
 
 import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
+import { resolveSelectorStyle } from './css-selectors';
 import {
   type NormalizedSvgPathCommand,
   type NormalizedSvgPathCommandType,
@@ -31,11 +32,14 @@ export function parseSelector(
     domParser,
     svgPreprocessor,
     iiifRenderingHints,
+    loadedStylesheets,
   }: {
     domParser?: DOMParser;
     svgPreprocessor?: (svg: string) => string;
     iiifRenderingHints?: ImageApiSelector;
-  } = {}
+    loadedStylesheets?: Record<string, string>;
+  } = {},
+  { styleClass }: { styleClass?: string } = {}
 ): ParsedSelector {
   if (Array.isArray(source)) {
     return resolveHints(
@@ -45,11 +49,15 @@ export function parseSelector(
             selector,
             selectors,
             iiifRenderingHints: newIiifRenderingHints,
-          } = parseSelector(nextSource, {
-            domParser,
-            svgPreprocessor,
-            iiifRenderingHints,
-          });
+          } = parseSelector(
+            nextSource,
+            {
+              domParser,
+              svgPreprocessor,
+              iiifRenderingHints,
+            },
+            { styleClass }
+          );
           if (selector) {
             if (!data.selector) {
               data.selector = selector;
@@ -111,7 +119,8 @@ export function parseSelector(
 
     return parseSelector(
       { type: 'FragmentSelector', value: fragment },
-      { svgPreprocessor, iiifRenderingHints, domParser }
+      { svgPreprocessor, iiifRenderingHints, domParser },
+      { styleClass }
     );
   }
 
@@ -153,7 +162,8 @@ export function parseSelector(
     if (source.region) {
       const parsedRegion = parseSelector(
         { type: 'FragmentSelector', value: 'xywh=' + source.region },
-        { domParser, svgPreprocessor, iiifRenderingHints }
+        { domParser, svgPreprocessor, iiifRenderingHints },
+        { styleClass }
       );
       selectors.push(...parsedRegion.selectors);
     }
@@ -177,6 +187,7 @@ export function parseSelector(
           width: Number.parseFloat(matchBoxSelector[5]),
           height: Number.parseFloat(matchBoxSelector[6]),
         },
+        style: resolveSelectorStyle(styleClass, loadedStylesheets),
       };
 
       const matchBoxTimeSelector = source.value.match(TEMPORAL_SELECTOR);
@@ -188,6 +199,7 @@ export function parseSelector(
             startTime: matchBoxTimeSelector[3] ? Number.parseFloat(matchBoxTimeSelector[3]) : 0,
             endTime: matchBoxTimeSelector[6] ? Number.parseFloat(matchBoxTimeSelector[6]) : undefined,
           },
+          style: resolveSelectorStyle(styleClass, loadedStylesheets),
         };
       }
 
@@ -266,7 +278,7 @@ export function parseSelector(
       type: 'SvgSelector',
       svg,
       svgShape,
-      style,
+      style: resolveSelectorStyle(styleClass, loadedStylesheets, style),
       points: points.length ? points : undefined,
       spatial: rect
         ? {

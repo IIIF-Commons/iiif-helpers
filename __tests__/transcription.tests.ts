@@ -4500,6 +4500,7 @@ bookshelf.
                 "x": 0,
                 "y": 376,
               },
+              "style": {},
               "type": "BoxSelector",
             },
             "selectors": [
@@ -4511,6 +4512,7 @@ bookshelf.
                   "x": 0,
                   "y": 376,
                 },
+                "style": {},
                 "type": "BoxSelector",
               },
             ],

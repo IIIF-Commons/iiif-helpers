@@ -1,6 +1,7 @@
-import { ExternalWebResource, W3CAnnotationTarget } from '@iiif/presentation-3';
-import { SupportedTarget } from './target-types';
+import type { ExternalWebResource, W3CAnnotationTarget } from '@iiif/presentation-3';
 import { parseSelector } from './parse-selector';
+import type { ParsedSelector, SupportedSelector } from './selector-types';
+import type { SupportedTarget } from './target-types';
 
 export function expandTarget(
   target: W3CAnnotationTarget | W3CAnnotationTarget[],
@@ -8,6 +9,9 @@ export function expandTarget(
     typeMap?: Record<string, string>;
     domParser?: DOMParser;
     svgPreprocessor?: (svg: string) => string;
+    loadedStylesheets?: Record<string, string>;
+    defaultType?: string;
+    styleClass?: string;
   } = {}
 ): SupportedTarget {
   if (Array.isArray(target)) {
@@ -22,20 +26,26 @@ export function expandTarget(
       // This is an unknown selector.
       return {
         type: 'SpecificResource',
-        source: { id, type: (options.typeMap && (options.typeMap[id] as any)) || 'Unknown' },
+        source: {
+          id,
+          type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || 'Canvas',
+        },
         selector: null,
         selectors: [],
       };
     }
 
-    return expandTarget({
-      type: 'SpecificResource',
-      source: { id, type: 'Unknown' },
-      selector: {
-        type: 'FragmentSelector',
-        value: fragment,
+    return expandTarget(
+      {
+        type: 'SpecificResource',
+        source: { id, type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || 'Canvas' },
+        selector: {
+          type: 'FragmentSelector',
+          value: fragment,
+        },
       },
-    });
+      options
+    );
   }
 
   // @todo, how do we want to support choices for targets.
@@ -46,7 +56,7 @@ export function expandTarget(
     target.type === 'Independents'
   ) {
     // we also don't support these, just choose the first.
-    return expandTarget(target.items[0]);
+    return expandTarget(target.items[0], options);
   }
 
   if (!target.type && 'source' in target) {
@@ -62,10 +72,21 @@ export function expandTarget(
         },
       ];
     }
+    const styleClass = target.styleClass || options.styleClass;
+
+    let preParsedSelector = { selector: null, selectors: [] } as ParsedSelector;
+    if (typeof target.source === 'string' && target.source.includes('#')) {
+      const expandedAgain = expandTarget(target.source, { ...options, styleClass });
+      target.source = expandedAgain.source;
+      preParsedSelector = {
+        selector: expandedAgain.selector,
+        selectors: expandedAgain.selectors,
+      };
+    }
 
     const { selector, selectors } = target.selector
-      ? parseSelector(target.selector, options)
-      : { selector: null, selectors: [] };
+      ? parseSelector(target.selector, options, { styleClass })
+      : preParsedSelector;
 
     return {
       type: 'SpecificResource',
@@ -99,17 +120,20 @@ export function expandTarget(
       };
     }
 
-    return expandTarget({
-      type: 'SpecificResource',
-      source: {
-        ...(target as any),
-        id,
+    return expandTarget(
+      {
+        type: 'SpecificResource',
+        source: {
+          ...(target as any),
+          id,
+        },
+        selector: {
+          type: 'FragmentSelector',
+          value: fragment,
+        },
       },
-      selector: {
-        type: 'FragmentSelector',
-        value: fragment,
-      },
-    });
+      options
+    );
   }
 
   return {
