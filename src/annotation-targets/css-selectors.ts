@@ -162,6 +162,7 @@ export function resolveSelectorStyle(
   const stylesheetEntries = Object.entries(loadedStylesheets);
 
   for (const [id, css] of stylesheetEntries) {
+    if (!css) continue;
     const styleMap = cachedParseCssToSelectorStyleMap(id, css);
     const classes = Object.entries(styleMap);
     for (const [className, classStyle] of classes) {
