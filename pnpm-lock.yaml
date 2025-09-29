@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       '@iiif/parser':
-        specifier: ^2.2.0
-        version: 2.2.0
+        specifier: ^2.2.3
+        version: 2.2.3
       '@iiif/presentation-2':
         specifier: 1.0.4
         version: 1.0.4(@iiif/presentation-3@2.2.3)
@@ -357,8 +357,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iiif/parser@2.2.0':
-    resolution: {integrity: sha512-WMa9NNq0AyKmSjeYpvwlQx6gqf3drcKa72DlIy9nIYvCBCG+LrLAEKsnrVZW7pZiFYJQAAxcM+kJ0KhoayM1Og==}
+  '@iiif/parser@2.2.3':
+    resolution: {integrity: sha512-Jz04UPQ2qpqi1c04EsWcH7RKHESCQR0DiY4mQH0RmekjussPdyjmflubC7xC5M2hc9//5FXS8aPyeM4YoJjxIA==}
 
   '@iiif/presentation-2@1.0.4':
     resolution: {integrity: sha512-hJakpq62VBajesLJrYPtFm6hcn6c/HkKP7CmKZ5atuzu40m0nifWYsqigR1l9sZGvhhHb/DRshPmiW/0GNrJoA==}
@@ -1664,7 +1664,7 @@ snapshots:
   '@esbuild/win32-x64@0.20.2':
     optional: true
 
-  '@iiif/parser@2.2.0':
+  '@iiif/parser@2.2.3':
     dependencies:
       '@iiif/presentation-2': 1.0.4(@iiif/presentation-3@2.2.3)
       '@iiif/presentation-3': 2.2.3

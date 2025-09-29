@@ -79,16 +79,18 @@ export function renderRange(range: RangeTableOfContentsNode | null, skipCanvases
   if (!range) {
     return '';
   }
-  const spaces = treeChars.space.repeat(indent);
+  let spaces = treeChars.space.repeat(indent);
   let str = `${getValue(range.label)}\n`;
   const itemsCount = range.items ? range.items.length : 0;
   range.items?.forEach((item, index) => {
     const isLastItem = index === itemsCount - 1;
     if (item.isCanvasLeaf && skipCanvases) return;
+    const nn = item.isNoNav ? ' [no-nav]' : '';
+
     if (typeof item === 'string') {
-      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${item}\n`;
+      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${item}${nn}\n`;
     } else {
-      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${renderRange(item, skipCanvases, indent + 2)}`;
+      str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal}${nn} ${renderRange(item, skipCanvases, indent + 2)}`;
     }
   });
   return str;

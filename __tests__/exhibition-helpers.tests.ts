@@ -32,6 +32,7 @@ describe('Exhibition helpers', () => {
           "x": 559,
           "y": 0,
         },
+        "style": {},
         "type": "BoxSelector",
       }
     `);
@@ -46,6 +47,7 @@ describe('Exhibition helpers', () => {
           "x": 0,
           "y": 0,
         },
+        "style": {},
         "type": "BoxSelector",
       }
     `);

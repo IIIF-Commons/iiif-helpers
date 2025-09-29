@@ -1,10 +1,11 @@
+import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import invariant from 'tiny-invariant';
+import { describe, expect, test } from 'vitest';
+import cssManifest from '../../fixtures/cookbook/css.json';
 import nlsManifest from '../../fixtures/presentation-2/nls-manifest.json';
 import nlsManifest2 from '../../fixtures/presentation-2/nls-manifest.json';
 import hasPart from '../../fixtures/presentation-3/has-part.json';
 import { Vault } from '../../src/vault';
-import { ManifestNormalized } from '@iiif/presentation-3-normalized';
-import invariant from 'tiny-invariant';
-import { describe, test, expect } from 'vitest';
 import { entityActions } from '../../src/vault/actions/entity-actions';
 
 describe('vault', () => {
@@ -1192,6 +1193,32 @@ describe('vault', () => {
           },
         },
       ]
+    `);
+  });
+
+  test('css manifest', () => {
+    const vault = new Vault();
+    const manifestJson = JSON.parse(JSON.stringify(cssManifest));
+    const manifest = vault.loadSync<ManifestNormalized>(manifestJson.id, manifestJson);
+    expect(manifest!.id).toEqual(manifestJson.id);
+
+    const annotation1 = vault.get({
+      id: 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/page/p2/anno-1',
+      type: 'Annotation',
+    });
+
+    expect(annotation1.target).toMatchInlineSnapshot(`
+      {
+        "selector": {
+          "type": "FragmentSelector",
+          "value": "xywh=700,1250,1850,1150",
+        },
+        "source": {
+          "id": "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1",
+          "type": "Canvas",
+        },
+        "type": "SpecificResource",
+      }
     `);
   });
 });

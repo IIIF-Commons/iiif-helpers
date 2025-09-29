@@ -144,7 +144,7 @@ describe('parse selector', () => {
               "x": 3069,
               "y": 1586,
             },
-            "style": undefined,
+            "style": {},
             "svg": "<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616"></polygon></svg>",
             "svgShape": "polygon",
             "temporal": {
@@ -184,7 +184,7 @@ describe('parse selector', () => {
                 "x": 3069,
                 "y": 1586,
               },
-              "style": undefined,
+              "style": {},
               "svg": "<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616"></polygon></svg>",
               "svgShape": "polygon",
               "temporal": {
@@ -1678,64 +1678,8 @@ describe('parse selector', () => {
             "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g><path d='M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000' /></g></svg>",
         })
       ).toMatchInlineSnapshot(`
-      {
-        "selector": {
-          "points": [
-            [
-              270,
-              1900,
-            ],
-            [
-              1530,
-              1900,
-            ],
-            [
-              1530,
-              1610,
-            ],
-            [
-              1315,
-              1300,
-            ],
-            [
-              1200,
-              986,
-            ],
-            [
-              904,
-              661,
-            ],
-            [
-              600,
-              986,
-            ],
-            [
-              500,
-              1300,
-            ],
-            [
-              270,
-              1630,
-            ],
-            [
-              270,
-              1900,
-            ],
-          ],
-          "spatial": {
-            "height": 1239,
-            "unit": "pixel",
-            "width": 1260,
-            "x": 270,
-            "y": 661,
-          },
-          "style": undefined,
-          "svg": "<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000"></path></g></svg>",
-          "svgShape": "polygon",
-          "type": "SvgSelector",
-        },
-        "selectors": [
-          {
+        {
+          "selector": {
             "points": [
               [
                 270,
@@ -1785,14 +1729,70 @@ describe('parse selector', () => {
               "x": 270,
               "y": 661,
             },
-            "style": undefined,
+            "style": {},
             "svg": "<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000"></path></g></svg>",
             "svgShape": "polygon",
             "type": "SvgSelector",
           },
-        ],
-      }
-    `);
+          "selectors": [
+            {
+              "points": [
+                [
+                  270,
+                  1900,
+                ],
+                [
+                  1530,
+                  1900,
+                ],
+                [
+                  1530,
+                  1610,
+                ],
+                [
+                  1315,
+                  1300,
+                ],
+                [
+                  1200,
+                  986,
+                ],
+                [
+                  904,
+                  661,
+                ],
+                [
+                  600,
+                  986,
+                ],
+                [
+                  500,
+                  1300,
+                ],
+                [
+                  270,
+                  1630,
+                ],
+                [
+                  270,
+                  1900,
+                ],
+              ],
+              "spatial": {
+                "height": 1239,
+                "unit": "pixel",
+                "width": 1260,
+                "x": 270,
+                "y": 661,
+              },
+              "style": {},
+              "svg": "<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><path d="M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000"></path></g></svg>",
+              "svgShape": "polygon",
+              "type": "SvgSelector",
+            },
+          ],
+        }
+      `);
     });
 
     test('Parsing a cubic bézier selector with jsdom', () => {
@@ -2250,7 +2250,7 @@ describe('parse selector', () => {
               "x": 798.2355216064453,
               "y": 801.5089024658204,
             },
-            "style": undefined,
+            "style": {},
             "svg": "<svg><path d="M905.7663277587891,824.1576701660156 891.7238851318359,878.9430197753907 890.8197407226562,905.6661394042969 825.7214197998047,905.6661394042969 798.2355216064453,852.1408363037109 827.1680661621094,820.3150755615235 883.5865854492188,801.5089024658204z"></path></svg>",
             "svgShape": "polygon",
             "type": "SvgSelector",
@@ -2298,7 +2298,7 @@ describe('parse selector', () => {
                 "x": 798.2355216064453,
                 "y": 801.5089024658204,
               },
-              "style": undefined,
+              "style": {},
               "svg": "<svg><path d="M905.7663277587891,824.1576701660156 891.7238851318359,878.9430197753907 890.8197407226562,905.6661394042969 825.7214197998047,905.6661394042969 798.2355216064453,852.1408363037109 827.1680661621094,820.3150755615235 883.5865854492188,801.5089024658204z"></path></svg>",
               "svgShape": "polygon",
               "type": "SvgSelector",
@@ -2517,6 +2517,7 @@ describe('parse selector', () => {
               "x": 200,
               "y": 200,
             },
+            "style": {},
             "temporal": {
               "endTime": 57,
               "startTime": 27,
@@ -2532,6 +2533,7 @@ describe('parse selector', () => {
                 "x": 200,
                 "y": 200,
               },
+              "style": {},
               "temporal": {
                 "endTime": 57,
                 "startTime": 27,
@@ -2541,7 +2543,7 @@ describe('parse selector', () => {
           ],
           "source": {
             "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas",
-            "type": "Unknown",
+            "type": "Canvas",
           },
           "type": "SpecificResource",
         }
@@ -2575,6 +2577,124 @@ describe('parse selector', () => {
               "type": "PointSelector",
             },
           ],
+        }
+      `);
+    });
+  });
+
+  describe('parse selector with stylesheet', () => {
+    test('box selector with css', () => {
+      const exampleSelector: Selector = {
+        type: 'FragmentSelector',
+        value: 'xywh=100,140,480,360',
+      };
+
+      const parsed = parseSelector(
+        exampleSelector,
+        {
+          loadedStylesheets: { 'https://example.org/styles': '.test { background: red }' },
+        },
+        {
+          styleClass: 'test',
+        }
+      );
+
+      expect(parsed).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "spatial": {
+              "height": 360,
+              "unit": "pixel",
+              "width": 480,
+              "x": 100,
+              "y": 140,
+            },
+            "style": {
+              "background": "red",
+            },
+            "type": "BoxSelector",
+          },
+          "selectors": [
+            {
+              "spatial": {
+                "height": 360,
+                "unit": "pixel",
+                "width": 480,
+                "x": 100,
+                "y": 140,
+              },
+              "style": {
+                "background": "red",
+              },
+              "type": "BoxSelector",
+            },
+          ],
+        }
+      `);
+    });
+
+    test('expandTarget with CSS', () => {
+      const expanded = expandTarget(
+        {
+          type: 'SpecificResource',
+          source: 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1#xywh=170,160,2200,1000',
+          styleClass: 'author2',
+        },
+        {
+          loadedStylesheets: {
+            'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/style.css': `
+              .author1 {
+               	color: #f00;
+               	background-color: #fff;
+               	border-color: #f00;
+              }
+
+              .author2 {
+               	color: #1a1;
+               	background-color: #fff;
+               	border-color: #0f0;
+              }`,
+          },
+        }
+      );
+
+      expect(expanded).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "spatial": {
+              "height": 1000,
+              "unit": "pixel",
+              "width": 2200,
+              "x": 170,
+              "y": 160,
+            },
+            "style": {
+              "backgroundColor": "#fff",
+              "borderColor": "#0f0",
+            },
+            "type": "BoxSelector",
+          },
+          "selectors": [
+            {
+              "spatial": {
+                "height": 1000,
+                "unit": "pixel",
+                "width": 2200,
+                "x": 170,
+                "y": 160,
+              },
+              "style": {
+                "backgroundColor": "#fff",
+                "borderColor": "#0f0",
+              },
+              "type": "BoxSelector",
+            },
+          ],
+          "source": {
+            "id": "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1",
+            "type": "Canvas",
+          },
+          "type": "SpecificResource",
         }
       `);
     });

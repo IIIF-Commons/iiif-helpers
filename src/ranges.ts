@@ -11,10 +11,15 @@ export function createRangeHelper(vault: CompatVault = compatVault) {
     findManifestSelectedRange: (manifest: ManifestNormalized, canvasId: string) =>
       findManifestSelectedRange(vault, manifest, canvasId),
     findSelectedRange: (range: RangeNormalized, canvasId: string) => findSelectedRange(vault, range, canvasId),
-    rangesToTableOfContentsTree: (rangeRefs: RangeNormalized[], label?: InternationalString | null) =>
-      rangesToTableOfContentsTree(vault, rangeRefs, label),
-    rangeToTableOfContentsTree: (rangeRef: RangeNormalized | Reference<'Range'>) =>
-      rangeToTableOfContentsTree(vault, rangeRef),
+    rangesToTableOfContentsTree: (
+      rangeRefs: RangeNormalized[],
+      label?: InternationalString | null,
+      options: { showNoNav?: boolean } = {}
+    ) => rangesToTableOfContentsTree(vault, rangeRefs, label, options),
+    rangeToTableOfContentsTree: (
+      rangeRef: RangeNormalized | Reference<'Range'>,
+      options: { showNoNav?: boolean } = {}
+    ) => rangeToTableOfContentsTree(vault, rangeRef, [], options),
     isContiguous: (
       rangeRef: RangeNormalized | Reference<'Range'>,
       canvasesRef: Canvas[] | CanvasNormalized[] | Reference<'Canvas'>[],
@@ -146,6 +151,7 @@ export interface RangeTableOfContentsNode {
   isCanvasLeaf: boolean;
   isRangeLeaf: boolean;
   isVirtual?: boolean;
+  isNoNav?: boolean;
   firstCanvas?: SpecificResource<Reference<'Canvas'>> | null;
   items?: Array<RangeTableOfContentsNode>;
 }
@@ -153,7 +159,8 @@ export interface RangeTableOfContentsNode {
 export function rangesToTableOfContentsTree(
   vault: CompatVault,
   rangeRefs: RangeNormalized[] | Range[] | Reference<'Range'>[],
-  label?: InternationalString | null
+  label?: InternationalString | null,
+  options: { showNoNav?: boolean } = {}
 ): RangeTableOfContentsNode | null {
   if (rangeRefs.length === 0) {
     return null;
@@ -162,7 +169,7 @@ export function rangesToTableOfContentsTree(
   const ranges = vault.get(rangeRefs);
 
   if (ranges.length === 1) {
-    return rangeToTableOfContentsTree(vault, ranges[0] as any);
+    return rangeToTableOfContentsTree(vault, ranges[0] as any, [], options);
   }
 
   const virtualRoot: Range = {
@@ -172,13 +179,14 @@ export function rangesToTableOfContentsTree(
     items: ranges as any,
   };
 
-  return rangeToTableOfContentsTree(vault, virtualRoot);
+  return rangeToTableOfContentsTree(vault, virtualRoot, [], options);
 }
 
 export function rangeToTableOfContentsTree(
   vault: CompatVault,
   rangeRef: undefined | null | Range | RangeNormalized | Reference<'Range'>,
-  seenIds: string[] = []
+  seenIds: string[] = [],
+  options: { showNoNav?: boolean } = {}
 ): RangeTableOfContentsNode | null {
   if (!rangeRef) return null;
 
@@ -198,12 +206,16 @@ export function rangeToTableOfContentsTree(
     toc.id = `vault://${hash(range)}`;
   }
 
-  if (!range.items) {
-    return toc;
+  if (range.behavior && range.behavior.includes('no-nav')) {
+    if (options.showNoNav) {
+      toc.isNoNav = true;
+    } else {
+      return null;
+    }
   }
 
-  if (range.behavior && range.behavior.includes('no-nav')) {
-    return null;
+  if (!range.items) {
+    return toc;
   }
 
   for (const inner of range.items) {
@@ -214,6 +226,7 @@ export function rangeToTableOfContentsTree(
         type: 'Canvas',
         isCanvasLeaf: true,
         isRangeLeaf: false,
+        isNoNav: range.behavior && range.behavior.includes('no-nav'),
         label: maybeCanvas.label || { none: ['Untitled'] },
         untitled: !maybeCanvas.label,
         resource: {
@@ -280,7 +293,7 @@ export function rangeToTableOfContentsTree(
       continue;
     }
     if ((inner as any).type === 'Range') {
-      const foundRange = rangeToTableOfContentsTree(vault, inner as any, seenIds);
+      const foundRange = rangeToTableOfContentsTree(vault, inner as any, seenIds, options);
       if (foundRange) {
         toc.items!.push(foundRange);
       }

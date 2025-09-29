@@ -523,7 +523,7 @@ describe('range helper', () => {
 
     test('it can parse BL manifest', () => {
       const vault = new Vault();
-      const manifest = vault.loadSync<ManifestNormalized>(blManifest.id, blManifest);
+      const manifest = vault.loadSync<ManifestNormalized>(blManifest.id, JSON.parse(JSON.stringify(blManifest)));
 
       invariant(manifest);
 
@@ -549,6 +549,50 @@ describe('range helper', () => {
           ├── Twas on a Monday morning (02:22)
           ├── Dumble dum dollicky (04:23)
           └── Talk about herself (01:53)
+        "
+      `);
+    });
+
+    test('it can parse BL manifest (showNoNav=true)', () => {
+      const vault = new Vault();
+      const manifest = vault.loadSync<ManifestNormalized>(blManifest.id, JSON.parse(JSON.stringify(blManifest)));
+
+      invariant(manifest);
+
+      const tree = rangesToTableOfContentsTree(vault, manifest.structures, undefined, { showNoNav: true });
+
+      expect(renderRange(tree, true)).toMatchInlineSnapshot(`
+        "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)
+        ├── The turmut hoeing (02:29)
+        ├── [no-nav] 
+        ├── She stole my heart away (02:08)
+        ├── Dumble dum dollicky (Richard of Taunton Dean) (03:01)
+        ├── Mrs Fanny Rumble talks about herself (01:44)
+        ├── What shall I wear to the wedding, John? (03:25)
+        ├── Country courtship (05:50)
+        ├── Herbert Prince (05:00)
+          ├── [no-nav] 
+          ├── Introductory talk: 'The young sailor cut down in his prime' (01:25)
+          ├── [no-nav] 
+          ├── The young sailor cut down in his prime (02:49)
+          └── [no-nav] 
+        ├── Fanny Rumble / Albert Collins / Fred Perrier (25:17)
+          ├── [no-nav] 
+          ├── O what shall I wear to the wedding, John? (03:57)
+          ├── [no-nav] 
+          ├── O what shall I wear to the wedding, John? (02:47)
+          ├── [no-nav] 
+          ├── The vly on the turmut (03:10)
+          ├── [no-nav] 
+          ├── The vly on the turmut (01:37)
+          ├── [no-nav] 
+          ├── Twas on a Monday morning (02:04)
+          ├── [no-nav] 
+          ├── Twas on a Monday morning (02:22)
+          ├── Dumble dum dollicky (04:23)
+          ├── [no-nav] 
+          └── Talk about herself (01:53)
+        └── [no-nav] 
         "
       `);
     });

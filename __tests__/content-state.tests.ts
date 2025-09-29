@@ -27,8 +27,7 @@ describe('content state', () => {
     const normalised = normaliseContentState(parsed);
 
     expect(normalised).toMatchInlineSnapshot(
-      { id: expect.any(String) },
-      `
+      { id: expect.any(String) }, `
       {
         "extensions": {},
         "id": Any<String>,
@@ -45,6 +44,7 @@ describe('content state', () => {
                 "x": 1000,
                 "y": 2000,
               },
+              "style": {},
               "type": "BoxSelector",
             },
             "selectors": [
@@ -56,6 +56,7 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
+                "style": {},
                 "type": "BoxSelector",
               },
             ],
@@ -74,8 +75,7 @@ describe('content state', () => {
         ],
         "type": "Annotation",
       }
-    `
-    );
+    `);
   });
 
   describe('Normalisation variations', function () {
@@ -214,6 +214,7 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
+                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
@@ -225,6 +226,7 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
+                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
@@ -259,8 +261,7 @@ describe('content state', () => {
           ],
         })
       ).toMatchInlineSnapshot(
-        { id: expect.any(String) },
-        `
+        { id: expect.any(String) }, `
         {
           "extensions": {},
           "id": Any<String>,
@@ -277,6 +278,7 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
+                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
@@ -288,6 +290,7 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
+                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
@@ -306,8 +309,7 @@ describe('content state', () => {
           ],
           "type": "Annotation",
         }
-      `
-      );
+      `);
     });
 
     test('3.1 linking', () => {
@@ -392,6 +394,7 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
+                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
@@ -403,6 +406,7 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
+                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
