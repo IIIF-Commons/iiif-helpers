@@ -8,7 +8,6 @@ import {
   MODIFY_ENTITY_FIELD,
   MOVE_ENTITIES,
   MOVE_ENTITY,
-  type moveEnties,
   moveEntity,
   REMOVE_METADATA,
   REMOVE_REFERENCE,
