@@ -81,6 +81,31 @@ export function parseCssToBoxStyleMap(css: string): Record<string, BoxStyle> {
   return result;
 }
 
+export function convertSelectorStyleToBoxStyle(style?: SelectorStyle): BoxStyle {
+  const result: BoxStyle = {};
+
+  if (!style) {
+    return result;
+  }
+
+  if (style.fill) {
+    result.backgroundColor = style.fill;
+    if (style.fillOpacity) {
+      // @todo.
+    }
+  }
+
+  if (style.stroke) {
+    result.borderColor = style.stroke;
+  }
+
+  if (style.strokeWidth) {
+    result.borderWidth = style.strokeWidth;
+  }
+
+  return result;
+}
+
 export function convertBoxStyleToSelectorStyle(style: BoxStyle): SelectorStyle {
   const result: SelectorStyle = {};
 
@@ -133,18 +158,15 @@ export function convertBoxStyleToSelectorStyle(style: BoxStyle): SelectorStyle {
   return result;
 }
 
-const styleParsedCache = new Map<string, Record<string, SelectorStyle>>();
+const styleParsedCache = new Map<string, Record<string, BoxStyle>>();
 
-export function cachedParseCssToSelectorStyleMap(id: string, css: string) {
+export function cachedParseCssToBoxStyleMap(id: string, css: string) {
   if (styleParsedCache.has(id)) {
     return styleParsedCache.get(id)!;
   }
 
   const styleMap = parseCssToBoxStyleMap(css);
-  styleParsedCache.set(
-    id,
-    Object.fromEntries(Object.entries(styleMap).map(([key, value]) => [key, convertBoxStyleToSelectorStyle(value)]))
-  );
+  styleParsedCache.set(id, Object.fromEntries(Object.entries(styleMap).map(([key, value]) => [key, value])));
 
   return styleMap;
 }
@@ -153,16 +175,17 @@ export function resolveSelectorStyle(
   styleClass?: string,
   loadedStylesheets?: Record<string, string>,
   existingStyle: SelectorStyle = {}
-): SelectorStyle {
+): BoxStyle {
   if (!styleClass || !loadedStylesheets) {
-    return existingStyle;
+    return convertSelectorStyleToBoxStyle(existingStyle || {});
   }
 
-  const newStyle = Object.assign({}, existingStyle);
+  const newStyle = convertSelectorStyleToBoxStyle(existingStyle || {});
   const stylesheetEntries = Object.entries(loadedStylesheets);
 
   for (const [id, css] of stylesheetEntries) {
-    const styleMap = cachedParseCssToSelectorStyleMap(id, css);
+    if (!css) continue;
+    const styleMap = cachedParseCssToBoxStyleMap(id, css);
     const classes = Object.entries(styleMap);
     for (const [className, classStyle] of classes) {
       if (className === styleClass) {

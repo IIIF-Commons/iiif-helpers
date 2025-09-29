@@ -187,7 +187,7 @@ export function parseSelector(
           width: Number.parseFloat(matchBoxSelector[5]),
           height: Number.parseFloat(matchBoxSelector[6]),
         },
-        style: resolveSelectorStyle(styleClass, loadedStylesheets),
+        boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets),
       };
 
       const matchBoxTimeSelector = source.value.match(TEMPORAL_SELECTOR);
@@ -199,7 +199,7 @@ export function parseSelector(
             startTime: matchBoxTimeSelector[3] ? Number.parseFloat(matchBoxTimeSelector[3]) : 0,
             endTime: matchBoxTimeSelector[6] ? Number.parseFloat(matchBoxTimeSelector[6]) : undefined,
           },
-          style: resolveSelectorStyle(styleClass, loadedStylesheets),
+          boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets),
         };
       }
 
@@ -278,7 +278,8 @@ export function parseSelector(
       type: 'SvgSelector',
       svg,
       svgShape,
-      style: resolveSelectorStyle(styleClass, loadedStylesheets, style),
+      style,
+      boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets, style),
       points: points.length ? points : undefined,
       spatial: rect
         ? {

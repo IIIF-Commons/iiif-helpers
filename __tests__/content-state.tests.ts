@@ -37,6 +37,7 @@ describe('content state', () => {
         "target": [
           {
             "selector": {
+              "boxStyle": {},
               "spatial": {
                 "height": 2000,
                 "unit": "pixel",
@@ -44,11 +45,11 @@ describe('content state', () => {
                 "x": 1000,
                 "y": 2000,
               },
-              "style": {},
               "type": "BoxSelector",
             },
             "selectors": [
               {
+                "boxStyle": {},
                 "spatial": {
                   "height": 2000,
                   "unit": "pixel",
@@ -56,7 +57,6 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
-                "style": {},
                 "type": "BoxSelector",
               },
             ],
@@ -207,6 +207,7 @@ describe('content state', () => {
           "target": [
             {
               "selector": {
+                "boxStyle": {},
                 "spatial": {
                   "height": 2000,
                   "unit": "pixel",
@@ -214,11 +215,11 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
-                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
                 {
+                  "boxStyle": {},
                   "spatial": {
                     "height": 2000,
                     "unit": "pixel",
@@ -226,7 +227,6 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
-                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
@@ -271,6 +271,7 @@ describe('content state', () => {
           "target": [
             {
               "selector": {
+                "boxStyle": {},
                 "spatial": {
                   "height": 2000,
                   "unit": "pixel",
@@ -278,11 +279,11 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
-                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
                 {
+                  "boxStyle": {},
                   "spatial": {
                     "height": 2000,
                     "unit": "pixel",
@@ -290,7 +291,6 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
-                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
@@ -387,6 +387,7 @@ describe('content state', () => {
           "target": [
             {
               "selector": {
+                "boxStyle": {},
                 "spatial": {
                   "height": 2000,
                   "unit": "pixel",
@@ -394,11 +395,11 @@ describe('content state', () => {
                   "x": 1000,
                   "y": 2000,
                 },
-                "style": {},
                 "type": "BoxSelector",
               },
               "selectors": [
                 {
+                  "boxStyle": {},
                   "spatial": {
                     "height": 2000,
                     "unit": "pixel",
@@ -406,7 +407,6 @@ describe('content state', () => {
                     "x": 1000,
                     "y": 2000,
                   },
-                  "style": {},
                   "type": "BoxSelector",
                 },
               ],
