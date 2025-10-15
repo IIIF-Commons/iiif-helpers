@@ -1,14 +1,15 @@
-import { toRef } from '@iiif/parser';
-import type { ActionType } from 'typesafe-actions';
+import { isSpecificResource, toRef } from '@iiif/parser';
+import type { Reference, SpecificResource } from '@iiif/presentation-3';
+import { changeRefIdentifier } from '../../../shared-utilities';
 import {
   ADD_METADATA,
   ADD_REFERENCE,
+  CHANGE_REFERENCE_IDENTIFIER,
   type EntityActions,
   IMPORT_ENTITIES,
   MODIFY_ENTITY_FIELD,
   MOVE_ENTITIES,
   MOVE_ENTITY,
-  moveEntity,
   REMOVE_METADATA,
   REMOVE_REFERENCE,
   REORDER_ENTITY_FIELD,
@@ -187,6 +188,51 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
         },
       });
     }
+
+    case CHANGE_REFERENCE_IDENTIFIER: {
+      const { id, index, key, newIdentifier, reference, type } = payload(action);
+      const parentEntity = state[type][id];
+      const properRef = toRef(reference);
+      if (!parentEntity || !parentEntity[key] || !properRef || index < 0) return state;
+      const items = parentEntity[key] as any[];
+      const itemToReplace = items[index];
+
+      const fullItem = state[properRef.type as any as keyof Entities]?.[properRef.id];
+      if (!fullItem || !itemToReplace) return state;
+
+      const newItem = changeRefIdentifier(itemToReplace, newIdentifier);
+
+      const result = Array.from(items);
+      result.splice(numberOr(index, result.length + 1), 1, newItem);
+
+      const toReturn = updateField(parentEntity, { [key]: result });
+
+      // Possible improvment could be to only copy the fields specified in the hasPart section.
+      // Better to do this when editing reducers keep the hasPart consistent over time though.
+      const newEntity = { ...fullItem, id: newIdentifier };
+
+      if (newEntity['iiif-parser:hasPart']) {
+        newEntity['iiif-parser:hasPart'] = newEntity['iiif-parser:hasPart']
+          .filter((item: any) => {
+            return item['iiif-parser:partOf'] === id /* Parent id */;
+          })
+          .map((item: any) => {
+            return {
+              ...item,
+              id: newIdentifier,
+            };
+          });
+      }
+
+      const newType = {
+        ...toReturn[properRef.type as any as keyof Entities],
+        [newIdentifier]: newEntity,
+      };
+      toReturn[properRef.type as any as keyof Entities] = newType as any;
+
+      return toReturn;
+    }
+
     case IMPORT_ENTITIES: {
       const keys = Object.keys(payload(action).entities) as Array<keyof Entities>;
       const toReturn: Entities = { ...state };

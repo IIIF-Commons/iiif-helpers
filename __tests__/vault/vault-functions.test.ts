@@ -6,7 +6,13 @@ import { describe, expect, test } from 'vitest';
 import exhibit from '../../fixtures/presentation-3/exhibit-2.json';
 import hasPart from '../../fixtures/presentation-3/has-part.json';
 import { Vault } from '../../src/vault';
-import { addReference, moveEntities, moveEntity, updateReference } from '../../src/vault/actions';
+import {
+  addReference,
+  changeReferenceIdentifier,
+  moveEntities,
+  moveEntity,
+  updateReference,
+} from '../../src/vault/actions';
 import { rangeMaker } from '../helpers';
 
 describe('Vault functions', () => {
@@ -118,9 +124,67 @@ describe('Vault functions', () => {
     expect(vault.get(specificAnno.target).type).toEqual('Canvas');
   });
 
+  test('updating identifier', async () => {
+    const vault = new Vault();
+    const manifest = await vault.loadManifest(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
+    invariant(manifest);
+    const canvas = vault.get(manifest.items[0]);
+
+    vault.dispatch(
+      changeReferenceIdentifier({
+        id: canvas.id,
+        type: 'Canvas',
+        key: 'thumbnail',
+        index: 0,
+        reference: {
+          id: 'https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg',
+          type: 'ContentResource',
+        },
+        newIdentifier: 'https://example.org/my-new-thumb.json',
+      })
+    );
+
+    expect(vault.get(canvas).thumbnail).toMatchInlineSnapshot(`
+      [
+        {
+          "id": "https://example.org/my-new-thumb.json",
+          "type": "ContentResource",
+        },
+      ]
+    `);
+
+    expect(vault.get(vault.get(canvas).thumbnail)).toMatchInlineSnapshot(`
+      [
+        {
+          "format": "image/jpeg",
+          "height": 3024,
+          "id": "https://example.org/my-new-thumb.json",
+          "iiif-parser:hasPart": [
+            {
+              "@explicit": true,
+              "format": {},
+              "id": "https://example.org/my-new-thumb.json",
+              "iiif-parser:partOf": "https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1",
+              "type": "Image",
+            },
+          ],
+          "service": [
+            {
+              "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen",
+              "profile": "level1",
+              "type": "ImageService3",
+            },
+          ],
+          "type": "Image",
+          "width": 4032,
+        },
+      ]
+    `);
+  });
+
   test('updating reference', async () => {
     const vault = new Vault();
-    const manifest = await vault.loadManifest(hasPart.id, hasPart);
+    const manifest = await vault.loadManifest(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
     invariant(manifest);
     const canvas = vault.get(manifest.items[0]);
 
