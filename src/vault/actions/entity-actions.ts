@@ -14,6 +14,7 @@ export const MOVE_ENTITIES = '@iiif/MOVE_ENTITIES';
 
 export const ADD_REFERENCE = '@iiif/ADD_REFERENCE';
 export const UPDATE_REFERENCE = '@iiif/UPDATE_REFERENCE';
+export const CHANGE_REFERENCE_IDENTIFIER = '@iiif/CHANGE_REFERENCE_IDENTIFIER';
 
 export const REMOVE_REFERENCE = '@iiif/REMOVE_REFERENCE';
 
@@ -112,6 +113,16 @@ export const updateReference = createAction(UPDATE_REFERENCE)<{
   reference: SpecificResource | ({ id: string; type: string } & any);
 }>();
 
+export const changeReferenceIdentifier = createAction(CHANGE_REFERENCE_IDENTIFIER)<{
+  // Parent ID and Type to work from
+  type: keyof Entities;
+  id: string;
+  key: string;
+  index: number;
+  reference: SpecificResource | ({ id: string; type: string } & any);
+  newIdentifier: string;
+}>();
+
 export const addMetadata = createAction(ADD_METADATA)<{
   id: string;
   type: keyof Entities;
@@ -145,6 +156,7 @@ export const entityActions = {
   addReference,
   removeReference,
   updateReference,
+  changeReferenceIdentifier,
   addMetadata,
   removeMetadata,
   updateMetadata,
