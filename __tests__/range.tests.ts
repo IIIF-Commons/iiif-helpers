@@ -72,6 +72,10 @@ describe('range helper', () => {
                       "f. 1r",
                     ],
                   },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r1",
+                    "type": "Range",
+                  },
                   "resource": {
                     "selector": undefined,
                     "source": {
@@ -92,6 +96,10 @@ describe('range helper', () => {
                       "f. 1v",
                     ],
                   },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r1",
+                    "type": "Range",
+                  },
                   "resource": {
                     "selector": undefined,
                     "source": {
@@ -108,6 +116,10 @@ describe('range helper', () => {
                 "gez": [
                   "Tabiba Tabiban [ጠቢበ ጠቢባን]",
                 ],
+              },
+              "parent": {
+                "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r0",
+                "type": "Range",
               },
               "type": "Range",
               "untitled": false,
@@ -149,6 +161,10 @@ describe('range helper', () => {
                           "f. 2r",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/1",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": undefined,
                         "source": {
@@ -169,6 +185,10 @@ describe('range helper', () => {
                           "f. 2v",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/1",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": undefined,
                         "source": {
@@ -185,6 +205,10 @@ describe('range helper', () => {
                     "en": [
                       "Monday",
                     ],
+                  },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2",
+                    "type": "Range",
                   },
                   "type": "Range",
                   "untitled": false,
@@ -212,6 +236,10 @@ describe('range helper', () => {
                           "f. 3r",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": undefined,
                         "source": {
@@ -232,6 +260,10 @@ describe('range helper', () => {
                           "f. 3v",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2/2",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": undefined,
                         "source": {
@@ -249,6 +281,10 @@ describe('range helper', () => {
                       "Tuesday",
                     ],
                   },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r2",
+                    "type": "Range",
+                  },
                   "type": "Range",
                   "untitled": false,
                 },
@@ -257,6 +293,10 @@ describe('range helper', () => {
                 "gez": [
                   "Arede'et [አርድዕት]",
                 ],
+              },
+              "parent": {
+                "id": "https://iiif.io/api/cookbook/recipe/0024-book-4-toc/range/r0",
+                "type": "Range",
               },
               "type": "Range",
               "untitled": false,
@@ -267,6 +307,7 @@ describe('range helper', () => {
               "Table of Contents",
             ],
           },
+          "parent": undefined,
           "type": "Range",
           "untitled": false,
         }
@@ -351,6 +392,10 @@ describe('range helper', () => {
                           "Untitled",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/3",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": {
                           "type": "FragmentSelector",
@@ -370,6 +415,10 @@ describe('range helper', () => {
                     "it": [
                       "Preludio e Coro d'introduzione – Bel conforto al mietitore",
                     ],
+                  },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/2",
+                    "type": "Range",
                   },
                   "type": "Range",
                   "untitled": false,
@@ -400,6 +449,10 @@ describe('range helper', () => {
                           "Untitled",
                         ],
                       },
+                      "parent": {
+                        "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/4",
+                        "type": "Range",
+                      },
                       "resource": {
                         "selector": {
                           "type": "FragmentSelector",
@@ -420,6 +473,10 @@ describe('range helper', () => {
                       "Remainder of Atto Primo",
                     ],
                   },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/2",
+                    "type": "Range",
+                  },
                   "type": "Range",
                   "untitled": false,
                 },
@@ -428,6 +485,10 @@ describe('range helper', () => {
                 "it": [
                   "Atto Primo",
                 ],
+              },
+              "parent": {
+                "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/1",
+                "type": "Range",
               },
               "type": "Range",
               "untitled": false,
@@ -458,6 +519,10 @@ describe('range helper', () => {
                       "Untitled",
                     ],
                   },
+                  "parent": {
+                    "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/5",
+                    "type": "Range",
+                  },
                   "resource": {
                     "selector": {
                       "type": "FragmentSelector",
@@ -478,6 +543,10 @@ describe('range helper', () => {
                   "Atto Secondo",
                 ],
               },
+              "parent": {
+                "id": "https://iiif.io/api/cookbook/recipe/0026-toc-opera/range/1",
+                "type": "Range",
+              },
               "type": "Range",
               "untitled": false,
             },
@@ -487,6 +556,7 @@ describe('range helper', () => {
               "Gaetano Donizetti, L'Elisir D'Amore",
             ],
           },
+          "parent": undefined,
           "type": "Range",
           "untitled": false,
         }
@@ -1020,76 +1090,76 @@ describe('range helper', () => {
 
     expect(vault.get('https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281'))
       .toMatchInlineSnapshot(`
-      {
-        "accompanyingCanvas": null,
-        "annotations": [],
-        "behavior": [],
-        "homepage": [],
-        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281",
-        "iiif-parser:hasPart": [
-          {
-            "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281",
-            "iiif-parser:partOf": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0186",
-            "type": "Range",
-          },
-        ],
-        "items": [
-          {
-            "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0282",
-            "type": "Range",
-          },
-        ],
-        "label": {
-          "none": [
-            "The third Part of Henry the Sixt, with the death of the Duke of Yorke.",
+        {
+          "accompanyingCanvas": null,
+          "annotations": [],
+          "behavior": [],
+          "homepage": [],
+          "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281",
+          "iiif-parser:hasPart": [
+            {
+              "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281",
+              "iiif-parser:partOf": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0186",
+              "type": "Range",
+            },
           ],
-        },
-        "metadata": [
-          {
-            "label": {
-              "none": [
-                "Titles",
-              ],
+          "items": [
+            {
+              "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0282",
+              "type": "Range",
             },
-            "value": {
-              "none": [
-                "The third Part of Henry the Sixt, with the death of the Duke of Yorke.",
-              ],
-            },
+          ],
+          "label": {
+            "none": [
+              "The third Part of Henry the Sixt, with the death of the Duke of Yorke.",
+            ],
           },
-          {
-            "label": {
-              "none": [
-                "Image Range",
-              ],
+          "metadata": [
+            {
+              "label": {
+                "none": [
+                  "Titles",
+                ],
+              },
+              "value": {
+                "none": [
+                  "The third Part of Henry the Sixt, with the death of the Duke of Yorke.",
+                ],
+              },
             },
-            "value": {
-              "none": [
-                "fol. o4r–fol. q4v",
-              ],
+            {
+              "label": {
+                "none": [
+                  "Image Range",
+                ],
+              },
+              "value": {
+                "none": [
+                  "fol. o4r–fol. q4v",
+                ],
+              },
             },
+          ],
+          "navDate": null,
+          "partOf": [],
+          "placeholderCanvas": null,
+          "provider": [],
+          "rendering": [],
+          "requiredStatement": null,
+          "rights": null,
+          "seeAlso": [],
+          "service": [],
+          "start": {
+            "id": "https://iiif.bodleian.ox.ac.uk/iiif/canvas/45778a2f-6cc6-4bfd-815e-4aeb3ddee222.json",
+            "type": "Canvas",
           },
-        ],
-        "navDate": null,
-        "partOf": [],
-        "placeholderCanvas": null,
-        "provider": [],
-        "rendering": [],
-        "requiredStatement": null,
-        "rights": null,
-        "seeAlso": [],
-        "service": [],
-        "start": {
-          "id": "https://iiif.bodleian.ox.ac.uk/iiif/canvas/45778a2f-6cc6-4bfd-815e-4aeb3ddee222.json",
-          "type": "Canvas",
-        },
-        "summary": null,
-        "supplementary": null,
-        "thumbnail": [],
-        "type": "Range",
-        "viewingDirection": "left-to-right",
-      }
-    `);
+          "summary": null,
+          "supplementary": null,
+          "thumbnail": [],
+          "type": "Range",
+          "viewingDirection": "left-to-right",
+        }
+      `);
 
     expect(vault.get(manifest.structures)).toMatchSnapshot();
 

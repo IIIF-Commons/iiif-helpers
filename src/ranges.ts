@@ -154,6 +154,7 @@ export interface RangeTableOfContentsNode {
   isNoNav?: boolean;
   firstCanvas?: SpecificResource<Reference<'Canvas'>> | null;
   items?: Array<RangeTableOfContentsNode>;
+  parent?: { id: string; type: 'Range' };
 }
 
 export function rangesToTableOfContentsTree(
@@ -186,7 +187,7 @@ export function rangeToTableOfContentsTree(
   vault: CompatVault,
   rangeRef: undefined | null | Range | RangeNormalized | Reference<'Range'>,
   seenIds: string[] = [],
-  options: { showNoNav?: boolean } = {}
+  options: { showNoNav?: boolean; parentRange?: { id: string; type: 'Range' } } = {}
 ): RangeTableOfContentsNode | null {
   if (!rangeRef) return null;
 
@@ -200,6 +201,7 @@ export function rangeToTableOfContentsTree(
     isRangeLeaf: false,
     isVirtual: range.id.startsWith('vault://virtual-root/'),
     items: [],
+    parent: options.parentRange,
   };
 
   if (seenIds.indexOf(toc.id) !== -1) {
@@ -233,6 +235,7 @@ export function rangeToTableOfContentsTree(
           type: 'SpecificResource',
           source: { id: inner, type: 'Canvas' },
         },
+        parent: { id: toc.id, type: 'Range' },
       };
 
       if (seenIds.indexOf(foundCanvas.id) !== -1) {
@@ -260,6 +263,7 @@ export function rangeToTableOfContentsTree(
         label: maybeCanvas.label || { none: ['Untitled'] },
         untitled: !maybeCanvas.label,
         resource: inner,
+        parent: { id: toc.id, type: 'Range' },
       };
       if (seenIds.indexOf(foundCanvas.id) !== -1) {
         foundCanvas.id = `vault://${hash(inner)}`;
@@ -281,6 +285,7 @@ export function rangeToTableOfContentsTree(
           type: 'SpecificResource',
           source: inner as any,
         },
+        parent: { id: toc.id, type: 'Range' },
       };
 
       if (seenIds.indexOf(foundCanvas.id) !== -1) {
@@ -293,7 +298,10 @@ export function rangeToTableOfContentsTree(
       continue;
     }
     if ((inner as any).type === 'Range') {
-      const foundRange = rangeToTableOfContentsTree(vault, inner as any, seenIds, options);
+      const foundRange = rangeToTableOfContentsTree(vault, inner as any, seenIds, {
+        ...options,
+        parentRange: { id: toc.id, type: 'Range' },
+      });
       if (foundRange) {
         toc.items!.push(foundRange);
       }

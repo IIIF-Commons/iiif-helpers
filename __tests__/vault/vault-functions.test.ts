@@ -689,6 +689,76 @@ describe('Vault functions', () => {
       `);
   });
 
+  test('moving ranges to different ranges', async () => {
+    const vault = new Vault();
+
+    const [range, { getManifest }] = rangeMaker((c) =>
+      c.range('https://example.org/rangeTop', [
+        c.range('https://example.org/english', [
+          c.range('https://example.org/english/1', [
+            c.canvas('https://example.org/canvas1'),
+            c.canvas('https://example.org/canvas2'),
+            c.canvas('https://example.org/canvas3'),
+            c.canvas('https://example.org/canvas4'),
+          ]),
+          c.range('https://example.org/english/2', [
+            c.canvas('https://example.org/canvas5'),
+            c.canvas('https://example.org/canvas6'),
+            c.canvas('https://example.org/canvas7'),
+            c.canvas('https://example.org/canvas8'),
+          ]),
+        ]),
+        c.range('https://example.org/french', [
+          c.range('https://example.org/french/1', [
+            c.canvas('https://example.org/canvas9'),
+            c.canvas('https://example.org/canvas10'),
+            c.canvas('https://example.org/canvas11'),
+            c.canvas('https://example.org/canvas12'),
+          ]),
+          c.range('https://example.org/french/2', [
+            c.canvas('https://example.org/canvas13'),
+            c.canvas('https://example.org/canvas14'),
+            c.canvas('https://example.org/canvas15'),
+            c.canvas('https://example.org/canvas16'),
+          ]),
+        ]),
+      ])
+    );
+
+    const manifest = getManifest();
+    vault.loadSync(manifest.id, manifest);
+
+    vault.dispatch(
+      moveEntities({
+        subjects: {
+          type: 'list',
+          items: [{ id: 'https://example.org/french/1', type: 'Range' }],
+        },
+        from: {
+          id: 'https://example.org/french',
+          type: 'Range',
+          key: 'items',
+        },
+        to: {
+          id: 'https://example.org/english',
+          type: 'Range',
+          key: 'items',
+          index: 6,
+        },
+      })
+    );
+
+    expect(
+      vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id)
+    ).toMatchInlineSnapshot(`
+      [
+        "https://example.org/english/1",
+        "https://example.org/english/2",
+        "https://example.org/french/1",
+      ]
+    `);
+  });
+
   test('move range slice to different position in same range', async () => {
     const vault = new Vault();
 
