@@ -13,7 +13,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
+          node-version: '22.x'
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
@@ -47,7 +47,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '18.x'
+          node-version: '22.x'
 
       - name: Set tag
         id: tagName
