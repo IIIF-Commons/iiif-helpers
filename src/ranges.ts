@@ -1,6 +1,7 @@
 import { compressSpecificResource } from '@iiif/parser';
 import type { Canvas, InternationalString, Manifest, Range, Reference, SpecificResource } from '@iiif/presentation-3';
 import type { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/presentation-3-normalized';
+import { splitCanvasFragment } from './annotation-targets';
 import { type CompatVault, compatVault } from './compat';
 import { hash } from './shared-utilities';
 
@@ -87,8 +88,9 @@ export function findAllCanvasesInRange(vault: CompatVault, range: RangeNormalize
   const found: Reference<'Canvas'>[] = [];
   for (const inner of range.items) {
     if (inner.type === 'SpecificResource' && inner.source?.type === 'Canvas') {
-      if (inner.source.id.indexOf('#') !== -1) {
-        found.push({ id: inner.source.id.split('#')[0], type: 'Canvas' });
+      const [url, fragment] = splitCanvasFragment(inner.source.id || '');
+      if (fragment) {
+        found.push({ id: url, type: 'Canvas' });
       } else {
         found.push(inner.source as Reference<'Canvas'>);
       }

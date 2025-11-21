@@ -1,5 +1,5 @@
 import type { ExternalWebResource, W3CAnnotationTarget } from '@iiif/presentation-3';
-import { parseSelector } from './parse-selector';
+import { parseSelector, splitCanvasFragment } from './parse-selector';
 import type { ParsedSelector, SupportedSelector } from './selector-types';
 import type { SupportedTarget } from './target-types';
 
@@ -20,7 +20,7 @@ export function expandTarget(
   }
 
   if (typeof target === 'string') {
-    const [id, fragment] = target.split('#');
+    const [id, fragment] = splitCanvasFragment(target);
 
     if (!fragment) {
       // This is an unknown selector.
@@ -75,13 +75,16 @@ export function expandTarget(
     const styleClass = target.styleClass || options.styleClass;
 
     let preParsedSelector = { selector: null, selectors: [] } as ParsedSelector;
-    if (typeof target.source === 'string' && target.source.includes('#')) {
-      const expandedAgain = expandTarget(target.source, { ...options, styleClass });
-      target.source = expandedAgain.source;
-      preParsedSelector = {
-        selector: expandedAgain.selector,
-        selectors: expandedAgain.selectors,
-      };
+    if (typeof target.source === 'string') {
+      const [, sourceFragment] = splitCanvasFragment(target.source);
+      if (sourceFragment) {
+        const expandedAgain = expandTarget(target.source, { ...options, styleClass });
+        target.source = expandedAgain.source;
+        preParsedSelector = {
+          selector: expandedAgain.selector,
+          selectors: expandedAgain.selectors,
+        };
+      }
     }
 
     const { selector, selectors } = target.selector
@@ -106,7 +109,7 @@ export function expandTarget(
       ];
     }
 
-    const [id, fragment] = target.id.split('#');
+    const [id, fragment] = splitCanvasFragment(target.id);
     if (!fragment) {
       // This is an unknown selector.
       return {

@@ -106,7 +106,7 @@ export function parseSelector(
   }
 
   if (typeof source === 'string') {
-    const [id, fragment] = source.split('#');
+    const [id, fragment] = splitCanvasFragment(source);
 
     if (!fragment) {
       // This is an unknown selector.
@@ -580,6 +580,18 @@ export function isImageApiSelector(t: unknown): t is ImageApiSelector {
   const type = (t as any).type || (t as any)['@type'];
 
   return type === 'iiif:ImageApiSelector' || type === 'ImageApiSelector';
+}
+
+export function splitCanvasFragment(originalUrl: string): string[] {
+  const [url, fragment] = originalUrl.split('#');
+  if (!fragment || !isValidCanvasFragment(fragment)) {
+    return [originalUrl, ''] as const;
+  }
+  return [url, fragment] as const;
+}
+
+export function isValidCanvasFragment(fragment: string): boolean {
+  return fragment.includes('xywh=') || fragment.includes('t=');
 }
 
 function resolveHints(supported: ParsedSelector): ParsedSelector {
