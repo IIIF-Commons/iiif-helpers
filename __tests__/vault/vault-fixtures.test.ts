@@ -1217,6 +1217,7 @@ describe('vault', () => {
           "id": "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1",
           "type": "Canvas",
         },
+        "styleClass": "author1",
         "type": "SpecificResource",
       }
     `);

@@ -92,12 +92,8 @@ describe('getPaintables', () => {
                 "painting",
               ],
               "target": {
-                "selector": {
-                  "type": "FragmentSelector",
-                  "value": "/canvas/1",
-                },
                 "source": {
-                  "id": "https://n2t.net/ark:/67039/a5b1a9b3dad04c24b01bc7415beb8b71/iiif.json",
+                  "id": "https://n2t.net/ark:/67039/a5b1a9b3dad04c24b01bc7415beb8b71/iiif.json#/canvas/1",
                   "type": "Canvas",
                 },
                 "type": "SpecificResource",
@@ -126,12 +122,8 @@ describe('getPaintables', () => {
             },
             "selector": null,
             "target": {
-              "selector": {
-                "type": "FragmentSelector",
-                "value": "/canvas/1",
-              },
               "source": {
-                "id": "https://n2t.net/ark:/67039/a5b1a9b3dad04c24b01bc7415beb8b71/iiif.json",
+                "id": "https://n2t.net/ark:/67039/a5b1a9b3dad04c24b01bc7415beb8b71/iiif.json#/canvas/1",
                 "type": "Canvas",
               },
               "type": "SpecificResource",
