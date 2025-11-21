@@ -1,7 +1,8 @@
 import { defineConfig } from 'tsdown';
 
-export default defineConfig({
+export default defineConfig((options) => ({
   dts: true,
+  clean: !options.watch,
   target: ['es2020'],
   format: ['esm', 'cjs'],
   platform: 'browser',
@@ -32,4 +33,4 @@ export default defineConfig({
   external: [],
   // @todo re-enable.
   // globalName: 'IIIFHelpers',
-});
+}));

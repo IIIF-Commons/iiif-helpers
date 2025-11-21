@@ -276,7 +276,7 @@
     "vite": "^5.2.8",
     "vitest": "^1.4.0",
     "zustand": "^4.5.2",
-    "tsdown": "^0.14.2",
+    "tsdown": "0.16.5",
     "publint": "^0.2.7"
   },
   "publishConfig": {
