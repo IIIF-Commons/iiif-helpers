@@ -109,22 +109,23 @@
 //     }
 //   }
 // ],
+
 import {
+  type Annotation,
+  type AnnotationPage,
+  type Canvas,
+  type ContentResource,
+  type Manifest,
+  ManifestDescriptive,
+} from '@iiif/presentation-3';
+import type {
   AnnotationNormalized,
   AnnotationPageNormalized,
   CanvasNormalized,
   ManifestNormalized,
 } from '@iiif/presentation-3-normalized';
-import { CompatVault } from './compat';
-import {
-  Annotation,
-  AnnotationPage,
-  Canvas,
-  ContentResource,
-  Manifest,
-  ManifestDescriptive,
-} from '@iiif/presentation-3';
-import { ParsedSelector, TemporalSelector, expandTarget, parseSelector } from './annotation-targets';
+import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from './annotation-targets';
+import type { CompatVault } from './compat';
 
 interface Transcription {
   id: string;
@@ -224,7 +225,8 @@ export async function canvasLoadExternalAnnotationPages(
     for (const annotationPageRef of canvas.annotations) {
       const annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
       const requestStatus = vault.requestStatus(annotationPage.id);
-      if (!requestStatus && (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal'])) {
+      const shouldFetch = !requestStatus || requestStatus.loadingState === 'RESOURCE_LOADING';
+      if (shouldFetch && (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal'])) {
         try {
           annotationPages.push(await vault.load(annotationPage.id));
         } catch (e) {
@@ -249,6 +251,9 @@ export function timeStampToSeconds(time: string) {
 
 export async function vttToTranscription(vtt: string, id: string): Promise<Transcription | null> {
   const segments: Transcription['segments'] = [];
+
+  // Reset lastIndex to avoid race conditions with the global regex
+  vttRegex.lastIndex = 0;
 
   let match;
   while ((match = vttRegex.exec(vtt))) {
