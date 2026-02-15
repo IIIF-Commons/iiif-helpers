@@ -1,4 +1,4 @@
-import { ImageTile } from '@iiif/presentation-3';
+import { ImageTile } from '@iiif/parser/presentation-3/types';
 
 export function sampledTilesToTiles(width: number, height: number, sampledTiles: ImageTile[]): ImageTile[] {
   const maxDim = width > height ? width : height;

@@ -1,5 +1,5 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
-import { AnnotationNormalized, CanvasNormalized } from '@iiif/presentation-3-normalized';
+import { ContentResource, IIIFExternalWebResource } from '@iiif/parser/presentation-3/types';
+import { AnnotationNormalized, CanvasNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { ComplexChoice, Paintables } from './types';
 import { parseSpecificResource } from './parse-specific-resource';
 import { compatVault, CompatVault } from '../compat';

@@ -8,8 +8,8 @@ import {
   SearchServiceQueryParams,
   Manifest,
   SearchServiceCommonHitSelectors,
-} from '@iiif/presentation-3';
-import { ManifestNormalized } from '@iiif/presentation-3-normalized';
+} from '@iiif/parser/presentation-3/types';
+import { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { g } from 'vitest/dist/suite-a18diDsI.js';
 import { createStore } from 'zustand/vanilla';
 

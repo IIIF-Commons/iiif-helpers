@@ -1,4 +1,4 @@
-import type { Selector } from '@iiif/presentation-3';
+import type { Selector } from '@iiif/parser/presentation-3/types';
 import { JSDOM } from 'jsdom';
 import { describe, expect, test } from 'vitest';
 import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';

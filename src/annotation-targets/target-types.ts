@@ -1,4 +1,4 @@
-import { ExternalWebResource } from '@iiif/presentation-3';
+import { ExternalWebResource } from '@iiif/parser/presentation-3/types';
 import { SupportedSelectors } from './selector-types';
 
 export type SupportedTarget = {

@@ -1,5 +1,5 @@
 import { isSpecificResource } from '@iiif/parser';
-import type { Reference, SpecificResource } from '@iiif/presentation-3';
+import type { Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
 
 /**
  * A string hashing function based on Daniel J. Bernstein's popular 'times 33' hash algorithm.

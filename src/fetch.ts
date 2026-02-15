@@ -1,4 +1,4 @@
-import { Collection, Manifest } from '@iiif/presentation-3';
+import { Collection, Manifest } from '@iiif/parser/presentation-3/types';
 import { upgrade } from '@iiif/parser/upgrader';
 
 function fetchAndUpgrade(input: RequestInfo | URL, init?: RequestInit): Promise<Manifest | Collection> {

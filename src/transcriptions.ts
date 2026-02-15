@@ -117,13 +117,13 @@ import {
   type ContentResource,
   type Manifest,
   ManifestDescriptive,
-} from '@iiif/presentation-3';
+} from '@iiif/parser/presentation-3/types';
 import type {
   AnnotationNormalized,
   AnnotationPageNormalized,
   CanvasNormalized,
   ManifestNormalized,
-} from '@iiif/presentation-3-normalized';
+} from '@iiif/parser/presentation-3-normalized/types';
 import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from './annotation-targets';
 import type { CompatVault } from './compat';
 

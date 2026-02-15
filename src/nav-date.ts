@@ -4,9 +4,9 @@
 // "navDate": "1986-01-01T00:00:00+00:00"
 // "navDate": "1987-01-01T00:00:00+00:00"
 
-import { Collection, InternationalString, Manifest } from '@iiif/presentation-3';
+import { Collection, InternationalString, Manifest } from '@iiif/parser/presentation-3/types';
 import { CompatVault } from './compat';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
+import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 
 export interface DateNavigationResource {
   id: string;

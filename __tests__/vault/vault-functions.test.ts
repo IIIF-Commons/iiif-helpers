@@ -1,6 +1,6 @@
 import { toRef } from '@iiif/parser';
-import type { StructuralProperties } from '@iiif/presentation-3';
-import type { AnnotationNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type { StructuralProperties } from '@iiif/parser/presentation-3/types';
+import type { AnnotationNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import invariant from 'tiny-invariant';
 import { describe, expect, test } from 'vitest';
 import exhibit from '../../fixtures/presentation-3/exhibit-2.json';
@@ -748,9 +748,8 @@ describe('Vault functions', () => {
       })
     );
 
-    expect(
-      vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id)
-    ).toMatchInlineSnapshot(`
+    expect(vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
       [
         "https://example.org/english/1",
         "https://example.org/english/2",

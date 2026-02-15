@@ -1,4 +1,4 @@
-import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import invariant from 'tiny-invariant';
 import { describe, expect, test } from 'vitest';
 import cssManifest from '../../fixtures/cookbook/css.json';

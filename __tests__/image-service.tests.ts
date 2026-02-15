@@ -1,5 +1,5 @@
 import { canonicalServiceUrl, fixedSizesFromScales, isImageService, supportsCustomSizes } from '@iiif/parser/image-3';
-import type { ImageService } from '@iiif/presentation-3';
+import type { ImageService } from '@iiif/parser/presentation-3/types';
 import { describe, expect, test } from 'vitest';
 import {
   getCustomSizeFromService,

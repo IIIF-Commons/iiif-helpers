@@ -3,7 +3,7 @@ import { Vault } from '../src/vault';
 import { ThumbnailOutput, createThumbnailHelper } from '../src/thumbnail';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
-import { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { upgrade } from '@iiif/parser/upgrader';
 
 export const thumbnailFixtures = [

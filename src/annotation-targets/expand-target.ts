@@ -1,4 +1,4 @@
-import type { ExternalWebResource, W3CAnnotationTarget } from '@iiif/presentation-3';
+import type { ExternalWebResource, W3CAnnotationTarget } from '@iiif/parser/presentation-3/types';
 import { parseSelector, splitCanvasFragment } from './parse-selector';
 import type { ParsedSelector, SupportedSelector } from './selector-types';
 import type { SupportedTarget } from './target-types';

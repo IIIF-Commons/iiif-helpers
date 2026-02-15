@@ -1,4 +1,4 @@
-import { ChoiceBody, CollectionItemSchemas, ContentResource, Reference } from '@iiif/presentation-3';
+import { ChoiceBody, CollectionItemSchemas, ContentResource, Reference } from '@iiif/parser/presentation-3/types';
 import {
   AnnotationNormalized,
   AnnotationPageNormalized,
@@ -6,7 +6,7 @@ import {
   CollectionNormalized,
   DescriptiveNormalized,
   ManifestNormalized,
-} from '@iiif/presentation-3-normalized';
+} from '@iiif/parser/presentation-3-normalized/types';
 import { compatVault, CompatVault } from './compat';
 import {
   FixedSizeImage,

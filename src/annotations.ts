@@ -1,4 +1,4 @@
-import { ChoiceBody, ImageService, InternationalString } from '@iiif/presentation-3';
+import { ChoiceBody, ImageService, InternationalString } from '@iiif/parser/presentation-3/types';
 import { ParsedSelector, SupportedTarget } from './annotation-targets';
 import { ChoiceDescription, ComplexChoice, SingleChoice } from './painting-annotations';
 

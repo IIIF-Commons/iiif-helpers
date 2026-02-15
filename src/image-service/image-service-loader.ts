@@ -13,7 +13,7 @@ import {
   ImageSize,
   ImageTile,
   ImageService,
-} from '@iiif/presentation-3';
+} from '@iiif/parser/presentation-3/types';
 import { getImageServerFromId } from './get-image-server-from-id';
 import { sampledTilesToTiles } from './sampled-tiles-to-tiles';
 import { ImageCandidate, ImageCandidateRequest } from './types';

@@ -1,4 +1,4 @@
-import { Reference } from '@iiif/presentation-3';
+import { Reference } from '@iiif/parser/presentation-3/types';
 import { compatVault, CompatVault } from './compat';
 
 export type StyleDefinition = Record<string, any>;

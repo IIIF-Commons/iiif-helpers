@@ -1,7 +1,7 @@
 import { ImageServiceLoader } from './image-service-loader';
 import { createStore } from 'zustand/vanilla';
 import mitt, { Emitter, Handler } from 'mitt';
-import { ImageService } from '@iiif/presentation-3';
+import { ImageService } from '@iiif/parser/presentation-3/types';
 import { getId } from '@iiif/parser/image-3';
 
 export type LoadImageServiceDetail = {

@@ -1,5 +1,5 @@
 import { Traverse } from '@iiif/parser';
-import { Canvas, Collection, InternationalString, Manifest } from '@iiif/presentation-3';
+import { Canvas, Collection, InternationalString, Manifest } from '@iiif/parser/presentation-3/types';
 
 export function getClosestLanguage(
   i18nLanguage: string | undefined,

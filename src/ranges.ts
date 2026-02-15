@@ -1,6 +1,6 @@
 import { compressSpecificResource } from '@iiif/parser';
-import type { Canvas, InternationalString, Manifest, Range, Reference, SpecificResource } from '@iiif/presentation-3';
-import type { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/presentation-3-normalized';
+import type { Canvas, InternationalString, Manifest, Range, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
+import type { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { splitCanvasFragment } from './annotation-targets';
 import { type CompatVault, compatVault } from './compat';
 import { hash } from './shared-utilities';
@@ -341,6 +341,9 @@ function getCanvasesFromRange(
       }
     } else if (item.type === 'Range') {
       canvases.push(...getCanvasesFromRange(vault, item as Range, currentPath));
+    } else if ((item as any).type === 'Canvas' || (item as any).type === 'Timeline' || (item as any).type === 'Scene') {
+      // P4 normalization stores container references directly (not wrapped in SpecificResource)
+      canvases.push({ canvas: item as unknown as Canvas, path: currentPath });
     }
   }
   return canvases;

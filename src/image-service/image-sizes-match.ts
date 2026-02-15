@@ -1,4 +1,4 @@
-import { ImageSize } from '@iiif/presentation-3';
+import { ImageSize } from '@iiif/parser/presentation-3/types';
 
 export function imageSizesMatch(sizesA: ImageSize[], sizesB: ImageSize[]): boolean {
   if (sizesA.length !== sizesB.length) {

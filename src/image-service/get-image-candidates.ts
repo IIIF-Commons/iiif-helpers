@@ -1,4 +1,4 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
+import { ContentResource, IIIFExternalWebResource } from '@iiif/parser/presentation-3/types';
 import { ImageServiceLoader, ImageServiceRequest } from './image-service-loader';
 import { ImageCandidate } from './types';
 import { getImageCandidatesFromService } from './get-image-candidates-from-service';

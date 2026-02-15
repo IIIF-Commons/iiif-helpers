@@ -1,4 +1,14 @@
-import { ChoiceBody, ContentResource } from '@iiif/presentation-3';
+import type {
+  ChoiceBody as ChoiceBodyV3,
+  ContentResource as ContentResourceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  ChoiceResource as ChoiceBodyV4,
+  ContentResource as ContentResourceV4,
+} from '@iiif/parser/presentation-4/types';
+
+type ChoiceBody = ChoiceBodyV3 | ChoiceBodyV4;
+type ContentResource = ContentResourceV3 | ContentResourceV4;
 
 export function parseSpecificResource(
   resource: ContentResource

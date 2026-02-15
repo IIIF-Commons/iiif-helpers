@@ -1,7 +1,7 @@
 import { createStore } from '../../src/vault/store';
 import { entityActions } from '../../src/vault/actions';
 import { emptyCanvas, emptyManifest, normalize } from '@iiif/parser';
-import { Collection, Manifest } from '@iiif/presentation-3';
+import { Collection, Manifest } from '@iiif/parser/presentation-3/types';
 import { describe, test, expect } from 'vitest';
 
 describe('Store', function () {

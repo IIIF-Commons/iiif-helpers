@@ -1,7 +1,7 @@
 // Test utility.
 
 import { emptyManifest } from '@iiif/parser';
-import type { Manifest, Range, RangeItems } from '@iiif/presentation-3';
+import type { Manifest, Range, RangeItems } from '@iiif/parser/presentation-3/types';
 import { getValue, type RangeTableOfContentsNode } from '../src';
 
 // Render range in ascii with children + indentation.

@@ -1,4 +1,4 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
+import { ContentResource, IIIFExternalWebResource } from '@iiif/parser/presentation-3/types';
 import { ImageCandidate } from './types';
 import { inferImageSizeFromUrl } from './infer-size-from-url';
 import { getId, getType } from '@iiif/parser/image-3';

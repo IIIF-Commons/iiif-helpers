@@ -1,4 +1,4 @@
-import { Service } from '@iiif/presentation-3';
+import { Service } from '@iiif/parser/presentation-3/types';
 import { FixedSizeImageService } from './types';
 import { getId, isImageService, getImageServiceLevel } from '@iiif/parser/image-3';
 import { isImage3 } from './is-image-3';

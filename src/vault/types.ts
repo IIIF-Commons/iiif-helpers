@@ -9,7 +9,7 @@ import type {
   ResourceProvider,
   Selector,
   Service,
-} from '@iiif/presentation-3';
+} from '@iiif/parser/presentation-3/types';
 import type {
   AnnotationNormalized,
   AnnotationPageNormalized,
@@ -19,7 +19,7 @@ import type {
   RangeNormalized,
   ResourceProviderNormalized,
   ServiceNormalized,
-} from '@iiif/presentation-3-normalized';
+} from '@iiif/parser/presentation-3-normalized/types';
 import type { PayloadAction } from 'typesafe-actions';
 import type { EntityActions } from './actions/entity-actions';
 import type { MappingActions } from './actions/mapping-actions';
@@ -31,6 +31,17 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface A {}
 }
+
+/**
+ * A loosely-typed normalized entity for P4-only store types
+ * (Timeline, Scene, Quantity, Transform) which do not have
+ * dedicated normalized type packages yet.
+ */
+export type GenericNormalizedEntity = {
+  id: string;
+  type: string;
+  [key: string]: unknown;
+};
 
 export type MetaState = Record<string, Record<string, Record<string, any>>>;
 
@@ -76,7 +87,8 @@ export type NormalizedEntity =
   | RangeNormalized
   | ServiceNormalized
   | ResourceProviderNormalized
-  | Selector;
+  | Selector
+  | GenericNormalizedEntity;
 
 export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalized
@@ -98,7 +110,15 @@ export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends
                   ? ResourceProviderNormalized
                   : Ref['type'] extends 'Collection'
                     ? CollectionNormalized
-                    : any;
+                    : Ref['type'] extends 'Timeline'
+                      ? GenericNormalizedEntity
+                      : Ref['type'] extends 'Scene'
+                        ? GenericNormalizedEntity
+                        : Ref['type'] extends 'Quantity'
+                          ? GenericNormalizedEntity
+                          : Ref['type'] extends 'Transform'
+                            ? GenericNormalizedEntity
+                            : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
@@ -120,7 +140,15 @@ export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Mani
                   ? ResourceProvider
                   : Ref['type'] extends 'Collection'
                     ? Collection
-                    : any;
+                    : Ref['type'] extends 'Timeline'
+                      ? GenericNormalizedEntity
+                      : Ref['type'] extends 'Scene'
+                        ? GenericNormalizedEntity
+                        : Ref['type'] extends 'Quantity'
+                          ? GenericNormalizedEntity
+                          : Ref['type'] extends 'Transform'
+                            ? GenericNormalizedEntity
+                            : any;
 
 export type Entities = {
   Collection: {
@@ -155,6 +183,19 @@ export type Entities = {
   };
   Agent: {
     [id: string]: ResourceProviderNormalized;
+  };
+  // ── P4 entity stores ──────────────────────────────────────────────────
+  Timeline: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Scene: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Quantity: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Transform: {
+    [id: string]: GenericNormalizedEntity;
   };
 };
 

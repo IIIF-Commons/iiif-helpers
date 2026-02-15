@@ -1,4 +1,4 @@
-import type { InternationalString, SpecificResource } from '@iiif/presentation-3';
+import type { InternationalString, SpecificResource } from '@iiif/parser/presentation-3/types';
 import type { ActionType } from 'typesafe-actions';
 
 import type { Entities } from '../types';

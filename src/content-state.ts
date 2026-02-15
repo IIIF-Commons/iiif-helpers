@@ -1,4 +1,4 @@
-import { Annotation, AnyMotivation } from '@iiif/presentation-3';
+import { Annotation, AnyMotivation } from '@iiif/parser/presentation-3/types';
 import { expandTarget } from './annotation-targets/expand-target';
 import { SupportedTarget } from './annotation-targets/target-types';
 

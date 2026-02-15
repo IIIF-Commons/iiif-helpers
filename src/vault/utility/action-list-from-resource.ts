@@ -1,6 +1,6 @@
-import { normalize } from '@iiif/parser';
-import { AllActions } from '../types';
+import { normalize } from '@iiif/parser/presentation-4';
 import { addMapping, addMappings, importEntities, requestComplete, requestError, requestMismatch } from '../actions';
+import type { AllActions } from '../types';
 
 export const actionListFromResource = (id: string, response: unknown): AllActions[] => {
   const { entities, resource, mapping } = normalize(response);

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
+import type { ImageApiSelector, Selector } from '@iiif/parser/presentation-3/types';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from './css-selectors';
 import {

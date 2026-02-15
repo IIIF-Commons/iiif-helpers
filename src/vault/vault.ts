@@ -1,6 +1,18 @@
 /// <reference types="geojson" />
 
+import { frameResource, HAS_PART, isSpecificResource, PART_OF, serializeConfigPresentation2 } from '@iiif/parser';
 import {
+  type SerializeConfig,
+  serialize,
+  serializeConfigPresentation3,
+  serializeConfigPresentation4,
+} from '@iiif/parser/presentation-4';
+import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
+import type { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
+import mitt, { type Emitter } from 'mitt';
+import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from './actions';
+import { createStore, type VaultZustandStore } from './store';
+import type {
   ActionFromType,
   AllActions,
   Entities,
@@ -10,24 +22,12 @@ import {
   RefToNormalized,
   RequestState,
 } from './types';
-import { Collection, Manifest, Reference, SpecificResource } from '@iiif/presentation-3';
-import {
-  frameResource,
-  HAS_PART,
-  isSpecificResource,
-  PART_OF,
-  serialize,
-  SerializeConfig,
-  serializeConfigPresentation2,
-  serializeConfigPresentation3,
-} from '@iiif/parser';
-import { BATCH_ACTIONS, BatchAction, batchActions, entityActions, metaActions } from './actions';
-import { createFetchHelper, areInputsEqual } from './utility';
-import { createStore, VaultZustandStore } from './store';
-import mitt, { Emitter } from 'mitt';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
-import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
+import { areInputsEqual, createFetchHelper } from './utility';
+import { isWrapped, type ReactiveWrapped, wrapObject } from './utility/objects';
 import { resolveType } from './utility/resolve-type';
+
+/** Container types that are P4 equivalents of Canvas (used for compat fallback). */
+const CONTAINER_FALLBACK_TYPES: ReadonlyArray<keyof Entities> = ['Timeline', 'Scene'] as const;
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -55,7 +55,11 @@ export class Vault {
   private isBatching = false;
   private batchQueue: AllActions[] = [];
   remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
+  staticFetcher: (
+    str: string,
+    json: any,
+    mapper?: (resource: any) => any
+  ) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
@@ -137,12 +141,18 @@ export class Vault {
     if (!this.isBatching) {
       if (action.type === BATCH_ACTIONS) {
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(realAction.type, { action: realAction, state: this.store.getState() });
+          this.emitter.emit(realAction.type, {
+            action: realAction,
+            state: this.store.getState(),
+          });
         }
         this.store.dispatch(action);
         const state = this.getState();
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(`after:${realAction.type}`, { action: realAction, state });
+          this.emitter.emit(`after:${realAction.type}`, {
+            action: realAction,
+            state,
+          });
         }
         return;
       }
@@ -168,15 +178,19 @@ export class Vault {
   }
 
   serialize<Return>(entity: Reference<keyof Entities>, config: SerializeConfig) {
-    return serialize<Return>(this.getState().iiif, entity, config);
+    return serialize<Return>(this.getState().iiif as any, entity as any, config);
   }
 
   toPresentation2<Return>(entity: Reference<keyof Entities>) {
-    return this.serialize<Return>(entity, serializeConfigPresentation2);
+    return this.serialize<Return>(entity, serializeConfigPresentation2 as any);
   }
 
   toPresentation3<Return>(entity: Reference<keyof Entities>) {
     return this.serialize<Return>(entity, serializeConfigPresentation3);
+  }
+
+  toPresentation4<Return>(entity: Reference<keyof Entities>) {
+    return this.serialize<Return>(entity, serializeConfigPresentation4);
   }
 
   hydrate<R extends { type?: string }>(
@@ -194,7 +208,10 @@ export class Vault {
     type?: string | GetOptions,
     options: GetOptions = {}
   ): RefToNormalized<R> | RefToNormalized<R>[] {
-    return this.get<R>(reference as any, type as any, { ...options, skipSelfReturn: false });
+    return this.get<R>(reference as any, type as any, {
+      ...options,
+      skipSelfReturn: false,
+    });
   }
 
   get<R extends { type?: string }>(
@@ -265,7 +282,24 @@ export class Vault {
 
     const _type = resolveType(type ? type : (reference as any)?.type);
     const _id = (reference as any)?.id;
-    const entities = (state.iiif.entities as any)[_type];
+    let entities = (state.iiif.entities as any)[_type];
+
+    // ── P4 Container compatibility fallback ──────────────────────────────
+    // When the requested type is "Canvas" but the entity isn't found in the
+    // Canvas store, check the P4 container stores (Timeline, Scene) so that
+    // callers using `get({ id, type: 'Canvas' })` still resolve P4 containers.
+    if (!entities || !entities[_id]) {
+      if (_type === 'Canvas' && _id) {
+        for (const altType of CONTAINER_FALLBACK_TYPES) {
+          const altEntities = (state.iiif.entities as any)[altType];
+          if (altEntities && altEntities[_id]) {
+            entities = altEntities;
+            break;
+          }
+        }
+      }
+    }
+
     if (!entities) {
       const request = state.iiif.requests[_id];
       if (request && request.resourceUri !== _id) {
@@ -322,12 +356,20 @@ export class Vault {
     return fn;
   }
 
-  loadManifest(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<ManifestNormalized | undefined> {
+  loadManifest(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<ManifestNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     return this.load<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollection(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<CollectionNormalized | undefined> {
+  loadCollection(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<CollectionNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     return this.load<CollectionNormalized>(_id, json, mapper);
   }
@@ -345,12 +387,20 @@ export class Vault {
     return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
-  loadManifestSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): ManifestNormalized | undefined {
+  loadManifestSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): ManifestNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
     return this.loadSync<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollectionSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): CollectionNormalized | undefined {
+  loadCollectionSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): CollectionNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
     return this.loadSync<CollectionNormalized>(_id, json, mapper);
   }
@@ -398,7 +448,6 @@ export class Vault {
     });
   }
 
-
   // Pagination built on "meta".
   getPaginationState<T = any>(resource: string | Reference): PaginationState | null {
     // This will return the pagination state of a resource from it's meta.
@@ -426,7 +475,7 @@ export class Vault {
         currentLength: 0,
       };
 
-      this.setMetaValue([id, '@vault/pagination', 'state'], initialState)
+      this.setMetaValue([id, '@vault/pagination', 'state'], initialState);
 
       return initialState;
     }
@@ -436,7 +485,10 @@ export class Vault {
     return null;
   }
 
-  async loadNextPage(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
+  async loadNextPage(
+    resource: string | Reference,
+    json?: any
+  ): Promise<[PaginationState | null, CollectionNormalized | null]> {
     const id = typeof resource === 'string' ? resource : resource.id;
     if (!id) return [null, null];
 
@@ -463,7 +515,7 @@ export class Vault {
     // 2. Make the fetch request.
     let collectionPage;
     try {
-      collectionPage = await this.loadCollection(nextPage, json, mapped => {
+      collectionPage = await this.loadCollection(nextPage, json, (mapped) => {
         // This is required because the page MIGHT have the same id.
         const { id, ['@id']: _id, ...properties } = mapped || {};
 
@@ -472,7 +524,7 @@ export class Vault {
         }
 
         return { id: nextPage, ...properties };
-      })
+      });
     } catch (err) {
       const errState: PaginationState = {
         ...state,
@@ -487,23 +539,21 @@ export class Vault {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
-        error: new Error("Collection not found"),
+        error: new Error('Collection not found'),
       };
       this.setMetaValue([id, '@vault/pagination', 'state'], errState);
       return [errState, null];
     }
 
     const fullCollection = this.get(id);
-    const combinedItems = [
-        ...(fullCollection.items || []),
-        ...(collectionPage.items || []),
-      ].map(resource => ({
-        id: resource.id, type: resource.type
-      }));
+    const combinedItems = [...(fullCollection.items || []), ...(collectionPage.items || [])].map((resource) => ({
+      id: resource.id,
+      type: resource.type,
+    }));
 
-    this.modifyEntityField({ id, type: "Collection" }, "items", combinedItems);
+    this.modifyEntityField({ id, type: 'Collection' }, 'items', combinedItems);
     const latestState = this.getPaginationState(resource);
-    if (!latestState) throw new Error("Pagination state not found");
+    if (!latestState) throw new Error('Pagination state not found');
     const successState: PaginationState = {
       ...latestState,
       isFetching: false,
@@ -516,11 +566,11 @@ export class Vault {
         ...latestState.pages,
         {
           id: collectionPage.id,
-          type: "Collection",
-          startIndex: fullCollection.items.length,
-          pageLength: collectionPage.items.length,
+          type: 'Collection',
+          startIndex: (fullCollection.items || []).length,
+          pageLength: (collectionPage.items || []).length,
           order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
-        }
+        },
       ],
       isFullyLoaded: !(collectionPage as any).next,
       previous: previousPage,
@@ -531,7 +581,6 @@ export class Vault {
 
     return [successState, collectionPage];
   }
-
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
   getResourceMeta<T = any, Key extends keyof T = keyof T>(resource: string, metaKey: Key): T[Key] | undefined;

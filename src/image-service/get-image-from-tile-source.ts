@@ -5,7 +5,7 @@ import {
   imageServiceRequestToString,
 } from '@iiif/parser/image-3';
 import { FixedSizeImage, FixedSizeImageService } from './types';
-import { ImageProfile } from '@iiif/presentation-3';
+import { ImageProfile } from '@iiif/parser/presentation-3/types';
 
 export function getImageFromTileSource(
   image: FixedSizeImageService,

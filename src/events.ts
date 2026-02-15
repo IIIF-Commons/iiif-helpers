@@ -1,4 +1,4 @@
-import type { Reference } from '@iiif/presentation-3';
+import type { Reference } from '@iiif/parser/presentation-3/types';
 import { compatVault, CompatVault } from './compat';
 
 export function createEventsHelper(vault: CompatVault = compatVault) {

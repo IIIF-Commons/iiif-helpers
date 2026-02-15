@@ -1,5 +1,5 @@
-import { Reference } from '@iiif/presentation-3';
-import { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/presentation-3-normalized';
+import { Reference } from '@iiif/parser/presentation-3/types';
+import { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { findAllCanvasesInRange } from './ranges';
 import { compatVault, CompatVault } from './compat';
 

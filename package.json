@@ -248,15 +248,8 @@
     "test": "vitest",
     "lint": "publint"
   },
-  "resolutions": {
-    "@iiif/presentation-3": "2.2.3",
-    "@iiif/presentation-3-normalized": "0.9.7"
-  },
   "dependencies": {
-    "@types/geojson": "7946.0.13",
-    "@iiif/presentation-2": "1.0.4",
-    "@iiif/presentation-3": "2.2.3",
-    "@iiif/presentation-3-normalized": "0.9.7"
+    "@types/geojson": "7946.0.13"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",
@@ -264,12 +257,7 @@
     "svg-arc-to-cubic-bezier": "^3.2.0"
   },
   "peerDependencies": {
-    "@iiif/parser": "^2.2.8"
-  },
-  "overrides": {
-    "@iiif/parser": {
-      "@iiif/presentation-3": "2.2.3"
-    }
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60"
   },
   "devDependencies": {
     "@types/jsdom": "^21.1.3",
