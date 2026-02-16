@@ -748,8 +748,9 @@ describe('Vault functions', () => {
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id))
-      .toMatchInlineSnapshot(`
+    expect(
+      vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id)
+    ).toMatchInlineSnapshot(`
       [
         "https://example.org/english/1",
         "https://example.org/english/2",

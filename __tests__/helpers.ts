@@ -93,5 +93,6 @@ export function renderRange(range: RangeTableOfContentsNode | null, skipCanvases
       str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal}${nn} ${renderRange(item, skipCanvases, indent + 2)}`;
     }
   });
-  return str;
+  // Keep snapshots stable by stripping trailing spaces before line breaks.
+  return str.replace(/[ \t]+\n/g, '\n');
 }

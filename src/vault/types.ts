@@ -32,17 +32,6 @@ declare global {
   interface A {}
 }
 
-/**
- * A loosely-typed normalized entity for P4-only store types
- * (Timeline, Scene, Quantity, Transform) which do not have
- * dedicated normalized type packages yet.
- */
-export type GenericNormalizedEntity = {
-  id: string;
-  type: string;
-  [key: string]: unknown;
-};
-
 export type MetaState = Record<string, Record<string, Record<string, any>>>;
 
 export type RequestState = {
@@ -87,8 +76,7 @@ export type NormalizedEntity =
   | RangeNormalized
   | ServiceNormalized
   | ResourceProviderNormalized
-  | Selector
-  | GenericNormalizedEntity;
+  | Selector;
 
 export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalized
@@ -110,15 +98,7 @@ export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends
                   ? ResourceProviderNormalized
                   : Ref['type'] extends 'Collection'
                     ? CollectionNormalized
-                    : Ref['type'] extends 'Timeline'
-                      ? GenericNormalizedEntity
-                      : Ref['type'] extends 'Scene'
-                        ? GenericNormalizedEntity
-                        : Ref['type'] extends 'Quantity'
-                          ? GenericNormalizedEntity
-                          : Ref['type'] extends 'Transform'
-                            ? GenericNormalizedEntity
-                            : any;
+                    : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
@@ -140,15 +120,7 @@ export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Mani
                   ? ResourceProvider
                   : Ref['type'] extends 'Collection'
                     ? Collection
-                    : Ref['type'] extends 'Timeline'
-                      ? GenericNormalizedEntity
-                      : Ref['type'] extends 'Scene'
-                        ? GenericNormalizedEntity
-                        : Ref['type'] extends 'Quantity'
-                          ? GenericNormalizedEntity
-                          : Ref['type'] extends 'Transform'
-                            ? GenericNormalizedEntity
-                            : any;
+                    : any;
 
 export type Entities = {
   Collection: {
@@ -183,19 +155,6 @@ export type Entities = {
   };
   Agent: {
     [id: string]: ResourceProviderNormalized;
-  };
-  // ── P4 entity stores ──────────────────────────────────────────────────
-  Timeline: {
-    [id: string]: GenericNormalizedEntity;
-  };
-  Scene: {
-    [id: string]: GenericNormalizedEntity;
-  };
-  Quantity: {
-    [id: string]: GenericNormalizedEntity;
-  };
-  Transform: {
-    [id: string]: GenericNormalizedEntity;
   };
 };
 
