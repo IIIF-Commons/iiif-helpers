@@ -3,7 +3,7 @@
 ## Goals
 
 1. Restore backwards compatibility for all existing projects using `Vault` today.
-2. Introduce explicit `Vault3` and `Vault4` implementations.
+2. Keep `Vault` as the v3 implementation and introduce `Vault4`.
 3. Introduce a default `VaultAuto` (exported as `Vault`) that:
    - starts in v3 mode,
    - can opt-in to v4 switching,
@@ -20,14 +20,14 @@
 
 ### Classes
 
-1. `Vault3`
+1. `Vault`
    - Uses Presentation 3 normalization/serialization path.
    - Keeps current v3-compatible behavior as baseline.
 2. `Vault4`
    - Uses Presentation 4 normalization/serialization path.
    - Accepts v3 inputs by upgrading/parsing into v4-normalized state.
-3. `VaultAuto` (default export alias as `Vault`)
-   - Starts with an internal `Vault3` instance.
+3. `VaultAuto`
+   - Starts with an internal `Vault` instance.
    - Optionally enables automatic switching to `Vault4`.
    - Exposes `v4` accessor for typed access when app code knows Scene is present.
 
@@ -60,7 +60,8 @@ Proposed options for `VaultAuto`:
 2. No automatic switch without explicit opt-in (`enablePresentation4`).
 3. Scene presence is the switching trigger in `VaultAuto`.
 4. `Vault4` loading v3 resources must preserve output compatibility for existing helpers and workflows.
-5. Legacy property aliases (e.g. `accompanyingCanvas` vs `accompanyingContainer`) must be mirrored in normalized entities and action-level mutations.
+5. `Vault4` methods must be type-safe across the existing vault API surface.
+6. Legacy property aliases (e.g. `accompanyingCanvas` vs `accompanyingContainer`) must be mirrored in normalized entities and action-level mutations.
 
 ## Migration strategy (VaultAuto internal switch)
 
@@ -71,7 +72,7 @@ Proposed options for `VaultAuto`:
 2. On switch trigger:
    - instantiate `Vault4`,
    - replay journal through `Vault4.loadSync` / `Vault4.load`,
-   - swap active implementation pointer from `Vault3` to `Vault4`,
+   - swap active implementation pointer from `Vault` to `Vault4`,
    - emit version-switch event.
 3. Keep this replay strategy first; optimize later only if needed.
 
@@ -96,13 +97,13 @@ Snapshot-driven parity testing across **all fixtures**.
 
 ### Test groups
 
-1. `Vault3` baseline snapshots:
+1. `Vault` baseline snapshots:
    - load fixture -> capture resolved top-level object,
    - capture normalized store summary (entities/mapping shape),
    - capture selected helper outputs.
 2. `Vault4` compatibility snapshots for v3 fixtures:
-   - same fixture set and same snapshot shape as `Vault3`.
-3. Direct parity assertions (`Vault3` vs `Vault4`) for v2/v3 fixtures:
+   - same fixture set and same snapshot shape as `Vault`.
+3. Direct parity assertions (`Vault` vs `Vault4`) for v2/v3 fixtures:
    - deep equality on compatibility projections,
    - allowed-difference list for known renamed fields.
 4. `VaultAuto` behavior:
@@ -134,18 +135,22 @@ To reduce noise, snapshot normalized projections rather than entire internal sta
    - Undo current partial Vault migration changes.
    - Re-establish green baseline on existing tests.
 2. `Phase 1: Split classes`
-   - Introduce `Vault3` and `Vault4` classes.
-   - Keep `Vault` export as compatibility wrapper.
+   - Keep `Vault` as the v3 class.
+   - Introduce `Vault4` as a separate class.
 3. `Phase 2: Introduce VaultAuto`
    - Implement dual-engine wrapper and replay migration.
    - Add version accessors and `v4` accessor.
 4. `Phase 3: Alias/mutation compatibility`
    - Implement field alias mirroring in normalization projections and actions.
    - Add targeted tests for alias writes/reads.
-5. `Phase 4: Fixture parity suite`
+5. `Phase 4: Vault4 type-safety hardening`
+   - Audit `Vault4` method signatures (`get`, `hydrate`, `load*`, `serialize*`, `getObject`, `loadObject`, `subscribe`, pagination/meta helpers).
+   - Remove `any`-based fallbacks where avoidable and align return types with v3 compatibility contracts.
+   - Add dedicated type-focused tests (compile-time assertions) for common usage paths.
+6. `Phase 5: Fixture parity suite`
    - Add full snapshot + parity matrix.
    - Gate with CI.
-6. `Phase 5: Helper dual-compat`
+7. `Phase 6: Helper dual-compat`
    - Update helper internals for v3/v4 compatibility.
    - Add `v4` helper subpath for v4-specific functionality.
 
