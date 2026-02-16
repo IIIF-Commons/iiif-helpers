@@ -1,5 +1,5 @@
-import type { Range, RangeItems } from '@iiif/presentation-3';
-import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type { Range, RangeItems } from '@iiif/parser/presentation-3/types';
+import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import invariant from 'tiny-invariant';
 import tableOfContentManifests from '../fixtures/cookbook/toc.json';
 import tableOfContentsAvManifest from '../fixtures/cookbook/toc-av.json';
@@ -634,35 +634,35 @@ describe('range helper', () => {
       expect(renderRange(tree, true)).toMatchInlineSnapshot(`
         "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)
         ├── The turmut hoeing (02:29)
-        ├── [no-nav] 
+        ├── [no-nav]
         ├── She stole my heart away (02:08)
         ├── Dumble dum dollicky (Richard of Taunton Dean) (03:01)
         ├── Mrs Fanny Rumble talks about herself (01:44)
         ├── What shall I wear to the wedding, John? (03:25)
         ├── Country courtship (05:50)
         ├── Herbert Prince (05:00)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── Introductory talk: 'The young sailor cut down in his prime' (01:25)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── The young sailor cut down in his prime (02:49)
-          └── [no-nav] 
+          └── [no-nav]
         ├── Fanny Rumble / Albert Collins / Fred Perrier (25:17)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── O what shall I wear to the wedding, John? (03:57)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── O what shall I wear to the wedding, John? (02:47)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── The vly on the turmut (03:10)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── The vly on the turmut (01:37)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── Twas on a Monday morning (02:04)
-          ├── [no-nav] 
+          ├── [no-nav]
           ├── Twas on a Monday morning (02:22)
           ├── Dumble dum dollicky (04:23)
-          ├── [no-nav] 
+          ├── [no-nav]
           └── Talk about herself (01:53)
-        └── [no-nav] 
+        └── [no-nav]
         "
       `);
     });

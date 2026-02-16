@@ -3,8 +3,13 @@ import { Vault } from '../src/vault';
 import { ThumbnailOutput, createThumbnailHelper } from '../src/thumbnail';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { upgrade } from '@iiif/parser/upgrader';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const fixtureDir = path.join(__dirname, '../fixtures/thumbnails');
 
 export const thumbnailFixtures = [
   {
@@ -48,9 +53,7 @@ describe('Thumbnail helper', function () {
   test.each(thumbnailFixtures as { label: string; description: string }[])(`Thumbnail - $label`, async (fixture) => {
     const vault = new Vault();
     const helper = createThumbnailHelper(vault);
-    const manifestJson: any = JSON.parse(
-      (await readFile(path.join(process.cwd(), 'fixtures/thumbnails', `${fixture.label}.json`))).toString()
-    );
+    const manifestJson: any = JSON.parse((await readFile(path.join(fixtureDir, `${fixture.label}.json`))).toString());
     const manifest = await vault.load<ManifestNormalized>(manifestJson.id || manifestJson['@id'], manifestJson);
 
     if (!manifest) {
@@ -70,9 +73,7 @@ describe('Thumbnail helper', function () {
     async (fixture) => {
       const helper = createThumbnailHelper();
       const manifest: any = upgrade(
-        JSON.parse(
-          (await readFile(path.join(process.cwd(), 'fixtures/thumbnails', `${fixture.label}.json`))).toString()
-        )
+        JSON.parse((await readFile(path.join(fixtureDir, `${fixture.label}.json`))).toString())
       );
 
       if (!manifest) {

@@ -1,4 +1,4 @@
-import { Collection } from '@iiif/presentation-3';
+import { Collection } from '@iiif/parser/presentation-3/types';
 import { createDateNavigation } from '../src/nav-date';
 import { Vault } from '../src';
 

@@ -29,6 +29,75 @@ import { resolveType } from './utility/resolve-type';
 /** Container types that are P4 equivalents of Canvas (used for compat fallback). */
 const CONTAINER_FALLBACK_TYPES: ReadonlyArray<keyof Entities> = ['Timeline', 'Scene'] as const;
 
+function applyLegacyGetShape(resource: any, inAnnotationTarget = false): any {
+  if (Array.isArray(resource)) {
+    let changed = false;
+    const mapped = resource.map((item) => {
+      const next = applyLegacyGetShape(item, inAnnotationTarget);
+      if (next !== item) {
+        changed = true;
+      }
+      return next;
+    });
+    return changed ? mapped : resource;
+  }
+
+  if (!resource || typeof resource !== 'object') {
+    return resource;
+  }
+
+  let nextResource = resource;
+  let changed = false;
+
+  if (resource.type === 'Annotation' && Array.isArray(resource.target) && resource.target.length === 1) {
+    nextResource = {
+      ...nextResource,
+      target: applyLegacyGetShape(resource.target[0], true),
+    };
+    changed = true;
+  }
+
+  for (const key of Object.keys(nextResource)) {
+    const value = (nextResource as any)[key];
+    const nextInAnnotationTarget = nextResource.type === 'Annotation' && key === 'target';
+    const nextValue = applyLegacyGetShape(value, nextInAnnotationTarget ? true : inAnnotationTarget);
+    if (nextValue !== value) {
+      if (!changed) {
+        nextResource = { ...nextResource };
+        changed = true;
+      }
+      (nextResource as any)[key] = nextValue;
+    }
+  }
+
+  if (
+    nextResource.type === 'SpecificResource' &&
+    inAnnotationTarget &&
+    Object.prototype.hasOwnProperty.call(nextResource, 'selector') &&
+    typeof (nextResource as any).selector === 'undefined'
+  ) {
+    if (!changed) {
+      nextResource = { ...nextResource };
+      changed = true;
+    }
+    delete (nextResource as any).selector;
+  }
+
+  if (
+    nextResource.type === 'SpecificResource' &&
+    !inAnnotationTarget &&
+    !Object.prototype.hasOwnProperty.call(nextResource, 'selector')
+  ) {
+    if (!changed) {
+      nextResource = { ...nextResource };
+      changed = true;
+    }
+    (nextResource as any).selector = undefined;
+  }
+
+  return changed ? nextResource : resource;
+}
+
 export type VaultOptions = {
   reducers: Record<string, any>;
   defaultState?: IIIFStore;
@@ -317,10 +386,10 @@ export class Vault {
       const framing = found[HAS_PART].find((t: any) => {
         return parent ? t[PART_OF] === parent : t[PART_OF] === found.id;
       });
-      return frameResource(found, framing);
+      return applyLegacyGetShape(frameResource(found, framing));
     }
 
-    return entities[(reference as any).id] || (skipSelfReturn ? null : reference);
+    return applyLegacyGetShape(entities[(reference as any).id] || (skipSelfReturn ? null : reference));
   }
 
   select<R>(selector: (state: IIIFStore) => R): R {

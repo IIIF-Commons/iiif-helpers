@@ -1,6 +1,6 @@
-import { ChoiceBody, ImageService, InternationalString } from '@iiif/parser/presentation-3/types';
+import { ImageService, InternationalString } from '@iiif/parser/presentation-3/types';
 import { ParsedSelector, SupportedTarget } from './annotation-targets';
-import { ChoiceDescription, ComplexChoice, SingleChoice } from './painting-annotations';
+import { ChoiceDescription } from './painting-annotations';
 
 // A wrapper for annotations that are "well-known"
 interface ClassifiedAnnotation {
