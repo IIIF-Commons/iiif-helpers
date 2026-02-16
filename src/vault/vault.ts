@@ -28,6 +28,11 @@ import mitt, { Emitter } from 'mitt';
 import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
 import { resolveType } from './utility/resolve-type';
+import {
+  actionListFromResourceV3,
+  actionListFromResourceV4,
+  type ActionListFromResource,
+} from './utility/action-list-from-resource';
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -49,13 +54,17 @@ type AllActionsType = AllActions['type'];
 export type EntityRef<Ref extends keyof Entities> = IIIFStore['iiif']['entities'][Ref][string];
 
 export class Vault {
-  private readonly options: VaultOptions;
+  protected readonly options: VaultOptions;
   private readonly store: VaultZustandStore;
   private readonly emitter: Emitter<any>;
   private isBatching = false;
   private batchQueue: AllActions[] = [];
   remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
+  staticFetcher: (
+    str: string,
+    json: any,
+    mapper?: (resource: any) => any
+  ) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
@@ -74,8 +83,16 @@ export class Vault {
         enableDevtools: this.options.enableDevtools,
       });
     this.emitter = mitt();
-    this.remoteFetcher = createFetchHelper(this, this.options.customFetcher) as any;
-    this.staticFetcher = createFetchHelper(this, (id: string, json: any) => json);
+    this.remoteFetcher = createFetchHelper(this, this.options.customFetcher, {
+      actionListFromResource: this.getActionListFromResource(),
+    }) as any;
+    this.staticFetcher = createFetchHelper(this, (id: string, json: any) => json, {
+      actionListFromResource: this.getActionListFromResource(),
+    });
+  }
+
+  protected getActionListFromResource(): ActionListFromResource {
+    return actionListFromResourceV3;
   }
 
   defaultFetcher = (url: string) => {
@@ -322,12 +339,20 @@ export class Vault {
     return fn;
   }
 
-  loadManifest(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<ManifestNormalized | undefined> {
+  loadManifest(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<ManifestNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     return this.load<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollection(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<CollectionNormalized | undefined> {
+  loadCollection(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<CollectionNormalized | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     return this.load<CollectionNormalized>(_id, json, mapper);
   }
@@ -345,12 +370,20 @@ export class Vault {
     return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
-  loadManifestSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): ManifestNormalized | undefined {
+  loadManifestSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): ManifestNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
     return this.loadSync<ManifestNormalized>(_id, json, mapper);
   }
 
-  loadCollectionSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): CollectionNormalized | undefined {
+  loadCollectionSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): CollectionNormalized | undefined {
     const _id = typeof id === 'string' ? id : id.id;
     return this.loadSync<CollectionNormalized>(_id, json, mapper);
   }
@@ -398,7 +431,6 @@ export class Vault {
     });
   }
 
-
   // Pagination built on "meta".
   getPaginationState<T = any>(resource: string | Reference): PaginationState | null {
     // This will return the pagination state of a resource from it's meta.
@@ -426,7 +458,7 @@ export class Vault {
         currentLength: 0,
       };
 
-      this.setMetaValue([id, '@vault/pagination', 'state'], initialState)
+      this.setMetaValue([id, '@vault/pagination', 'state'], initialState);
 
       return initialState;
     }
@@ -436,7 +468,10 @@ export class Vault {
     return null;
   }
 
-  async loadNextPage(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
+  async loadNextPage(
+    resource: string | Reference,
+    json?: any
+  ): Promise<[PaginationState | null, CollectionNormalized | null]> {
     const id = typeof resource === 'string' ? resource : resource.id;
     if (!id) return [null, null];
 
@@ -463,7 +498,7 @@ export class Vault {
     // 2. Make the fetch request.
     let collectionPage;
     try {
-      collectionPage = await this.loadCollection(nextPage, json, mapped => {
+      collectionPage = await this.loadCollection(nextPage, json, (mapped) => {
         // This is required because the page MIGHT have the same id.
         const { id, ['@id']: _id, ...properties } = mapped || {};
 
@@ -472,7 +507,7 @@ export class Vault {
         }
 
         return { id: nextPage, ...properties };
-      })
+      });
     } catch (err) {
       const errState: PaginationState = {
         ...state,
@@ -487,23 +522,21 @@ export class Vault {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
-        error: new Error("Collection not found"),
+        error: new Error('Collection not found'),
       };
       this.setMetaValue([id, '@vault/pagination', 'state'], errState);
       return [errState, null];
     }
 
     const fullCollection = this.get(id);
-    const combinedItems = [
-        ...(fullCollection.items || []),
-        ...(collectionPage.items || []),
-      ].map(resource => ({
-        id: resource.id, type: resource.type
-      }));
+    const combinedItems = [...(fullCollection.items || []), ...(collectionPage.items || [])].map((resource) => ({
+      id: resource.id,
+      type: resource.type,
+    }));
 
-    this.modifyEntityField({ id, type: "Collection" }, "items", combinedItems);
+    this.modifyEntityField({ id, type: 'Collection' }, 'items', combinedItems);
     const latestState = this.getPaginationState(resource);
-    if (!latestState) throw new Error("Pagination state not found");
+    if (!latestState) throw new Error('Pagination state not found');
     const successState: PaginationState = {
       ...latestState,
       isFetching: false,
@@ -516,11 +549,11 @@ export class Vault {
         ...latestState.pages,
         {
           id: collectionPage.id,
-          type: "Collection",
+          type: 'Collection',
           startIndex: fullCollection.items.length,
           pageLength: collectionPage.items.length,
           order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
-        }
+        },
       ],
       isFullyLoaded: !(collectionPage as any).next,
       previous: previousPage,
@@ -531,7 +564,6 @@ export class Vault {
 
     return [successState, collectionPage];
   }
-
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
   getResourceMeta<T = any, Key extends keyof T = keyof T>(resource: string, metaKey: Key): T[Key] | undefined;
@@ -608,5 +640,17 @@ export class Vault {
             value: newValueOrUpdate,
           })
     );
+  }
+}
+
+export class Vault3 extends Vault {
+  protected getActionListFromResource(): ActionListFromResource {
+    return actionListFromResourceV3;
+  }
+}
+
+export class Vault4 extends Vault {
+  protected getActionListFromResource(): ActionListFromResource {
+    return actionListFromResourceV4;
   }
 }

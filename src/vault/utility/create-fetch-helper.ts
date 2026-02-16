@@ -1,4 +1,4 @@
-import { actionListFromResource } from './action-list-from-resource';
+import { actionListFromResource, type ActionListFromResource } from './action-list-from-resource';
 import { resolveIfExists } from './resolve-if-exists';
 import { NormalizedEntity } from '../types';
 import {
@@ -15,9 +15,16 @@ import { isPromise } from './is-promise';
 export function createFetchHelper<T>(
   vault: Vault,
   fetcher: (url: string, options?: T) => any | Promise<any>,
-  { waitTimeout = 30 }: { waitTimeout?: number } = {}
+  {
+    waitTimeout = 30,
+    actionListFromResource: actionListFromResourceFn = actionListFromResource,
+  }: { waitTimeout?: number; actionListFromResource?: ActionListFromResource } = {}
 ) {
-  return (url: string, options?: T, mapper?: (r: any) => any): NormalizedEntity | undefined | Promise<NormalizedEntity | undefined> => {
+  return (
+    url: string,
+    options?: T,
+    mapper?: (r: any) => any
+  ): NormalizedEntity | undefined | Promise<NormalizedEntity | undefined> => {
     const store = vault.getStore();
     const state = store.getState();
 
@@ -108,7 +115,7 @@ export function createFetchHelper<T>(
           resource.id = url;
         }
       }
-      const toDispatch = actionListFromResource(url, resource);
+      const toDispatch = actionListFromResourceFn(url, resource);
       vault.dispatch(batchActions({ actions: toDispatch }));
       return resolveIfExists(store.getState(), url);
     };
