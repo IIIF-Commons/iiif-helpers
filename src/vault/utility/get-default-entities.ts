@@ -13,5 +13,9 @@ export function getDefaultEntities(): Entities {
     Service: {},
     Selector: {},
     Agent: {},
+    Timeline: {},
+    Scene: {},
+    Quantity: {},
+    Transform: {},
   };
 }

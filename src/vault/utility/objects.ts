@@ -74,6 +74,8 @@ export type ReactiveWrapped<Full = any, T = any> = {} & WrappedObject<Full> &
     | 'supplementary'
     | 'homepage'
     | 'thumbnail'
+    | 'placeholderContainer'
+    | 'accompanyingContainer'
     | 'placeholderCanvas'
     | 'accompanyingCanvas'
     | 'provider'
@@ -96,6 +98,12 @@ export type ReactiveWrapped<Full = any, T = any> = {} & WrappedObject<Full> &
       : never;
     homepage: Full extends { homepage: (infer A)[] } ? ReactiveWrapped<any, Full['homepage'][number]>[] : never;
     thumbnail: Full extends { thumbnail: (infer A)[] } ? ReactiveWrapped<any, Full['thumbnail'][number]>[] : never;
+    placeholderContainer: Full extends { placeholderContainer: (infer A)[] }
+      ? ReactiveWrapped<any, Full['placeholderContainer'][number]>[]
+      : never;
+    accompanyingContainer: Full extends { accompanyingContainer: (infer A)[] }
+      ? ReactiveWrapped<any, Full['accompanyingContainer'][number]>[]
+      : never;
     placeholderCanvas: Full extends { placeholderCanvas: (infer A)[] }
       ? ReactiveWrapped<any, Full['placeholderCanvas'][number]>[]
       : never;
@@ -203,6 +211,8 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
         supplementary: that.supplementary,
         homepage: that.homepage,
         thumbnail: that.thumbnail,
+        placeholderContainer: that.placeholderContainer,
+        accompanyingContainer: that.accompanyingContainer,
         placeholderCanvas: that.placeholderCanvas,
         accompanyingCanvas: that.accompanyingCanvas,
         provider: that.provider,
@@ -236,6 +246,8 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
 
   // Descriptive
   defineProperty('thumbnail', prototype, vault);
+  defineProperty('placeholderContainer', prototype, vault, false);
+  defineProperty('accompanyingContainer', prototype, vault, false);
   defineProperty('placeholderCanvas', prototype, vault, false);
   defineProperty('accompanyingCanvas', prototype, vault, false);
   defineProperty('provider', prototype, vault);

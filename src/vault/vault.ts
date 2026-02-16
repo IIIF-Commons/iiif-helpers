@@ -28,11 +28,7 @@ import mitt, { Emitter } from 'mitt';
 import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
 import { resolveType } from './utility/resolve-type';
-import {
-  actionListFromResourceV3,
-  actionListFromResourceV4,
-  type ActionListFromResource,
-} from './utility/action-list-from-resource';
+import { actionListFromResourceV3, type ActionListFromResource } from './utility/action-list-from-resource';
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -640,17 +636,5 @@ export class Vault {
             value: newValueOrUpdate,
           })
     );
-  }
-}
-
-export class Vault3 extends Vault {
-  protected getActionListFromResource(): ActionListFromResource {
-    return actionListFromResourceV3;
-  }
-}
-
-export class Vault4 extends Vault {
-  protected getActionListFromResource(): ActionListFromResource {
-    return actionListFromResourceV4;
   }
 }

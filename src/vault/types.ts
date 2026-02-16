@@ -32,6 +32,12 @@ declare global {
   interface A {}
 }
 
+export type GenericNormalizedEntity = {
+  id: string;
+  type: string;
+  [key: string]: unknown;
+};
+
 export type MetaState = Record<string, Record<string, Record<string, any>>>;
 
 export type RequestState = {
@@ -76,7 +82,8 @@ export type NormalizedEntity =
   | RangeNormalized
   | ServiceNormalized
   | ResourceProviderNormalized
-  | Selector;
+  | Selector
+  | GenericNormalizedEntity;
 
 export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalized
@@ -98,7 +105,15 @@ export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends
                   ? ResourceProviderNormalized
                   : Ref['type'] extends 'Collection'
                     ? CollectionNormalized
-                    : any;
+                    : Ref['type'] extends 'Timeline'
+                      ? GenericNormalizedEntity
+                      : Ref['type'] extends 'Scene'
+                        ? GenericNormalizedEntity
+                        : Ref['type'] extends 'Quantity'
+                          ? GenericNormalizedEntity
+                          : Ref['type'] extends 'Transform'
+                            ? GenericNormalizedEntity
+                            : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
@@ -120,7 +135,15 @@ export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Mani
                   ? ResourceProvider
                   : Ref['type'] extends 'Collection'
                     ? Collection
-                    : any;
+                    : Ref['type'] extends 'Timeline'
+                      ? GenericNormalizedEntity
+                      : Ref['type'] extends 'Scene'
+                        ? GenericNormalizedEntity
+                        : Ref['type'] extends 'Quantity'
+                          ? GenericNormalizedEntity
+                          : Ref['type'] extends 'Transform'
+                            ? GenericNormalizedEntity
+                            : any;
 
 export type Entities = {
   Collection: {
@@ -155,6 +178,18 @@ export type Entities = {
   };
   Agent: {
     [id: string]: ResourceProviderNormalized;
+  };
+  Timeline: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Scene: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Quantity: {
+    [id: string]: GenericNormalizedEntity;
+  };
+  Transform: {
+    [id: string]: GenericNormalizedEntity;
   };
 };
 
