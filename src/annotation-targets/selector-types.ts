@@ -1,4 +1,7 @@
-import type { ImageApiSelector } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV4 } from '@iiif/parser/presentation-4/types';
+
+type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
 
 export type SvgShapeType = 'rect' | 'circle' | 'ellipse' | 'line' | 'polyline' | 'polygon' | 'path';
 export interface SupportedSelector {

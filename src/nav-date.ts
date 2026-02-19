@@ -4,9 +4,37 @@
 // "navDate": "1986-01-01T00:00:00+00:00"
 // "navDate": "1987-01-01T00:00:00+00:00"
 
-import { Collection, InternationalString, Manifest } from '@iiif/parser/presentation-3/types';
-import { CompatVault } from './compat';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  Collection as CollectionV3,
+  InternationalString as InternationalStringV3,
+  Manifest as ManifestV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  CollectionNormalized as CollectionNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
+} from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  Collection as CollectionV4,
+  LanguageMap as InternationalStringV4,
+  Manifest as ManifestV4,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  CollectionNormalized as CollectionNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
+import type { CompatVault } from './compat';
+
+type InternationalString = InternationalStringV3 | InternationalStringV4;
+type DateNavigationInput =
+  | ManifestV3
+  | CollectionV3
+  | ManifestNormalizedV3
+  | CollectionNormalizedV3
+  | ManifestV4
+  | CollectionV4
+  | ManifestNormalizedV4
+  | CollectionNormalizedV4
+  | string;
 
 export interface DateNavigationResource {
   id: string;
@@ -71,7 +99,7 @@ export type DateNavigationTypes =
 
 export function createDateNavigation<T extends DateNavigationTypes, Type = T['type']>(
   vault: CompatVault,
-  manifestOrCollection: Manifest | Collection | ManifestNormalized | CollectionNormalized | string,
+  manifestOrCollection: DateNavigationInput,
   inputType?: Type
 ) {
   const type = inputType || 'century';

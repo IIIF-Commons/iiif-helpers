@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { ImageApiSelector, Selector } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV3, Selector as SelectorV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV4, Selector as SelectorV4 } from '@iiif/parser/presentation-4/types';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from './css-selectors';
 import {
@@ -17,6 +18,9 @@ import {
   TemporalBoxSelector,
   type TemporalSelector,
 } from './selector-types';
+
+type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
+type Selector = SelectorV3 | SelectorV4;
 
 const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;
@@ -106,6 +110,8 @@ export function parseSelector(
     });
   }
 
+  const sourceAny = source as any;
+
   if (typeof source === 'string') {
     const [id, fragment] = splitCanvasFragment(source);
 
@@ -125,12 +131,12 @@ export function parseSelector(
     );
   }
 
-  if (source.type) {
-    if (source.type === 'PointSelector' && (source.t || source.t === 0)) {
+  if (sourceAny.type) {
+    if (sourceAny.type === 'PointSelector' && (sourceAny.t || sourceAny.t === 0)) {
       const selector: TemporalSelector = {
         type: 'TemporalSelector',
         temporal: {
-          startTime: source.t,
+          startTime: sourceAny.t,
         },
       };
 
@@ -141,12 +147,12 @@ export function parseSelector(
       });
     }
 
-    if (source.type === 'PointSelector' && source.x && source.y) {
+    if (sourceAny.type === 'PointSelector' && sourceAny.x && sourceAny.y) {
       const selector: SupportedSelectors = {
         type: 'PointSelector',
         spatial: {
-          x: source.x,
-          y: source.y,
+          x: sourceAny.x,
+          y: sourceAny.y,
         },
       };
 

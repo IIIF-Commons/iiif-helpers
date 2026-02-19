@@ -1,9 +1,28 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/parser/presentation-3/types';
-import { AnnotationNormalized, CanvasNormalized } from '@iiif/parser/presentation-3-normalized/types';
-import { ComplexChoice, Paintables } from './types';
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV3,
+  CanvasNormalized as CanvasNormalizedV3,
+} from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV4,
+  CanvasNormalized as CanvasNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
+import { type CompatVault, compatVault } from '../compat';
 import { parseSpecificResource } from './parse-specific-resource';
-import { compatVault, CompatVault } from '../compat';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from '../annotation-targets/css-selectors';
+import type { ComplexChoice, Paintables } from './types';
+
+type CanvasNormalized = CanvasNormalizedV3 | CanvasNormalizedV4;
+type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
 
 function getInlineStylesheets(stylesheet: AnnotationNormalized['stylesheet']): Record<string, string> | undefined {
   if (!stylesheet) {
@@ -37,10 +56,10 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     if (!canvas) {
       return [];
     }
-    const annotationPages = vault.get(canvas.items, { parent: canvas });
+    const annotationPages = vault.get(canvas.items as any, { parent: canvas }) as any[];
     const flatAnnotations: AnnotationNormalized[] = [];
     for (const page of annotationPages) {
-      flatAnnotations.push(...vault.get(page.items, { parent: page }));
+      flatAnnotations.push(...(vault.get(page.items as any, { parent: page }) as any[]));
     }
     return flatAnnotations;
   }
@@ -54,7 +73,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
       : getAllPaintingAnnotations(paintingAnnotationsOrCanvas);
 
     const types: string[] = [];
-    let choices: ComplexChoice = {
+    const choices: ComplexChoice = {
       items: [],
       type: 'complex-choice',
     };
@@ -73,7 +92,9 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
         // Choice
         if (type === 'choice') {
-          const nestedBodies = vault.get((body as any).items, { parent: (body as any).id }) as ContentResource[];
+          const nestedBodies = vault.get((body as any).items, {
+            parent: (body as any).id,
+          }) as ContentResource[];
           // Which are active? By default, the first, but we could push multiple here.
           const selected = enabledChoices.length
             ? enabledChoices.map((cid) => nestedBodies.find((b) => b.id === cid)).filter(Boolean)

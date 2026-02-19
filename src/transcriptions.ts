@@ -110,22 +110,40 @@
 //   }
 // ],
 
-import {
-  type Annotation,
-  type AnnotationPage,
-  type Canvas,
-  type ContentResource,
-  type Manifest,
-  ManifestDescriptive,
+import type {
+  AnnotationPage as AnnotationPageV3,
+  Annotation as AnnotationV3,
+  Canvas as CanvasV3,
+  ContentResource as ContentResourceV3,
+  Manifest as ManifestV3,
 } from '@iiif/parser/presentation-3/types';
 import type {
-  AnnotationNormalized,
-  AnnotationPageNormalized,
-  CanvasNormalized,
-  ManifestNormalized,
+  AnnotationNormalized as AnnotationNormalizedV3,
+  AnnotationPageNormalized as AnnotationPageNormalizedV3,
+  CanvasNormalized as CanvasNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
 } from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  AnnotationPage as AnnotationPageV4,
+  Annotation as AnnotationV4,
+  Canvas as CanvasV4,
+  ContentResource as ContentResourceV4,
+  Manifest as ManifestV4,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV4,
+  AnnotationPageNormalized as AnnotationPageNormalizedV4,
+  CanvasNormalized as CanvasNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
 import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from './annotation-targets';
 import type { CompatVault } from './compat';
+
+type Annotation = AnnotationV3 | AnnotationV4 | AnnotationNormalizedV3 | AnnotationNormalizedV4;
+type AnnotationPage = AnnotationPageV3 | AnnotationPageV4 | AnnotationPageNormalizedV3 | AnnotationPageNormalizedV4;
+type Canvas = CanvasV3 | CanvasV4 | CanvasNormalizedV3 | CanvasNormalizedV4;
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type Manifest = ManifestV3 | ManifestV4 | ManifestNormalizedV3 | ManifestNormalizedV4;
 
 interface Transcription {
   id: string;
@@ -144,11 +162,11 @@ interface Transcription {
 
 export function canvasHasTranscriptionSync(
   vault: CompatVault,
-  canvasRef: Canvas | CanvasNormalized | string,
-  annotationPages?: AnnotationPage[] | AnnotationPageNormalized[]
+  canvasRef: Canvas | string,
+  annotationPages?: AnnotationPage[]
 ): boolean {
   if (typeof canvasRef === 'string') canvasRef = { id: canvasRef, type: 'Canvas' };
-  const canvas = vault.get<CanvasNormalized | Canvas>(canvasRef);
+  const canvas = vault.get<Canvas>(canvasRef);
 
   // Check for rendering
   if (canvas.rendering) {
@@ -165,9 +183,9 @@ export function canvasHasTranscriptionSync(
   // Check for annotations
   if (canvas.annotations) {
     for (const annotationPageRef of canvas.annotations) {
-      const annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
+      const annotationPage = vault.get<AnnotationPage>(annotationPageRef);
       for (const annotationRef of annotationPage.items || []) {
-        const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+        const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
             const bodies = vault.get<ContentResource>(annotation.body as any);
@@ -187,7 +205,7 @@ export function canvasHasTranscriptionSync(
   if (annotationPages) {
     for (const annotationPage of annotationPages) {
       for (const annotationRef of annotationPage.items || []) {
-        const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+        const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
             const bodies = vault.get<ContentResource>(annotation.body as any);
@@ -208,26 +226,18 @@ export function canvasHasTranscriptionSync(
 
 export async function canvasLoadExternalAnnotationPages(
   vault: CompatVault,
-  canvasRef: Canvas
-): Promise<AnnotationPage[]>;
-export async function canvasLoadExternalAnnotationPages(
-  vault: CompatVault,
-  canvasRef: CanvasNormalized
-): Promise<AnnotationPageNormalized[]>;
-export async function canvasLoadExternalAnnotationPages(
-  vault: CompatVault,
-  canvasRef: Canvas | CanvasNormalized | string
-): Promise<AnnotationPageNormalized[] | AnnotationPage[]> {
+  canvasRef: Canvas | string
+): Promise<AnnotationPage[]> {
   if (typeof canvasRef === 'string') canvasRef = { id: canvasRef, type: 'Canvas' };
-  const canvas = vault.get<CanvasNormalized | Canvas>(canvasRef);
-  const promises: Promise<AnnotationPageNormalized>[] = [];
+  const canvas = vault.get<Canvas>(canvasRef);
+  const promises: Promise<AnnotationPage>[] = [];
   if (canvas.annotations) {
     for (const annotationPageRef of canvas.annotations) {
-      let annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
+      let annotationPage = vault.get<AnnotationPage>(annotationPageRef);
       const requestStatus = annotationPage ? vault.requestStatus(annotationPage.id) : undefined;
 
       if (annotationPage && requestStatus?.resourceUri && requestStatus.resourceUri !== annotationPage.id) {
-        const resolvedAnnotationPage = vault.get<AnnotationPageNormalized>({
+        const resolvedAnnotationPage = vault.get<AnnotationPage>({
           id: requestStatus.resourceUri,
           type: annotationPage.type,
         });
@@ -255,7 +265,7 @@ export async function canvasLoadExternalAnnotationPages(
           );
         } else {
           try {
-            promises.push(vault.load<AnnotationPageNormalized>(annotationPage.id) as any);
+            promises.push(vault.load<AnnotationPage>(annotationPage.id) as any);
           } catch (e) {
             // ignore.
           }
@@ -325,10 +335,7 @@ async function altoToTranscription(alto: string) {
   return null;
 }
 
-export async function annotationPageToTranscription(
-  vault: CompatVault,
-  annotationPage: AnnotationPageNormalized | AnnotationPage
-) {
+export async function annotationPageToTranscription(vault: CompatVault, annotationPage: AnnotationPage) {
   const transcription: Transcription = {
     id: annotationPage.id,
     source: { id: annotationPage.id, type: 'AnnotationPage' },
@@ -339,7 +346,7 @@ export async function annotationPageToTranscription(
   if (!annotationPage.items) return null;
 
   for (const annotationRef of annotationPage.items) {
-    const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+    const annotation = vault.get<Annotation>(annotationRef as any);
 
     if (annotation.motivation?.includes('supplementing')) {
       if (annotation.body) {
@@ -401,7 +408,7 @@ export async function getCanvasTranscription(
   networkCache: Record<string, any> = {}
 ): Promise<Transcription | null> {
   // @todo how to avoid loading all external annotation pages? Chicken and egg.
-  const canvas = vault.get<CanvasNormalized | Canvas>(canvasRef);
+  const canvas = vault.get<Canvas>(canvasRef);
   const annotationPages = await canvasLoadExternalAnnotationPages(vault, canvas);
 
   // At this point, we've loaded everything, and we will know if it's null.
@@ -418,7 +425,7 @@ export async function getCanvasTranscription(
     // Look for VTT annotations
     for (const annotationPage of annotationPages) {
       for (const annotationRef of annotationPage.items || []) {
-        const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+        const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
             const bodyRaw = vault.get<ContentResource>(annotation.body as any);
@@ -443,7 +450,7 @@ export async function getCanvasTranscription(
   // Look for embedded annotations
   pageLabel: for (const annotationPage of annotationPages) {
     for (const annotationRef of annotationPage.items || []) {
-      const annotation = vault.get<AnnotationNormalized | Annotation>(annotationRef as any);
+      const annotation = vault.get<Annotation>(annotationRef as any);
       if (annotation.motivation?.includes('supplementing')) {
         if (annotation.body) {
           const bodyRaw = vault.get<ContentResource>(annotation.body as any);
@@ -497,7 +504,7 @@ export async function getCanvasTranscription(
 
 export async function manifestHasTranscriptions(
   vault: CompatVault,
-  manifest: string | { id: string; type: string } | ManifestNormalized | Manifest,
+  manifest: string | { id: string; type: string } | Manifest,
   pagesToCheck: number = 5
 ): Promise<boolean> {
   const canvases = vault.get(manifest)?.items || [];

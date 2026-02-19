@@ -1,10 +1,21 @@
-import type { ExternalWebResource, W3CAnnotationTarget } from '@iiif/parser/presentation-3/types';
+import type {
+  ExternalWebResource as ExternalWebResourceV3,
+  W3CAnnotationTarget as W3CAnnotationTargetV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  Annotation as AnnotationV4,
+  ContentResourceLike as ContentResourceLikeV4,
+} from '@iiif/parser/presentation-4/types';
 import { parseSelector, splitCanvasFragment } from './parse-selector';
 import type { ParsedSelector, SupportedSelector } from './selector-types';
 import type { SupportedTarget } from './target-types';
 
+type AnnotationTargetV4 = Exclude<AnnotationV4['target'], undefined>;
+type ExpandableTarget = W3CAnnotationTargetV3 | AnnotationTargetV4;
+type ExternalWebResource = ExternalWebResourceV3 | ContentResourceLikeV4;
+
 export function expandTarget(
-  target: W3CAnnotationTarget | W3CAnnotationTarget[],
+  target: ExpandableTarget | ExpandableTarget[],
   options: {
     typeMap?: Record<string, string>;
     domParser?: DOMParser;
@@ -48,38 +59,40 @@ export function expandTarget(
     );
   }
 
+  const targetAny = target as any;
+
   // @todo, how do we want to support choices for targets.
   if (
-    target.type === 'Choice' ||
-    target.type === 'List' ||
-    target.type === 'Composite' ||
-    target.type === 'Independents'
+    targetAny.type === 'Choice' ||
+    targetAny.type === 'List' ||
+    targetAny.type === 'Composite' ||
+    targetAny.type === 'Independents'
   ) {
     // we also don't support these, just choose the first.
-    return expandTarget(target.items[0], options);
+    return expandTarget(targetAny.items[0], options);
   }
 
-  if (!target.type && 'source' in target) {
-    (target as any).type = 'SpecificResource';
+  if (!targetAny.type && 'source' in targetAny) {
+    targetAny.type = 'SpecificResource';
   }
 
-  if (target.type === 'SpecificResource') {
-    if (target.source.type === 'Canvas' && target.source.partOf && typeof target.source.partOf === 'string') {
-      target.source.partOf = [
+  if (targetAny.type === 'SpecificResource') {
+    if (targetAny.source.type === 'Canvas' && targetAny.source.partOf && typeof targetAny.source.partOf === 'string') {
+      targetAny.source.partOf = [
         {
-          id: target.source.partOf,
+          id: targetAny.source.partOf,
           type: 'Manifest',
         },
       ];
     }
-    const styleClass = target.styleClass || options.styleClass;
+    const styleClass = targetAny.styleClass || options.styleClass;
 
     let preParsedSelector = { selector: null, selectors: [] } as ParsedSelector;
-    if (typeof target.source === 'string') {
-      const [, sourceFragment] = splitCanvasFragment(target.source);
+    if (typeof targetAny.source === 'string') {
+      const [, sourceFragment] = splitCanvasFragment(targetAny.source);
       if (sourceFragment) {
-        const expandedAgain = expandTarget(target.source, { ...options, styleClass });
-        target.source = expandedAgain.source;
+        const expandedAgain = expandTarget(targetAny.source, { ...options, styleClass });
+        targetAny.source = expandedAgain.source;
         preParsedSelector = {
           selector: expandedAgain.selector,
           selectors: expandedAgain.selectors,
@@ -87,35 +100,35 @@ export function expandTarget(
       }
     }
 
-    const { selector, selectors } = target.selector
-      ? parseSelector(target.selector, options, { styleClass })
+    const { selector, selectors } = targetAny.selector
+      ? parseSelector(targetAny.selector, options, { styleClass })
       : preParsedSelector;
 
     return {
       type: 'SpecificResource',
-      source: target.source,
+      source: targetAny.source,
       selector,
       selectors,
     };
   }
 
-  if (target.id) {
-    if ((target as any).type === 'Canvas' && (target as any).partOf && typeof (target as any).partOf === 'string') {
-      (target as any).partOf = [
+  if (targetAny.id) {
+    if (targetAny.type === 'Canvas' && targetAny.partOf && typeof targetAny.partOf === 'string') {
+      targetAny.partOf = [
         {
-          id: (target as any).partOf,
+          id: targetAny.partOf,
           type: 'Manifest',
         },
       ];
     }
 
-    const [id, fragment] = splitCanvasFragment(target.id);
+    const [id, fragment] = splitCanvasFragment(targetAny.id);
     if (!fragment) {
       // This is an unknown selector.
       return {
         type: 'SpecificResource',
         source: {
-          ...(target as any),
+          ...targetAny,
           id,
         },
         selector: null,
@@ -127,7 +140,7 @@ export function expandTarget(
       {
         type: 'SpecificResource',
         source: {
-          ...(target as any),
+          ...targetAny,
           id,
         },
         selector: {
@@ -141,7 +154,7 @@ export function expandTarget(
 
   return {
     type: 'SpecificResource',
-    source: target as ExternalWebResource,
+    source: targetAny as ExternalWebResource,
     selector: null,
     selectors: [],
   };

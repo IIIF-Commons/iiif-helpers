@@ -1,6 +1,10 @@
-import { Annotation, AnyMotivation } from '@iiif/parser/presentation-3/types';
+import type { Annotation as AnnotationV3, AnyMotivation as AnyMotivationV3 } from '@iiif/parser/presentation-3/types';
+import type { Annotation as AnnotationV4 } from '@iiif/parser/presentation-4/types';
 import { expandTarget } from './annotation-targets/expand-target';
-import { SupportedTarget } from './annotation-targets/target-types';
+import type { SupportedTarget } from './annotation-targets/target-types';
+
+type Annotation = AnnotationV3 | AnnotationV4;
+type AnyMotivation = AnyMotivationV3 | (AnnotationV4['motivation'] extends Array<infer T> ? T : never);
 
 export type ContentState =
   | string

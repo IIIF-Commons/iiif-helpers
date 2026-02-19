@@ -1,5 +1,21 @@
 import { Traverse } from '@iiif/parser';
-import { Canvas, Collection, InternationalString, Manifest } from '@iiif/parser/presentation-3/types';
+import type {
+  Canvas as CanvasV3,
+  Collection as CollectionV3,
+  InternationalString as InternationalStringV3,
+  Manifest as ManifestV3,
+  Range as RangeV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  Canvas as CanvasV4,
+  Collection as CollectionV4,
+  LanguageMap as InternationalStringV4,
+  Manifest as ManifestV4,
+  Range as RangeV4,
+} from '@iiif/parser/presentation-4/types';
+
+type InternationalString = InternationalStringV3 | InternationalStringV4;
+type LanguageResource = CollectionV3 | ManifestV3 | CanvasV3 | RangeV3 | CollectionV4 | ManifestV4 | CanvasV4 | RangeV4;
 
 export function getClosestLanguage(
   i18nLanguage: string | undefined,
@@ -132,7 +148,12 @@ export function buildLocaleString(
 
 export function getValue(
   inputText: string | InternationalString | null | undefined,
-  options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}
+  options: {
+    language?: string;
+    defaultText?: string;
+    separator?: string;
+    fallbackLanguages?: string[];
+  } = {}
 ) {
   return buildLocaleString(
     inputText,
@@ -148,7 +169,7 @@ function getLanguagesFromLanguageMap(languageMap: InternationalString) {
   return Object.keys(languageMap).filter((l) => l !== 'none');
 }
 
-export function getAvailableLanguagesFromResource(item: Collection | Manifest | Canvas | Range) {
+export function getAvailableLanguagesFromResource(item: LanguageResource) {
   const foundLanguages = new Set();
 
   const findLanguages = Traverse.all((resource: any) => {
@@ -210,8 +231,18 @@ export function getAvailableLanguagesFromResource(item: Collection | Manifest | 
 
 export const iiifString = createStringHelper();
 
-export function createStringHelper(options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}) {
-  return (template: TemplateStringsArray, ...params: Array<null | string[] | undefined | string | InternationalString>) => {
+export function createStringHelper(
+  options: {
+    language?: string;
+    defaultText?: string;
+    separator?: string;
+    fallbackLanguages?: string[];
+  } = {}
+) {
+  return (
+    template: TemplateStringsArray,
+    ...params: Array<null | string[] | undefined | string | InternationalString>
+  ) => {
     let result = '';
 
     for (let i = 0; i < template.length; i++) {
@@ -223,8 +254,6 @@ export function createStringHelper(options: { language?: string; defaultText?: s
         const param = params[i];
 
         if (param === null || param === undefined) {
-          // Skip null or undefined params
-          continue;
         } else if (typeof param === 'string') {
           // Add string params directly
           result += param;
@@ -237,5 +266,5 @@ export function createStringHelper(options: { language?: string; defaultText?: s
     }
 
     return result;
-  }
+  };
 }

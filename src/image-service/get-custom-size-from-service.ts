@@ -1,7 +1,10 @@
-import { ImageCandidate } from './types';
+import { getId, getImageServiceLevel, supportsCustomSizes } from '@iiif/parser/image-3';
+import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
 import { isImage3 } from './is-image-3';
-import { ImageService } from '@iiif/parser/presentation-3/types';
-import { getId, supportsCustomSizes, getImageServiceLevel } from '@iiif/parser/image-3';
+import type { ImageCandidate } from './types';
+
+type ImageService = ImageServiceV3 | ImageServiceV4;
 
 /**
  * Get custom size from service
