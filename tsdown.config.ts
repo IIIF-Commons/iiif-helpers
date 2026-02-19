@@ -21,6 +21,8 @@ export default defineConfig((options) => ({
     sequences: 'src/sequences.ts',
     'nav-date': 'src/nav-date.ts',
     vault: 'src/vault.ts',
+    'vault-4': 'src/vault/vault4.ts',
+    'vault-auto': 'src/vault/vault-auto.ts',
     'vault-node': 'src/vault-node.ts',
     'vault-store': 'src/vault-store.ts',
     'vault-actions': 'src/vault-actions.ts',

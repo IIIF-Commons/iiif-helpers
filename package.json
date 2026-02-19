@@ -3,7 +3,7 @@
   "bugs": "https://github.com/iiif-commons/iiif-helpers/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iiif-commons/iiif-helpers"
+    "url": "git+https://github.com/iiif-commons/iiif-helpers.git"
   },
   "version": "1.6.1",
   "license": "MIT",
@@ -176,6 +176,26 @@
       "import": {
         "types": "./dist/vault.d.ts",
         "default": "./dist/vault.js"
+      }
+    },
+    "./vault-4": {
+      "require": {
+        "types": "./dist/vault-4.d.ts",
+        "default": "./dist/vault-4.cjs"
+      },
+      "import": {
+        "types": "./dist/vault-4.d.ts",
+        "default": "./dist/vault-4.js"
+      }
+    },
+    "./vault-auto": {
+      "require": {
+        "types": "./dist/vault-auto.d.ts",
+        "default": "./dist/vault-auto.cjs"
+      },
+      "import": {
+        "types": "./dist/vault-auto.d.ts",
+        "default": "./dist/vault-auto.js"
       }
     },
     "./vault-node": {

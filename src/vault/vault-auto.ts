@@ -31,6 +31,14 @@ type VaultAutoLoadJournalEntry = {
   resource: unknown;
 };
 
+export type CanonicalSpecificResource = {
+  source: { id: string; type: string };
+  selector: Array<{ type: string; [key: string]: unknown }>;
+  styleClass?: string;
+  language?: string[];
+  raw: unknown;
+};
+
 export type VaultAutoOptions = Partial<VaultOptions> & {
   enablePresentation4?: boolean;
   onVersionSwitch?: (from: 3, to: 4, context: { triggerId: string }) => void;
@@ -48,6 +56,17 @@ function cloneForReplay<T>(value: T): T {
     return structuredClone(value);
   }
   return JSON.parse(JSON.stringify(value));
+}
+
+function splitIdFragment(id: string): { idWithoutFragment: string; fragment?: string } {
+  const hashIndex = id.indexOf('#');
+  if (hashIndex === -1) {
+    return { idWithoutFragment: id };
+  }
+  return {
+    idWithoutFragment: id.slice(0, hashIndex),
+    fragment: id.slice(hashIndex + 1),
+  };
 }
 
 export class VaultAuto {
@@ -275,6 +294,100 @@ export class VaultAuto {
     options: GetOptions = {}
   ): RefToNormalized<R> | RefToNormalized<R>[] {
     return (this.getVault() as any).get(reference as any, type as any, options as any);
+  }
+
+  asArray<T>(value: T | T[] | null | undefined): T[] {
+    if (typeof value === 'undefined' || value === null) {
+      return [];
+    }
+    return Array.isArray(value) ? value : [value];
+  }
+
+  getCanonicalSpecificResource(input: unknown): CanonicalSpecificResource | null {
+    const resolved = this.get(input as any, {
+      skipSelfReturn: false,
+      preserveSpecificResources: true,
+    }) as any;
+    const candidate = resolved ?? input;
+    if (!candidate || typeof candidate !== 'object') {
+      return null;
+    }
+
+    let source: any = null;
+    let selector: Array<{ type: string; [key: string]: unknown }> = [];
+    let styleClass: string | undefined;
+    let language: string[] | undefined;
+
+    if (candidate.type === 'SpecificResource') {
+      source = candidate.source ?? null;
+      selector = this.asArray(candidate.selector as any);
+      styleClass = candidate.styleClass;
+      language = Array.isArray(candidate.language) ? candidate.language : undefined;
+    } else if (typeof candidate.id === 'string') {
+      source = candidate;
+    } else if (typeof candidate === 'string') {
+      source = { id: candidate, type: 'unknown' };
+    } else {
+      return null;
+    }
+
+    if (typeof source === 'string') {
+      source = { id: source, type: 'unknown' };
+    }
+    if (!source || typeof source.id !== 'string') {
+      return null;
+    }
+
+    const { idWithoutFragment, fragment } = splitIdFragment(source.id);
+    if (fragment) {
+      source = {
+        ...source,
+        id: idWithoutFragment,
+      };
+      if (!selector.length) {
+        selector = [{ type: 'FragmentSelector', value: fragment }];
+      }
+    }
+
+    return {
+      source: {
+        id: source.id,
+        type: source.type || 'unknown',
+      },
+      selector,
+      styleClass,
+      language,
+      raw: candidate,
+    };
+  }
+
+  resolveAnnotationTargets(annotation: unknown): CanonicalSpecificResource[] {
+    const fullAnnotation = this.get(annotation as any, { skipSelfReturn: false }) as any;
+    if (!fullAnnotation || typeof fullAnnotation !== 'object') {
+      return [];
+    }
+
+    return this.asArray(fullAnnotation.target)
+      .map((target) => this.getCanonicalSpecificResource(target))
+      .filter((target): target is CanonicalSpecificResource => target !== null);
+  }
+
+  resolveAnnotationBodies(annotation: unknown): any[] {
+    const fullAnnotation = this.get(annotation as any, { skipSelfReturn: false }) as any;
+    if (!fullAnnotation || typeof fullAnnotation !== 'object') {
+      return [];
+    }
+
+    return this.asArray(fullAnnotation.body)
+      .map((body) => this.get(body as any, { skipSelfReturn: false }) as any)
+      .filter((body) => body !== null && typeof body !== 'undefined')
+      .map((body) => {
+        if (body?.type === 'SpecificResource' && body?.source) {
+          const unwrapped = this.get(body.source, { skipSelfReturn: false }) as any;
+          return unwrapped ?? body.source;
+        }
+        return body;
+      });
   }
 
   select<R>(selector: (state: IIIFStore) => R): R {
