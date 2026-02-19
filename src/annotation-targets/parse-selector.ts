@@ -9,15 +9,17 @@ import {
   type NormalizedSvgPathCommandType,
   parseAndNormalizeSvgPath,
 } from './normalize-svg';
-import {
-  type ParsedSelector,
-  type SelectorStyle,
-  type SupportedSelectors,
-  type SvgSelector,
-  type SvgShapeType,
-  TemporalBoxSelector,
-  type TemporalSelector,
+import type {
+  ParsedSelector,
+  SelectorStyle,
+  SupportedSelectors,
+  SvgSelector,
+  SvgShapeType,
+  TemporalSelector,
 } from './selector-types';
+
+type Selector = SelectorV3 | SelectorV4;
+type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
 
 const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;

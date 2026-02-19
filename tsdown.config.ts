@@ -32,6 +32,7 @@ export default defineConfig((options) => ({
     search2: 'src/search2.ts',
     // New helpers can be added here.
   },
+  define: { 'import.meta': '{}' },
   minify: true,
   external: [],
   // @todo re-enable.
