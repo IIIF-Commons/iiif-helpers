@@ -1,0 +1,117 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`range helper > it can parse bodleian ranges 2`] = `
+[
+  {
+    "accompanyingCanvas": null,
+    "annotations": [],
+    "behavior": [
+      "top",
+    ],
+    "homepage": [],
+    "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0000",
+    "items": [
+      {
+        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0001",
+        "type": "Range",
+      },
+      {
+        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0011",
+        "type": "Range",
+      },
+      {
+        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0186",
+        "type": "Range",
+      },
+      {
+        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0321",
+        "type": "Range",
+      },
+      {
+        "id": "https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0454",
+        "type": "Range",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/ec199b13",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/2b1326ef",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/c5793193",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/e82c63de",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/b846e166",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/72ae7e5b",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/84dd4556",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/9bcbca5d",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/cdb2bb92",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/e6c5a616",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/e5d1c1d9",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/ff8f5831",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/7f68ab7e",
+        "type": "ContentResource",
+      },
+      {
+        "id": "vault://iiif-parser/v4/SpecificResource/1603c8c3",
+        "type": "ContentResource",
+      },
+    ],
+    "label": {
+      "none": [
+        "Arch. G c.7",
+      ],
+    },
+    "metadata": [],
+    "navDate": null,
+    "partOf": [],
+    "placeholderCanvas": null,
+    "provider": [],
+    "rendering": [],
+    "requiredStatement": null,
+    "rights": null,
+    "seeAlso": [],
+    "service": [],
+    "start": {
+      "id": "https://iiif.bodleian.ox.ac.uk/iiif/canvas/57e041f5-8945-44b6-918d-b949e5c97ba1.json",
+      "type": "Canvas",
+    },
+    "summary": null,
+    "supplementary": [],
+    "thumbnail": [],
+    "type": "Range",
+    "viewingDirection": "left-to-right",
+  },
+]
+`;

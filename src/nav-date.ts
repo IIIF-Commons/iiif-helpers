@@ -122,7 +122,9 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
     return items;
   }
 
-  for (const item of resource.items) {
+  for (const itemRef of resource.items) {
+    const item = itemRef.navDate ? itemRef : (vault.get<any>(itemRef) as typeof itemRef | undefined) || itemRef;
+
     if (item.navDate) {
       const d = new Date(item.navDate);
       const year = d.getFullYear();

@@ -19,9 +19,6 @@ import {
   type TemporalSelector,
 } from './selector-types';
 
-type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
-type Selector = SelectorV3 | SelectorV4;
-
 const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;
 
