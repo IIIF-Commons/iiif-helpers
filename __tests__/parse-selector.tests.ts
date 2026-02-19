@@ -1,4 +1,5 @@
 import type { Selector } from '@iiif/parser/presentation-3/types';
+import type { Selector as SelectorV4 } from '@iiif/parser/presentation-4/types';
 import { JSDOM } from 'jsdom';
 import { describe, expect, test } from 'vitest';
 import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';
@@ -6,6 +7,128 @@ import { expandTarget } from '../src';
 import { parseSelector } from '../src/annotation-targets/parse-selector';
 
 describe('parse selector', () => {
+  test('Parsing a 3D PointSelector (including zeros + z)', () => {
+    expect(
+      parseSelector({
+        type: 'PointSelector',
+        x: 0,
+        y: 0,
+        z: 0,
+      } as SelectorV4)
+    ).toMatchInlineSnapshot(`
+      {
+        "selector": {
+          "spatial": {
+            "x": 0,
+            "y": 0,
+            "z": 0,
+          },
+          "type": "PointSelector",
+        },
+        "selectors": [
+          {
+            "spatial": {
+              "x": 0,
+              "y": 0,
+              "z": 0,
+            },
+            "type": "PointSelector",
+          },
+        ],
+      }
+    `);
+  });
+
+  test('Parsing a PolygonZSelector WKT', () => {
+    expect(
+      parseSelector({
+        type: 'PolygonZSelector',
+        value: 'POLYGONZ((-1.0843 2.8273 -2, 1.0843 2.8273 -2, 1.0843 0 -2, -1.0843 0 -2, -1.0843 2.8273 -2))',
+      } as SelectorV4)
+    ).toMatchInlineSnapshot(`
+      {
+        "selector": {
+          "points3d": [
+            [
+              -1.0843,
+              2.8273,
+              -2,
+            ],
+            [
+              1.0843,
+              2.8273,
+              -2,
+            ],
+            [
+              1.0843,
+              0,
+              -2,
+            ],
+            [
+              -1.0843,
+              0,
+              -2,
+            ],
+            [
+              -1.0843,
+              2.8273,
+              -2,
+            ],
+          ],
+          "spatial": {
+            "height": 2.8273,
+            "unit": "pixel",
+            "width": 2.1686,
+            "x": -1.0843,
+            "y": 0,
+          },
+          "type": "PolygonZSelector",
+          "value": "POLYGONZ((-1.0843 2.8273 -2, 1.0843 2.8273 -2, 1.0843 0 -2, -1.0843 0 -2, -1.0843 2.8273 -2))",
+        },
+        "selectors": [
+          {
+            "points3d": [
+              [
+                -1.0843,
+                2.8273,
+                -2,
+              ],
+              [
+                1.0843,
+                2.8273,
+                -2,
+              ],
+              [
+                1.0843,
+                0,
+                -2,
+              ],
+              [
+                -1.0843,
+                0,
+                -2,
+              ],
+              [
+                -1.0843,
+                2.8273,
+                -2,
+              ],
+            ],
+            "spatial": {
+              "height": 2.8273,
+              "unit": "pixel",
+              "width": 2.1686,
+              "x": -1.0843,
+              "y": 0,
+            },
+            "type": "PolygonZSelector",
+            "value": "POLYGONZ((-1.0843 2.8273 -2, 1.0843 2.8273 -2, 1.0843 0 -2, -1.0843 0 -2, -1.0843 2.8273 -2))",
+          },
+        ],
+      }
+    `);
+  });
+
   describe('SVG Selectors', () => {
     test('Malformed SVG path data returns an empty selector', () => {
       expect(

@@ -17,6 +17,7 @@ import type {
   SvgShapeType,
   TemporalSelector,
 } from './selector-types';
+import { parseWkt } from './wkt';
 
 type Selector = SelectorV3 | SelectorV4;
 type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
@@ -131,11 +132,14 @@ export function parseSelector(
   }
 
   if (sourceAny.type) {
-    if (sourceAny.type === 'PointSelector' && (sourceAny.t || sourceAny.t === 0)) {
+    if (
+      sourceAny.type === 'PointSelector' &&
+      (typeof sourceAny.instant === 'number' || typeof sourceAny.t === 'number')
+    ) {
       const selector: TemporalSelector = {
         type: 'TemporalSelector',
         temporal: {
-          startTime: sourceAny.t,
+          startTime: typeof sourceAny.instant === 'number' ? sourceAny.instant : sourceAny.t,
         },
       };
 
@@ -146,14 +150,76 @@ export function parseSelector(
       });
     }
 
-    if (sourceAny.type === 'PointSelector' && sourceAny.x && sourceAny.y) {
+    if (sourceAny.type === 'PointSelector' && typeof sourceAny.x === 'number' && typeof sourceAny.y === 'number') {
+      const spatial: any = {
+        x: sourceAny.x,
+        y: sourceAny.y,
+      };
+      if (typeof sourceAny.z === 'number') {
+        spatial.z = sourceAny.z;
+      }
+
       const selector: SupportedSelectors = {
         type: 'PointSelector',
-        spatial: {
-          x: sourceAny.x,
-          y: sourceAny.y,
-        },
+        spatial,
       };
+
+      return resolveHints({
+        selector,
+        selectors: [selector],
+        iiifRenderingHints,
+      });
+    }
+
+    if (
+      (sourceAny.type === 'WktSelector' || sourceAny.type === 'WKTSelector' || sourceAny.type === 'PolygonZSelector') &&
+      typeof sourceAny.value === 'string'
+    ) {
+      const geometry = parseWkt(sourceAny.value);
+      const selector: SupportedSelectors = {
+        type: sourceAny.type,
+        value: sourceAny.value,
+      } as any;
+
+      if (geometry?.type === 'Point') {
+        const [x, y, z] = geometry.coordinates;
+        selector.points3d = [[x, y, typeof z === 'number' ? z : 0]];
+        const spatial: any = { unit: 'pixel', x, y };
+        if (typeof z === 'number') {
+          spatial.z = z;
+        }
+        selector.spatial = spatial;
+      }
+
+      if (geometry?.type === 'Polygon') {
+        selector.points3d = geometry.coordinates.map(([x, y, z]) => [x, y, typeof z === 'number' ? z : 0]);
+        const xs = geometry.coordinates.map(([x]) => x);
+        const ys = geometry.coordinates.map(([, y]) => y);
+        const minX = Math.min(...xs);
+        const minY = Math.min(...ys);
+        const maxX = Math.max(...xs);
+        const maxY = Math.max(...ys);
+        selector.spatial = {
+          unit: 'pixel',
+          x: minX,
+          y: minY,
+          width: maxX - minX,
+          height: maxY - minY,
+        };
+      }
+
+      return resolveHints({
+        selector,
+        selectors: [selector],
+        iiifRenderingHints,
+      });
+    }
+
+    if (sourceAny.type === 'AnimationSelector' && typeof sourceAny.value === 'string') {
+      const selector: SupportedSelectors = {
+        type: 'AnimationSelector',
+        value: sourceAny.value,
+      } as any;
 
       return resolveHints({
         selector,
