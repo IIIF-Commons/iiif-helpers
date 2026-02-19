@@ -29,28 +29,24 @@
               "motivation": [
                 "painting"
               ],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 5412,
-                  "width": 7216,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux",
-                      "type": "ImageService3",
-                      "profile": "level1"
-                    }
-                  ]
-                }
-              ],
-              "target": [
-                {
-                  "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/canvas/p1",
-                  "type": "Canvas"
-                }
-              ]
+              "body": {
+                "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 5412,
+                "width": 7216,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux",
+                    "type": "ImageService3",
+                    "profile": "level1"
+                  }
+                ]
+              },
+              "target": {
+                "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/canvas/p1",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/annotation/p0002-image",
@@ -58,33 +54,29 @@
               "motivation": [
                 "painting"
               ],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature/full/max/0/native.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "label": {
-                    "fr": [
-                      "Miniature [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"
-                    ]
-                  },
-                  "width": 2138,
-                  "height": 2414,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature",
-                      "type": "ImageService1",
-                      "profile": "level2"
-                    }
+              "body": {
+                "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature/full/max/0/native.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "label": {
+                  "fr": [
+                    "Miniature [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"
                   ]
-                }
-              ],
-              "target": [
-                {
-                  "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/canvas/p1#xywh=3949,994,1091,1232",
-                  "type": "Canvas"
-                }
-              ]
+                },
+                "width": 2138,
+                "height": 2414,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature",
+                    "type": "ImageService1",
+                    "profile": "level2"
+                  }
+                ]
+              },
+              "target": {
+                "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/canvas/p1#xywh=3949,994,1091,1232",
+                "type": "Canvas"
+              }
             }
           ]
         }

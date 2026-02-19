@@ -25,28 +25,24 @@
               "motivation": [
                 "painting"
               ],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 3024,
-                  "width": 4032,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen",
-                      "profile": "level1",
-                      "type": "ImageService3"
-                    }
-                  ]
-                }
-              ],
-              "target": [
-                {
-                  "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas",
-                  "type": "Canvas"
-                }
-              ]
+              "body": {
+                "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 3024,
+                "width": 4032,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen",
+                    "profile": "level1",
+                    "type": "ImageService3"
+                  }
+                ]
+              },
+              "target": {
+                "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/annotation/p0002-video q",
@@ -54,22 +50,18 @@
               "motivation": [
                 "painting"
               ],
-              "body": [
-                {
-                  "id": "https://fixtures.iiif.io/video/indiana/donizetti-elixir/vae0637_accessH264_low_act_1.mp4",
-                  "type": "Video",
-                  "format": "video/mp4",
-                  "height": 360,
-                  "width": 480,
-                  "duration": 3971.24
-                }
-              ],
-              "target": [
-                {
-                  "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas#xywh=200,200,480,360&t=27,57",
-                  "type": "Canvas"
-                }
-              ]
+              "body": {
+                "id": "https://fixtures.iiif.io/video/indiana/donizetti-elixir/vae0637_accessH264_low_act_1.mp4",
+                "type": "Video",
+                "format": "video/mp4",
+                "height": 360,
+                "width": 480,
+                "duration": 3971.24
+              },
+              "target": {
+                "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas#xywh=200,200,480,360&t=27,57",
+                "type": "Canvas"
+              }
             }
           ]
         }
