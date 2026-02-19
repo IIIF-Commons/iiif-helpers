@@ -223,8 +223,23 @@ export async function canvasLoadExternalAnnotationPages(
   const annotationPages: any[] = [];
   if (canvas.annotations) {
     for (const annotationPageRef of canvas.annotations) {
-      const annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
-      const requestStatus = vault.requestStatus(annotationPage.id);
+      let annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
+      const requestStatus = annotationPage ? vault.requestStatus(annotationPage.id) : undefined;
+
+      if (annotationPage && requestStatus?.resourceUri && requestStatus.resourceUri !== annotationPage.id) {
+        const resolvedAnnotationPage = vault.get<AnnotationPageNormalized>({
+          id: requestStatus.resourceUri,
+          type: annotationPage.type,
+        });
+        if (resolvedAnnotationPage) {
+          annotationPage = resolvedAnnotationPage;
+        }
+      }
+
+      if (!annotationPage) {
+        continue;
+      }
+
       const shouldFetch = !requestStatus || requestStatus.loadingState === 'RESOURCE_LOADING';
       if (shouldFetch && (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal'])) {
         try {
