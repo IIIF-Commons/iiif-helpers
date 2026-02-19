@@ -22,6 +22,7 @@ import type {
   RefToNormalized,
   RequestState,
 } from './types';
+import { defaultFetcher } from './utility/default-fetcher';
 import type { ReactiveWrapped } from './utility/objects';
 import { type GetObjectOptions, type GetOptions, Vault, type VaultOptions } from './vault';
 import { Vault4 } from './vault4';
@@ -58,7 +59,10 @@ function cloneForReplay<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-function splitIdFragment(id: string): { idWithoutFragment: string; fragment?: string } {
+function splitIdFragment(id: string): {
+  idWithoutFragment: string;
+  fragment?: string;
+} {
   const hashIndex = id.indexOf('#');
   if (hashIndex === -1) {
     return { idWithoutFragment: id };
@@ -107,7 +111,7 @@ export class VaultAuto {
       enableDevtools,
     };
 
-    this.fetcher = customFetcher || this.defaultFetcher;
+    this.fetcher = customFetcher || defaultFetcher;
     this.baseVault = new Vault(this.vaultOptions);
     this.activeVault = this.baseVault;
   }
@@ -127,17 +131,6 @@ export class VaultAuto {
   private getVault(): Vault | Vault4 {
     return this.activeVault;
   }
-
-  private defaultFetcher = (url: string) => {
-    return fetch(url).then((r) => {
-      if (r.status === 200) {
-        return r.json();
-      }
-      const err = new Error(`${r.status} ${r.statusText}`);
-      err.name = `HTTPError`;
-      throw err;
-    });
-  };
 
   private shouldUseAutoLoadPath(): boolean {
     return this.options.enablePresentation4 && !this.vault4Internal;
@@ -362,7 +355,9 @@ export class VaultAuto {
   }
 
   resolveAnnotationTargets(annotation: unknown): CanonicalSpecificResource[] {
-    const fullAnnotation = this.get(annotation as any, { skipSelfReturn: false }) as any;
+    const fullAnnotation = this.get(annotation as any, {
+      skipSelfReturn: false,
+    }) as any;
     if (!fullAnnotation || typeof fullAnnotation !== 'object') {
       return [];
     }
@@ -373,7 +368,9 @@ export class VaultAuto {
   }
 
   resolveAnnotationBodies(annotation: unknown): any[] {
-    const fullAnnotation = this.get(annotation as any, { skipSelfReturn: false }) as any;
+    const fullAnnotation = this.get(annotation as any, {
+      skipSelfReturn: false,
+    }) as any;
     if (!fullAnnotation || typeof fullAnnotation !== 'object') {
       return [];
     }
@@ -383,7 +380,9 @@ export class VaultAuto {
       .filter((body) => body !== null && typeof body !== 'undefined')
       .map((body) => {
         if (body?.type === 'SpecificResource' && body?.source) {
-          const unwrapped = this.get(body.source, { skipSelfReturn: false }) as any;
+          const unwrapped = this.get(body.source, {
+            skipSelfReturn: false,
+          }) as any;
           return unwrapped ?? body.source;
         }
         return body;

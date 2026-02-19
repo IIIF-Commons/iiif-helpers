@@ -1,6 +1,21 @@
 /// <reference types="geojson" />
 
 import {
+  frameResource,
+  HAS_PART,
+  isSpecificResource,
+  PART_OF,
+  type SerializeConfig,
+  serialize,
+  serializeConfigPresentation2,
+  serializeConfigPresentation3,
+} from '@iiif/parser';
+import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
+import type { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
+import mitt, { type Emitter } from 'mitt';
+import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from './actions';
+import { createStore, type VaultZustandStore } from './store';
+import type {
   ActionFromType,
   AllActions,
   Entities,
@@ -10,26 +25,11 @@ import {
   RefToNormalized,
   RequestState,
 } from './types';
-import { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
-import {
-  frameResource,
-  HAS_PART,
-  isSpecificResource,
-  PART_OF,
-  serialize,
-  SerializeConfig,
-  serializeConfigPresentation2,
-  serializeConfigPresentation3,
-} from '@iiif/parser';
-import { BATCH_ACTIONS, BatchAction, batchActions, entityActions, metaActions } from './actions';
-import { createFetchHelper, areInputsEqual } from './utility';
-import { createStore, VaultZustandStore } from './store';
-import mitt, { Emitter } from 'mitt';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
-import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
+import { areInputsEqual, createFetchHelper } from './utility';
+import { type ActionListFromResource, actionListFromResourceV3 } from './utility/action-list-from-resource';
+import { defaultFetcher } from './utility/default-fetcher';
+import { isWrapped, type ReactiveWrapped, wrapObject } from './utility/objects';
 import { resolveType } from './utility/resolve-type';
-import { actionListFromResourceV3, type ActionListFromResource } from './utility/action-list-from-resource';
-import { defaultFetcher as defaultVaultFetcher } from './utility/default-fetcher';
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -67,7 +67,7 @@ export class Vault {
     this.options = Object.assign(
       {
         reducers: {},
-        customFetcher: this.defaultFetcher,
+        customFetcher: defaultFetcher,
         enableDevtools: true,
       },
       options || {}
@@ -92,7 +92,7 @@ export class Vault {
     return actionListFromResourceV3;
   }
 
-  defaultFetcher = defaultVaultFetcher;
+  defaultFetcher = defaultFetcher;
 
   batch(cb: (vault: this) => void) {
     this.isBatching = true;
@@ -141,12 +141,18 @@ export class Vault {
     if (!this.isBatching) {
       if (action.type === BATCH_ACTIONS) {
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(realAction.type, { action: realAction, state: this.store.getState() });
+          this.emitter.emit(realAction.type, {
+            action: realAction,
+            state: this.store.getState(),
+          });
         }
         this.store.dispatch(action);
         const state = this.getState();
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(`after:${realAction.type}`, { action: realAction, state });
+          this.emitter.emit(`after:${realAction.type}`, {
+            action: realAction,
+            state,
+          });
         }
         return;
       }
@@ -198,7 +204,10 @@ export class Vault {
     type?: string | GetOptions,
     options: GetOptions = {}
   ): RefToNormalized<R> | RefToNormalized<R>[] {
-    return this.get<R>(reference as any, type as any, { ...options, skipSelfReturn: false });
+    return this.get<R>(reference as any, type as any, {
+      ...options,
+      skipSelfReturn: false,
+    });
   }
 
   get<R extends { type?: string }>(

@@ -1,16 +1,16 @@
-import { actionListFromResource, type ActionListFromResource } from './action-list-from-resource';
-import { resolveIfExists } from './resolve-if-exists';
-import { NormalizedEntity } from '../types';
 import {
   batchActions,
-  requestError,
-  requestResource,
   RESOURCE_ERROR,
   RESOURCE_LOADING,
   RESOURCE_READY,
+  requestError,
+  requestResource,
 } from '../actions';
+import type { NormalizedEntity } from '../types';
 import type { Vault } from '../vault';
+import { type ActionListFromResource, actionListFromResource } from './action-list-from-resource';
 import { isPromise } from './is-promise';
+import { resolveIfExists } from './resolve-if-exists';
 
 export function createFetchHelper<T>(
   vault: Vault,
@@ -18,7 +18,10 @@ export function createFetchHelper<T>(
   {
     waitTimeout = 30,
     actionListFromResource: actionListFromResourceFn = actionListFromResource,
-  }: { waitTimeout?: number; actionListFromResource?: ActionListFromResource } = {}
+  }: {
+    waitTimeout?: number;
+    actionListFromResource?: ActionListFromResource;
+  } = {}
 ) {
   return (
     url: string,
