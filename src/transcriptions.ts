@@ -220,7 +220,7 @@ export async function canvasLoadExternalAnnotationPages(
 ): Promise<AnnotationPageNormalized[] | AnnotationPage[]> {
   if (typeof canvasRef === 'string') canvasRef = { id: canvasRef, type: 'Canvas' };
   const canvas = vault.get<CanvasNormalized | Canvas>(canvasRef);
-  const annotationPages: any[] = [];
+  const promises: Promise<AnnotationPageNormalized>[] = [];
   if (canvas.annotations) {
     for (const annotationPageRef of canvas.annotations) {
       let annotationPage = vault.get<AnnotationPageNormalized>(annotationPageRef);
@@ -236,24 +236,37 @@ export async function canvasLoadExternalAnnotationPages(
         }
       }
 
-      if (!annotationPage) {
-        continue;
-      }
-
-      const shouldFetch = !requestStatus || requestStatus.loadingState === 'RESOURCE_LOADING';
-      if (shouldFetch && (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal'])) {
-        try {
-          annotationPages.push(await vault.load(annotationPage.id));
-        } catch (e) {
-          // ignore.
+      if (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal']) {
+        if (requestStatus) {
+          promises.push(
+            new Promise((resolve, reject) => {
+              const cleanup = vault.subscribe(() => {
+                const loadingState = vault.requestStatus(annotationPage.id)?.loadingState;
+                if (loadingState === 'RESOURCE_ERROR') {
+                  reject(new Error(`Failed to load annotation page ${annotationPage.id}`));
+                  cleanup();
+                }
+                if (loadingState === 'RESOURCE_READY') {
+                  resolve(annotationPage);
+                  cleanup();
+                }
+              });
+            })
+          );
+        } else {
+          try {
+            promises.push(vault.load<AnnotationPageNormalized>(annotationPage.id) as any);
+          } catch (e) {
+            // ignore.
+          }
         }
       } else {
-        annotationPages.push(annotationPage);
+        promises.push(Promise.resolve(annotationPage));
       }
     }
   }
 
-  return annotationPages;
+  return (await Promise.all(promises)).filter(Boolean);
 }
 
 // Credit: https://gist.github.com/brospars/0bd13de8a22530c87d0945cf8e611225
