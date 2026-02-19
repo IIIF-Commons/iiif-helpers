@@ -1,7 +1,7 @@
 import type { ManifestNormalized as ManifestNormalizedV3 } from '@iiif/parser/presentation-3-normalized/types';
 import type { ManifestNormalized as ManifestNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
 import invariant from 'tiny-invariant';
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import cssManifest from '../../fixtures/cookbook/css.json';
 import p4SceneManifest from '../../fixtures/presentation-4/cookbook/0608-mvm-3d.json';
 import p4UpgradedCssManifest from '../../fixtures/presentation-4/upgraded-from-p3/cookbook--css.json';
@@ -152,5 +152,35 @@ describe('VaultAuto', () => {
     expect(v4Vault.asArray('x')).toEqual(['x']);
     expect(v4Vault.asArray(['x', 'y'])).toEqual(['x', 'y']);
     expect(v4Vault.asArray(null)).toEqual([]);
+  });
+
+  test('uses default fetcher after switching to v4 when no custom fetcher is provided', async () => {
+    const remoteManifestId = 'https://example.org/remote-manifest-v4';
+    const remoteManifest = {
+      '@context': 'http://iiif.io/api/presentation/4/context.json',
+      id: remoteManifestId,
+      type: 'Manifest',
+      label: { en: ['Remote manifest'] },
+      items: [],
+    };
+
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue({
+      status: 200,
+      json: async () => remoteManifest,
+    } as any);
+
+    try {
+      const vault = new VaultAuto({ enablePresentation4: true });
+
+      // Switch to v4 first so VaultAuto delegates remote load to Vault4.
+      vault.loadSync<ManifestNormalizedV4>(p4SceneManifest.id, JSON.parse(JSON.stringify(p4SceneManifest)));
+      expect(vault.getVersion()).toBe(4);
+
+      const loaded = await vault.load<ManifestNormalizedV4>(remoteManifestId);
+      expect(fetchSpy).toHaveBeenCalledWith(remoteManifestId);
+      expect(loaded?.id).toBe(remoteManifestId);
+    } finally {
+      fetchSpy.mockRestore();
+    }
   });
 });

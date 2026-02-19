@@ -1,6 +1,21 @@
 /// <reference types="geojson" />
 
+import { frameResource, HAS_PART, isSpecificResource, PART_OF, serializeConfigPresentation2 } from '@iiif/parser';
 import {
+  type SerializeConfig,
+  serialize,
+  serializeConfigPresentation3,
+  serializeConfigPresentation4,
+} from '@iiif/parser/presentation-4';
+import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-4/types';
+import type {
+  CollectionNormalized as CollectionNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
+import mitt, { type Emitter } from 'mitt';
+import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from './actions';
+import { createStore, type VaultZustandStore } from './store';
+import type {
   ActionFromType,
   AllActions,
   Entities,
@@ -10,26 +25,11 @@ import {
   RefToNormalized,
   RequestState,
 } from './types';
-import { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-4/types';
-import { frameResource, HAS_PART, isSpecificResource, PART_OF, serializeConfigPresentation2 } from '@iiif/parser';
-import {
-  serialize,
-  SerializeConfig,
-  serializeConfigPresentation3,
-  serializeConfigPresentation4,
-} from '@iiif/parser/presentation-4';
-import { BATCH_ACTIONS, BatchAction, batchActions, entityActions, metaActions } from './actions';
-import { createFetchHelper, areInputsEqual } from './utility';
-import { createStore, VaultZustandStore } from './store';
-import mitt, { Emitter } from 'mitt';
-import {
-  CollectionNormalized as CollectionNormalizedV4,
-  ManifestNormalized as ManifestNormalizedV4,
-} from '@iiif/parser/presentation-4-normalized/types';
-import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
-import { resolveType } from './utility/resolve-type';
-import { actionListFromResourceV4, type ActionListFromResource } from './utility/action-list-from-resource';
+import { areInputsEqual, createFetchHelper } from './utility';
+import { type ActionListFromResource, actionListFromResourceV4 } from './utility/action-list-from-resource';
 import { defaultFetcher as defaultVaultFetcher } from './utility/default-fetcher';
+import { isWrapped, type ReactiveWrapped, wrapObject } from './utility/objects';
+import { resolveType } from './utility/resolve-type';
 
 type RefToNormalizedV4<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalizedV4
@@ -91,7 +91,7 @@ export class Vault4 {
         enableDevtools: this.options.enableDevtools,
       });
     this.emitter = mitt();
-    this.remoteFetcher = createFetchHelper(this as any, this.options.customFetcher, {
+    this.remoteFetcher = createFetchHelper(this as any, this.options.customFetcher || this.defaultFetcher, {
       actionListFromResource: this.getActionListFromResource(),
     }) as any;
     this.staticFetcher = createFetchHelper(this as any, (id: string, json: any) => json, {
@@ -152,12 +152,18 @@ export class Vault4 {
     if (!this.isBatching) {
       if (action.type === BATCH_ACTIONS) {
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(realAction.type, { action: realAction, state: this.store.getState() });
+          this.emitter.emit(realAction.type, {
+            action: realAction,
+            state: this.store.getState(),
+          });
         }
         this.store.dispatch(action);
         const state = this.getState();
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(`after:${realAction.type}`, { action: realAction, state });
+          this.emitter.emit(`after:${realAction.type}`, {
+            action: realAction,
+            state,
+          });
         }
         return;
       }
@@ -213,7 +219,10 @@ export class Vault4 {
     type?: string | GetOptions,
     options: GetOptions = {}
   ): RefToNormalizedV4<R> | RefToNormalizedV4<R>[] {
-    return this.get<R>(reference as any, type as any, { ...options, skipSelfReturn: false });
+    return this.get<R>(reference as any, type as any, {
+      ...options,
+      skipSelfReturn: false,
+    });
   }
 
   get<R extends { type?: string }>(
