@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['20', '22']
+        node: ['22']
 
     name: Node ${{ matrix.node }} build
     steps:
@@ -42,3 +42,4 @@ jobs:
       - run: pnpm run test
       - run: node pkg-tests/node-load.cjs
       - run: node pkg-tests/node-load.mjs
+      - run: pnpm dlx pkg-pr-new publish

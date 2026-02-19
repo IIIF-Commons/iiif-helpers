@@ -1,7 +1,0 @@
-{
-  "sandboxes": [
-    "vanilla-typescript",
-    "vanilla"
-  ],
-  "node": "18"
-}
