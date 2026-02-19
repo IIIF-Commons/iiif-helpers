@@ -1,9 +1,10 @@
+import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import invariant from 'tiny-invariant';
 import { describe, expect, test } from 'vitest';
-import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import cssManifest from '../../fixtures/cookbook/css.json';
 import p4SceneManifest from '../../fixtures/presentation-4/cookbook/0608-mvm-3d.json';
-import { Vault, Vault4 } from '../../src/vault';
+import { Vault } from '../../src/vault';
+import { Vault4 } from '../../src/vault/vault4';
 
 describe('Vault versions', () => {
   test('Vault remains stable for v3 fixtures', () => {

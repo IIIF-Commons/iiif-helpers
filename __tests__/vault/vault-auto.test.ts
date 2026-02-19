@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest';
 import cssManifest from '../../fixtures/cookbook/css.json';
 import p4SceneManifest from '../../fixtures/presentation-4/cookbook/0608-mvm-3d.json';
 import p4UpgradedCssManifest from '../../fixtures/presentation-4/upgraded-from-p3/cookbook--css.json';
-import { VaultAuto } from '../../src/vault';
+import { VaultAuto } from '../../src/vault/vault-auto';
 
 describe('VaultAuto', () => {
   test('starts in v3 mode by default', () => {
