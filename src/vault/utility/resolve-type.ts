@@ -1,6 +1,6 @@
-import { Entities } from '../types';
+import type { Entities } from '../types';
 
-export function resolveType(type: string): keyof Entities {
+export function resolveType(type?: string): keyof Entities {
   switch (type) {
     case 'Image':
     case 'Video':
@@ -11,6 +11,21 @@ export function resolveType(type: string): keyof Entities {
     case 'List':
     case 'Independents':
     case 'Audience':
+    case 'SpecificResource':
+    case 'CollectionPage':
+    case 'Quantity':
+    case 'RotateTransform':
+    case 'ScaleTransform':
+    case 'TranslateTransform':
+    case 'PerspectiveCamera':
+    case 'OrthographicCamera':
+    case 'AmbientLight':
+    case 'DirectionalLight':
+    case 'PointLight':
+    case 'SpotLight':
+    case 'AmbientAudio':
+    case 'PointAudio':
+    case 'SpotAudio':
       return 'ContentResource';
     case 'ImageService1':
     case 'ImageService2':

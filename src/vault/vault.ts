@@ -29,6 +29,7 @@ import { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentat
 import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
 import { resolveType } from './utility/resolve-type';
 import { actionListFromResourceV3, type ActionListFromResource } from './utility/action-list-from-resource';
+import { defaultFetcher as defaultVaultFetcher } from './utility/default-fetcher';
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -91,17 +92,7 @@ export class Vault {
     return actionListFromResourceV3;
   }
 
-  defaultFetcher = (url: string) => {
-    return fetch(url).then((r) => {
-      if (r.status === 200) {
-        return r.json();
-      } else {
-        const err = new Error(`${r.status} ${r.statusText}`);
-        err.name = `HTTPError`;
-        throw err;
-      }
-    });
-  };
+  defaultFetcher = defaultVaultFetcher;
 
   batch(cb: (vault: this) => void) {
     this.isBatching = true;

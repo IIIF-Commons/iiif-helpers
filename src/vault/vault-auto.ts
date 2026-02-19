@@ -1,13 +1,30 @@
+import type { SerializeConfig } from '@iiif/parser';
 import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
-import type { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  CollectionNormalized as CollectionNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
+} from '@iiif/parser/presentation-3-normalized/types';
+import { normalize as normalizePresentation4 } from '@iiif/parser/presentation-4';
+import type {
+  CollectionNormalized as CollectionNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+  Presentation4NormalizeResult,
+} from '@iiif/parser/presentation-4-normalized/types';
 import type { BatchAction } from './actions';
-import type { ActionFromType, AllActions, Entities, IIIFStore, NormalizedEntity, PaginationState, RefToNormalized, RequestState } from './types';
-import { VaultZustandStore } from './store';
+import type { VaultZustandStore } from './store';
+import type {
+  ActionFromType,
+  AllActions,
+  Entities,
+  IIIFStore,
+  NormalizedEntity,
+  PaginationState,
+  RefToNormalized,
+  RequestState,
+} from './types';
 import type { ReactiveWrapped } from './utility/objects';
-import { Vault, type GetObjectOptions, type GetOptions, type VaultOptions } from './vault';
-import { Vault3 } from './vault3';
+import { type GetObjectOptions, type GetOptions, Vault, type VaultOptions } from './vault';
 import { Vault4 } from './vault4';
-import { SerializeConfig } from '@iiif/parser';
 
 type VaultAutoLoadJournalEntry = {
   id: string;
@@ -16,8 +33,14 @@ type VaultAutoLoadJournalEntry = {
 
 export type VaultAutoOptions = Partial<VaultOptions> & {
   enablePresentation4?: boolean;
-  switchOnScene?: boolean;
   onVersionSwitch?: (from: 3, to: 4, context: { triggerId: string }) => void;
+  onVersionProbe?: (probe: {
+    id: string;
+    sourceVersion: Presentation4NormalizeResult['sourceVersion'];
+    diagnosticsCount: number;
+    rootType: string;
+    shouldSwitch: boolean;
+  }) => void;
 };
 
 function cloneForReplay<T>(value: T): T {
@@ -27,54 +50,21 @@ function cloneForReplay<T>(value: T): T {
   return JSON.parse(JSON.stringify(value));
 }
 
-function hasSceneResource(input: unknown): boolean {
-  const seen = new Set<unknown>();
-  const queue: unknown[] = [input];
-
-  while (queue.length) {
-    const current = queue.shift();
-    if (!current || typeof current !== 'object') {
-      continue;
-    }
-    if (seen.has(current)) {
-      continue;
-    }
-    seen.add(current);
-
-    if ((current as any).type === 'Scene') {
-      return true;
-    }
-
-    if (Array.isArray(current)) {
-      for (const item of current) {
-        queue.push(item);
-      }
-      continue;
-    }
-
-    for (const value of Object.values(current as Record<string, unknown>)) {
-      queue.push(value);
-    }
-  }
-
-  return false;
-}
-
 export class VaultAuto {
-  private readonly options: Required<Pick<VaultAutoOptions, 'enablePresentation4' | 'switchOnScene'>> &
-    Omit<VaultAutoOptions, 'enablePresentation4' | 'switchOnScene'>;
+  private readonly options: Required<Pick<VaultAutoOptions, 'enablePresentation4'>> &
+    Omit<VaultAutoOptions, 'enablePresentation4'>;
   private readonly vaultOptions: Partial<VaultOptions>;
   private readonly fetcher: <T>(url: string, options: T) => unknown | Promise<unknown>;
-  private readonly vault3: Vault3;
+  private readonly baseVault: Vault;
   private vault4Internal?: Vault4;
-  private activeVault: Vault3 | Vault4;
+  private activeVault: Vault | Vault4;
   private loadJournal: VaultAutoLoadJournalEntry[] = [];
 
   constructor(options?: VaultAutoOptions) {
     const {
       enablePresentation4 = false,
-      switchOnScene = true,
       onVersionSwitch,
+      onVersionProbe,
       reducers,
       defaultState,
       customFetcher,
@@ -83,8 +73,8 @@ export class VaultAuto {
 
     this.options = {
       enablePresentation4,
-      switchOnScene,
       onVersionSwitch,
+      onVersionProbe,
       reducers,
       defaultState,
       customFetcher,
@@ -99,8 +89,8 @@ export class VaultAuto {
     };
 
     this.fetcher = customFetcher || this.defaultFetcher;
-    this.vault3 = new Vault3(this.vaultOptions);
-    this.activeVault = this.vault3;
+    this.baseVault = new Vault(this.vaultOptions);
+    this.activeVault = this.baseVault;
   }
 
   get v4(): Vault4 | undefined {
@@ -115,7 +105,7 @@ export class VaultAuto {
     return this.getVersion() === 4;
   }
 
-  private getVault(): Vault3 | Vault4 {
+  private getVault(): Vault | Vault4 {
     return this.activeVault;
   }
 
@@ -141,11 +131,50 @@ export class VaultAuto {
     });
   }
 
+  private probeV4Switch(id: string, resource: unknown) {
+    let probeResult: {
+      id: string;
+      sourceVersion: Presentation4NormalizeResult['sourceVersion'];
+      diagnosticsCount: number;
+      rootType: string;
+      shouldSwitch: boolean;
+    };
+
+    try {
+      const probed = normalizePresentation4(resource) as Presentation4NormalizeResult;
+      const hasScene = probed.resource.type === 'Scene' || Object.values(probed.mapping).includes('Scene');
+      const hasTimeline = probed.resource.type === 'Timeline' || Object.values(probed.mapping).includes('Timeline');
+      const shouldSwitch = probed.sourceVersion === 4 || hasScene || hasTimeline;
+
+      probeResult = {
+        id,
+        sourceVersion: probed.sourceVersion,
+        diagnosticsCount: probed.diagnostics.length,
+        rootType: probed.resource.type,
+        shouldSwitch,
+      };
+    } catch {
+      probeResult = {
+        id,
+        sourceVersion: 'unknown',
+        diagnosticsCount: 0,
+        rootType: 'unknown',
+        shouldSwitch: false,
+      };
+    }
+
+    if (this.options.onVersionProbe) {
+      this.options.onVersionProbe(probeResult);
+    }
+
+    return probeResult.shouldSwitch;
+  }
+
   private maybeSwitchToV4(id: string, resource: unknown) {
-    if (!this.options.enablePresentation4 || !this.options.switchOnScene || this.vault4Internal) {
+    if (!this.options.enablePresentation4 || this.vault4Internal) {
       return;
     }
-    if (!hasSceneResource(resource)) {
+    if (!this.probeV4Switch(id, resource)) {
       return;
     }
     this.switchToV4(id);
@@ -193,7 +222,7 @@ export class VaultAuto {
   }
 
   serialize<Return>(entity: Reference<keyof Entities>, config: SerializeConfig) {
-    return this.getVault().serialize<Return>(entity, config);
+    return (this.getVault() as any).serialize(entity, config as any) as Return;
   }
 
   toPresentation2<Return>(entity: Reference<keyof Entities>) {
@@ -205,13 +234,33 @@ export class VaultAuto {
   }
 
   hydrate<R extends { type?: string }>(
-    reference: string | R | NormalizedEntity | string[] | R[] | NormalizedEntity[],
+    reference: string | Partial<R>,
     type?: string | GetOptions,
     options?: GetOptions
+  ): RefToNormalized<R>;
+  hydrate<R extends { type?: string }>(
+    reference: string[] | Partial<R>[],
+    type?: string | GetOptions,
+    options?: GetOptions
+  ): RefToNormalized<R>[];
+  hydrate<R extends { type?: string }>(
+    reference: string | R | NormalizedEntity | string[] | R[] | NormalizedEntity[],
+    type?: string | GetOptions,
+    options: GetOptions = {}
   ): RefToNormalized<R> | RefToNormalized<R>[] {
-    return this.getVault().hydrate(reference as any, type as any, options);
+    return (this.getVault() as any).hydrate(reference as any, type as any, options as any);
   }
 
+  get<R extends { type?: string }>(
+    reference: string | Partial<R> | Reference<R['type']> | SpecificResource<R>,
+    type?: string | GetOptions,
+    options?: GetOptions
+  ): RefToNormalized<R>;
+  get<R extends { type?: string }>(
+    reference: string[] | Partial<R>[] | Reference<R['type']>[] | SpecificResource<R>[],
+    type?: string | GetOptions,
+    options?: GetOptions
+  ): RefToNormalized<R>[];
   get<R extends { type?: string }>(
     reference:
       | string
@@ -223,9 +272,9 @@ export class VaultAuto {
       | SpecificResource<R>
       | SpecificResource<R>[],
     type?: string | GetOptions,
-    options?: GetOptions
+    options: GetOptions = {}
   ): RefToNormalized<R> | RefToNormalized<R>[] {
-    return this.getVault().get(reference as any, type as any, options as any);
+    return (this.getVault() as any).get(reference as any, type as any, options as any);
   }
 
   select<R>(selector: (state: IIIFStore) => R): R {
@@ -248,18 +297,18 @@ export class VaultAuto {
     id: string | Reference<any>,
     json?: unknown,
     mapper?: (resource: any) => any
-  ): Promise<ManifestNormalized | undefined> {
+  ): Promise<ManifestNormalizedV3 | ManifestNormalizedV4 | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<ManifestNormalized>(_id, json, mapper);
+    return this.load<ManifestNormalizedV3 | ManifestNormalizedV4>(_id, json, mapper);
   }
 
   loadCollection(
     id: string | Reference<any>,
     json?: unknown,
     mapper?: (resource: any) => any
-  ): Promise<CollectionNormalized | undefined> {
+  ): Promise<CollectionNormalizedV3 | CollectionNormalizedV4 | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.load<CollectionNormalized>(_id, json, mapper);
+    return this.load<CollectionNormalizedV3 | CollectionNormalizedV4>(_id, json, mapper);
   }
 
   async load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
@@ -295,18 +344,18 @@ export class VaultAuto {
     id: string | Reference<any>,
     json: unknown,
     mapper?: (resource: any) => any
-  ): ManifestNormalized | undefined {
+  ): ManifestNormalizedV3 | ManifestNormalizedV4 | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<ManifestNormalized>(_id, json, mapper);
+    return this.loadSync<ManifestNormalizedV3 | ManifestNormalizedV4>(_id, json, mapper);
   }
 
   loadCollectionSync(
     id: string | Reference<any>,
     json: unknown,
     mapper?: (resource: any) => any
-  ): CollectionNormalized | undefined {
+  ): CollectionNormalizedV3 | CollectionNormalizedV4 | undefined {
     const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<CollectionNormalized>(_id, json, mapper);
+    return this.loadSync<CollectionNormalizedV3 | CollectionNormalizedV4>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -342,8 +391,8 @@ export class VaultAuto {
   async loadNextPage(
     resource: string | Reference,
     json?: any
-  ): Promise<[PaginationState | null, CollectionNormalized | null]> {
-    return this.getVault().loadNextPage(resource, json);
+  ): Promise<[PaginationState | null, CollectionNormalizedV3 | CollectionNormalizedV4 | null]> {
+    return (this.getVault() as any).loadNextPage(resource, json);
   }
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
@@ -365,7 +414,7 @@ export class VaultAuto {
     type?: string | GetObjectOptions,
     options?: GetObjectOptions
   ): RefToNormalized<R> {
-    return this.getVault().getObject(reference as any, type as any, options as any);
+    return (this.getVault() as any).getObject(reference as any, type as any, options as any);
   }
 
   async loadObject<Type, NormalizedType = any>(
@@ -378,15 +427,15 @@ export class VaultAuto {
   async loadManifestObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Manifest, ManifestNormalized>> {
-    return this.getVault().loadManifestObject(id, json);
+  ): Promise<ReactiveWrapped<Manifest, ManifestNormalizedV3 | ManifestNormalizedV4>> {
+    return (this.getVault() as any).loadManifestObject(id, json);
   }
 
   async loadCollectionObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Collection, CollectionNormalized>> {
-    return this.getVault().loadCollectionObject(id, json);
+  ): Promise<ReactiveWrapped<Collection, CollectionNormalizedV3 | CollectionNormalizedV4>> {
+    return (this.getVault() as any).loadCollectionObject(id, json);
   }
 
   wrapObject<T extends string>(objectType: Reference<T>) {

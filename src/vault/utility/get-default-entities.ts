@@ -1,4 +1,4 @@
-import { Entities } from '../types';
+import type { Entities } from '../types';
 
 export function getDefaultEntities(): Entities {
   return {
@@ -15,7 +15,5 @@ export function getDefaultEntities(): Entities {
     Agent: {},
     Timeline: {},
     Scene: {},
-    Quantity: {},
-    Transform: {},
   };
 }
