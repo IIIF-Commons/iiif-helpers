@@ -188,6 +188,24 @@ console.log(target.selector?.type);
 // BoxSelector
 ```
 
+Selector-only example:
+
+```ts
+import { parseSelector } from '@iiif/helpers/annotation-targets';
+
+const parsed = parseSelector({
+  type: 'FragmentSelector',
+  value: 'xywh=10,20,300,400&t=5,12.5',
+});
+
+console.log(parsed.selector);
+// {
+//   type: 'TemporalBoxSelector',
+//   spatial: { x: 10, y: 20, width: 300, height: 400, unit: 'pixel' },
+//   temporal: { startTime: 5, endTime: 12.5 }
+// }
+```
+
 ### `@iiif/helpers/content-state`
 
 This package works with IIIF Content State values.
@@ -215,6 +233,33 @@ Important notes:
 - Validation is intentionally light-weight at the moment. It should be treated as a sanity check rather than full spec enforcement.
 - Normalization uses the annotation-target helpers internally, so spatial selectors become structured selector objects instead of raw fragments.
 
+Example:
+
+```ts
+import {
+  parseContentState,
+  serialiseContentState,
+  validateContentState,
+  normaliseContentState,
+} from '@iiif/helpers/content-state';
+
+const encoded = serialiseContentState({
+  id: 'https://example.org/canvas-1#xywh=100,200,300,400',
+  type: 'Canvas',
+  partOf: [{ id: 'https://example.org/manifest-1', type: 'Manifest' }],
+});
+
+const parsed = parseContentState(encoded);
+const [valid, error] = validateContentState(parsed, true);
+
+if (!valid) {
+  throw new Error(error?.reason ?? 'Invalid content state');
+}
+
+const normalized = normaliseContentState(parsed);
+console.log(normalized.target[0].selector);
+```
+
 ### `@iiif/helpers/events`
 
 This is a small vault-backed event registry for IIIF resources.
@@ -230,6 +275,29 @@ The helper gives you:
 - `getListenersAsProps(resourceOrId, scope?)`
 
 It stores event handlers in vault meta so you can attach UI behavior to resources before they are rendered. This is especially useful in component-based UIs where passing callbacks down through many layers would otherwise be awkward.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import { createEventsHelper } from '@iiif/helpers/events';
+
+const vault = new Vault();
+const events = createEventsHelper(vault);
+const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+
+events.addEventListener(annotation, 'onClick', (_event, resource) => {
+  console.log('Clicked', resource.id);
+});
+
+const props = events.getListenersAsProps(annotation);
+
+// React:
+// <div {...props} />
+
+// DOM:
+// element.addEventListener('click', props.onClick);
+```
 
 ### `@iiif/helpers/fetch`
 
@@ -272,8 +340,23 @@ Example:
 ```ts
 import { getValue, iiifString } from '@iiif/helpers/i18n';
 
-const label = getValue(manifest.label, { language: 'fr' });
-const summary = iiifString`Label: ${manifest.label}`;
+const label = getValue({ fr: ['Titre'], en: ['Title'] }, { language: 'fr' });
+const summary = iiifString`Label: ${{ en: ['An English label'] }}`;
+```
+
+Fallback example:
+
+```ts
+import { buildLocaleString } from '@iiif/helpers/i18n';
+
+const label = buildLocaleString(
+  { en: ['English title'], fr: ['Titre francais'], none: ['Untitled'] },
+  'cy-GB',
+  {
+    fallbackLanguages: ['en-GB', 'en'],
+    defaultText: 'Untitled manifest',
+  }
+);
 ```
 
 ### `@iiif/helpers/image-service`
@@ -315,6 +398,38 @@ Important notes:
 - The store returned by `createImageServiceStore()` includes both a Zustand `store` and an event emitter.
 - The candidate model distinguishes fixed images, fixed-size services, variable services, and unknown-size images.
 
+Example:
+
+```ts
+import {
+  ImageServiceLoader,
+  getImageCandidates,
+  pickBestFromCandidates,
+} from '@iiif/helpers/image-service';
+
+const loader = new ImageServiceLoader();
+
+const resource = {
+  id: 'https://example.org/image/full/max/0/default.jpg',
+  type: 'Image',
+  width: 1200,
+  height: 800,
+  service: [
+    {
+      id: 'https://example.org/image',
+      type: 'ImageService3',
+      profile: 'level1',
+    },
+  ],
+} as any;
+
+const candidates = getImageCandidates(resource, false, loader);
+const choice = pickBestFromCandidates({ width: 300, height: 200 }, [() => candidates]);
+
+console.log(choice.best);
+console.log(choice.fallback);
+```
+
 ### `@iiif/helpers/nav-date`
 
 This package builds navigation trees from `navDate`.
@@ -331,6 +446,40 @@ How it behaves:
 - if you do not pass an explicit level, it automatically collapses through single-item levels and returns the most useful level
 
 Use it when you want archive-style time browsing or date facets built directly from IIIF metadata.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import { createDateNavigation } from '@iiif/helpers/nav-date';
+
+const vault = new Vault();
+const collection = vault.loadSync('https://example.org/collection', {
+  id: 'https://example.org/collection',
+  type: 'Collection',
+  label: { en: ['Archive'] },
+  items: [
+    {
+      id: 'https://example.org/manifest/1986',
+      type: 'Manifest',
+      label: { en: ['Issue 1986'] },
+      navDate: '1986-01-01T00:00:00+00:00',
+    },
+    {
+      id: 'https://example.org/manifest/1987',
+      type: 'Manifest',
+      label: { en: ['Issue 1987'] },
+      navDate: '1987-01-01T00:00:00+00:00',
+    },
+  ],
+});
+
+const years = createDateNavigation(vault, collection!, 'year');
+
+for (const year of years) {
+  console.log(year.label.en?.[0], year.count);
+}
+```
 
 ### `@iiif/helpers/painting-annotations`
 
@@ -357,6 +506,31 @@ What it does:
 - returns a list of paintable resources with their original annotation, target, selector, and normalized type
 
 This is useful when you are rendering mixed media, alternative image choices, or need a flat list of paintable bodies from a canvas.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import { createPaintingAnnotationsHelper } from '@iiif/helpers/painting-annotations';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+const canvas = vault.get(manifest.items[0]);
+const painting = createPaintingAnnotationsHelper(vault);
+const paintables = painting.getPaintables(canvas);
+
+console.log(paintables.types);
+console.log(paintables.choice);
+
+for (const item of paintables.items) {
+  console.log(item.type, item.resource.id, item.selector);
+}
+```
 
 ### `@iiif/helpers/ranges`
 
@@ -389,6 +563,30 @@ Important notes:
 - `rangesToTableOfContentsTree()` creates a virtual root when you pass multiple top-level ranges.
 - `isRangeContiguous()` can optionally return detailed diagnostics about invalid ranges, missing canvases, and gaps.
 
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import {
+  rangeToTableOfContentsTree,
+  isRangeContiguous,
+} from '@iiif/helpers/ranges';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest || !manifest.structures?.length) {
+  throw new Error('Manifest has no ranges');
+}
+
+const range = vault.get(manifest.structures[0]);
+const toc = rangeToTableOfContentsTree(vault, range);
+const [isContiguous, detail] = isRangeContiguous(vault, range, manifest.items, { detail: true });
+
+console.log(toc?.items?.map((item) => item.label));
+console.log(isContiguous, detail?.gaps);
+```
+
 ### `@iiif/helpers/search1`
 
 This package contains helpers for IIIF Search API 1.
@@ -410,11 +608,26 @@ What it provides:
 Example:
 
 ```ts
-import { createSearch1Store } from '@iiif/helpers/search1';
+import {
+  createSearch1Store,
+  createSearch1AutocompleteStore,
+} from '@iiif/helpers/search1';
 
-const store = createSearch1Store(searchService);
+const service = {
+  '@id': 'https://example.org/search',
+  profile: 'http://iiif.io/api/search/1/search',
+  service: {
+    '@id': 'https://example.org/search/autocomplete',
+    profile: 'http://iiif.io/api/search/1/autocomplete',
+  },
+} as any;
+
+const store = createSearch1Store(service);
 await store.getState().search({ q: '1615' });
 store.getState().highlightHit(0);
+
+const autocomplete = createSearch1AutocompleteStore(service);
+await autocomplete.getState().search('wunder');
 ```
 
 ### `@iiif/helpers/sequences`
@@ -441,6 +654,29 @@ Use it when you need to answer questions like:
 - what are the page groups for a paged interface?
 - should this manifest render as single pages, spreads, or one continuous strip?
 
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import {
+  getManifestSequence,
+  getVisibleCanvasesFromCanvasId,
+} from '@iiif/helpers/sequences';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+const [items, pageGroups] = getManifestSequence(vault, manifest);
+const visible = getVisibleCanvasesFromCanvasId(vault, manifest, items[0].id);
+
+console.log(pageGroups);
+console.log(visible);
+```
+
 ### `@iiif/helpers/styles`
 
 This is a small vault-backed style metadata helper.
@@ -457,6 +693,24 @@ The helper gives you:
 - `getAppliedStyles(resource)`
 
 It is useful when style information lives outside the IIIF resource but still needs to follow the same resource ids, for example annotation colors, highlight state, or editor-only presentation metadata.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import { createStylesHelper } from '@iiif/helpers/styles';
+
+const vault = new Vault();
+const styles = createStylesHelper(vault);
+const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+
+vault.batch(() => {
+  styles.applyStyles(annotation, 'selected', { background: 'red' });
+  styles.applyStyles(annotation, 'hovered', { background: 'pink' });
+});
+
+console.log(styles.getAppliedStyles(annotation));
+```
 
 ### `@iiif/helpers/thumbnail`
 
@@ -491,10 +745,29 @@ What it does:
 Example:
 
 ```ts
-import { createThumbnailHelper } from '@iiif/helpers/thumbnail';
+import { Vault } from '@iiif/helpers';
+import { createThumbnailHelper, getThumbnail } from '@iiif/helpers/thumbnail';
 
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+const canvas = vault.get(manifest.items[0]);
 const helper = createThumbnailHelper(vault);
 const result = await helper.getBestThumbnailAtSize(canvas, { width: 256, height: 256 });
+
+const quickResult = await getThumbnail(canvas, {
+  vault,
+  width: 512,
+  height: 512,
+  returnAllOptions: true,
+});
+
+console.log(result.best);
+console.log(quickResult.fallback);
 ```
 
 ### `@iiif/helpers/transcriptions`
@@ -529,6 +802,33 @@ Important notes:
 - VTT files are parsed into segment records with temporal selectors.
 - External annotation pages can be loaded on demand with `canvasLoadExternalAnnotationPages()`.
 - ALTO renderings are detected, but ALTO parsing is not implemented yet, so those paths currently return `null`.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers';
+import {
+  manifestHasTranscriptions,
+  getCanvasTranscription,
+} from '@iiif/helpers/transcriptions';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+const hasTranscriptions = await manifestHasTranscriptions(vault, manifest);
+
+if (hasTranscriptions) {
+  const canvas = vault.get(manifest.items[0]);
+  const transcription = await getCanvasTranscription(vault, canvas);
+
+  console.log(transcription?.plaintext);
+  console.log(transcription?.segments[0]?.selector);
+}
+```
 
 ### `@iiif/helpers/vault`
 
@@ -565,6 +865,28 @@ The `Vault` also includes higher-level object wrappers:
 
 Those wrapped objects resolve nested references through getters and expose helper methods like `refresh()`, `reactive()`, `unwrap()`, `toJSON()`, `toPresentation2()`, and `toPresentation3()`.
 
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers/vault';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+const firstCanvas = vault.get(manifest.items[0]);
+vault.setMetaValue([firstCanvas.id, 'ui', 'selected'], true);
+
+console.log(vault.getResourceMeta(firstCanvas.id, 'ui'));
+
+const wrapped = vault.getObject(manifest);
+console.log(wrapped.items[0].id);
+console.log(wrapped.items[0].unwrap());
+```
+
 ### `@iiif/helpers/vault-node`
 
 This is the Node-oriented vault package.
@@ -576,6 +898,17 @@ Key exports:
 - the same core types re-exported by `@iiif/helpers/vault`
 
 The `Vault` class in this package extends the core vault and configures a Node-friendly fetch path. Use it when you want vault behavior in server-side code and you do not want to wire a custom fetcher yourself.
+
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers/vault-node';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+console.log(manifest?.id);
+```
 
 ### `@iiif/helpers/vault/actions`
 
@@ -597,6 +930,29 @@ Examples include:
 
 Use it when you are integrating the vault store directly or building custom tooling on top of the same reducer model.
 
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers/vault';
+import { entityActions } from '@iiif/helpers/vault/actions';
+
+const vault = new Vault();
+const manifest = await vault.loadManifest('https://example.org/manifest.json');
+
+if (!manifest) {
+  throw new Error('Manifest failed to load');
+}
+
+vault.dispatch(
+  entityActions.modifyEntityField({
+    id: manifest.id,
+    type: 'Manifest',
+    key: 'label',
+    value: { en: ['Updated title'] },
+  })
+);
+```
+
 ### `@iiif/helpers/vault/store`
 
 This package exposes the underlying store factory and reducers used by the vault.
@@ -609,6 +965,43 @@ Key exports:
 - `VaultZustandStore`
 
 The store is built with vanilla Zustand plus Redux-style reducers. Use it when you want to embed the vault state model into an existing application architecture rather than always going through the `Vault` class.
+
+Example:
+
+```ts
+import { emptyManifest } from '@iiif/parser';
+import { createStore } from '@iiif/helpers/vault/store';
+import { entityActions } from '@iiif/helpers/vault/actions';
+
+const store = createStore();
+const manifestId = 'https://example.org/manifest-1';
+
+store.dispatch(
+  entityActions.importEntities({
+    entities: {
+      Manifest: {
+        [manifestId]: {
+          ...emptyManifest,
+          id: manifestId,
+          type: 'Manifest',
+          items: [],
+        },
+      },
+    },
+  })
+);
+
+store.dispatch(
+  entityActions.modifyEntityField({
+    id: manifestId,
+    type: 'Manifest',
+    key: 'label',
+    value: { en: ['An example label'] },
+  })
+);
+
+console.log(store.getState().iiif.entities.Manifest[manifestId]);
+```
 
 ### `@iiif/helpers/vault/utility`
 
@@ -630,6 +1023,27 @@ These are useful when you want to:
 - resolve reference lists against a store directly
 - reuse the vault's selector-equality logic
 
+Example:
+
+```ts
+import { Vault } from '@iiif/helpers/vault';
+import { createFetchHelper } from '@iiif/helpers/vault/utility';
+
+const vault = new Vault();
+
+const fetchManifest = createFetchHelper(vault, async (url: string) => {
+  return {
+    id: url,
+    type: 'Manifest',
+    label: { en: ['Generated manifest'] },
+    items: [],
+  };
+});
+
+const manifest = await fetchManifest('https://example.org/manifest.json');
+console.log(manifest?.id);
+```
+
 ### `@iiif/helpers/vault/global-vault`
 
 This is a small compatibility bridge for global/browser-based setups.
@@ -639,6 +1053,15 @@ Key export:
 - `getGlobalVault`
 
 It returns `globalThis.IIIF_VAULT` if one already exists, and if not, it will try to initialize one from a global `IIIFVault` object. In modern module-based applications, `globalVault()` from `@iiif/helpers/vault` is usually the clearer API. This subpath is mostly useful when working with browser globals or legacy integration points.
+
+Example:
+
+```ts
+import { getGlobalVault } from '@iiif/helpers/vault/global-vault';
+
+const vault = getGlobalVault();
+console.log(vault);
+```
 
 ## Choosing The Right Package
 
