@@ -2,7 +2,7 @@
 
 import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
-import { resolveSelectorStyle } from './css-selectors';
+import { getSelectorTransformAttributes, resolveSelectorStyle } from './css-selectors';
 import {
   type NormalizedSvgPathCommand,
   type NormalizedSvgPathCommandType,
@@ -55,6 +55,7 @@ export function parseSelector(
               domParser,
               svgPreprocessor,
               iiifRenderingHints,
+              loadedStylesheets,
             },
             { styleClass }
           );
@@ -119,7 +120,7 @@ export function parseSelector(
 
     return parseSelector(
       { type: 'FragmentSelector', value: fragment },
-      { svgPreprocessor, iiifRenderingHints, domParser },
+      { svgPreprocessor, iiifRenderingHints, domParser, loadedStylesheets },
       { styleClass }
     );
   }
@@ -162,7 +163,7 @@ export function parseSelector(
     if (source.region) {
       const parsedRegion = parseSelector(
         { type: 'FragmentSelector', value: 'xywh=' + source.region },
-        { domParser, svgPreprocessor, iiifRenderingHints },
+        { domParser, svgPreprocessor, iiifRenderingHints, loadedStylesheets },
         { styleClass }
       );
       selectors.push(...parsedRegion.selectors);
@@ -178,6 +179,7 @@ export function parseSelector(
   if (source.type === 'FragmentSelector') {
     const matchBoxSelector = BOX_SELECTOR.exec(source.value);
     if (matchBoxSelector) {
+      const boxStyle = resolveSelectorStyle(styleClass, loadedStylesheets);
       let selector: SupportedSelectors = {
         type: 'BoxSelector',
         spatial: {
@@ -187,11 +189,13 @@ export function parseSelector(
           width: Number.parseFloat(matchBoxSelector[5]),
           height: Number.parseFloat(matchBoxSelector[6]),
         },
-        boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets),
+        boxStyle,
+        ...getSelectorTransformAttributes(boxStyle),
       };
 
       const matchBoxTimeSelector = source.value.match(TEMPORAL_SELECTOR);
       if (matchBoxTimeSelector) {
+        const temporalBoxStyle = resolveSelectorStyle(styleClass, loadedStylesheets);
         selector = {
           type: 'TemporalBoxSelector',
           spatial: selector.spatial,
@@ -199,7 +203,8 @@ export function parseSelector(
             startTime: matchBoxTimeSelector[3] ? Number.parseFloat(matchBoxTimeSelector[3]) : 0,
             endTime: matchBoxTimeSelector[6] ? Number.parseFloat(matchBoxTimeSelector[6]) : undefined,
           },
-          boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets),
+          boxStyle: temporalBoxStyle,
+          ...getSelectorTransformAttributes(temporalBoxStyle),
         };
       }
 
@@ -274,12 +279,14 @@ export function parseSelector(
         ({ style, svg } = extractStyles(selectorElem.element) ?? { svg });
       }
     }
+    const boxStyle = resolveSelectorStyle(styleClass, loadedStylesheets, style);
     const sel: SvgSelector = {
       type: 'SvgSelector',
       svg,
       svgShape,
       style,
-      boxStyle: resolveSelectorStyle(styleClass, loadedStylesheets, style),
+      boxStyle,
+      ...getSelectorTransformAttributes(boxStyle),
       points: points.length ? points : undefined,
       spatial: rect
         ? {

@@ -2723,6 +2723,117 @@ describe('parse selector', () => {
       `);
     });
 
+    test('box selector with css transform', () => {
+      const exampleSelector: Selector = {
+        type: 'FragmentSelector',
+        value: 'xywh=0,0,2105,1523',
+      };
+
+      const parsed = parseSelector(
+        exampleSelector,
+        {
+          loadedStylesheets: {
+            'https://example.org/styles': `
+              .rotated {
+                transform-origin: 761px 1344px;
+                transform: rotate(90deg) translateY(-582px);
+              }
+            `,
+          },
+        },
+        {
+          styleClass: 'rotated',
+        }
+      );
+
+      expect(parsed).toMatchInlineSnapshot(`
+        {
+          "selector": {
+            "boxStyle": {
+              "transform": "rotate(90deg) translateY(-582px)",
+              "transformOrigin": "761px 1344px",
+            },
+            "rotation": 90,
+            "rotationOrigin": {
+              "unit": "pixel",
+              "x": 761,
+              "y": 1344,
+            },
+            "spatial": {
+              "height": 1523,
+              "unit": "pixel",
+              "width": 2105,
+              "x": 0,
+              "y": 0,
+            },
+            "transform": {
+              "rotation": 90,
+              "rotationOrigin": {
+                "unit": "pixel",
+                "x": 761,
+                "y": 1344,
+              },
+              "transform": "rotate(90deg) translateY(-582px)",
+              "transformOrigin": "761px 1344px",
+              "translate": {
+                "unit": "pixel",
+                "x": 0,
+                "y": -582,
+              },
+            },
+            "translate": {
+              "unit": "pixel",
+              "x": 0,
+              "y": -582,
+            },
+            "type": "BoxSelector",
+          },
+          "selectors": [
+            {
+              "boxStyle": {
+                "transform": "rotate(90deg) translateY(-582px)",
+                "transformOrigin": "761px 1344px",
+              },
+              "rotation": 90,
+              "rotationOrigin": {
+                "unit": "pixel",
+                "x": 761,
+                "y": 1344,
+              },
+              "spatial": {
+                "height": 1523,
+                "unit": "pixel",
+                "width": 2105,
+                "x": 0,
+                "y": 0,
+              },
+              "transform": {
+                "rotation": 90,
+                "rotationOrigin": {
+                  "unit": "pixel",
+                  "x": 761,
+                  "y": 1344,
+                },
+                "transform": "rotate(90deg) translateY(-582px)",
+                "transformOrigin": "761px 1344px",
+                "translate": {
+                  "unit": "pixel",
+                  "x": 0,
+                  "y": -582,
+                },
+              },
+              "translate": {
+                "unit": "pixel",
+                "x": 0,
+                "y": -582,
+              },
+              "type": "BoxSelector",
+            },
+          ],
+        }
+      `);
+    });
+
     test('expandTarget with CSS', () => {
       const expanded = expandTarget(
         {

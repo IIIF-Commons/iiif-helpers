@@ -16,7 +16,7 @@ export function expandTarget(
 ): SupportedTarget {
   if (Array.isArray(target)) {
     // Don't support multiple targets for now.
-    return expandTarget(target[0]);
+    return expandTarget(target[0], options);
   }
 
   if (typeof target === 'string') {

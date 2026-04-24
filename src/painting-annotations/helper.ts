@@ -3,6 +3,28 @@ import { AnnotationNormalized, CanvasNormalized } from '@iiif/presentation-3-nor
 import { ComplexChoice, Paintables } from './types';
 import { parseSpecificResource } from './parse-specific-resource';
 import { compatVault, CompatVault } from '../compat';
+import { getSelectorTransformAttributes, resolveSelectorStyle } from '../annotation-targets/css-selectors';
+
+function getInlineStylesheets(stylesheet: AnnotationNormalized['stylesheet']): Record<string, string> | undefined {
+  if (!stylesheet) {
+    return undefined;
+  }
+
+  const stylesheets = Array.isArray(stylesheet) ? stylesheet : [stylesheet];
+  const result: Record<string, string> = {};
+
+  for (const sheet of stylesheets as any[]) {
+    if (sheet?.type !== 'CssStylesheet' || !('value' in sheet)) {
+      continue;
+    }
+    const value = Array.isArray(sheet.value) ? sheet.value.join('\n') : sheet.value;
+    if (value) {
+      result[sheet.id || `inline-${Object.keys(result).length}`] = value;
+    }
+  }
+
+  return Object.keys(result).length ? result : undefined;
+}
 
 export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault) {
   function getAllPaintingAnnotations(canvasOrId: string | CanvasNormalized | undefined | null) {
@@ -45,7 +67,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
       const references = Array.from(Array.isArray(annotation.body) ? annotation.body : [annotation.body]);
       for (const reference of references) {
-        const [ref, { selector }] = parseSpecificResource(reference as any);
+        const [ref, { selector, styleClass }] = parseSpecificResource(reference as any);
         const body = vault.get(ref);
         const type = (body.type || 'unknown').toLowerCase();
 
@@ -82,6 +104,10 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
           types.push(type);
         }
 
+        const loadedStylesheets = styleClass ? getInlineStylesheets(annotation.stylesheet) : undefined;
+        const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
+        const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
+
         items.push({
           type: type,
           annotationId: annotation.id,
@@ -89,6 +115,9 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
           resource: body as IIIFExternalWebResource,
           target: annotation.target,
           selector,
+          ...(styleClass ? { styleClass } : {}),
+          ...(style && Object.keys(style).length ? { style } : {}),
+          ...transformAttributes,
         });
       }
     }
