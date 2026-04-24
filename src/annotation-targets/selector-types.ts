@@ -15,6 +15,9 @@ export interface SupportedSelector {
     height?: number;
   };
   rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: SelectorTransform;
   points?: [number, number][];
   svg?: string;
   svgShape?: SvgShapeType;
@@ -25,6 +28,24 @@ export interface SupportedSelector {
 export type BoxStyle = _BoxStyle & {
   ':hover'?: _BoxStyle;
   ':active'?: _BoxStyle;
+};
+
+export type TransformUnit = 'pixel' | 'percent';
+
+export type TransformPoint = {
+  x: number;
+  y: number;
+  unit?: TransformUnit;
+  xUnit?: TransformUnit;
+  yUnit?: TransformUnit;
+};
+
+export type SelectorTransform = {
+  rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: string;
+  transformOrigin?: string;
 };
 
 type _BoxStyle = Partial<{
@@ -41,6 +62,8 @@ type _BoxStyle = Partial<{
   border: string;
   outline: string;
   background: string;
+  transform: string;
+  transformOrigin: string;
 }>;
 
 export interface SelectorStyle {
@@ -62,6 +85,9 @@ export interface BoxSelector extends SupportedSelector {
     height: number;
   };
   rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: SelectorTransform;
 }
 
 export interface PointSelector extends SupportedSelector {
@@ -71,6 +97,9 @@ export interface PointSelector extends SupportedSelector {
     y: number;
   };
   rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: SelectorTransform;
 }
 
 export interface SvgSelector extends SupportedSelector {
@@ -86,6 +115,9 @@ export interface SvgSelector extends SupportedSelector {
     height: number;
   };
   rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: SelectorTransform;
 }
 
 export interface TemporalSelector extends SupportedSelector {
@@ -111,6 +143,9 @@ export interface TemporalBoxSelector extends SupportedSelector {
     height: number;
   };
   rotation?: number;
+  rotationOrigin?: TransformPoint;
+  translate?: TransformPoint;
+  transform?: SelectorTransform;
   temporal: {
     startTime: number;
     endTime?: number;

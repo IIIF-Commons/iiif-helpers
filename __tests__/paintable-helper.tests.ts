@@ -56,6 +56,82 @@ describe('getPaintables', () => {
     );
   });
 
+  test('preserves styleClass from painting body specific resource', async () => {
+    const vault = new Vault();
+    const manifest = await vault.loadManifest('https://example.org/manifest', {
+      '@context': 'http://iiif.io/api/presentation/3/context.json',
+      id: 'https://example.org/manifest',
+      type: 'Manifest',
+      label: { en: ['Rotated image service'] },
+      items: [
+        {
+          id: 'https://example.org/canvas',
+          type: 'Canvas',
+          width: 2105,
+          height: 1523,
+          items: [
+            {
+              id: 'https://example.org/page',
+              type: 'AnnotationPage',
+              items: [
+                {
+                  id: 'https://example.org/annotation',
+                  type: 'Annotation',
+                  motivation: 'painting',
+                  stylesheet: {
+                    type: 'CssStylesheet',
+                    value: '.rotated { transform-origin: 761px 1344px; transform: rotate(90deg) translateY(-582px); }',
+                  },
+                  body: {
+                    id: 'https://example.org/body',
+                    type: 'SpecificResource',
+                    styleClass: 'rotated',
+                    source: {
+                      id: 'https://example.org/image/full/max/0/default.jpg',
+                      type: 'Image',
+                      format: 'image/jpeg',
+                      width: 1523,
+                      height: 2105,
+                    },
+                  },
+                  target: 'https://example.org/canvas',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
+
+    invariant(manifest);
+
+    const canvases = vault.get(manifest.items);
+    const painting = createPaintingAnnotationsHelper(vault);
+    const paintables = painting.getPaintables(canvases[0]);
+
+    expect(paintables.items[0]).toMatchObject({
+      annotationId: 'https://example.org/annotation',
+      resource: {
+        id: 'https://example.org/image/full/max/0/default.jpg',
+      },
+      rotation: 90,
+      rotationOrigin: { x: 761, y: 1344, unit: 'pixel' },
+      style: {
+        transform: 'rotate(90deg) translateY(-582px)',
+        transformOrigin: '761px 1344px',
+      },
+      styleClass: 'rotated',
+      transform: {
+        rotation: 90,
+        rotationOrigin: { x: 761, y: 1344, unit: 'pixel' },
+        transform: 'rotate(90deg) translateY(-582px)',
+        transformOrigin: '761px 1344px',
+        translate: { x: 0, y: -582, unit: 'pixel' },
+      },
+      translate: { x: 0, y: -582, unit: 'pixel' },
+    });
+  });
+
   test('ldmax', async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(ldmax.id, ldmax);

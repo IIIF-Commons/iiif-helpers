@@ -1,4 +1,90 @@
-import type { BoxStyle, SelectorStyle } from './selector-types';
+import type { BoxStyle, SelectorStyle, SelectorTransform, TransformPoint, TransformUnit } from './selector-types';
+
+const LENGTH = /^(-?(?:\d+|\d*\.\d+))(px|%)?$/;
+const ANGLE = /^(-?(?:\d+|\d*\.\d+))(deg|rad|turn)?$/;
+const TRANSFORM_FUNCTION = /([a-zA-Z0-9]+)\(([^)]*)\)/g;
+
+function getUnit(unit?: string): TransformUnit | undefined {
+  if (unit === '%') {
+    return 'percent';
+  }
+  if (!unit || unit === 'px') {
+    return 'pixel';
+  }
+  return undefined;
+}
+
+function parseLength(value: string): { value: number; unit?: TransformUnit } | undefined {
+  const match = LENGTH.exec(value.trim());
+  if (!match) {
+    return undefined;
+  }
+
+  return {
+    value: Number.parseFloat(match[1]),
+    unit: getUnit(match[2]),
+  };
+}
+
+function parseLengthPair(value: string): TransformPoint | undefined {
+  const [xValue, yValue = xValue] = value.trim().split(/\s+/);
+  const x = parseLength(xValue);
+  const y = parseLength(yValue);
+
+  if (!x || !y) {
+    return undefined;
+  }
+
+  const point: TransformPoint = {
+    x: x.value,
+    y: y.value,
+  };
+
+  if (x.unit && x.unit === y.unit) {
+    point.unit = x.unit;
+  } else {
+    if (x.unit) {
+      point.xUnit = x.unit;
+    }
+    if (y.unit) {
+      point.yUnit = y.unit;
+    }
+  }
+
+  return point;
+}
+
+function parseAngle(value: string): number | undefined {
+  const match = ANGLE.exec(value.trim());
+  if (!match) {
+    return undefined;
+  }
+
+  const angle = Number.parseFloat(match[1]);
+  const unit = match[2] || 'deg';
+
+  if (unit === 'rad') {
+    return (angle * 180) / Math.PI;
+  }
+
+  if (unit === 'turn') {
+    return angle * 360;
+  }
+
+  return angle;
+}
+
+function mergeTranslate(current: TransformPoint | undefined, next: TransformPoint): TransformPoint {
+  if (!current) {
+    return next;
+  }
+
+  return {
+    x: current.x + next.x,
+    y: current.y + next.y,
+    ...(current.unit && current.unit === next.unit ? { unit: current.unit } : {}),
+  };
+}
 
 export function parseCssToBoxStyleMap(css: string): Record<string, BoxStyle> {
   const result: Record<string, BoxStyle> = {};
@@ -71,6 +157,12 @@ export function parseCssToBoxStyleMap(css: string): Record<string, BoxStyle> {
           break;
         case 'background':
           style.background = value;
+          break;
+        case 'transform':
+          style.transform = value;
+          break;
+        case 'transform-origin':
+          style.transformOrigin = value;
           break;
       }
     }
@@ -158,15 +250,154 @@ export function convertBoxStyleToSelectorStyle(style: BoxStyle): SelectorStyle {
   return result;
 }
 
-const styleParsedCache = new Map<string, Record<string, BoxStyle>>();
+export function parseCssTransformOrigin(transformOrigin?: string): TransformPoint | undefined {
+  if (!transformOrigin) {
+    return undefined;
+  }
+
+  return parseLengthPair(transformOrigin);
+}
+
+export function parseCssTransform(transform?: string): SelectorTransform {
+  const result: SelectorTransform = {};
+
+  if (!transform) {
+    return result;
+  }
+
+  result.transform = transform;
+
+  let match;
+  TRANSFORM_FUNCTION.lastIndex = 0;
+  while ((match = TRANSFORM_FUNCTION.exec(transform)) !== null) {
+    const name = match[1].toLowerCase();
+    const args = match[2]
+      .split(',')
+      .flatMap((arg) => arg.trim().split(/\s+/))
+      .filter(Boolean);
+
+    if (name === 'rotate') {
+      const rotation = parseAngle(args[0] || '');
+      if (typeof rotation !== 'undefined') {
+        result.rotation = rotation;
+      }
+      continue;
+    }
+
+    if (name === 'translatex') {
+      const x = parseLength(args[0] || '');
+      if (x) {
+        result.translate = mergeTranslate(result.translate, {
+          x: x.value,
+          y: 0,
+          ...(x.unit ? { unit: x.unit } : {}),
+        });
+      }
+      continue;
+    }
+
+    if (name === 'translatey') {
+      const y = parseLength(args[0] || '');
+      if (y) {
+        result.translate = mergeTranslate(result.translate, {
+          x: 0,
+          y: y.value,
+          ...(y.unit ? { unit: y.unit } : {}),
+        });
+      }
+      continue;
+    }
+
+    if (name === 'translate') {
+      const x = parseLength(args[0] || '');
+      const y = parseLength(args[1] || '0');
+      if (x && y) {
+        const point: TransformPoint = {
+          x: x.value,
+          y: y.value,
+        };
+        if (x.unit && x.unit === y.unit) {
+          point.unit = x.unit;
+        } else {
+          if (x.unit) {
+            point.xUnit = x.unit;
+          }
+          if (y.unit) {
+            point.yUnit = y.unit;
+          }
+        }
+        result.translate = mergeTranslate(result.translate, point);
+      }
+    }
+  }
+
+  return result;
+}
+
+export function parseCssTransformStyle(style?: BoxStyle): SelectorTransform {
+  const result = parseCssTransform(style?.transform);
+  const rotationOrigin = parseCssTransformOrigin(style?.transformOrigin);
+
+  if (style?.transformOrigin) {
+    result.transformOrigin = style.transformOrigin;
+  }
+
+  if (rotationOrigin) {
+    result.rotationOrigin = rotationOrigin;
+  }
+
+  return result;
+}
+
+export function getSelectorTransformAttributes(style?: BoxStyle): Partial<{
+  rotation: number;
+  rotationOrigin: TransformPoint;
+  translate: TransformPoint;
+  transform: SelectorTransform;
+}> {
+  const transform = parseCssTransformStyle(style);
+  const attributes: Partial<{
+    rotation: number;
+    rotationOrigin: TransformPoint;
+    translate: TransformPoint;
+    transform: SelectorTransform;
+  }> = {};
+
+  if (typeof transform.rotation !== 'undefined') {
+    attributes.rotation = transform.rotation;
+  }
+  if (transform.rotationOrigin) {
+    attributes.rotationOrigin = transform.rotationOrigin;
+  }
+  if (transform.translate) {
+    attributes.translate = transform.translate;
+  }
+  if (
+    typeof transform.rotation !== 'undefined' ||
+    transform.rotationOrigin ||
+    transform.translate ||
+    transform.transform ||
+    transform.transformOrigin
+  ) {
+    attributes.transform = transform;
+  }
+
+  return attributes;
+}
+
+const styleParsedCache = new Map<string, { css: string; styleMap: Record<string, BoxStyle> }>();
 
 export function cachedParseCssToBoxStyleMap(id: string, css: string) {
-  if (styleParsedCache.has(id)) {
-    return styleParsedCache.get(id)!;
+  const cached = styleParsedCache.get(id);
+  if (cached?.css === css) {
+    return cached.styleMap;
   }
 
   const styleMap = parseCssToBoxStyleMap(css);
-  styleParsedCache.set(id, Object.fromEntries(Object.entries(styleMap).map(([key, value]) => [key, value])));
+  styleParsedCache.set(id, {
+    css,
+    styleMap: Object.fromEntries(Object.entries(styleMap).map(([key, value]) => [key, value])),
+  });
 
   return styleMap;
 }

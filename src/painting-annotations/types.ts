@@ -1,6 +1,7 @@
 import { IIIFExternalWebResource, SpecificResource } from '@iiif/presentation-3';
 import { InternationalString } from '@iiif/presentation-3';
 import { AnnotationNormalized } from '@iiif/presentation-3-normalized';
+import { BoxStyle, SelectorTransform, TransformPoint } from '../annotation-targets/selector-types';
 
 export interface SingleChoice {
   type: 'single-choice';
@@ -30,5 +31,11 @@ export interface Paintables {
     annotation: AnnotationNormalized;
     target: any;
     selector: any;
+    styleClass?: string;
+    style?: BoxStyle;
+    rotation?: number;
+    rotationOrigin?: TransformPoint;
+    translate?: TransformPoint;
+    transform?: SelectorTransform;
   }>;
 }
