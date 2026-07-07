@@ -27,6 +27,7 @@ export default defineConfig((options) => ({
     'vault-utility': 'src/vault-utility.ts',
     transcriptions: 'src/transcriptions.ts',
     search1: 'src/search1.ts',
+    search2: 'src/search2.ts',
     // New helpers can be added here.
   },
   minify: true,

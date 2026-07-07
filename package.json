@@ -138,6 +138,16 @@
         "default": "./dist/search1.js"
       }
     },
+    "./search2": {
+      "require": {
+        "types": "./dist/search2.d.ts",
+        "default": "./dist/search2.cjs"
+      },
+      "import": {
+        "types": "./dist/search2.d.ts",
+        "default": "./dist/search2.js"
+      }
+    },
     "./image-service": {
       "require": {
         "types": "./dist/image-service.d.ts",
