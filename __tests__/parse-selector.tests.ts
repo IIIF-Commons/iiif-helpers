@@ -7,6 +7,19 @@ import { parseSelector } from '../src/annotation-targets/parse-selector';
 
 describe('parse selector', () => {
   describe('SVG Selectors', () => {
+    test('Malformed SVG path data returns an empty selector', () => {
+      expect(
+        parseSelector(
+          {
+            type: 'SvgSelector',
+            value:
+              "<svg xmlns='http://www.w3.org/2000/svg'><g><path d='MNaN,NaN NaN,NaN NaN,NaN NaN,NaN' /></g></svg>",
+          },
+          { domParser: new new JSDOM().window.DOMParser() }
+        )
+      ).toEqual({ selector: null, selectors: [] });
+    });
+
     test('Parsing a rectangle selector', () => {
       expect(
         parseSelector({

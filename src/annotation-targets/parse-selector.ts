@@ -266,7 +266,16 @@ export function parseSelector(
           iiifRenderingHints,
         });
       }
-      const selectorElem = getSelectorElement(svgElement);
+      let selectorElem: SelectorElement | null;
+      try {
+        selectorElem = getSelectorElement(svgElement);
+      } catch {
+        return resolveHints({
+          selector: null,
+          selectors: [],
+          iiifRenderingHints,
+        });
+      }
       if (selectorElem) {
         points = selectorElem.points;
         svgShape = selectorElem.shapeType;
