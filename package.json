@@ -264,7 +264,7 @@
     "svg-arc-to-cubic-bezier": "^3.2.0"
   },
   "peerDependencies": {
-    "@iiif/parser": "^2.2.8"
+    "@iiif/parser": "^2.2.9"
   },
   "overrides": {
     "@iiif/parser": {

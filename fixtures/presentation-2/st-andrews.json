@@ -1,0 +1,1140 @@
+                    {
+                        "@context": "http://iiif.io/api/presentation/2/context.json",
+                        "@type": "sc:Manifest",
+                        "@id": "https://collections.st-andrews.ac.uk/2071545/manifest",
+                        "label": "Hail Immortal Bacchus (from \"Judith\")",
+                            "description": "Hail Immortal Bacchus (from \"Judith\") by Thomas Augustine Arne.<br/> <br/> <br/> <br/>Vocal score and parts in Gerald Finzi's hand. Full score in another hand; continue unrealised.",
+                        "logo": "https://collections.st-andrews.ac.uk/uv/logo.png",
+                        "metadata": [
+                                { "label": "Identifier", "value": "FIN M2004.A8J8"},
+                            { "label": "Title", "value": "Hail Immortal Bacchus (from \"Judith\")"},
+                                { "label": "Date", "value": "[1901 - 2000]" },
+                            { "label": "Record URL", "value": "<a href='https://collections.st-andrews.ac.uk/item/hail-immortal-bacchus-from-judith/2071545'>https://collections.st-andrews.ac.uk/item/hail-immortal-bacchus-from-judith/2071545</a>"},
+                                { "label": "Department", "value": "Special Collections - Archive Collections" },
+                                { "label": "Collection", "value": "<a href='https://collections.st-andrews.ac.uk/collection/manuscripts-in-20th-century-handwriting-collected-by-gerald-finzi/2059338'>Manuscripts in 20th century handwriting collected by Gerald Finzi</a>" },
+                                { "label": "Parent", "value": "<a href='https://collections.st-andrews.ac.uk/series/scores-by-thomas-augustine-arne/2058628'>Scores by Thomas Augustine Arne</a> (Series)" },
+                                { "label": "Record level", "value": "Item" },
+                                { "label": "Credit line", "value": "Image Courtesy of the University of St Andrews Library, ID FIN M2004.A8J8" },
+                            { "label": "IRN", "value": "2071545"},
+                            { "label": "Image delivery", "value": "Working in partnership with <a href='https://kakadusoftware.com/'>Kakadu</a> to deliver high quality image reproductions via IIIF."}
+                        ],
+                            "sequences": [
+                                {
+                                    "@type": "sc:Sequence",
+                                    "viewingHint" :"individuals",
+                                    "viewingDirection" :"left-to-right",
+                                    "canvases": [
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456868",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456868", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456868/4830/3561", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 02, a",
+                                                    "width":4830
+                                                    ,"height":3561,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456868/456868.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456868",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456868~456868/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":4830
+                                                                    ,"height":3561,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456868~456868",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456869",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456869", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456869/2696/3540", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 02, b",
+                                                    "width":2696
+                                                    ,"height":3540,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456869/456869.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456869",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456869~456869/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2696
+                                                                    ,"height":3540,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456869~456869",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456870",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456870", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456870/2805/3553", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 03, a",
+                                                    "width":2805
+                                                    ,"height":3553,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456870/456870.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456870",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456870~456870/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2805
+                                                                    ,"height":3553,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456870~456870",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456871",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456871", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456871/2809/3553", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 04, a",
+                                                    "width":2809
+                                                    ,"height":3553,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456871/456871.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456871",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456871~456871/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2809
+                                                                    ,"height":3553,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456871~456871",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456872",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456872", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456872/2809/3553", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 04, b",
+                                                    "width":2809
+                                                    ,"height":3553,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456872/456872.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456872",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456872~456872/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2809
+                                                                    ,"height":3553,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456872~456872",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456928",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456928", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456928/2809/3575", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 05, a",
+                                                    "width":2809
+                                                    ,"height":3575,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456928/456928.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456928",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456928~456928/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2809
+                                                                    ,"height":3575,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456928~456928",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456929",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456929", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456929/2809/3575", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 05, b",
+                                                    "width":2809
+                                                    ,"height":3575,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456929/456929.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456929",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456929~456929/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2809
+                                                                    ,"height":3575,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456929~456929",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456875",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456875", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456875/2830/3564", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 06, a",
+                                                    "width":2830
+                                                    ,"height":3564,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456875/456875.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456875",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456875~456875/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2830
+                                                                    ,"height":3564,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456875~456875",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456876",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456876", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456876/2830/3564", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 06, b",
+                                                    "width":2830
+                                                    ,"height":3564,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456876/456876.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456876",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456876~456876/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2830
+                                                                    ,"height":3564,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456876~456876",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456877",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456877", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456877/2826/3581", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 07, a",
+                                                    "width":2826
+                                                    ,"height":3581,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456877/456877.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456877",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456877~456877/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":2826
+                                                                    ,"height":3581,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456877~456877",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456878",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456878", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456878/3123/4156", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 08, a",
+                                                    "width":3123
+                                                    ,"height":4156,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456878/456878.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456878",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456878~456878/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3123
+                                                                    ,"height":4156,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456878~456878",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456879",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456879", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456879/3100/4159", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 09, a",
+                                                    "width":3100
+                                                    ,"height":4159,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456879/456879.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456879",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456879~456879/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3100
+                                                                    ,"height":4159,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456879~456879",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456880",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456880", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456880/3100/4159", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 09, b",
+                                                    "width":3100
+                                                    ,"height":4159,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456880/456880.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456880",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456880~456880/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3100
+                                                                    ,"height":4159,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456880~456880",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456881",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456881", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456881/3098/4162", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 10, a",
+                                                    "width":3098
+                                                    ,"height":4162,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456881/456881.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456881",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456881~456881/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4162,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456881~456881",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456882",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456882", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456882/3098/4162", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 10, b",
+                                                    "width":3098
+                                                    ,"height":4162,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456882/456882.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456882",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456882~456882/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4162,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456882~456882",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456883",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456883", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456883/3098/4167", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 11, a",
+                                                    "width":3098
+                                                    ,"height":4167,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456883/456883.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456883",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456883~456883/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4167,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456883~456883",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456884",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456884", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456884/3098/4167", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 11, b",
+                                                    "width":3098
+                                                    ,"height":4167,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456884/456884.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456884",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456884~456884/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4167,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456884~456884",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456885",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456885", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456885/3097/4165", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 12, a",
+                                                    "width":3097
+                                                    ,"height":4165,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456885/456885.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456885",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456885~456885/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3097
+                                                                    ,"height":4165,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456885~456885",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456886",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456886", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456886/3097/4165", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 12, b",
+                                                    "width":3097
+                                                    ,"height":4165,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456886/456886.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456886",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456886~456886/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3097
+                                                                    ,"height":4165,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456886~456886",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456887",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456887", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456887/3094/4182", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 13, a",
+                                                    "width":3094
+                                                    ,"height":4182,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456887/456887.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456887",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456887~456887/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3094
+                                                                    ,"height":4182,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456887~456887",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456888",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456888", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456888/3094/4182", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 13, b",
+                                                    "width":3094
+                                                    ,"height":4182,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456888/456888.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456888",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456888~456888/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3094
+                                                                    ,"height":4182,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456888~456888",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456889",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456889", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456889/3094/4153", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 14, a",
+                                                    "width":3094
+                                                    ,"height":4153,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456889/456889.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456889",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456889~456889/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3094
+                                                                    ,"height":4153,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456889~456889",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456890",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456890", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456890/3094/4153", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 14, b",
+                                                    "width":3094
+                                                    ,"height":4153,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456890/456890.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456890",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456890~456890/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3094
+                                                                    ,"height":4153,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456890~456890",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456891",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456891", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456891/3085/4180", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 15, a",
+                                                    "width":3085
+                                                    ,"height":4180,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456891/456891.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456891",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456891~456891/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3085
+                                                                    ,"height":4180,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456891~456891",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456892",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456892", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456892/3085/4180", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 15, b",
+                                                    "width":3085
+                                                    ,"height":4180,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456892/456892.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456892",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456892~456892/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3085
+                                                                    ,"height":4180,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456892~456892",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456893",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456893", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456893/3082/4179", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 16, a",
+                                                    "width":3082
+                                                    ,"height":4179,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456893/456893.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456893",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456893~456893/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3082
+                                                                    ,"height":4179,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456893~456893",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456894",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456894", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456894/3082/4179", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 16, b",
+                                                    "width":3082
+                                                    ,"height":4179,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456894/456894.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456894",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456894~456894/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3082
+                                                                    ,"height":4179,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456894~456894",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456895",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456895", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456895/3098/4160", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 17, a",
+                                                    "width":3098
+                                                    ,"height":4160,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456895/456895.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456895",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456895~456895/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4160,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456895~456895",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456896",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456896", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456896/3098/4160", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 17, b",
+                                                    "width":3098
+                                                    ,"height":4160,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456896/456896.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456896",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456896~456896/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3098
+                                                                    ,"height":4160,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456896~456896",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                ,
+                                                {
+                                                    "@type": "sc:Canvas",
+                                                    "@id": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456897",
+                                                    "otherContent": [
+                                                        { "@id":"https://collections.st-andrews.ac.uk/annotation/2071545/456897", "@type":"sc:AnnotationList"},
+                                                        { "@id":"https://collections.st-andrews.ac.uk/ai/anno/all/2071545/456897/3134/4166", "@type":"sc:AnnotationList"}
+                                                    ],
+                                                    "label": "FIN M2004.A8J8 - Hail immortal Bacchus 18, a",
+                                                    "width":3134
+                                                    ,"height":4166,
+                                                    "thumbnail" : {
+                                                        "@id" : "https://collections.st-andrews.ac.uk/media/456897/456897.thumb.jpg",
+                                                        "@type": "dctypes:Image",
+                                                        "width": 100,
+                                                        "height": 100
+                                                    },
+                                                    "images": [
+                                                        {
+                                                            "@type": "dctypes:Image",
+                                                            "motivation": "sc:painting",
+                                                            "on": "https://collections.st-andrews.ac.uk/2071545/manifest/canvas/456897",
+                                                            "resource": {
+                                                                "@type": "dctypes:Image",
+                                                                "@id": "https://collections.st-andrews.ac.uk/iiif/2/456897~456897/full/full/0/default.jpg",
+                                                                "format": "image/jpeg"
+                                                                    ,"width":3134
+                                                                    ,"height":4166,
+                                                                "service": {
+                                                                    "@context": "http://iiif.io/api/image/2/context.json",
+                                                                    "@id": "https://collections.st-andrews.ac.uk/iiif/2/456897~456897",
+                                                                    "profile": "http://iiif.io/api/image/2/level1.json"
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                                
+                                    ]
+                                }
+                            ]
+                    }

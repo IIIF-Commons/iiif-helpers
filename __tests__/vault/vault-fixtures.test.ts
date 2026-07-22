@@ -3,6 +3,8 @@ import invariant from 'tiny-invariant';
 import { describe, expect, test } from 'vitest';
 import cssManifest from '../../fixtures/cookbook/css.json';
 import nlsManifest from '../../fixtures/presentation-2/nls-manifest.json';
+import stAndrewsManifest from '../../fixtures/presentation-2/st-andrews.json';
+import { createPaintingAnnotationsHelper } from '../../src/painting-annotations';
 import nlsManifest2 from '../../fixtures/presentation-2/nls-manifest.json';
 import hasPart from '../../fixtures/presentation-3/has-part.json';
 import { Vault } from '../../src/vault';
@@ -1221,5 +1223,30 @@ describe('vault', () => {
         "type": "SpecificResource",
       }
     `);
+  });
+
+  test('st-andrews presentation 2 manifest - images should be parsed from canvas', async () => {
+    // This manifest has malformed annotations where @type is "dctypes:Image" instead of "oa:Annotation"
+    // The images array contains objects like:
+    //   { "@type": "dctypes:Image", "motivation": "sc:painting", "resource": {...} }
+    // But correct Presentation 2 format should be:
+    //   { "@type": "oa:Annotation", "motivation": "sc:painting", "resource": {...} }
+    const vault = new Vault();
+    const manifest = await vault.loadManifest(stAndrewsManifest['@id'], stAndrewsManifest);
+
+    invariant(manifest, 'Manifest should be loaded');
+
+    const canvases = vault.get(manifest.items);
+    expect(canvases.length).toBeGreaterThan(0);
+
+    const painting = createPaintingAnnotationsHelper(vault);
+    const paintables = painting.getPaintables(canvases[0]);
+
+    // The first canvas should have one painting annotation with an image
+    expect(paintables.items).toHaveLength(1);
+    expect(paintables.items[0].resource.id).toEqual(
+      'https://collections.st-andrews.ac.uk/iiif/2/456868~456868/full/full/0/default.jpg'
+    );
+    expect(paintables.items[0].type).toEqual('image');
   });
 });
