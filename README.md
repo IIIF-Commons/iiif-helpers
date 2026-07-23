@@ -1222,22 +1222,21 @@ calculate lighting, spatialize audio emitters, or execute activation actions.
 Camera, light, audio-emitter, animation, and nested extension subtrees are not
 normalized into helper-specific models unless a tested vertical slice is added.
 
-## Local joint development
+## Presentation 4 development
 
-From this repository, link a sibling parser checkout and run the same gates
-used for the coordinated release:
+This checkout pins the exact Parser preview used for development and testing.
+Install from the lockfile and run the coordinated gates directly:
 
 ```sh
 pnpm install --frozen-lockfile
-pnpm link ../parser
 pnpm run typecheck
 pnpm exec vitest run
 pnpm run test:presentation-4:packed
 ```
 
-The packed gate builds both repositories, installs their tarballs into a fresh
-offline consumer, imports every public subpath through ESM and CommonJS, and
-compiles NodeNext and Bundler consumers with `skipLibCheck: false`.
+The packed gate installs the pinned Parser preview and a packed Helpers tarball
+into a fresh consumer, imports every public subpath through ESM and CommonJS,
+and compiles NodeNext and Bundler consumers with `skipLibCheck: false`.
 
 ## License
 

@@ -306,6 +306,7 @@
     "@iiif/parser": "^2.3.0"
   },
   "devDependencies": {
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe",
     "@types/jsdom": "^21.1.4",
     "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",

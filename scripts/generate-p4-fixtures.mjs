@@ -20,30 +20,11 @@ import {
 } from "node:fs";
 import { basename, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import { upgradeToPresentation4 } from "@iiif/parser/presentation-4";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const root = join(__dirname, "..");
-
-// Dynamically import the parser – it may be installed from the preview package
-// or linked locally.
-let upgradeToPresentation4;
-try {
-	const p4 = await import("@iiif/parser/presentation-4");
-	upgradeToPresentation4 = p4.upgradeToPresentation4;
-} catch {
-	// Fallback: try loading from the sibling parser source tree (for local dev)
-	try {
-		const p4 = await import("../../src/presentation-4/index.ts");
-		upgradeToPresentation4 = p4.upgradeToPresentation4;
-	} catch (err) {
-		console.error(
-			"Could not load @iiif/parser/presentation-4. Make sure the parser is installed or linked.\n",
-			err.message,
-		);
-		process.exit(1);
-	}
-}
 
 const outputDir = join(root, "fixtures/presentation-4/upgraded-from-p3");
 

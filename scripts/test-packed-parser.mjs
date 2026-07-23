@@ -1,19 +1,10 @@
 import { execFileSync } from 'node:child_process';
-import {
-  copyFileSync,
-  cpSync,
-  mkdtempSync,
-  readFileSync,
-  readdirSync,
-  rmSync,
-  writeFileSync,
-} from 'node:fs';
+import { copyFileSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join, relative, resolve, sep } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const parserRoot = resolve(process.env.IIIF_PARSER_DIR || join(root, '..', 'parser'));
 const testFile = join(root, '__tests__', 'presentation-4', 'packed-package.mjs');
 const temporaryRoot = mkdtempSync(join(tmpdir(), 'iiif-packed-integration-'));
 
@@ -35,34 +26,10 @@ function publicSpecifiers(packageName, packageJson) {
 }
 
 try {
-  const parserPackage = JSON.parse(readFileSync(join(parserRoot, 'package.json'), 'utf8'));
-  if (parserPackage.name !== '@iiif/parser') {
-    throw new Error(`${parserRoot} is not the @iiif/parser package`);
-  }
-
-  const parserTarball = pack(parserRoot);
-  const helpersBuildRoot = join(temporaryRoot, 'helpers');
-  cpSync(root, helpersBuildRoot, {
-    recursive: true,
-    filter(source) {
-      const topLevel = relative(root, source).split(sep)[0];
-      return !['.git', 'dist', 'node_modules'].includes(topLevel);
-    },
-  });
-
-  const helpersPackagePath = join(helpersBuildRoot, 'package.json');
-  const helpersPackage = JSON.parse(readFileSync(helpersPackagePath, 'utf8'));
-  helpersPackage.devDependencies['@iiif/parser'] = `file:${parserTarball}`;
-  writeFileSync(helpersPackagePath, JSON.stringify(helpersPackage, null, 2));
-  execFileSync(
-    'pnpm',
-    ['install', '--lockfile=false', '--config.auto-install-peers=true', '--strict-peer-dependencies'],
-    { cwd: helpersBuildRoot, stdio: 'inherit' }
-  );
-  delete helpersPackage.devDependencies['@iiif/parser'];
-  writeFileSync(helpersPackagePath, JSON.stringify(helpersPackage, null, 2));
-
-  const helpersTarball = pack(helpersBuildRoot);
+  const helpersPackage = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
+  const parserDependency = helpersPackage.devDependencies['@iiif/parser'];
+  const parserPackage = JSON.parse(readFileSync(join(root, 'node_modules', '@iiif', 'parser', 'package.json'), 'utf8'));
+  const helpersTarball = pack(root);
   const allPublicSpecifiers = [
     ...publicSpecifiers('@iiif/parser', parserPackage),
     ...publicSpecifiers('@iiif/helpers', helpersPackage),
@@ -74,7 +41,7 @@ try {
       type: 'module',
       dependencies: {
         '@iiif/helpers': `file:${helpersTarball}`,
-        '@iiif/parser': `file:${parserTarball}`,
+        '@iiif/parser': parserDependency,
       },
     })
   );
@@ -86,7 +53,7 @@ try {
 
   execFileSync(
     'pnpm',
-    ['install', '--offline', '--ignore-scripts', '--config.auto-install-peers=false', '--strict-peer-dependencies'],
+    ['install', '--ignore-scripts', '--config.auto-install-peers=false', '--strict-peer-dependencies'],
     { cwd: temporaryRoot, stdio: 'inherit' }
   );
   execFileSync(process.execPath, ['packed-package.mjs'], {

@@ -25,13 +25,12 @@ All six joint delivery phases are implemented and release-ready:
 - Scene and Activation ship as narrow explicit subpaths over pinned official 3D
   fixtures. Unsupported resources remain raw and are not presented as rendered
   or executable 3D behavior.
-- Parser `2.3.0` and Helpers `1.6.0` require Node 22 or newer. The fresh offline
-  tarball gate checks all 41 public subpaths in ESM, CommonJS, NodeNext, and
+- Parser `2.3.0` and Helpers `1.6.1` require Node 22 or newer. The fresh
+  consumer gate checks all 42 public subpaths in ESM, CommonJS, NodeNext, and
   Bundler consumers with library checking enabled.
 
-Registry publication was not performed by this implementation pass. Phase 6 is
-prepared as the ordered handoff below and should use the exact green commits
-from both repositories.
+The Parser candidate is pinned to the exact `c9991fe` pkg.pr.new artifact.
+Helpers publication remains the external release action.
 
 This is the Helpers/Vault companion to `parser/PRESENTATION-4-RC-IMPLEMENTATION-REVIEW.md`. The two documents describe one release project. Where they overlap, the parser review owns wire-format and normalization detail; this review owns Vault lifecycle, helper semantics, packaging, and the cross-repository release gate.
 
@@ -39,8 +38,8 @@ This is the Helpers/Vault companion to `parser/PRESENTATION-4-RC-IMPLEMENTATION-
 
 The first joint delivery slice is now implemented:
 
-- Helpers declares the future parser `^2.3.0` peer instead of an ephemeral
-  preview URL; local development uses an explicit pnpm link.
+- Helpers declares parser `^2.3.0` as its consumer peer and pins the exact
+  `c9991fe` pkg.pr.new artifact as its development dependency.
 - Existing `Vault` accepts supported v4 through the parser's fixed v3
   compatibility view, while `Vault4` remains an explicit lifetime choice.
 - `VaultAuto` remains source-compatible but is deprecated with its state-loss
@@ -64,16 +63,13 @@ The second joint delivery slice is implemented:
 
 - Parser `2.3.0` and Helpers' `^2.3.0` peer range now describe the same
   coordinated candidate.
-- `pnpm run test:presentation-4:packed` packs the sibling parser, installs that
-  tarball into a disposable Helpers checkout, packs Helpers, and installs both
-  artifacts into a second fresh strict-peer consumer. It does not depend on or
-  alter the developer's local parser symlink.
+- `pnpm run test:presentation-4:packed` packs Helpers and installs it with the
+  pinned Parser preview into a fresh strict-peer consumer.
 - The packed test exercises the fixed v3 Vault view, the native Vault4 view,
   serialization in both versions, and the typed structured diagnostic that
   crosses the parser/Vault boundary for unsupported Scene content.
-- `.github/workflows/presentation-4-joint.yml` accepts an exact parser ref,
-  runs the packed test, links the two source checkouts with pnpm, and runs the
-  Helpers build, typecheck, package lint, and full Node 22 test suite.
+- The ordinary build and release workflows install the frozen lockfile and run
+  the packed consumer gate against the pinned Parser preview.
 - The ordinary Helpers build and release workflows now include typecheck and
   package lint. ESM/CJS package smoke tests assert public exports without making
   a live network request.
@@ -377,7 +373,7 @@ Required change:
 
 - use a semver parser peer range for published Helpers;
 - use a normal dev dependency for local type/build tests;
-- in joint CI, build and pack the exact parser checkout and install that tarball into the exact Helpers checkout;
+- in joint CI, install the exact integrity-pinned Parser preview from the Helpers lockfile;
 - after registry publication, rerun the same matrix against registry tarballs;
 - never use a mutable preview URL as the compatibility contract.
 
@@ -636,15 +632,12 @@ Run the same engine tests for both profiles:
 
 The joint CI job should:
 
-1. check out exact parser and Helpers commits;
-2. build/test/typecheck/validate parser;
-3. pack parser;
-4. install the parser tarball into Helpers;
-5. build/test/typecheck/validate Helpers;
-6. pack Helpers;
-7. install both tarballs into fresh isolated ESM, CJS, NodeNext, and Bundler consumers;
-8. import every public subpath and compile representative usage with `skipLibCheck: false`;
-9. run without external network access.
+1. check out Helpers;
+2. install its frozen lockfile containing the exact Parser preview;
+3. build/test/typecheck/validate Helpers;
+4. pack Helpers;
+5. install the Parser preview and Helpers tarball into fresh isolated ESM, CJS, NodeNext, and Bundler consumers;
+6. import every public subpath and compile representative usage with `skipLibCheck: false`.
 
 ## Delivery sequence
 
@@ -652,7 +645,7 @@ The joint CI job should:
 
 - Pin the RC source corpus and policy.
 - Restore valid immutable fixtures and remove internal generated wire data.
-- Replace the dead parser preview peer with semver plus an exact joint-CI tarball.
+- Keep the semver parser peer for consumers and pin the exact Parser preview as a development dependency.
 - Remove `@ts-nocheck` from seed builders and core v4 tests.
 - Add typecheck, package lint/types, fixture validation, and joint matrix to CI.
 - Remove the accidental production import from the private version-hashed Vitest module.
@@ -733,18 +726,18 @@ The runtime pass count is useful evidence that much existing behavior remains in
 
 ## Final verification snapshot
 
-The completion pass was verified on Node 24 with the sibling parser linked
-through pnpm:
+The completion pass was verified on Node 24 with the pinned `c9991fe` Parser
+preview:
 
 | Command | Result |
 | --- | --- |
-| `pnpm exec vitest run` | Pass: 34 files, 251 tests |
+| `pnpm exec vitest run` | Pass: 36 files, 262 tests |
 | `pnpm run typecheck` | Pass |
 | `pnpm run build` | Pass |
 | `pnpm run lint` | Pass |
 | Presentation 4 `@ts-nocheck` audit | Pass: none |
-| `pnpm run test:presentation-4:packed` | Pass: parser 2.3.0 + Helpers 1.6.0, 41 public subpaths |
-| Parser full suite | Pass: 37 files, 423 tests |
+| `pnpm run test:presentation-4:packed` | Pass: parser 2.3.0 preview + Helpers 1.6.1, 42 public subpaths |
+| Parser full suite | Pass: 37 files, 426 tests |
 | Parser authored/converted fixture type gates | Pass: 33/33 and 99/99 |
 | Parser authored and converted normalized fixture gate | Pass: 132/132 |
 | Parser converted-fixture validation | Pass: 99/99 valid |

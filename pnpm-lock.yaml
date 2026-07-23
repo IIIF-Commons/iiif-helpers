@@ -18,6 +18,9 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0
     devDependencies:
+      '@iiif/parser':
+        specifier: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe
+        version: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe
       '@types/jsdom':
         specifier: ^21.1.4
         version: 21.1.4
@@ -340,6 +343,12 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
+
+  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe':
+    resolution: {integrity: sha512-bmIJQ+XDrBLit73/zSL0OIMAyGlWT+2xCBQcj/ASOg52Q7tZO66daatrJEoGV6lUkgOGR5nl3IUMJiNop3pqrw==, tarball: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe}
+    version: 2.3.0
+    engines: {node: '>=22'}
+    hasBin: true
 
   '@jest/schemas@29.6.3':
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
@@ -1716,6 +1725,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.20.2':
     optional: true
+
+  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe': {}
 
   '@jest/schemas@29.6.3':
     dependencies:
