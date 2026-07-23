@@ -52,10 +52,33 @@ The second joint delivery slice is implemented:
 - The shared parser oracle is pinned to IIIF/api commit
   `28a88829699ebbbe7722b4692cf3b7b67969bc6c`.
 
-The next milestone should fix the parser's reference/full-resource distinction
-and then deduplicate Vault/Vault4 behind fixed typed profiles. That sequencing
-lets the shared engine consume a broader trusted corpus rather than encoding
-today's validator ambiguity.
+Those milestones are recorded below. The next Helpers work is first-class page
+chains and removal of the remaining v4 `@ts-nocheck` suites.
+
+## Model/runtime convergence pass — 2026-07-23
+
+The third joint delivery slice is implemented:
+
+- Parser validation now distinguishes reference-only Presentation resources
+  from embedded resources without allowing embedded Agent, SpecificResource,
+  TextualBody, or annotation aggregate requirements to be bypassed.
+- The trusted pinned corpus has grown to eight representative files, and the
+  full pinned non-3D example audit is green apart from the documented upstream
+  embedded-service-context violation.
+- `Vault4` now extends the same typed runtime as `Vault`. Its source has been
+  reduced from 688 lines to the v4-specific normalization, serialization, and
+  CollectionPage surface, while fixed-profile return types and subscription
+  identity remain intact.
+- The shared runtime carries the selected Manifest and Collection authored and
+  normalized types through loading, hydration, wrapping, and pagination.
+- Painting annotations, thumbnail fallback, and transcriptions now use the
+  shared aggregate resolver. Composite/List/Independents retain document order,
+  Choice retains deterministic selection, sibling Choice groups remain
+  independent, and SpecificResource selectors remain attached to their bodies.
+
+The next milestone should add explicit CollectionPage and AnnotationPage chain
+loading to the shared runtime, including broken/cyclic link behavior, before
+removing the old `@ts-nocheck` fixture suites and broadening helper parity.
 
 It also supersedes the deleted `VAULT-3-4.md` plan. That plan led to the current replay-based `VaultAuto`; this review recommends not shipping that design.
 
