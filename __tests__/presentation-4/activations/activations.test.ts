@@ -1,11 +1,11 @@
 import { describe, expect, test } from 'vitest';
 import commentsWithCameras from '../fixtures/official-3d/uc08_3d_comments_with_cameras.json';
 import { createActivationsHelper } from '../../../src/activations';
-import { VaultAuto } from '../../../src/vault/vault-auto';
+import { Vault4 } from '../../../src/vault/vault4';
 
 describe('optional Presentation 4 Activation helpers', () => {
   test('finds and parses the pinned activating annotation as an ordered transaction', () => {
-    const vault = new VaultAuto({ enablePresentation4: true });
+    const vault = new Vault4();
     vault.loadManifestSync(commentsWithCameras.id, commentsWithCameras);
     const helper = createActivationsHelper(vault);
 

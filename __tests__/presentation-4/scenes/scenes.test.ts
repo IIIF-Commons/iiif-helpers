@@ -3,10 +3,10 @@ import { describe, expect, test } from 'vitest';
 import modelInScene from '../fixtures/official-3d/04_scene.json';
 import commentsWithCameras from '../fixtures/official-3d/uc08_3d_comments_with_cameras.json';
 import { createSceneHelper, KNOWN_SCENE_PAINTABLE_TYPES } from '../../../src/scenes';
-import { VaultAuto } from '../../../src/vault/vault-auto';
+import { Vault4 } from '../../../src/vault/vault4';
 
 function loadScene(fixture: { id: string; items: Array<{ id: string }> }) {
-  const vault = new VaultAuto({ enablePresentation4: true });
+  const vault = new Vault4();
   vault.loadManifestSync(fixture.id, fixture);
   const scene = vault.get<SceneNormalized>(fixture.items[0].id);
   if (!scene) throw new Error('Scene was not loaded');
