@@ -7,9 +7,16 @@ import {
   serializeConfigPresentation3,
   serializeConfigPresentation4,
 } from '@iiif/parser/presentation-4';
-import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-4/types';
+import type {
+  Collection,
+  CollectionPage,
+  Manifest,
+  Reference,
+  SpecificResource,
+} from '@iiif/parser/presentation-4/types';
 import type {
   CollectionNormalized as CollectionNormalizedV4,
+  CollectionPageNormalized,
   ManifestNormalized as ManifestNormalizedV4,
 } from '@iiif/parser/presentation-4-normalized/types';
 import mitt, { type Emitter } from 'mitt';
@@ -35,7 +42,9 @@ type RefToNormalizedV4<Ref extends { type?: string }> = Ref['type'] extends 'Man
   ? ManifestNormalizedV4
   : Ref['type'] extends 'Collection'
     ? CollectionNormalizedV4
-    : RefToNormalized<Ref>;
+    : Ref['type'] extends 'CollectionPage'
+      ? CollectionPageNormalized
+      : RefToNormalized<Ref>;
 
 type VaultOptions = {
   reducers: Record<string, any>;
@@ -368,6 +377,15 @@ export class Vault4 {
     return this.load<CollectionNormalizedV4>(_id, json, mapper);
   }
 
+  loadCollectionPage(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<CollectionPageNormalized | undefined> {
+    const _id = typeof id === 'string' ? id : id.id;
+    return this.load<CollectionPageNormalized>(_id, json, mapper);
+  }
+
   load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
     const _id = typeof id === 'string' ? id : id.id;
     if (json) {
@@ -397,6 +415,15 @@ export class Vault4 {
   ): CollectionNormalizedV4 | undefined {
     const _id = typeof id === 'string' ? id : id.id;
     return this.loadSync<CollectionNormalizedV4>(_id, json, mapper);
+  }
+
+  loadCollectionPageSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): CollectionPageNormalized | undefined {
+    const _id = typeof id === 'string' ? id : id.id;
+    return this.loadSync<CollectionPageNormalized>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -625,6 +652,12 @@ export class Vault4 {
     json?: any
   ): Promise<ReactiveWrapped<Collection, CollectionNormalizedV4>> {
     return wrapObject<Collection, CollectionNormalizedV4>(await this.loadCollection(id, json), this as any);
+  }
+  async loadCollectionPageObject(
+    id: string | Reference<any>,
+    json?: any
+  ): Promise<ReactiveWrapped<CollectionPage, CollectionPageNormalized>> {
+    return wrapObject<CollectionPage, CollectionPageNormalized>(await this.loadCollectionPage(id, json), this as any);
   }
   wrapObject<T extends string>(objectType: Reference<T>) {
     return wrapObject(this.get(objectType, { skipSelfReturn: false }), this as any);

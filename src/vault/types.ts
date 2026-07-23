@@ -22,10 +22,18 @@ import type {
   ResourceProviderNormalized,
   ServiceNormalized,
 } from '@iiif/parser/presentation-3-normalized/types';
-import type { Agent as AgentV4, Scene, Timeline } from '@iiif/parser/presentation-4/types';
+import type {
+  Agent as AgentV4,
+  Collection as CollectionV4,
+  CollectionPage,
+  Scene,
+  Timeline,
+} from '@iiif/parser/presentation-4/types';
 import type {
   AgentNormalized as AgentNormalizedV4,
   AnnotationCollectionNormalized as AnnotationCollectionNormalizedV4,
+  CollectionNormalized as CollectionNormalizedV4,
+  CollectionPageNormalized,
   ContentResourceNormalized as ContentResourceNormalizedV4,
   SceneNormalized,
   SpecificResourceNormalized,
@@ -84,6 +92,8 @@ export type PaginationState = {
 
 export type NormalizedEntity =
   | CollectionNormalized
+  | CollectionNormalizedV4
+  | CollectionPageNormalized
   | ManifestNormalized
   | CanvasNormalized
   | AnnotationPageNormalized
@@ -126,12 +136,14 @@ export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends
                     : Ref['type'] extends 'Agent'
                       ? ResourceProviderNormalized | AgentNormalizedV4
                       : Ref['type'] extends 'Collection'
-                        ? CollectionNormalized
-                        : Ref['type'] extends 'Timeline'
-                          ? TimelineNormalized
-                          : Ref['type'] extends 'Scene'
-                            ? SceneNormalized
-                            : any;
+                        ? CollectionNormalized | CollectionNormalizedV4
+                        : Ref['type'] extends 'CollectionPage'
+                          ? CollectionPageNormalized
+                          : Ref['type'] extends 'Timeline'
+                            ? TimelineNormalized
+                            : Ref['type'] extends 'Scene'
+                              ? SceneNormalized
+                              : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
@@ -154,16 +166,21 @@ export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Mani
                   : Ref['type'] extends 'Agent'
                     ? ResourceProvider | AgentV4
                     : Ref['type'] extends 'Collection'
-                      ? Collection
-                      : Ref['type'] extends 'Timeline'
-                        ? Timeline
-                        : Ref['type'] extends 'Scene'
-                          ? Scene
-                          : any;
+                      ? Collection | CollectionV4
+                      : Ref['type'] extends 'CollectionPage'
+                        ? CollectionPage
+                        : Ref['type'] extends 'Timeline'
+                          ? Timeline
+                          : Ref['type'] extends 'Scene'
+                            ? Scene
+                            : any;
 
 export type Entities = {
   Collection: {
-    [id: string]: CollectionNormalized;
+    [id: string]: CollectionNormalized | CollectionNormalizedV4;
+  };
+  CollectionPage: {
+    [id: string]: CollectionPageNormalized;
   };
   Manifest: {
     [id: string]: ManifestNormalized;

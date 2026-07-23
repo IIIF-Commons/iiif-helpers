@@ -1,0 +1,25 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/collection/paged/page/2",
+  "type": "CollectionPage",
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/collection/paged",
+      "type": "Collection"
+    }
+  ],
+  "items": [
+    {
+      "id": "https://example.org/iiif/manifest/3",
+      "type": "Manifest",
+      "label": {
+        "en": ["Manifest three"]
+      }
+    }
+  ],
+  "prev": {
+    "id": "https://example.org/iiif/collection/paged/page/1",
+    "type": "CollectionPage"
+  },
+  "startIndex": 2
+}

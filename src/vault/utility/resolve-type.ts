@@ -12,7 +12,6 @@ export function resolveType(type?: string): keyof Entities {
     case 'Independents':
     case 'Audience':
     case 'SpecificResource':
-    case 'CollectionPage':
     case 'Quantity':
     case 'RotateTransform':
     case 'ScaleTransform':
@@ -27,6 +26,8 @@ export function resolveType(type?: string): keyof Entities {
     case 'PointAudio':
     case 'SpotAudio':
       return 'ContentResource';
+    case 'CollectionPage':
+      return 'CollectionPage';
     case 'ImageService1':
     case 'ImageService2':
     case 'ImageService3':

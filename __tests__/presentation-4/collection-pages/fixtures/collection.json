@@ -1,0 +1,17 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/collection/paged",
+  "type": "Collection",
+  "label": {
+    "en": ["Paged collection"]
+  },
+  "first": {
+    "id": "https://example.org/iiif/collection/paged/page/1",
+    "type": "CollectionPage"
+  },
+  "last": {
+    "id": "https://example.org/iiif/collection/paged/page/2",
+    "type": "CollectionPage"
+  },
+  "total": 3
+}
