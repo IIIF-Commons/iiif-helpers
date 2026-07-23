@@ -1,4 +1,6 @@
 import assert from 'node:assert/strict';
+import { createRequire } from 'node:module';
+import { readFile } from 'node:fs/promises';
 
 const helpersPackage = '@iiif/helpers';
 const parserPackage = '@iiif/parser';
@@ -41,4 +43,18 @@ assert.throws(
     error.diagnostics[0]?.path === '$.items[0]'
 );
 
-console.log('Packed @iiif/parser → @iiif/helpers Presentation 4 integration passed.');
+const publicSubpaths = JSON.parse(
+  await readFile(new URL('./public-subpaths.json', import.meta.url), 'utf8')
+);
+for (const specifier of publicSubpaths) {
+  assert(await import(specifier), `ESM import failed for ${specifier}`);
+}
+
+const require = createRequire(import.meta.url);
+for (const specifier of publicSubpaths) {
+  assert(require(specifier), `CJS require failed for ${specifier}`);
+}
+
+console.log(
+  `Packed @iiif/parser → @iiif/helpers integration passed for ${publicSubpaths.length} ESM/CJS subpaths.`
+);
