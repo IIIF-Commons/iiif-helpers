@@ -7,6 +7,29 @@ Status: review and joint implementation plan; no implementation fixes are includ
 
 This is the Helpers/Vault companion to `parser/PRESENTATION-4-RC-IMPLEMENTATION-REVIEW.md`. The two documents describe one release project. Where they overlap, the parser review owns wire-format and normalization detail; this review owns Vault lifecycle, helper semantics, packaging, and the cross-repository release gate.
 
+## Implementation pass — 2026-07-23
+
+The first joint delivery slice is now implemented:
+
+- Helpers declares the future parser `^2.3.0` peer instead of an ephemeral
+  preview URL; local development uses an explicit pnpm link.
+- Existing `Vault` accepts supported v4 through the parser's fixed v3
+  compatibility view, while `Vault4` remains an explicit lifetime choice.
+- `VaultAuto` remains source-compatible but is deprecated with its state-loss
+  limitation documented.
+- Vault4 stores Collection Page as a first-class entity and can load, get, wrap,
+  and serialize pages without implicit fetching.
+- A shared annotation-value resolver preserves Choice, Composite, List, and
+  Independents paths; `expandTargets()` exposes all targets while
+  `expandTarget()` retains its first-result contract.
+- All new joint tests live beneath `__tests__/presentation-4`.
+
+The next delivery pass should deduplicate the Vault/Vault4 runtime behind fixed
+profiles, separate v3/v4 store types, migrate painting and other body consumers
+to the shared aggregate resolver, add explicit page-chain loading, remove the
+remaining v4 `@ts-nocheck` tests, and run packed parser/Helpers tarballs through
+the joint CI matrix.
+
 It also supersedes the deleted `VAULT-3-4.md` plan. That plan led to the current replay-based `VaultAuto`; this review recommends not shipping that design.
 
 ## Executive summary
