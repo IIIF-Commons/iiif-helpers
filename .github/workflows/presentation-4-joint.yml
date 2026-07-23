@@ -1,0 +1,55 @@
+name: Presentation 4 joint release gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      parser_ref:
+        description: Exact @iiif/parser commit, tag, or branch to test
+        required: true
+        default: feature/presentation-4.0
+
+jobs:
+  joint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: helpers
+
+      - uses: actions/checkout@v4
+        with:
+          repository: IIIF-Commons/parser
+          ref: ${{ inputs.parser_ref }}
+          path: parser
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - name: Install parser
+        working-directory: parser
+        run: pnpm install --frozen-lockfile --strict-peer-dependencies
+
+      - name: Test packed candidates
+        working-directory: helpers
+        env:
+          IIIF_PARSER_DIR: ${{ github.workspace }}/parser
+        run: pnpm run test:presentation-4:packed
+
+      - name: Install and link source checkouts
+        working-directory: helpers
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm link ../parser
+
+      - name: Test Helpers against linked parser
+        working-directory: helpers
+        run: |
+          pnpm run build
+          pnpm run typecheck
+          pnpm run lint
+          pnpm exec vitest run
