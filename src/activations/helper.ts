@@ -79,7 +79,8 @@ export function createActivationsHelper(vault: CompatVault = compatVault) {
     const steps: ActivationTransaction['steps'] = [];
 
     for (const bodyEntry of bodies) {
-      const parsed = parseSceneSpecificResource(bodyEntry);
+      const hydratedBody = vault.get<SceneResource>(bodyEntry as never, { parent, skipSelfReturn: false });
+      const parsed = parseSceneSpecificResource(hydratedBody ?? bodyEntry);
       const sources = asArray(parsed.source);
       for (const source of sources) {
         const resolved = vault.get<SceneResource>(source as never, { parent });

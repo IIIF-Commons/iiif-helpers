@@ -30,7 +30,8 @@ export default defineConfig((options) => ({
     transcriptions: 'src/transcriptions.ts',
     search1: 'src/search1.ts',
     search2: 'src/search2.ts',
-    // New helpers can be added here.
+    scenes: 'src/scenes.ts',
+    activations: 'src/activations.ts',
   },
   define: { 'import.meta': '{}' },
   minify: true,

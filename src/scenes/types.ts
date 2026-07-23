@@ -4,16 +4,7 @@ import type { SceneNormalized } from '@iiif/parser/presentation-4-normalized/typ
 import type { SupportedTarget } from '../annotation-targets/target-types';
 import type { ChoiceDescription, ComplexChoice } from '../painting-annotations/types';
 
-export const KNOWN_SCENE_PAINTABLE_TYPES = [
-  'model',
-  'canvas',
-  'ambientlight',
-  'pointlight',
-  'directionallight',
-  'spotlight',
-  'perspectivecamera',
-  'orthographiccamera',
-] as const;
+export const KNOWN_SCENE_PAINTABLE_TYPES = ['model'] as const;
 
 export type KnownScenePaintableType = (typeof KNOWN_SCENE_PAINTABLE_TYPES)[number];
 export type ScenePaintableType = KnownScenePaintableType | 'unknown';

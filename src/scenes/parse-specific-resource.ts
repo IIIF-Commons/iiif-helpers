@@ -21,7 +21,8 @@ function isSpecificResourceCandidate(
 
 export function parseSceneSpecificResource(resource: unknown): ParsedSpecificResource {
   if (isSpecificResourceCandidate(resource)) {
-    const selector = resource.selector ?? null;
+    const selector =
+      Array.isArray(resource.selector) && resource.selector.length === 0 ? null : resource.selector ?? null;
     const transform = resource.transform;
     const action = resource.action;
     return {

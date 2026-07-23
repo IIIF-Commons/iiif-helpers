@@ -257,6 +257,26 @@
         "types": "./dist/transcriptions.d.ts",
         "default": "./dist/transcriptions.js"
       }
+    },
+    "./scenes": {
+      "require": {
+        "types": "./dist/scenes.d.ts",
+        "default": "./dist/scenes.cjs"
+      },
+      "import": {
+        "types": "./dist/scenes.d.ts",
+        "default": "./dist/scenes.js"
+      }
+    },
+    "./activations": {
+      "require": {
+        "types": "./dist/activations.d.ts",
+        "default": "./dist/activations.cjs"
+      },
+      "import": {
+        "types": "./dist/activations.d.ts",
+        "default": "./dist/activations.js"
+      }
     }
   },
   "scripts": {
