@@ -25,7 +25,7 @@ type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
 type ContentResource = ContentResourceV3 | ContentResourceV4;
 type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
 
-function getInlineStylesheets(stylesheet: AnnotationNormalized['stylesheet']): Record<string, string> | undefined {
+function getInlineStylesheets(stylesheet: unknown): Record<string, string> | undefined {
   if (!stylesheet) {
     return undefined;
   }
@@ -150,7 +150,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
           ) as any;
           const selector = outerSelector || specificResource?.selector || null;
           const styleClass = outerStyleClass || specificResource?.styleClass;
-          const loadedStylesheets = styleClass ? getInlineStylesheets(annotation.stylesheet) : undefined;
+          const loadedStylesheets = styleClass ? getInlineStylesheets((annotation as any).stylesheet) : undefined;
           const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
           const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
 

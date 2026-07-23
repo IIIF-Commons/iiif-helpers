@@ -744,8 +744,10 @@ through pnpm:
 | `pnpm run lint` | Pass |
 | Presentation 4 `@ts-nocheck` audit | Pass: none |
 | `pnpm run test:presentation-4:packed` | Pass: parser 2.3.0 + Helpers 1.6.0, 41 public subpaths |
-| Parser full suite | Pass: 37 files, 417 tests |
-| Parser authored/normalized fixture type gates | Pass: 33/33 and 131/131 |
+| Parser full suite | Pass: 37 files, 423 tests |
+| Parser authored/converted fixture type gates | Pass: 33/33 and 99/99 |
+| Parser authored and converted normalized fixture gate | Pass: 132/132 |
+| Parser converted-fixture validation | Pass: 99/99 valid |
 
 ## Definition of done
 

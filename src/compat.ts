@@ -4,7 +4,7 @@ export type CompatVault = {
   getResourceMeta: import('./vault').Vault['getResourceMeta'];
   load: import('./vault').Vault['load'];
   requestStatus: import('./vault').Vault['requestStatus'];
-  subscribe: import('./vault').Vault['subscribe'];
+  subscribe: (...args: any[]) => () => void;
 };
 
 const metaState: any = {};

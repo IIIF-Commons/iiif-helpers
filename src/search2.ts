@@ -1,5 +1,5 @@
-import type { Manifest } from '@iiif/presentation-3';
-import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type { Manifest } from '@iiif/parser/presentation-3/types';
+import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { createStore } from 'zustand/vanilla';
 
 export type Search2Service = {
