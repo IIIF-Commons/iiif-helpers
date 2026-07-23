@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 
 const helpersPackage = '@iiif/helpers';
+const parserPackage = '@iiif/parser';
 const { Vault } = await import(`${helpersPackage}/vault`);
 const { Vault4 } = await import(`${helpersPackage}/vault-4`);
+const { Presentation4CompatibilityError } = await import(`${parserPackage}/upgrader`);
 
 const manifestId = 'https://example.org/iiif/manifest';
 const containerId = 'https://example.org/iiif/container/1';
@@ -25,5 +27,18 @@ const loadedManifest = vault4.loadManifestSync(manifestId, manifest);
 assert(loadedManifest);
 assert.equal(vault4.get(loadedManifest.items[0]).type, 'Timeline');
 assert.equal(vault4.toPresentation4(loadedManifest).items[0].type, 'Timeline');
+
+const sceneManifest = {
+  ...manifest,
+  id: `${manifestId}/scene`,
+  items: [{ id: `${containerId}/scene`, type: 'Scene', items: [] }],
+};
+assert.throws(
+  () => vault.loadManifestSync(sceneManifest.id, sceneManifest),
+  (error) =>
+    error instanceof Presentation4CompatibilityError &&
+    error.diagnostics[0]?.code === 'presentation-4-scene-unsupported' &&
+    error.diagnostics[0]?.path === '$.items[0]'
+);
 
 console.log('Packed @iiif/parser → @iiif/helpers Presentation 4 integration passed.');
