@@ -1,7 +1,15 @@
 import { execFileSync } from 'node:child_process';
-import { copyFileSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  cpSync,
+  mkdtempSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import { tmpdir } from 'node:os';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -27,7 +35,28 @@ try {
   }
 
   const parserTarball = pack(parserRoot);
-  const helpersTarball = pack(root);
+  const helpersBuildRoot = join(temporaryRoot, 'helpers');
+  cpSync(root, helpersBuildRoot, {
+    recursive: true,
+    filter(source) {
+      const topLevel = relative(root, source).split(sep)[0];
+      return !['.git', 'dist', 'node_modules'].includes(topLevel);
+    },
+  });
+
+  const helpersPackagePath = join(helpersBuildRoot, 'package.json');
+  const helpersPackage = JSON.parse(readFileSync(helpersPackagePath, 'utf8'));
+  helpersPackage.devDependencies['@iiif/parser'] = `file:${parserTarball}`;
+  writeFileSync(helpersPackagePath, JSON.stringify(helpersPackage, null, 2));
+  execFileSync(
+    'pnpm',
+    ['install', '--lockfile=false', '--config.auto-install-peers=true', '--strict-peer-dependencies'],
+    { cwd: helpersBuildRoot, stdio: 'inherit' }
+  );
+  delete helpersPackage.devDependencies['@iiif/parser'];
+  writeFileSync(helpersPackagePath, JSON.stringify(helpersPackage, null, 2));
+
+  const helpersTarball = pack(helpersBuildRoot);
   writeFileSync(
     join(temporaryRoot, 'package.json'),
     JSON.stringify({
