@@ -266,6 +266,7 @@
     "typecheck": "tsc --noEmit",
     "start": "vite demos",
     "test": "vitest",
+    "test:presentation-4:packed": "node scripts/test-packed-parser.mjs",
     "lint": "publint"
   },
   "dependencies": {
