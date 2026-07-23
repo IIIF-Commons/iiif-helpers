@@ -23,6 +23,8 @@ export type SupportedTarget = {
     quality?: string;
     format?: string;
   };
+  transform?: unknown[];
+  action?: unknown[];
   selector: SupportedSelectors | null;
   selectors: SupportedSelectors[];
 };

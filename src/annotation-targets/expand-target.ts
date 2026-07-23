@@ -121,6 +121,8 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
     return {
       type: 'SpecificResource',
       source,
+      ...(Array.isArray(targetAny.transform) ? { transform: [...targetAny.transform] } : {}),
+      ...(Array.isArray(targetAny.action) ? { action: [...targetAny.action] } : {}),
       selector,
       selectors,
     };

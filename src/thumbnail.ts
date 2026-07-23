@@ -169,12 +169,12 @@ export function createThumbnailHelper(
           return await thumbnailNotFound();
         }
         const firstContentResources = vault.get(contentResources[0].value as any, { skipSelfReturn: false });
-        if (dimensions && !(firstContentResources as any).width) {
-          (firstContentResources as any).width = dimensions.width;
-          (firstContentResources as any).height = dimensions.height;
-        }
+        const resource =
+          dimensions && !(firstContentResources as any).width
+            ? { ...(firstContentResources as any), width: dimensions.width, height: dimensions.height }
+            : firstContentResources;
 
-        return await loader.getThumbnailFromResource(firstContentResources as any, request, dereference, candidates);
+        return await loader.getThumbnailFromResource(resource as any, request, dereference, candidates);
       }
 
       case 'Canvas': {
@@ -226,12 +226,12 @@ export function createThumbnailHelper(
       case 'Text':
       case 'TextualBody':
       case 'Video':
-        if (dimensions && !(fullInput as any).width) {
-          (fullInput as any).width = dimensions.width;
-          (fullInput as any).height = dimensions.height;
-        }
+        const resource =
+          dimensions && !(fullInput as any).width
+            ? { ...(fullInput as any), width: dimensions.width, height: dimensions.height }
+            : fullInput;
 
-        return loader.getThumbnailFromResource(fullInput as any, request, dereference, candidates);
+        return loader.getThumbnailFromResource(resource as any, request, dereference, candidates);
 
       // Seems unlikely these would appear, but it would be an error..
       // case 'Service': // @todo could do something with vault.

@@ -32,6 +32,8 @@ import { hash } from './shared-utilities';
 type Reference<T extends string = string> = ReferenceV3<T> | ReferenceV4<T>;
 type RangeLike = RangeV3 | RangeV4 | RangeNormalizedV3 | RangeNormalizedV4 | Reference<'Range'>;
 type CanvasLike = CanvasV3 | CanvasV4 | CanvasNormalizedV3 | CanvasNormalizedV4 | Reference<'Canvas'>;
+type ContainerType = 'Canvas' | 'Timeline' | 'Scene';
+type ContainerReference = Reference<ContainerType>;
 type InternationalString = InternationalStringV3 | InternationalStringV4;
 type AnySpecificResource = SpecificResourceV3 | SpecificResourceV4;
 type SpecificCanvasResource = SpecificResourceV3<Reference<'Canvas'>> | SpecificResourceV4;
@@ -40,6 +42,7 @@ export function createRangeHelper(vault: CompatVault = compatVault) {
   return {
     findFirstCanvasFromRange: (range: RangeNormalizedV3 | RangeNormalizedV4) => findFirstCanvasFromRange(vault, range),
     findAllCanvasesInRange: (range: RangeNormalizedV3 | RangeNormalizedV4) => findAllCanvasesInRange(vault, range),
+    findAllContainersInRange: (range: RangeNormalizedV3 | RangeNormalizedV4) => findAllContainersInRange(vault, range),
     findManifestSelectedRange: (manifest: ManifestNormalizedV3 | ManifestNormalizedV4, canvasId: string) =>
       findManifestSelectedRange(vault, manifest, canvasId),
     findSelectedRange: (range: RangeNormalizedV3 | RangeNormalizedV4, canvasId: string) =>
@@ -125,26 +128,61 @@ export function findAllCanvasesInRange(
   vault: CompatVault,
   range: RangeNormalizedV3 | RangeNormalizedV4
 ): Array<Reference<'Canvas'>> {
-  const found: Reference<'Canvas'>[] = [];
-  for (const inner of range.items) {
-    const innerAny = inner as any;
-    if (innerAny.type === 'SpecificResource' && innerAny.source?.type === 'Canvas') {
-      const [url, fragment] = splitCanvasFragment(innerAny.source.id || '');
-      if (fragment) {
-        found.push({ id: url, type: 'Canvas' });
-      } else {
-        found.push(innerAny.source as Reference<'Canvas'>);
+  return findAllContainersInRange(vault, range).filter(
+    (container): container is Reference<'Canvas'> => container.type === 'Canvas'
+  );
+}
+
+export function findAllContainersInRange(
+  vault: CompatVault,
+  range: RangeNormalizedV3 | RangeNormalizedV4
+): ContainerReference[] {
+  const found = new Map<string, ContainerReference>();
+  const visitedRanges = new Set<string>();
+
+  const add = (id: string | undefined, type: ContainerType) => {
+    if (!id) return;
+    const [canvasId] = type === 'Canvas' ? splitCanvasFragment(id) : [id];
+    found.set(`${type}:${canvasId}`, { id: canvasId, type } as ContainerReference);
+  };
+
+  const visit = (current: RangeNormalizedV3 | RangeNormalizedV4) => {
+    if (current.id) {
+      if (visitedRanges.has(current.id)) return;
+      visitedRanges.add(current.id);
+    }
+
+    for (const inner of current.items || []) {
+      if (typeof inner === 'string') {
+        add(inner, 'Canvas');
+        continue;
+      }
+
+      const item = inner as any;
+      if (item.type === 'Range') {
+        const nested = vault.get(item as any) as RangeNormalizedV3 | RangeNormalizedV4 | undefined;
+        if (nested?.items) visit(nested);
+        continue;
+      }
+
+      if (item.type === 'SpecificResource') {
+        const source = item.source;
+        if (typeof source === 'string') {
+          add(source, 'Canvas');
+        } else if (source && (source.type === 'Canvas' || source.type === 'Timeline' || source.type === 'Scene')) {
+          add(source.id, source.type);
+        }
+        continue;
+      }
+
+      if (item.type === 'Canvas' || item.type === 'Timeline' || item.type === 'Scene') {
+        add(item.id, item.type);
       }
     }
-    if (innerAny.type === 'Range') {
-      found.push(...findAllCanvasesInRange(vault, vault.get(inner as any) as any));
-    }
-    if (innerAny.type === 'SpecificResource') {
-      const sourceId = typeof innerAny.source === 'string' ? innerAny.source : innerAny.source.id;
-      found.push({ id: sourceId, type: 'Canvas' });
-    }
-  }
-  return found;
+  };
+
+  visit(range);
+  return [...found.values()];
 }
 
 export function findManifestSelectedRange(

@@ -115,7 +115,9 @@ export function getManifestSequence(
   const isIndividuals = isPaged || isContinuous ? false : behavior.includes('individuals');
   const manifestItems = (
     manifestOrRange.type === 'Manifest'
-      ? [...(manifestOrRange.items as any[])]
+      ? (manifestOrRange.items as any[]).flatMap((item) =>
+          typeof item === 'string' ? [{ id: item, type: 'Canvas' }] : item?.type === 'Canvas' ? [item] : []
+        )
       : findAllCanvasesInRange(vault, manifestOrRange)
   ) as Reference<'Canvas'>[];
 
