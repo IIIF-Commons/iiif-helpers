@@ -1,4 +1,5 @@
 export * from './activations';
+export * from './annotation-values';
 export * from './annotation-targets';
 export * from './content-state';
 export * from './events';

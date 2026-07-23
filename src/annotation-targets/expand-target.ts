@@ -6,6 +6,7 @@ import type {
   Annotation as AnnotationV4,
   ContentResourceLike as ContentResourceLikeV4,
 } from '@iiif/parser/presentation-4/types';
+import { resolveAnnotationValues, type AnnotationAggregateStep } from '../annotation-values';
 import { parseSelector, splitCanvasFragment } from './parse-selector';
 import type { ParsedSelector, SupportedSelector } from './selector-types';
 import type { SupportedTarget } from './target-types';
@@ -14,22 +15,42 @@ type AnnotationTargetV4 = Exclude<AnnotationV4['target'], undefined>;
 type ExpandableTarget = W3CAnnotationTargetV3 | AnnotationTargetV4;
 type ExternalWebResource = ExternalWebResourceV3 | ContentResourceLikeV4;
 
+export type ExpandTargetOptions = {
+  typeMap?: Record<string, string>;
+  domParser?: DOMParser;
+  svgPreprocessor?: (svg: string) => string;
+  loadedStylesheets?: Record<string, string>;
+  defaultType?: string;
+  styleClass?: string;
+};
+
+export type ExpandedAnnotationTarget = {
+  target: SupportedTarget;
+  aggregatePath: AnnotationAggregateStep[];
+};
+
 export function expandTarget(
   target: ExpandableTarget | ExpandableTarget[],
-  options: {
-    typeMap?: Record<string, string>;
-    domParser?: DOMParser;
-    svgPreprocessor?: (svg: string) => string;
-    loadedStylesheets?: Record<string, string>;
-    defaultType?: string;
-    styleClass?: string;
-  } = {}
+  options: ExpandTargetOptions = {}
 ): SupportedTarget {
-  if (Array.isArray(target)) {
-    // Don't support multiple targets for now.
-    return expandTarget(target[0], options);
+  const first = expandTargets(target, options)[0];
+  if (!first) {
+    throw new Error('Cannot expand an empty annotation target');
   }
+  return first.target;
+}
 
+export function expandTargets(
+  target: ExpandableTarget | ExpandableTarget[],
+  options: ExpandTargetOptions = {}
+): ExpandedAnnotationTarget[] {
+  return resolveAnnotationValues(target).map(({ value, aggregatePath, specificResources }) => ({
+    target: expandTargetValue((specificResources[specificResources.length - 1] || value) as ExpandableTarget, options),
+    aggregatePath,
+  }));
+}
+
+function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOptions): SupportedTarget {
   if (typeof target === 'string') {
     const [id, fragment] = splitCanvasFragment(target);
 
@@ -46,7 +67,7 @@ export function expandTarget(
       };
     }
 
-    return expandTarget(
+    return expandTargetValue(
       {
         type: 'SpecificResource',
         source: { id, type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || 'Canvas' },
@@ -59,40 +80,33 @@ export function expandTarget(
     );
   }
 
-  const targetAny = target as any;
-
-  // @todo, how do we want to support choices for targets.
-  if (
-    targetAny.type === 'Choice' ||
-    targetAny.type === 'List' ||
-    targetAny.type === 'Composite' ||
-    targetAny.type === 'Independents'
-  ) {
-    // we also don't support these, just choose the first.
-    return expandTarget(targetAny.items[0], options);
-  }
+  let targetAny = target as any;
 
   if (!targetAny.type && 'source' in targetAny) {
-    targetAny.type = 'SpecificResource';
+    targetAny = { ...targetAny, type: 'SpecificResource' };
   }
 
   if (targetAny.type === 'SpecificResource') {
-    if (targetAny.source.type === 'Canvas' && targetAny.source.partOf && typeof targetAny.source.partOf === 'string') {
-      targetAny.source.partOf = [
-        {
-          id: targetAny.source.partOf,
-          type: 'Manifest',
-        },
-      ];
+    let source = targetAny.source;
+    if (source?.type === 'Canvas' && source.partOf && typeof source.partOf === 'string') {
+      source = {
+        ...source,
+        partOf: [
+          {
+            id: source.partOf,
+            type: 'Manifest',
+          },
+        ],
+      };
     }
     const styleClass = targetAny.styleClass || options.styleClass;
 
     let preParsedSelector = { selector: null, selectors: [] } as ParsedSelector;
-    if (typeof targetAny.source === 'string') {
-      const [, sourceFragment] = splitCanvasFragment(targetAny.source);
+    if (typeof source === 'string') {
+      const [, sourceFragment] = splitCanvasFragment(source);
       if (sourceFragment) {
-        const expandedAgain = expandTarget(targetAny.source, { ...options, styleClass });
-        targetAny.source = expandedAgain.source;
+        const expandedAgain = expandTargetValue(source, { ...options, styleClass });
+        source = expandedAgain.source;
         preParsedSelector = {
           selector: expandedAgain.selector,
           selectors: expandedAgain.selectors,
@@ -106,20 +120,24 @@ export function expandTarget(
 
     return {
       type: 'SpecificResource',
-      source: targetAny.source,
+      source,
       selector,
       selectors,
     };
   }
 
   if (targetAny.id) {
+    let source = targetAny;
     if (targetAny.type === 'Canvas' && targetAny.partOf && typeof targetAny.partOf === 'string') {
-      targetAny.partOf = [
-        {
-          id: targetAny.partOf,
-          type: 'Manifest',
-        },
-      ];
+      source = {
+        ...targetAny,
+        partOf: [
+          {
+            id: targetAny.partOf,
+            type: 'Manifest',
+          },
+        ],
+      };
     }
 
     const [id, fragment] = splitCanvasFragment(targetAny.id);
@@ -128,7 +146,7 @@ export function expandTarget(
       return {
         type: 'SpecificResource',
         source: {
-          ...targetAny,
+          ...source,
           id,
         },
         selector: null,
@@ -136,11 +154,11 @@ export function expandTarget(
       };
     }
 
-    return expandTarget(
+    return expandTargetValue(
       {
         type: 'SpecificResource',
         source: {
-          ...targetAny,
+          ...source,
           id,
         },
         selector: {
