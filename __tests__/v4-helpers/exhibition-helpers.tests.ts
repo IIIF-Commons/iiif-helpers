@@ -24,9 +24,27 @@ describe('Exhibition helpers', () => {
       source: paintables.items[0].resource,
       selector: paintables.items[0].selector,
     });
-    expect(expandedSelector.selector).toMatchInlineSnapshot(`null`);
+    expect(expandedSelector.selector).toMatchObject({
+      type: 'BoxSelector',
+      spatial: {
+        x: 559,
+        y: 0,
+        width: 2666,
+        height: 2749,
+        unit: 'pixel',
+      },
+    });
 
     const expandedTarget = expandTarget(paintables.items[0].target);
-    expect(expandedTarget.selector).toMatchInlineSnapshot(`null`);
+    expect(expandedTarget.selector).toMatchObject({
+      type: 'BoxSelector',
+      spatial: {
+        x: 0,
+        y: 0,
+        width: 2666,
+        height: 2749,
+        unit: 'pixel',
+      },
+    });
   });
 });

@@ -50,7 +50,7 @@ describe('VaultAuto', () => {
     expect((replayedV3Manifest as any).id).toBe(cssManifest.id);
   });
 
-  test('surfaces .get() target-resolution drift on shared non-3D content after v4 switch', () => {
+  test('retains the v4 SpecificResource while resolving its Canvas source', () => {
     const annotationId = 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/page/p2/anno-1';
     const canvasId = 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1';
 
@@ -76,10 +76,10 @@ describe('VaultAuto', () => {
     const v4Target = v4Vault.get(v4Annotation.target) as any;
 
     expect(v4Vault.getVersion()).toBe(4);
-    expect(v4Annotation.target.type).toBe('ContentResource');
-    expect(v4Target.type).toBe('SpecificResource');
-    expect(v4Target.source.id).toBe(canvasId);
-    expect(Array.isArray(v4Target.selector)).toBe(true);
+    expect(v4Annotation.target.type).toBe('SpecificResource');
+    expect(v4Target.type).toBe('Canvas');
+    expect(v4Target.id).toBe(canvasId);
+    expect(Array.isArray(v4Annotation.target.selector)).toBe(true);
   });
 
   test('surfaces .get() body-resolution drift on shared non-3D content after v4 switch', () => {
