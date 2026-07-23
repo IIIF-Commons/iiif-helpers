@@ -48,7 +48,7 @@ export type GetOptions = {
 };
 export type GetObjectOptions = GetOptions & { reactive?: boolean };
 
-type AllActionsType = AllActions['type'];
+type AllActionsType = Extract<AllActions['type'], string>;
 
 export type EntityRef<Ref extends keyof Entities> = IIIFStore['iiif']['entities'][Ref][string];
 
@@ -218,7 +218,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     }
   }
 
-  on<Type extends AllActions['type']>(
+  on<Type extends AllActionsType>(
     event: Type | `after:${Type}`,
     handler: (ctx: { action: ActionFromType<Type>; state: IIIFStore }) => void
   ) {

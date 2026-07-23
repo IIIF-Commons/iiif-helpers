@@ -13,6 +13,7 @@ import type { ManifestNormalized as ManifestNormalizedV3 } from '@iiif/parser/pr
 import type { Manifest as ManifestV4 } from '@iiif/parser/presentation-4/types';
 import type { ManifestNormalized as ManifestNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
 import { createStore } from 'zustand/vanilla';
+import type { StoreApi } from './store-api';
 
 type SearchManifest = ManifestNormalizedV3 | ManifestNormalizedV4 | ManifestV3 | ManifestV4;
 
@@ -71,7 +72,7 @@ export function findAutocompleteService(service: Search1Service): SearchServiceA
 export const createSearch1AutocompleteStore = (
   service?: Search1Service | undefined,
   options?: { fetcher?: Fetcher<SearchServiceAutocompleteResponse> }
-) => {
+): StoreApi<Search1AutocompleteStore> => {
   const fetcher: Fetcher<SearchServiceAutocompleteResponse> = options?.fetcher || defaultFetcher;
   const autocomplete = service ? findAutocompleteService(service) : undefined;
   const autocompleteEndpoint = autocomplete ? getId(autocomplete) : undefined;
@@ -245,7 +246,7 @@ export const createSearch1Store = (
   options?: {
     fetcher?: Fetcher<SearchServiceSearchResponse>;
   }
-) => {
+): StoreApi<Search1Store> => {
   const fetcher = options?.fetcher || defaultFetcher;
 
   let searchService: Search1Service | undefined;

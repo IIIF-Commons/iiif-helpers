@@ -34,6 +34,8 @@ type VaultAutoLoadJournalEntry = {
   resource: unknown;
 };
 
+type AllActionsType = Extract<AllActions['type'], string>;
+
 export type CanonicalSpecificResource = {
   source: { id: string; type: string };
   selector: Array<{ type: string; [key: string]: unknown }>;
@@ -233,7 +235,7 @@ export class VaultAuto {
     return this.getVault().dispatch(action);
   }
 
-  on<Type extends AllActions['type']>(
+  on<Type extends AllActionsType>(
     event: Type | `after:${Type}`,
     handler: (ctx: { action: ActionFromType<Type>; state: IIIFStore }) => void
   ) {
