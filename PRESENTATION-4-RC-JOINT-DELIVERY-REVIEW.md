@@ -26,9 +26,36 @@ The first joint delivery slice is now implemented:
 
 The next delivery pass should deduplicate the Vault/Vault4 runtime behind fixed
 profiles, separate v3/v4 store types, migrate painting and other body consumers
-to the shared aggregate resolver, add explicit page-chain loading, remove the
-remaining v4 `@ts-nocheck` tests, and run packed parser/Helpers tarballs through
-the joint CI matrix.
+to the shared aggregate resolver, add explicit page-chain loading, and remove
+the remaining v4 `@ts-nocheck` tests. The release-confidence pass below now
+provides the packed parser/Helpers gate.
+
+## Release-confidence pass — 2026-07-23
+
+The second joint delivery slice is implemented:
+
+- Parser `2.3.0` and Helpers' `^2.3.0` peer range now describe the same
+  coordinated candidate.
+- `pnpm run test:presentation-4:packed` packs the sibling parser, installs that
+  tarball into a disposable Helpers checkout, packs Helpers, and installs both
+  artifacts into a second fresh strict-peer consumer. It does not depend on or
+  alter the developer's local parser symlink.
+- The packed test exercises the fixed v3 Vault view, the native Vault4 view,
+  serialization in both versions, and the typed structured diagnostic that
+  crosses the parser/Vault boundary for unsupported Scene content.
+- `.github/workflows/presentation-4-joint.yml` accepts an exact parser ref,
+  runs the packed test, links the two source checkouts with pnpm, and runs the
+  Helpers build, typecheck, package lint, and full Node 22 test suite.
+- The ordinary Helpers build and release workflows now include typecheck and
+  package lint. ESM/CJS package smoke tests assert public exports without making
+  a live network request.
+- The shared parser oracle is pinned to IIIF/api commit
+  `28a88829699ebbbe7722b4692cf3b7b67969bc6c`.
+
+The next milestone should fix the parser's reference/full-resource distinction
+and then deduplicate Vault/Vault4 behind fixed typed profiles. That sequencing
+lets the shared engine consume a broader trusted corpus rather than encoding
+today's validator ambiguity.
 
 It also supersedes the deleted `VAULT-3-4.md` plan. That plan led to the current replay-based `VaultAuto`; this review recommends not shipping that design.
 
