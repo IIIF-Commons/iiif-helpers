@@ -21,9 +21,11 @@ import type {
   Entities,
   IIIFStore,
   NormalizedEntity,
+  PaginationPageNormalized,
   PaginationState,
   RefToNormalized,
   RequestState,
+  VaultLoadReport,
 } from './types';
 import { areInputsEqual, createFetchHelper } from './utility';
 import { type ActionListFromResource, actionListFromResourceV3 } from './utility/action-list-from-resource';
@@ -49,6 +51,32 @@ export type GetObjectOptions = GetOptions & { reactive?: boolean };
 type AllActionsType = AllActions['type'];
 
 export type EntityRef<Ref extends keyof Entities> = IIIFStore['iiif']['entities'][Ref][string];
+
+function referenceId(reference: unknown): string | null {
+  if (typeof reference === 'string') {
+    return reference;
+  }
+  if (reference && typeof reference === 'object' && typeof (reference as any).id === 'string') {
+    return (reference as any).id;
+  }
+  return null;
+}
+
+function uniqueReferences(references: any[]): Array<{ id: string; type: string }> {
+  const seen = new Set<string>();
+  const unique: Array<{ id: string; type: string }> = [];
+  for (const reference of references) {
+    if (!reference || typeof reference.id !== 'string' || typeof reference.type !== 'string') {
+      continue;
+    }
+    const key = `${reference.type}\0${reference.id}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push({ id: reference.id, type: reference.type });
+    }
+  }
+  return unique;
+}
 
 export type VaultTypeMap = {
   Manifest: unknown;
@@ -462,14 +490,18 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       return existing.state;
     }
 
-    const fullResource = this.get(resource);
+    const fullResource: any = this.get(resource);
     if (fullResource.first) {
+      const firstPage = referenceId(fullResource.first);
+      if (!firstPage) {
+        return null;
+      }
       const initialState: PaginationState = {
         currentPage: null,
         currentPageIndex: null,
         isFetching: false,
         isFullyLoaded: false,
-        next: fullResource.first,
+        next: firstPage,
         page: 1,
         pages: [],
         previous: null,
@@ -490,7 +522,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   async loadNextPage(
     resource: string | Reference,
     json?: any
-  ): Promise<[PaginationState | null, Types['CollectionNormalized'] | null]> {
+  ): Promise<[PaginationState | null, PaginationPageNormalized | null]> {
     const id = typeof resource === 'string' ? resource : resource.id;
     if (!id) return [null, null];
 
@@ -504,8 +536,30 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       return [state, null];
     }
 
-    const nextPage = typeof state.next === 'string' ? state.next : (state.next as any).id;
+    const nextPage = referenceId(state.next);
+    if (!nextPage) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        isFullyLoaded: true,
+        error: new Error('Page reference does not have an id'),
+      };
+      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      return [errState, null];
+    }
+
+    if (state.currentPage === nextPage || state.pages.some((page) => page.id === nextPage)) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        isFullyLoaded: true,
+        error: new Error(`Pagination cycle detected at ${nextPage}`),
+      };
+      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      return [errState, null];
+    }
     const previousPage = state.currentPage;
+    const paginatedResourceBeforeLoad: any = this.get(id);
 
     // 1. Update the meta state.
     const newState: PaginationState = {
@@ -515,9 +569,9 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     this.setMetaValue([id, '@vault/pagination', 'state'], newState);
 
     // 2. Make the fetch request.
-    let collectionPage;
+    let page;
     try {
-      collectionPage = await this.loadCollection(nextPage, json, (mapped) => {
+      page = await this.load<PaginationPageNormalized>(nextPage, json, (mapped) => {
         // This is required because the page MIGHT have the same id.
         const { id, ['@id']: _id, ...properties } = mapped || {};
 
@@ -537,52 +591,108 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       return [errState, null];
     }
 
-    if (!collectionPage) {
+    if (!page) {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
-        error: new Error('Collection not found'),
+        error: new Error(`Page not found: ${nextPage}`),
       };
       this.setMetaValue([id, '@vault/pagination', 'state'], errState);
       return [errState, null];
     }
 
-    const fullCollection: any = this.get(id);
-    const typedCollectionPage: any = collectionPage;
-    const combinedItems = [...(fullCollection.items || []), ...(typedCollectionPage.items || [])].map((resource) => ({
-      id: resource.id,
-      type: resource.type,
-    }));
+    const typedPage: any = page;
+    const expectedPageType =
+      paginatedResourceBeforeLoad.type === 'AnnotationCollection'
+        ? 'AnnotationPage'
+        : referenceId(paginatedResourceBeforeLoad.first) === nextPage && (paginatedResourceBeforeLoad.first as any)?.type
+          ? (paginatedResourceBeforeLoad.first as any).type
+          : undefined;
+    if (
+      (expectedPageType === 'AnnotationPage' && typedPage.type !== 'AnnotationPage') ||
+      (paginatedResourceBeforeLoad.type === 'Collection' && !['Collection', 'CollectionPage'].includes(typedPage.type))
+    ) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        error: new Error(`Expected ${expectedPageType || 'collection'} page, received ${typedPage.type || 'unknown'}`),
+      };
+      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      return [errState, null];
+    }
 
-    this.modifyEntityField({ id, type: 'Collection' }, 'items', combinedItems);
+    const existingItems = this.getPaginatedItems(resource);
+    const pageItems = typedPage.items || [];
+    const combinedItems = uniqueReferences([...existingItems, ...pageItems]);
+    const restoredResource =
+      typedPage.type === 'Collection'
+        ? { ...paginatedResourceBeforeLoad, items: combinedItems }
+        : paginatedResourceBeforeLoad;
+
+    this.dispatch(
+      entityActions.importEntities({
+        entities: {
+          [paginatedResourceBeforeLoad.type]: {
+            [id]: restoredResource,
+          },
+        },
+      })
+    );
     const latestState = this.getPaginationState(resource);
     if (!latestState) throw new Error('Pagination state not found');
+    const next = referenceId(typedPage.next);
     const successState: PaginationState = {
       ...latestState,
       isFetching: false,
       error: null,
-      currentPage: typedCollectionPage.id || null,
-      next: typedCollectionPage.next?.id || null,
+      currentPage: typedPage.id || null,
+      next,
       currentPageIndex: latestState.pages.length,
       currentLength: combinedItems.length,
       pages: [
         ...latestState.pages,
         {
-          id: typedCollectionPage.id,
-          type: 'Collection',
-          startIndex: (fullCollection.items || []).length,
-          pageLength: typedCollectionPage.items.length,
+          id: typedPage.id,
+          type: typedPage.type,
+          startIndex: typeof typedPage.startIndex === 'number' ? typedPage.startIndex : existingItems.length,
+          pageLength: pageItems.length,
           order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
         },
       ],
-      isFullyLoaded: !typedCollectionPage.next,
+      isFullyLoaded: !next,
       previous: previousPage,
       page: latestState.pages.length + 1,
     };
 
     this.setMetaValue([id, '@vault/pagination', 'state'], successState);
 
-    return [successState, collectionPage];
+    return [successState, page];
+  }
+
+  getPaginatedItems(resource: string | Reference): Array<{ id: string; type: string }> {
+    const state = this.getPaginationState(resource);
+    if (!state) {
+      return [];
+    }
+    return uniqueReferences(
+      state.pages.flatMap((page) => {
+        const loadedPage: any = this.get({ id: page.id, type: page.type });
+        return loadedPage?.items || [];
+      })
+    );
+  }
+
+  async loadPageChain(resource: string | Reference): Promise<PaginationState | null> {
+    let state = this.getPaginationState(resource);
+    while (state && !state.isFullyLoaded && state.next && !state.error) {
+      [state] = await this.loadNextPage(resource);
+    }
+    return state;
+  }
+
+  getLoadReport(resource: string | Reference): VaultLoadReport | undefined {
+    const id = typeof resource === 'string' ? resource : resource.id;
+    return this.getResourceMeta<{ '@vault/load': { report: VaultLoadReport } }>(id, '@vault/load')?.report;
   }
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;

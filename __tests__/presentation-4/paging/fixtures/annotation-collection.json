@@ -1,0 +1,17 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/annotations/paged",
+  "type": "AnnotationCollection",
+  "label": {
+    "en": ["Paged annotations"]
+  },
+  "first": {
+    "id": "https://example.org/iiif/annotations/paged/page/1",
+    "type": "AnnotationPage"
+  },
+  "last": {
+    "id": "https://example.org/iiif/annotations/paged/page/2",
+    "type": "AnnotationPage"
+  },
+  "total": 2
+}

@@ -72,7 +72,7 @@ export type RequestState = {
 export type PaginationState = {
   pages: Array<{
     id: string;
-    type: 'Collection';
+    type: 'Collection' | 'CollectionPage' | 'AnnotationPage';
     order: number;
     startIndex: number;
     pageLength: number;
@@ -89,6 +89,26 @@ export type PaginationState = {
   isFetching: boolean;
   error?: any;
 };
+
+export type VaultLoadDiagnostic = {
+  code: string;
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  path: string;
+  resourceType?: string;
+  resourceId?: string;
+  specRef?: string;
+};
+
+export type VaultLoadReport = {
+  sourceVersion: 2 | 3 | 4 | 'unknown';
+  diagnostics: VaultLoadDiagnostic[];
+};
+
+export type PaginationPageNormalized =
+  | CollectionNormalized
+  | CollectionPageNormalized
+  | AnnotationPageNormalized;
 
 export type NormalizedEntity =
   | CollectionNormalized

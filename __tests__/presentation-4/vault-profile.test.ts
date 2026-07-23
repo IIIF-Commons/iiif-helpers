@@ -1,6 +1,5 @@
-import type { CollectionNormalized } from '@iiif/parser/presentation-4-normalized/types';
 import { describe, expect, expectTypeOf, test, vi } from 'vitest';
-import type { PaginationState } from '../../src/vault/types';
+import type { PaginationPageNormalized, PaginationState } from '../../src/vault/types';
 import { Vault4 } from '../../src/vault/vault4';
 
 const manifestId = 'https://example.org/iiif/profile/manifest';
@@ -38,7 +37,7 @@ describe('Vault4 fixed profile', () => {
 
   test('keeps the Presentation 4 pagination return type', () => {
     expectTypeOf(new Vault4().loadNextPage).returns.toEqualTypeOf<
-      Promise<[PaginationState | null, CollectionNormalized | null]>
+      Promise<[PaginationState | null, PaginationPageNormalized | null]>
     >();
   });
 });

@@ -18,9 +18,11 @@ import type {
   Entities,
   IIIFStore,
   NormalizedEntity,
+  PaginationPageNormalized,
   PaginationState,
   RefToNormalized,
   RequestState,
+  VaultLoadReport,
 } from './types';
 import { defaultFetcher } from './utility/default-fetcher';
 import type { ReactiveWrapped } from './utility/objects';
@@ -508,8 +510,20 @@ export class VaultAuto {
   async loadNextPage(
     resource: string | Reference,
     json?: any
-  ): Promise<[PaginationState | null, CollectionNormalizedV3 | CollectionNormalizedV4 | null]> {
+  ): Promise<[PaginationState | null, PaginationPageNormalized | null]> {
     return (this.getVault() as any).loadNextPage(resource, json);
+  }
+
+  async loadPageChain(resource: string | Reference): Promise<PaginationState | null> {
+    return this.getVault().loadPageChain(resource);
+  }
+
+  getPaginatedItems(resource: string | Reference): Array<{ id: string; type: string }> {
+    return this.getVault().getPaginatedItems(resource);
+  }
+
+  getLoadReport(resource: string | Reference): VaultLoadReport | undefined {
+    return this.getVault().getLoadReport(resource);
   }
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
