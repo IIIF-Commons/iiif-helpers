@@ -73,10 +73,7 @@ describe('Paged collections', () => {
         "currentPageIndex": null,
         "isFetching": false,
         "isFullyLoaded": false,
-        "next": {
-          "id": "https://example.org/collection?page=1",
-          "type": "Collection",
-        },
+        "next": "https://example.org/collection?page=1",
         "page": 1,
         "pages": [],
         "previous": null,
