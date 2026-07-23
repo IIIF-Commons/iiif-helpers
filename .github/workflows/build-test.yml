@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['22']
+        node: ['22', '24']
 
     name: Node ${{ matrix.node }} build
     steps:
@@ -39,7 +39,11 @@ jobs:
 
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
+      - run: pnpm run typecheck
+      - run: pnpm run lint
       - run: pnpm run test
+      - run: pnpm run test:presentation-4:packed
+        if: matrix.node == '22'
       - run: node pkg-tests/node-load.cjs
       - run: node pkg-tests/node-load.mjs
       - run: pnpm dlx pkg-pr-new publish

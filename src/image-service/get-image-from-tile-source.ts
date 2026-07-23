@@ -4,8 +4,11 @@ import {
   getId,
   imageServiceRequestToString,
 } from '@iiif/parser/image-3';
-import { FixedSizeImage, FixedSizeImageService } from './types';
-import { ImageProfile } from '@iiif/presentation-3';
+import type { ImageProfile as ImageProfileV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageProfile as ImageProfileV4 } from '@iiif/parser/presentation-4/types';
+import type { FixedSizeImage, FixedSizeImageService } from './types';
+
+type ImageProfile = ImageProfileV3 | ImageProfileV4;
 
 export function getImageFromTileSource(
   image: FixedSizeImageService,

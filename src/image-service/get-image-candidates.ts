@@ -1,9 +1,19 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
-import { ImageServiceLoader, ImageServiceRequest } from './image-service-loader';
-import { ImageCandidate } from './types';
-import { getImageCandidatesFromService } from './get-image-candidates-from-service';
-import { getFixedSizeFromImage } from './get-fixed-size-from-image';
 import { getId, getImageServices } from '@iiif/parser/image-3';
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+} from '@iiif/parser/presentation-4/types';
+import { getFixedSizeFromImage } from './get-fixed-size-from-image';
+import { getImageCandidatesFromService } from './get-image-candidates-from-service';
+import type { ImageServiceLoader, ImageServiceRequest } from './image-service-loader';
+import type { ImageCandidate } from './types';
+
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
 
 /**
  * Get image candidates
@@ -38,21 +48,21 @@ export function getImageCandidates(
   // We will try to dereference if available (cache or prediction).
   if (dereference && resource && resource.width && resource.height) {
     const refCandidates = [];
-    const imageServices = getImageServices(resource);
+    const imageServices = getImageServices(resource as any);
     for (const service of imageServices) {
       const request: ImageServiceRequest = {
         id: getId(service),
-        width: resource.width,
-        height: resource.height,
+        width: Number(resource.width),
+        height: Number(resource.height),
       };
       if (loader.canLoadSync(request)) {
         const externalService = loader.loadServiceSync(request);
         if (externalService) {
           if (!externalService.height) {
-            externalService.height = resource.height;
+            externalService.height = Number(resource.height);
           }
           if (!externalService.width) {
-            externalService.width = resource.width;
+            externalService.width = Number(resource.width);
           }
           refCandidates.push(...getImageCandidatesFromService([externalService]));
         }

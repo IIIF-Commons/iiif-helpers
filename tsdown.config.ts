@@ -21,6 +21,8 @@ export default defineConfig((options) => ({
     sequences: 'src/sequences.ts',
     'nav-date': 'src/nav-date.ts',
     vault: 'src/vault.ts',
+    'vault-4': 'src/vault/vault4.ts',
+    'vault-auto': 'src/vault/vault-auto.ts',
     'vault-node': 'src/vault-node.ts',
     'vault-store': 'src/vault-store.ts',
     'vault-actions': 'src/vault-actions.ts',
@@ -28,8 +30,10 @@ export default defineConfig((options) => ({
     transcriptions: 'src/transcriptions.ts',
     search1: 'src/search1.ts',
     search2: 'src/search2.ts',
-    // New helpers can be added here.
+    scenes: 'src/scenes.ts',
+    activations: 'src/activations.ts',
   },
+  define: { 'import.meta': '{}' },
   minify: true,
   external: [],
   // @todo re-enable.

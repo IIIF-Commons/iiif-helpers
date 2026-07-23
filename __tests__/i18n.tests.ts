@@ -5,7 +5,7 @@ import { buildLocaleString, getValue, getAvailableLanguagesFromResource, iiifStr
 import { describe, test, expect } from "vitest";
 import delftExample from "../fixtures/exhibitions/novieten.json";
 import compositeTest from "../fixtures/cookbook/composite.json";
-import type { InternationalString } from "@iiif/presentation-3";
+import type { InternationalString } from "@iiif/parser/presentation-3/types";
 
 describe("i18n helper", () => {
   describe("buildLocaleString()", () => {

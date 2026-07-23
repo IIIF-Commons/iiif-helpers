@@ -1,7 +1,10 @@
-import { Service } from '@iiif/presentation-3';
-import { FixedSizeImageService } from './types';
-import { getId, isImageService, getImageServiceLevel } from '@iiif/parser/image-3';
+import { getId, getImageServiceLevel, isImageService } from '@iiif/parser/image-3';
+import type { Service as ServiceV3 } from '@iiif/parser/presentation-3/types';
+import type { Service as ServiceV4 } from '@iiif/parser/presentation-4/types';
 import { isImage3 } from './is-image-3';
+import type { FixedSizeImageService } from './types';
+
+type Service = ServiceV3 | ServiceV4;
 
 /**
  * Get fixed sizes from service.

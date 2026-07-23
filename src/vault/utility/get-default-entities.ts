@@ -1,8 +1,9 @@
-import { Entities } from '../types';
+import type { Entities } from '../types';
 
 export function getDefaultEntities(): Entities {
   return {
     Collection: {},
+    CollectionPage: {},
     Manifest: {},
     Canvas: {},
     AnnotationPage: {},
@@ -13,5 +14,7 @@ export function getDefaultEntities(): Entities {
     Service: {},
     Selector: {},
     Agent: {},
+    Timeline: {},
+    Scene: {},
   };
 }

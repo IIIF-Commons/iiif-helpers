@@ -1,5 +1,5 @@
 import { isSpecificResource, toRef } from '@iiif/parser';
-import type { Reference, SpecificResource } from '@iiif/presentation-3';
+import type { Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
 import { changeRefIdentifier } from '../../../shared-utilities';
 import {
   ADD_METADATA,
@@ -61,7 +61,7 @@ function numberOr(a: number | undefined, b: number): number {
 }
 
 export const entitiesReducer = (state: Entities = getDefaultEntities(), action: EntityActions): Entities => {
-  const updateField = (entity: any, values: any) => {
+  const updateField = (entity: any, values: Record<string, any>) => {
     return {
       ...state,
       [(payload(action) as any).type]: {

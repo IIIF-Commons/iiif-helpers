@@ -1,25 +1,56 @@
-import { ChoiceBody, CollectionItemSchemas, ContentResource, Reference } from '@iiif/presentation-3';
+import type {
+  ChoiceBody as ChoiceBodyV3,
+  CollectionItemSchemas as CollectionItemSchemasV3,
+  ContentResource as ContentResourceV3,
+  Reference as ReferenceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV3,
+  AnnotationPageNormalized as AnnotationPageNormalizedV3,
+  CanvasNormalized as CanvasNormalizedV3,
+  CollectionNormalized as CollectionNormalizedV3,
+  DescriptiveNormalized as DescriptiveNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
+} from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  ChoiceResource as ChoiceBodyV4,
+  CollectionItemSchemas as CollectionItemSchemasV4,
+  ContentResource as ContentResourceV4,
+  Reference as ReferenceV4,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV4,
+  AnnotationPageNormalized as AnnotationPageNormalizedV4,
+  CanvasNormalized as CanvasNormalizedV4,
+  CollectionNormalized as CollectionNormalizedV4,
+  DescriptiveNormalized as DescriptiveNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
+import { resolveAnnotationValues } from './annotation-values';
+import { type CompatVault, compatVault } from './compat';
 import {
-  AnnotationNormalized,
-  AnnotationPageNormalized,
-  CanvasNormalized,
-  CollectionNormalized,
-  DescriptiveNormalized,
-  ManifestNormalized,
-} from '@iiif/presentation-3-normalized';
-import { compatVault, CompatVault } from './compat';
-import {
-  FixedSizeImage,
-  FixedSizeImageService,
+  type FixedSizeImage,
+  type FixedSizeImageService,
   getFixedSizeFromImage,
-  ImageCandidate,
-  ImageCandidateRequest,
+  type ImageCandidate,
+  type ImageCandidateRequest,
   ImageServiceLoader,
-  UnknownSizeImage,
-  VariableSizeImage,
+  type UnknownSizeImage,
+  type VariableSizeImage,
 } from './image-service';
 
 export const imageServiceLoader = new ImageServiceLoader();
+
+type Reference<T extends string = string> = ReferenceV3<T> | ReferenceV4<T>;
+type CollectionItemSchemas = CollectionItemSchemasV3 | CollectionItemSchemasV4;
+type CollectionNormalized = CollectionNormalizedV3 | CollectionNormalizedV4;
+type ManifestNormalized = ManifestNormalizedV3 | ManifestNormalizedV4;
+type CanvasNormalized = CanvasNormalizedV3 | CanvasNormalizedV4;
+type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
+type AnnotationPageNormalized = AnnotationPageNormalizedV3 | AnnotationPageNormalizedV4;
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type ChoiceBody = ChoiceBodyV3 | ChoiceBodyV4;
+type DescriptiveNormalized = DescriptiveNormalizedV3 | DescriptiveNormalizedV4;
 
 export type ThumbnailInput =
   | string
@@ -51,7 +82,10 @@ export function getThumbnail(
     vault = compatVault,
     dereference = false,
     ...options
-  }: ImageCandidateRequest & { vault?: CompatVault; dereference?: boolean } = {}
+  }: ImageCandidateRequest & {
+    vault?: CompatVault;
+    dereference?: boolean;
+  } = {}
 ) {
   let helper = helpers.get(vault);
   if (!helper) {
@@ -103,7 +137,11 @@ export function createThumbnailHelper(
       | undefined = vault.get(input as any, { skipSelfReturn: false }) as any;
 
     if (typeof fullInput === 'string') {
-      return { best: getFixedSizeFromImage(fullInput as any), fallback: [], log: [] };
+      return {
+        best: getFixedSizeFromImage(fullInput as any),
+        fallback: [],
+        log: [],
+      };
     }
 
     if (!fullInput) {
@@ -124,22 +162,25 @@ export function createThumbnailHelper(
 
     switch (fullInput.type) {
       case 'Annotation': {
-        // Grab the body.
-        const contentResources = Array.isArray(fullInput.body) ? fullInput.body : [fullInput.body];
-        // @todo this could be configuration.
-        const firstContentResources = vault.get(contentResources[0]);
-        if (dimensions && !(firstContentResources as any).width) {
-          (firstContentResources as any).width = dimensions.width;
-          (firstContentResources as any).height = dimensions.height;
+        const contentResources = resolveAnnotationValues(vault.get(fullInput.body as any)).filter(({ aggregatePath }) =>
+          aggregatePath.every(({ type, index }) => type !== 'Choice' || index === 0)
+        );
+        if (!contentResources[0]) {
+          return await thumbnailNotFound();
         }
+        const firstContentResources = vault.get(contentResources[0].value as any, { skipSelfReturn: false });
+        const resource =
+          dimensions && !(firstContentResources as any).width
+            ? { ...(firstContentResources as any), width: dimensions.width, height: dimensions.height }
+            : firstContentResources;
 
-        return await loader.getThumbnailFromResource(firstContentResources as any, request, dereference, candidates);
+        return await loader.getThumbnailFromResource(resource as any, request, dereference, candidates);
       }
 
       case 'Canvas': {
         const canvas = fullInput as CanvasNormalized;
 
-        return getBestThumbnailAtSize(canvas.items[0], request, dereference, candidates, {
+        return getBestThumbnailAtSize(canvas.items[0] as any, request, dereference, candidates, {
           width: canvas.width,
           height: canvas.height,
         });
@@ -148,12 +189,12 @@ export function createThumbnailHelper(
       // Unsupported for now.
       case 'AnnotationPage': {
         const annotationPage = fullInput as AnnotationPageNormalized;
-        return getBestThumbnailAtSize(annotationPage.items[0], request, dereference, candidates, dimensions);
+        return getBestThumbnailAtSize(annotationPage.items[0] as any, request, dereference, candidates, dimensions);
       }
 
       case 'Choice': {
         const choice = fullInput;
-        if (!choice.items || choice.items[0]) {
+        if (!choice.items || !choice.items[0]) {
           return await thumbnailNotFound();
         }
         // @todo this could also be configuration, just choosing the first choice.
@@ -166,7 +207,7 @@ export function createThumbnailHelper(
         if (!firstManifest) {
           return await thumbnailNotFound();
         }
-        return getBestThumbnailAtSize(firstManifest, request, dereference, candidates, dimensions);
+        return getBestThumbnailAtSize(firstManifest as any, request, dereference, candidates, dimensions);
       }
 
       case 'Manifest': {
@@ -175,7 +216,7 @@ export function createThumbnailHelper(
         if (!firstCanvas) {
           return await thumbnailNotFound();
         }
-        return getBestThumbnailAtSize(firstCanvas, request, dereference, candidates, dimensions);
+        return getBestThumbnailAtSize(firstCanvas as any, request, dereference, candidates, dimensions);
       }
 
       case 'SpecificResource':
@@ -185,12 +226,12 @@ export function createThumbnailHelper(
       case 'Text':
       case 'TextualBody':
       case 'Video':
-        if (dimensions && !(fullInput as any).width) {
-          (fullInput as any).width = dimensions.width;
-          (fullInput as any).height = dimensions.height;
-        }
+        const resource =
+          dimensions && !(fullInput as any).width
+            ? { ...(fullInput as any), width: dimensions.width, height: dimensions.height }
+            : fullInput;
 
-        return loader.getThumbnailFromResource(fullInput as any, request, dereference, candidates);
+        return loader.getThumbnailFromResource(resource as any, request, dereference, candidates);
 
       // Seems unlikely these would appear, but it would be an error..
       // case 'Service': // @todo could do something with vault.

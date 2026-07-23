@@ -1,5 +1,32 @@
-import { Traverse } from '@iiif/parser';
-import { Canvas, Collection, InternationalString, Manifest } from '@iiif/presentation-3';
+import type {
+  Canvas as CanvasV3,
+  Collection as CollectionV3,
+  InternationalString as InternationalStringV3,
+  Manifest as ManifestV3,
+  Range as RangeV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  Canvas as CanvasV4,
+  Collection as CollectionV4,
+  LanguageMap as InternationalStringV4,
+  Manifest as ManifestV4,
+  Range as RangeV4,
+  Scene as SceneV4,
+  Timeline as TimelineV4,
+} from '@iiif/parser/presentation-4/types';
+
+type InternationalString = InternationalStringV3 | InternationalStringV4;
+type LanguageResource =
+  | CollectionV3
+  | ManifestV3
+  | CanvasV3
+  | RangeV3
+  | CollectionV4
+  | ManifestV4
+  | CanvasV4
+  | RangeV4
+  | TimelineV4
+  | SceneV4;
 
 export function getClosestLanguage(
   i18nLanguage: string | undefined,
@@ -132,7 +159,12 @@ export function buildLocaleString(
 
 export function getValue(
   inputText: string | InternationalString | null | undefined,
-  options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}
+  options: {
+    language?: string;
+    defaultText?: string;
+    separator?: string;
+    fallbackLanguages?: string[];
+  } = {}
 ) {
   return buildLocaleString(
     inputText,
@@ -148,70 +180,69 @@ function getLanguagesFromLanguageMap(languageMap: InternationalString) {
   return Object.keys(languageMap).filter((l) => l !== 'none');
 }
 
-export function getAvailableLanguagesFromResource(item: Collection | Manifest | Canvas | Range) {
-  const foundLanguages = new Set();
+export function getAvailableLanguagesFromResource(item: LanguageResource) {
+  const foundLanguages = new Set<string>();
+  const visited = new WeakSet<object>();
 
-  const findLanguages = Traverse.all((resource: any) => {
-    // List of properties that can contain language.
-    // - language
-    // - summary
-    // - required statement (label, value)
-    // - metadata pairs (array of label, value)
+  const addLanguageMap = (value: InternationalString) => {
+    getLanguagesFromLanguageMap(value).forEach((language) => foundLanguages.add(language));
+  };
 
-    if ('label' in resource) {
-      const languages = getLanguagesFromLanguageMap(resource.label);
-      languages.forEach((l) => foundLanguages.add(l));
+  const visit = (value: unknown) => {
+    if (!value || typeof value !== 'object') return;
+    if (visited.has(value)) return;
+    visited.add(value);
+
+    if (Array.isArray(value)) {
+      value.forEach(visit);
+      return;
     }
 
-    if ('summary' in resource) {
-      const languages = getLanguagesFromLanguageMap(resource.summary);
-      languages.forEach((l) => foundLanguages.add(l));
+    const resource = value as Record<string, any>;
+    if (resource.label) addLanguageMap(resource.label);
+    if (resource.summary) addLanguageMap(resource.summary);
+
+    if (typeof resource.language === 'string') {
+      foundLanguages.add(resource.language);
+    } else if (Array.isArray(resource.language)) {
+      resource.language.forEach((language: unknown) => {
+        if (typeof language === 'string') foundLanguages.add(language);
+      });
     }
 
-    if ('language' in resource) {
-      if (typeof resource.language === 'string') {
-        foundLanguages.add(resource.language);
-      }
+    if (resource.requiredStatement && !Array.isArray(resource.requiredStatement)) {
+      if (resource.requiredStatement.label) addLanguageMap(resource.requiredStatement.label);
+      if (resource.requiredStatement.value) addLanguageMap(resource.requiredStatement.value);
     }
 
-    if ('requiredStatement' in resource) {
-      if (resource.requiredStatement && !Array.isArray(resource.requiredStatement)) {
-        if ('label' in resource.requiredStatement) {
-          const languages = getLanguagesFromLanguageMap(resource.requiredStatement.label);
-          languages.forEach((l) => foundLanguages.add(l));
-        }
-        if ('value' in resource.requiredStatement) {
-          const languages = getLanguagesFromLanguageMap(resource.requiredStatement.value);
-          languages.forEach((l) => foundLanguages.add(l));
-        }
-      }
+    if (Array.isArray(resource.metadata)) {
+      resource.metadata.forEach((entry: Record<string, any>) => {
+        if (entry.label) addLanguageMap(entry.label);
+        if (entry.value) addLanguageMap(entry.value);
+      });
     }
 
-    if ('metadata' in resource) {
-      if (Array.isArray(resource.metadata)) {
-        (resource.metadata as any[]).forEach((m) => {
-          if ('label' in m) {
-            const languages = getLanguagesFromLanguageMap(m.label);
-            languages.forEach((l) => foundLanguages.add(l));
-          }
-          if ('value' in m) {
-            const languages = getLanguagesFromLanguageMap(m.value);
-            languages.forEach((l) => foundLanguages.add(l));
-          }
-        });
-      }
-    }
-  });
+    Object.values(resource).forEach(visit);
+  };
 
-  findLanguages.traverseUnknown(item);
-
+  visit(item);
   return Array.from(foundLanguages);
 }
 
 export const iiifString = createStringHelper();
 
-export function createStringHelper(options: { language?: string; defaultText?: string; separator?: string; fallbackLanguages?: string[] } = {}) {
-  return (template: TemplateStringsArray, ...params: Array<null | string[] | undefined | string | InternationalString>) => {
+export function createStringHelper(
+  options: {
+    language?: string;
+    defaultText?: string;
+    separator?: string;
+    fallbackLanguages?: string[];
+  } = {}
+) {
+  return (
+    template: TemplateStringsArray,
+    ...params: Array<null | string[] | undefined | string | InternationalString>
+  ) => {
     let result = '';
 
     for (let i = 0; i < template.length; i++) {
@@ -223,8 +254,6 @@ export function createStringHelper(options: { language?: string; defaultText?: s
         const param = params[i];
 
         if (param === null || param === undefined) {
-          // Skip null or undefined params
-          continue;
         } else if (typeof param === 'string') {
           // Add string params directly
           result += param;
@@ -237,5 +266,5 @@ export function createStringHelper(options: { language?: string; defaultText?: s
     }
 
     return result;
-  }
+  };
 }

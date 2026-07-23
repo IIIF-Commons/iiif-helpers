@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 
-import type { ImageApiSelector, Selector } from '@iiif/presentation-3';
+import type { ImageApiSelector as ImageApiSelectorV3, Selector as SelectorV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV4, Selector as SelectorV4 } from '@iiif/parser/presentation-4/types';
 import { flattenCubicBezier, flattenQuadraticBezier } from './bezier';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from './css-selectors';
 import {
@@ -8,15 +9,18 @@ import {
   type NormalizedSvgPathCommandType,
   parseAndNormalizeSvgPath,
 } from './normalize-svg';
-import {
-  type ParsedSelector,
-  type SelectorStyle,
-  type SupportedSelectors,
-  type SvgSelector,
-  type SvgShapeType,
-  TemporalBoxSelector,
-  type TemporalSelector,
+import type {
+  ParsedSelector,
+  SelectorStyle,
+  SupportedSelectors,
+  SvgSelector,
+  SvgShapeType,
+  TemporalSelector,
 } from './selector-types';
+import { parseWkt } from './wkt';
+
+type Selector = SelectorV3 | SelectorV4;
+type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
 
 const BOX_SELECTOR =
   /&?(xywh=)?(pixel:|percent:|pct:)?([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?),([0-9]+(?:\.[0-9]+)?)/;
@@ -106,6 +110,8 @@ export function parseSelector(
     });
   }
 
+  const sourceAny = source as any;
+
   if (typeof source === 'string') {
     const [id, fragment] = splitCanvasFragment(source);
 
@@ -125,12 +131,15 @@ export function parseSelector(
     );
   }
 
-  if (source.type) {
-    if (source.type === 'PointSelector' && (source.t || source.t === 0)) {
+  if (sourceAny.type) {
+    if (
+      sourceAny.type === 'PointSelector' &&
+      (typeof sourceAny.instant === 'number' || typeof sourceAny.t === 'number')
+    ) {
       const selector: TemporalSelector = {
         type: 'TemporalSelector',
         temporal: {
-          startTime: source.t,
+          startTime: typeof sourceAny.instant === 'number' ? sourceAny.instant : sourceAny.t,
         },
       };
 
@@ -141,14 +150,76 @@ export function parseSelector(
       });
     }
 
-    if (source.type === 'PointSelector' && source.x && source.y) {
+    if (sourceAny.type === 'PointSelector' && typeof sourceAny.x === 'number' && typeof sourceAny.y === 'number') {
+      const spatial: any = {
+        x: sourceAny.x,
+        y: sourceAny.y,
+      };
+      if (typeof sourceAny.z === 'number') {
+        spatial.z = sourceAny.z;
+      }
+
       const selector: SupportedSelectors = {
         type: 'PointSelector',
-        spatial: {
-          x: source.x,
-          y: source.y,
-        },
+        spatial,
       };
+
+      return resolveHints({
+        selector,
+        selectors: [selector],
+        iiifRenderingHints,
+      });
+    }
+
+    if (
+      (sourceAny.type === 'WktSelector' || sourceAny.type === 'WKTSelector' || sourceAny.type === 'PolygonZSelector') &&
+      typeof sourceAny.value === 'string'
+    ) {
+      const geometry = parseWkt(sourceAny.value);
+      const selector: SupportedSelectors = {
+        type: sourceAny.type,
+        value: sourceAny.value,
+      } as any;
+
+      if (geometry?.type === 'Point') {
+        const [x, y, z] = geometry.coordinates;
+        selector.points3d = [[x, y, typeof z === 'number' ? z : 0]];
+        const spatial: any = { unit: 'pixel', x, y };
+        if (typeof z === 'number') {
+          spatial.z = z;
+        }
+        selector.spatial = spatial;
+      }
+
+      if (geometry?.type === 'Polygon') {
+        selector.points3d = geometry.coordinates.map(([x, y, z]) => [x, y, typeof z === 'number' ? z : 0]);
+        const xs = geometry.coordinates.map(([x]) => x);
+        const ys = geometry.coordinates.map(([, y]) => y);
+        const minX = Math.min(...xs);
+        const minY = Math.min(...ys);
+        const maxX = Math.max(...xs);
+        const maxY = Math.max(...ys);
+        selector.spatial = {
+          unit: 'pixel',
+          x: minX,
+          y: minY,
+          width: maxX - minX,
+          height: maxY - minY,
+        };
+      }
+
+      return resolveHints({
+        selector,
+        selectors: [selector],
+        iiifRenderingHints,
+      });
+    }
+
+    if (sourceAny.type === 'AnimationSelector' && typeof sourceAny.value === 'string') {
+      const selector: SupportedSelectors = {
+        type: 'AnimationSelector',
+        value: sourceAny.value,
+      } as any;
 
       return resolveHints({
         selector,

@@ -1,6 +1,6 @@
 import { createStore as create } from 'zustand/vanilla';
-import type { StoreApi } from 'zustand/vanilla';
 import { redux, devtools, subscribeWithSelector } from 'zustand/middleware';
+import type { SelectorStoreApi } from '../../store-api';
 import { mappingReducer } from './reducers/mapping-reducer';
 import { entitiesReducer } from './reducers/entities-reducer';
 import { requestReducer } from './reducers/request-reducer';
@@ -35,11 +35,13 @@ function getDefaultState(): IIIFStore {
     },
   };
 }
-export type VaultStoreState = StoreApi<IIIFStore & { dispatch: (action: AllActions | BatchAction) => void }> & {
-  dispatch: (action: AllActions | BatchAction) => void;
+type VaultAction = AllActions | BatchAction;
+
+export type VaultStoreState = SelectorStoreApi<IIIFStore & { dispatch: (action: VaultAction) => VaultAction }> & {
+  dispatch: (action: VaultAction) => VaultAction;
 };
 
-export function createStore(options: CreateStoreOptions = {}) {
+export function createStore(options: CreateStoreOptions = {}): VaultStoreState {
   const {
     enableDevtools = false,
     iiifStoreName = 'iiif',
@@ -64,4 +66,4 @@ export function createStore(options: CreateStoreOptions = {}) {
   );
 }
 
-export type VaultZustandStore = ReturnType<typeof createStore>;
+export type VaultZustandStore = VaultStoreState;

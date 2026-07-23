@@ -1,4 +1,7 @@
-import type { ImageApiSelector } from '@iiif/presentation-3';
+import type { ImageApiSelector as ImageApiSelectorV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageApiSelector as ImageApiSelectorV4 } from '@iiif/parser/presentation-4/types';
+
+type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
 
 export type SvgShapeType = 'rect' | 'circle' | 'ellipse' | 'line' | 'polyline' | 'polygon' | 'path';
 export interface SupportedSelector {
@@ -11,6 +14,7 @@ export interface SupportedSelector {
     unit?: 'percent' | 'pixel';
     x: number;
     y: number;
+    z?: number;
     width?: number;
     height?: number;
   };
@@ -19,6 +23,7 @@ export interface SupportedSelector {
   translate?: TransformPoint;
   transform?: SelectorTransform;
   points?: [number, number][];
+  points3d?: [number, number, number][];
   svg?: string;
   svgShape?: SvgShapeType;
   style?: SelectorStyle;
@@ -95,11 +100,27 @@ export interface PointSelector extends SupportedSelector {
   spatial: {
     x: number;
     y: number;
+    z?: number;
   };
   rotation?: number;
   rotationOrigin?: TransformPoint;
   translate?: TransformPoint;
   transform?: SelectorTransform;
+}
+
+export interface WktSelector extends SupportedSelector {
+  type: 'WktSelector' | 'WKTSelector';
+  value: string;
+}
+
+export interface PolygonZSelector extends SupportedSelector {
+  type: 'PolygonZSelector';
+  value: string;
+}
+
+export interface AnimationSelector extends SupportedSelector {
+  type: 'AnimationSelector';
+  value: string;
 }
 
 export interface SvgSelector extends SupportedSelector {
@@ -157,6 +178,9 @@ export type SupportedSelectors =
   | BoxSelector
   | TemporalBoxSelector
   | PointSelector
+  | WktSelector
+  | PolygonZSelector
+  | AnimationSelector
   | SvgSelector
   | RotationSelector;
 

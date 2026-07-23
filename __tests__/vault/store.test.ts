@@ -1,10 +1,10 @@
-import { createStore } from '../../src/vault/store';
-import { entityActions } from '../../src/vault/actions';
 import { emptyCanvas, emptyManifest, normalize } from '@iiif/parser';
-import { Collection, Manifest } from '@iiif/presentation-3';
-import { describe, test, expect } from 'vitest';
+import type { Collection, Manifest } from '@iiif/parser/presentation-3/types';
+import { describe, expect, test } from 'vitest';
+import { entityActions } from '../../src/vault/actions';
+import { createStore } from '../../src/vault/store';
 
-describe('Store', function () {
+describe('Store', () => {
   test('It should be creatable', () => {
     const store = createStore();
 

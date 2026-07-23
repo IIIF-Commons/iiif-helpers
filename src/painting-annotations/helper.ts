@@ -1,11 +1,31 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
-import { AnnotationNormalized, CanvasNormalized } from '@iiif/presentation-3-normalized';
-import { ComplexChoice, Paintables } from './types';
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV3,
+  CanvasNormalized as CanvasNormalizedV3,
+} from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  AnnotationNormalized as AnnotationNormalizedV4,
+  CanvasNormalized as CanvasNormalizedV4,
+} from '@iiif/parser/presentation-4-normalized/types';
+import { resolveAnnotationValues } from '../annotation-values';
+import { type CompatVault, compatVault } from '../compat';
 import { parseSpecificResource } from './parse-specific-resource';
-import { compatVault, CompatVault } from '../compat';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from '../annotation-targets/css-selectors';
+import type { ComplexChoice, Paintables } from './types';
 
-function getInlineStylesheets(stylesheet: AnnotationNormalized['stylesheet']): Record<string, string> | undefined {
+type CanvasNormalized = CanvasNormalizedV3 | CanvasNormalizedV4;
+type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
+
+function getInlineStylesheets(stylesheet: unknown): Record<string, string> | undefined {
   if (!stylesheet) {
     return undefined;
   }
@@ -37,10 +57,10 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     if (!canvas) {
       return [];
     }
-    const annotationPages = vault.get(canvas.items, { parent: canvas });
+    const annotationPages = vault.get(canvas.items as any, { parent: canvas }) as any[];
     const flatAnnotations: AnnotationNormalized[] = [];
     for (const page of annotationPages) {
-      flatAnnotations.push(...vault.get(page.items, { parent: page }));
+      flatAnnotations.push(...(vault.get(page.items as any, { parent: page }) as any[]));
     }
     return flatAnnotations;
   }
@@ -54,7 +74,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
       : getAllPaintingAnnotations(paintingAnnotationsOrCanvas);
 
     const types: string[] = [];
-    let choices: ComplexChoice = {
+    const choices: ComplexChoice = {
       items: [],
       type: 'complex-choice',
     };
@@ -67,58 +87,85 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
       const references = Array.from(Array.isArray(annotation.body) ? annotation.body : [annotation.body]);
       for (const reference of references) {
-        const [ref, { selector, styleClass }] = parseSpecificResource(reference as any);
-        const body = vault.get(ref);
-        const type = (body.type || 'unknown').toLowerCase();
+        const [ref, { selector: outerSelector, styleClass: outerStyleClass }] = parseSpecificResource(
+          reference as any
+        );
+        const aggregate = vault.get(ref);
+        const resolved = resolveAnnotationValues(aggregate);
+        const bodies = resolved.map((entry) => ({
+          ...entry,
+          body: vault.get(entry.value as any, { skipSelfReturn: false }) as ContentResource,
+        }));
+        const enabled = new Set(enabledChoices);
+        const choiceGroups = new Map<string, { pathIndex: number; bodies: typeof bodies }>();
+        for (const candidate of bodies) {
+          candidate.aggregatePath.forEach((step, pathIndex) => {
+            if (step.type !== 'Choice') return;
+            const key = JSON.stringify(candidate.aggregatePath.slice(0, pathIndex));
+            const group = choiceGroups.get(key) || { pathIndex, bodies: [] };
+            group.bodies.push(candidate);
+            choiceGroups.set(key, group);
+          });
+        }
+        const selectedChoiceIndexes = new Map<string, Set<number>>();
 
-        // Choice
-        if (type === 'choice') {
-          const nestedBodies = vault.get((body as any).items, { parent: (body as any).id }) as ContentResource[];
-          // Which are active? By default, the first, but we could push multiple here.
-          const selected = enabledChoices.length
-            ? enabledChoices.map((cid) => nestedBodies.find((b) => b.id === cid)).filter(Boolean)
-            : [nestedBodies[0]];
-
-          if (selected.length === 0) {
-            selected.push(nestedBodies[0]);
+        for (const [key, group] of choiceGroups) {
+          const selected = new Set(
+            group.bodies
+              .filter(({ body }) => !!body.id && enabled.has(body.id))
+              .map(({ aggregatePath }) => aggregatePath[group.pathIndex].index)
+          );
+          if (!selected.size) {
+            selected.add(group.bodies[0].aggregatePath[group.pathIndex].index);
           }
-
-          // Store choice.
+          selectedChoiceIndexes.set(key, selected);
           choices.items.push({
             type: 'single-choice',
-            items: nestedBodies.map((b) => ({
-              id: b.id,
-              label: (b as any).label as any,
-              selected: selected.indexOf(b) !== -1,
+            items: group.bodies.map(({ body, aggregatePath }) => ({
+              id: body.id,
+              label: (body as any).label as any,
+              selected: selected.has(aggregatePath[group.pathIndex].index),
             })) as any[],
-            label: (ref as any).label,
+            label: group.pathIndex === 0 ? (aggregate as any).label || (ref as any).label : undefined,
           });
-
-          // @todo insert in the right order.
-          references.push(...(selected as any[]));
-
-          continue;
         }
 
-        if (types.indexOf(type) === -1) {
-          types.push(type);
+        for (const { body, aggregatePath, specificResources } of bodies) {
+          const isSelected = aggregatePath.every((step, pathIndex) => {
+            if (step.type !== 'Choice') return true;
+            const key = JSON.stringify(aggregatePath.slice(0, pathIndex));
+            return selectedChoiceIndexes.get(key)?.has(step.index);
+          });
+          if (!isSelected) {
+            continue;
+          }
+
+          const type = (body.type || 'unknown').toLowerCase();
+          if (types.indexOf(type) === -1) {
+            types.push(type);
+          }
+
+          const specificResource = specificResources.find(
+            (candidate: any) => candidate.selector || candidate.styleClass
+          ) as any;
+          const selector = outerSelector || specificResource?.selector || null;
+          const styleClass = outerStyleClass || specificResource?.styleClass;
+          const loadedStylesheets = styleClass ? getInlineStylesheets((annotation as any).stylesheet) : undefined;
+          const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
+          const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
+
+          items.push({
+            type,
+            annotationId: annotation.id,
+            annotation: annotation as any,
+            resource: body as IIIFExternalWebResource,
+            target: annotation.target,
+            selector,
+            ...(styleClass ? { styleClass } : {}),
+            ...(style && Object.keys(style).length ? { style } : {}),
+            ...transformAttributes,
+          });
         }
-
-        const loadedStylesheets = styleClass ? getInlineStylesheets(annotation.stylesheet) : undefined;
-        const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
-        const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
-
-        items.push({
-          type: type,
-          annotationId: annotation.id,
-          annotation: annotation as any,
-          resource: body as IIIFExternalWebResource,
-          target: annotation.target,
-          selector,
-          ...(styleClass ? { styleClass } : {}),
-          ...(style && Object.keys(style).length ? { style } : {}),
-          ...transformAttributes,
-        });
       }
     }
 

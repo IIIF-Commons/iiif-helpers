@@ -1,25 +1,40 @@
 import {
-  isLevel0,
-  getId,
   canonicalServiceUrl,
   extractFixedSizeScales,
   fixedSizesFromScales,
+  getId,
   getImageServices,
+  isLevel0,
 } from '@iiif/parser/image-3';
-import {
-  ContentResource,
-  IIIFExternalWebResource,
-  ImageProfile,
-  ImageSize,
-  ImageTile,
-  ImageService,
-} from '@iiif/presentation-3';
-import { getImageServerFromId } from './get-image-server-from-id';
-import { sampledTilesToTiles } from './sampled-tiles-to-tiles';
-import { ImageCandidate, ImageCandidateRequest } from './types';
-import { pickBestFromCandidates } from './pick-best-from-candidates';
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+  ImageProfile as ImageProfileV3,
+  ImageService as ImageServiceV3,
+  ImageSize as ImageSizeV3,
+  ImageTile as ImageTileV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+  ImageProfile as ImageProfileV4,
+  ImageService as ImageServiceV4,
+  ImageSize as ImageSizeV4,
+  ImageTile as ImageTileV4,
+} from '@iiif/parser/presentation-4/types';
 import { getImageCandidates } from './get-image-candidates';
+import { getImageServerFromId } from './get-image-server-from-id';
 import { imageSizesMatch } from './image-sizes-match';
+import { pickBestFromCandidates } from './pick-best-from-candidates';
+import { sampledTilesToTiles } from './sampled-tiles-to-tiles';
+import type { ImageCandidate, ImageCandidateRequest } from './types';
+
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
+type ImageProfile = ImageProfileV3 | ImageProfileV4;
+type ImageSize = ImageSizeV3 | ImageSizeV4;
+type ImageTile = ImageTileV3 | ImageTileV4;
+type ImageService = ImageServiceV3 | ImageServiceV4;
 
 export type ImageServer = {
   root: string;
@@ -225,12 +240,12 @@ export class ImageServiceLoader {
   async getImageCandidates(unknownResource: ContentResource, dereference = true): Promise<ImageCandidate[]> {
     const resource = unknownResource as IIIFExternalWebResource;
     if (dereference && resource && resource.height && resource.width) {
-      const imageServices = getImageServices(resource);
+      const imageServices = getImageServices(resource as any);
       for (const service of imageServices) {
         const request: ImageServiceRequest = {
           id: getId(service),
-          width: service.width ? service.width : resource.width,
-          height: service.height ? service.height : resource.height,
+          width: Number(service.width ? service.width : resource.width),
+          height: Number(service.height ? service.height : resource.height),
           source: service,
         };
         await this.loadService(request);

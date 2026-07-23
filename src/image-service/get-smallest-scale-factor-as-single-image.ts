@@ -1,7 +1,10 @@
-import { ImageService } from '@iiif/presentation-3';
-import { isImage3 } from './is-image-3';
-import { FixedSizeImageService } from './types';
 import { getId, getImageServiceLevel } from '@iiif/parser/image-3';
+import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
+import { isImage3 } from './is-image-3';
+import type { FixedSizeImageService } from './types';
+
+type ImageService = ImageServiceV3 | ImageServiceV4;
 
 /**
  * Returns a fixed size image using the tile using the largest available size,

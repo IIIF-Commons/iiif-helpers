@@ -1,17 +1,21 @@
-import {
+import type {
   SearchService as _SearchService,
-  SearchServiceAutocomplete,
   IdOrAtId,
+  Manifest as ManifestV3,
+  SearchServiceAutocomplete,
   SearchServiceAutocompleteQueryParams,
   SearchServiceAutocompleteResponse,
-  SearchServiceSearchResponse,
-  SearchServiceQueryParams,
-  Manifest,
   SearchServiceCommonHitSelectors,
-} from '@iiif/presentation-3';
-import { ManifestNormalized } from '@iiif/presentation-3-normalized';
-import { g } from 'vitest/dist/suite-a18diDsI.js';
+  SearchServiceQueryParams,
+  SearchServiceSearchResponse,
+} from '@iiif/parser/presentation-3/types';
+import type { ManifestNormalized as ManifestNormalizedV3 } from '@iiif/parser/presentation-3-normalized/types';
+import type { Manifest as ManifestV4 } from '@iiif/parser/presentation-4/types';
+import type { ManifestNormalized as ManifestNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
 import { createStore } from 'zustand/vanilla';
+import type { StoreApi } from './store-api';
+
+type SearchManifest = ManifestNormalizedV3 | ManifestNormalizedV4 | ManifestV3 | ManifestV4;
 
 export type Search1Service = _SearchService & {
   service?: SearchServiceAutocomplete | SearchServiceAutocomplete[] | undefined;
@@ -32,11 +36,16 @@ export interface Search1AutocompleteStore {
   clearSearch: () => void;
   search: (
     query: string,
-    options?: { motivation?: string; date?: string; user?: string; headers?: HeadersInit }
+    options?: {
+      motivation?: string;
+      date?: string;
+      user?: string;
+      headers?: HeadersInit;
+    }
   ) => void | Promise<void>;
 }
 
-export function findSearch1Service(manifest: ManifestNormalized | Manifest): Search1Service | null {
+export function findSearch1Service(manifest: SearchManifest): Search1Service | null {
   if (!manifest || !manifest.service) {
     return null;
   }
@@ -63,7 +72,7 @@ export function findAutocompleteService(service: Search1Service): SearchServiceA
 export const createSearch1AutocompleteStore = (
   service?: Search1Service | undefined,
   options?: { fetcher?: Fetcher<SearchServiceAutocompleteResponse> }
-) => {
+): StoreApi<Search1AutocompleteStore> => {
   const fetcher: Fetcher<SearchServiceAutocompleteResponse> = options?.fetcher || defaultFetcher;
   const autocomplete = service ? findAutocompleteService(service) : undefined;
   const autocompleteEndpoint = autocomplete ? getId(autocomplete) : undefined;
@@ -101,7 +110,12 @@ export const createSearch1AutocompleteStore = (
 
     async search(
       query: string,
-      options: { motivation?: string; date?: string; user?: string; headers?: HeadersInit } = {}
+      options: {
+        motivation?: string;
+        date?: string;
+        user?: string;
+        headers?: HeadersInit;
+      } = {}
     ) {
       const endpoint = get().endpoint;
       if (get().hasAutocomplete === false) {
@@ -232,7 +246,7 @@ export const createSearch1Store = (
   options?: {
     fetcher?: Fetcher<SearchServiceSearchResponse>;
   }
-) => {
+): StoreApi<Search1Store> => {
   const fetcher = options?.fetcher || defaultFetcher;
 
   let searchService: Search1Service | undefined;

@@ -1,21 +1,30 @@
 export function quickMerge(a: any, b: any) {
+  const left = a || {};
+  const right = b || {};
+  const isPartialReference = right['iiif-parser:isExternal'] === true;
   const newResource: any = {};
-  const added: string[] = [];
-  for (const [key, value] of Object.entries(a || {})) {
-    added.push(key);
-    const bValue = (b || {})[key];
-    if (!bValue || bValue.length === 0) {
-      newResource[key] = value;
+  const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
+
+  for (const key of keys) {
+    if (!Object.hasOwn(right, key) || typeof right[key] === 'undefined') {
+      newResource[key] = left[key];
       continue;
     }
-    newResource[key] = bValue;
-  }
-  for (const [key, value] of Object.entries(b || {})) {
-    if (added.indexOf(key) !== -1) {
+
+    // A normalized external reference contains empty defaults that must not
+    // erase a previously loaded resource. A complete resource is
+    // authoritative, including explicit null and empty-list values.
+    if (isPartialReference && (right[key] === null || (Array.isArray(right[key]) && right[key].length === 0))) {
+      newResource[key] = left[key];
       continue;
     }
-    // merge.
-    newResource[key] = value;
+
+    if (typeof right[key] !== 'undefined') {
+      newResource[key] = right[key];
+      continue;
+    }
+
+    newResource[key] = left[key];
   }
 
   return newResource;

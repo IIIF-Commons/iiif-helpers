@@ -1,8 +1,12 @@
-import { ImageServiceLoader } from './image-service-loader';
-import { createStore } from 'zustand/vanilla';
-import mitt, { Emitter, Handler } from 'mitt';
-import { ImageService } from '@iiif/presentation-3';
 import { getId } from '@iiif/parser/image-3';
+import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
+import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
+import mitt, { type Emitter, type Handler } from 'mitt';
+import { createStore } from 'zustand/vanilla';
+import type { StoreApi } from '../store-api';
+import { ImageServiceLoader } from './image-service-loader';
+
+type ImageService = ImageServiceV3 | ImageServiceV4;
 
 export type LoadImageServiceDetail = {
   width: number;
@@ -49,7 +53,12 @@ export type ImageServiceStoreEvents = {
   };
 };
 
-export function createImageServiceStore(options: ImageServiceStoreOptions = {}) {
+export type ImageServiceStoreApi = {
+  store: StoreApi<ImageServiceStore>;
+  events: Emitter<ImageServiceStoreEvents>;
+};
+
+export function createImageServiceStore(options: ImageServiceStoreOptions = {}): ImageServiceStoreApi {
   const events = options.events || mitt<ImageServiceStoreEvents>();
   const loader = options.loader || new ImageServiceLoader();
 

@@ -3,9 +3,12 @@
   "bugs": "https://github.com/iiif-commons/iiif-helpers/issues",
   "repository": {
     "type": "git",
-    "url": "https://github.com/iiif-commons/iiif-helpers"
+    "url": "git+https://github.com/iiif-commons/iiif-helpers.git"
   },
   "version": "1.6.1",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "MIT",
   "type": "module",
   "main": "dist/index.cjs",
@@ -178,6 +181,26 @@
         "default": "./dist/vault.js"
       }
     },
+    "./vault-4": {
+      "require": {
+        "types": "./dist/vault-4.d.ts",
+        "default": "./dist/vault-4.cjs"
+      },
+      "import": {
+        "types": "./dist/vault-4.d.ts",
+        "default": "./dist/vault-4.js"
+      }
+    },
+    "./vault-auto": {
+      "require": {
+        "types": "./dist/vault-auto.d.ts",
+        "default": "./dist/vault-auto.cjs"
+      },
+      "import": {
+        "types": "./dist/vault-auto.d.ts",
+        "default": "./dist/vault-auto.js"
+      }
+    },
     "./vault-node": {
       "require": {
         "types": "./dist/vault-node.d.ts",
@@ -237,6 +260,26 @@
         "types": "./dist/transcriptions.d.ts",
         "default": "./dist/transcriptions.js"
       }
+    },
+    "./scenes": {
+      "require": {
+        "types": "./dist/scenes.d.ts",
+        "default": "./dist/scenes.cjs"
+      },
+      "import": {
+        "types": "./dist/scenes.d.ts",
+        "default": "./dist/scenes.js"
+      }
+    },
+    "./activations": {
+      "require": {
+        "types": "./dist/activations.d.ts",
+        "default": "./dist/activations.cjs"
+      },
+      "import": {
+        "types": "./dist/activations.d.ts",
+        "default": "./dist/activations.js"
+      }
     }
   },
   "scripts": {
@@ -246,17 +289,13 @@
     "typecheck": "tsc --noEmit",
     "start": "vite demos",
     "test": "vitest",
+    "test:presentation-4:packed": "node scripts/test-packed-parser.mjs",
     "lint": "publint"
-  },
-  "resolutions": {
-    "@iiif/presentation-3": "2.2.3",
-    "@iiif/presentation-3-normalized": "0.9.7"
   },
   "dependencies": {
     "@types/geojson": "7946.0.13",
-    "@iiif/presentation-2": "1.0.4",
-    "@iiif/presentation-3": "2.2.3",
-    "@iiif/presentation-3-normalized": "0.9.7"
+    "mitt": "^3.0.1",
+    "typesafe-actions": "^5.1.0"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",
@@ -264,30 +303,24 @@
     "svg-arc-to-cubic-bezier": "^3.2.0"
   },
   "peerDependencies": {
-    "@iiif/parser": "^2.2.8"
-  },
-  "overrides": {
-    "@iiif/parser": {
-      "@iiif/presentation-3": "2.2.3"
-    }
+    "@iiif/parser": "^2.3.0"
   },
   "devDependencies": {
-    "@types/jsdom": "^21.1.3",
-    "@types/svg-arc-to-cubic-bezier": "^3.2.0",
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe",
+    "@types/jsdom": "^21.1.4",
+    "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",
-    "happy-dom": "^12.6.0",
+    "happy-dom": "^12.10.0",
     "jsdom": "^22.1.0",
-    "mitt": "^3.0.1",
     "prettier": "^3.2.5",
+    "publint": "^0.3.17",
     "tiny-invariant": "^1.3.3",
+    "tsdown": "0.16.5",
     "tslib": "^2.6.2",
-    "typesafe-actions": "^5.1.0",
     "typescript": "^5.4.5",
     "vite": "^5.2.8",
     "vitest": "^1.4.0",
-    "zustand": "^4.5.2",
-    "tsdown": "0.16.5",
-    "publint": "^0.2.7"
+    "zustand": "^4.5.2"
   },
   "publishConfig": {
     "access": "public"

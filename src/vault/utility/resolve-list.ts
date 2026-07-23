@@ -1,4 +1,4 @@
-import { Reference } from '@iiif/presentation-3';
+import { Reference } from '@iiif/parser/presentation-3/types';
 import { IIIFStore, NormalizedEntity } from '../types';
 
 export function resolveList<T extends NormalizedEntity>(

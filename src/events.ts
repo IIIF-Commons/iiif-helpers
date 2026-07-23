@@ -1,10 +1,13 @@
-import type { Reference } from '@iiif/presentation-3';
-import { compatVault, CompatVault } from './compat';
+import type { Reference as ReferenceV3 } from '@iiif/parser/presentation-3/types';
+import type { Reference as ReferenceV4 } from '@iiif/parser/presentation-4/types';
+import { type CompatVault, compatVault } from './compat';
+
+type AnyReference = ReferenceV3<any> | ReferenceV4<any>;
 
 export function createEventsHelper(vault: CompatVault = compatVault) {
   return {
     addEventListener<T>(
-      resource: Reference<any>,
+      resource: AnyReference,
       event: string,
       listener: (e: any, resource: T) => void,
       scope?: string[]
@@ -30,7 +33,7 @@ export function createEventsHelper(vault: CompatVault = compatVault) {
       return listener;
     },
 
-    removeEventListener<T>(resource: Reference<any>, event: string, listener: (e: any, resource: T) => void) {
+    removeEventListener<T>(resource: AnyReference, event: string, listener: (e: any, resource: T) => void) {
       if (!resource) {
         return;
       }
@@ -42,7 +45,7 @@ export function createEventsHelper(vault: CompatVault = compatVault) {
       );
     },
 
-    getListenersAsProps(resourceOrId: string | Reference<any>, scope?: string[]) {
+    getListenersAsProps(resourceOrId: string | AnyReference, scope?: string[]) {
       const resource = typeof resourceOrId === 'string' ? { id: resourceOrId } : resourceOrId;
       if (!resource || !resource.id) {
         return {};

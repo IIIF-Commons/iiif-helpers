@@ -1,6 +1,7 @@
-import type { Manifest } from '@iiif/presentation-3';
-import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type { Manifest } from '@iiif/parser/presentation-3/types';
+import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
 import { createStore } from 'zustand/vanilla';
+import type { StoreApi } from './store-api';
 
 export type Search2Service = {
   id: string;
@@ -209,7 +210,7 @@ function createFallbackHits(resources: Search2Annotation[]): Search2Hit[] {
 export const createSearch2AutocompleteStore = (
   service?: Search2Service | undefined,
   options?: { fetcher?: Fetcher<Search2TermPage> }
-) => {
+): StoreApi<Search2AutocompleteStore> => {
   const fetcher = options?.fetcher || defaultFetcher;
   const autocomplete = service ? findSearch2AutocompleteService(service) : undefined;
   const autocompleteEndpoint = autocomplete ? getId(autocomplete) : undefined;
@@ -320,7 +321,7 @@ export const createSearch2Store = (
   options?: {
     fetcher?: Fetcher<Search2AnnotationPage>;
   }
-) => {
+): StoreApi<Search2Store> => {
   const fetcher = options?.fetcher || defaultFetcher;
 
   const searchService =

@@ -6,11 +6,13 @@ import type {
   Collection,
   ContentResource,
   Manifest,
+  Range,
   ResourceProvider,
   Selector,
   Service,
-} from '@iiif/presentation-3';
+} from '@iiif/parser/presentation-3/types';
 import type {
+  AnnotationCollectionNormalized,
   AnnotationNormalized,
   AnnotationPageNormalized,
   CanvasNormalized,
@@ -19,7 +21,24 @@ import type {
   RangeNormalized,
   ResourceProviderNormalized,
   ServiceNormalized,
-} from '@iiif/presentation-3-normalized';
+} from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  Agent as AgentV4,
+  Collection as CollectionV4,
+  CollectionPage,
+  Scene,
+  Timeline,
+} from '@iiif/parser/presentation-4/types';
+import type {
+  AgentNormalized as AgentNormalizedV4,
+  AnnotationCollectionNormalized as AnnotationCollectionNormalizedV4,
+  CollectionNormalized as CollectionNormalizedV4,
+  CollectionPageNormalized,
+  ContentResourceNormalized as ContentResourceNormalizedV4,
+  SceneNormalized,
+  SpecificResourceNormalized,
+  TimelineNormalized,
+} from '@iiif/parser/presentation-4-normalized/types';
 import type { PayloadAction } from 'typesafe-actions';
 import type { EntityActions } from './actions/entity-actions';
 import type { MappingActions } from './actions/mapping-actions';
@@ -31,6 +50,12 @@ declare global {
   // eslint-disable-next-line @typescript-eslint/no-empty-interface
   interface A {}
 }
+
+export type GenericNormalizedEntity = {
+  id: string;
+  type: string;
+  [key: string]: unknown;
+};
 
 export type MetaState = Record<string, Record<string, Record<string, any>>>;
 
@@ -47,7 +72,7 @@ export type RequestState = {
 export type PaginationState = {
   pages: Array<{
     id: string;
-    type: 'Collection';
+    type: 'Collection' | 'CollectionPage' | 'AnnotationPage';
     order: number;
     startIndex: number;
     pageLength: number;
@@ -65,18 +90,48 @@ export type PaginationState = {
   error?: any;
 };
 
+export type VaultLoadDiagnostic = {
+  code: string;
+  severity: 'error' | 'warning' | 'info';
+  message: string;
+  path: string;
+  resourceType?: string;
+  resourceId?: string;
+  specRef?: string;
+};
+
+export type VaultLoadReport = {
+  sourceVersion: 2 | 3 | 4 | 'unknown';
+  diagnostics: VaultLoadDiagnostic[];
+};
+
+export type PaginationPageNormalized =
+  | CollectionNormalized
+  | CollectionPageNormalized
+  | AnnotationPageNormalized;
+
 export type NormalizedEntity =
   | CollectionNormalized
+  | CollectionNormalizedV4
+  | CollectionPageNormalized
   | ManifestNormalized
   | CanvasNormalized
   | AnnotationPageNormalized
+  | AnnotationCollectionNormalized
+  | AnnotationCollectionNormalizedV4
   | AnnotationCollection
   | AnnotationNormalized
+  | ContentResourceNormalizedV4
+  | SpecificResourceNormalized
   | ContentResource
   | RangeNormalized
   | ServiceNormalized
+  | AgentNormalizedV4
   | ResourceProviderNormalized
-  | Selector;
+  | Selector
+  | TimelineNormalized
+  | SceneNormalized
+  | GenericNormalizedEntity;
 
 export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? ManifestNormalized
@@ -85,20 +140,30 @@ export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends
     : Ref['type'] extends 'AnnotationPage'
       ? AnnotationPageNormalized
       : Ref['type'] extends 'AnnotationCollection'
-        ? AnnotationCollection
+        ? AnnotationCollectionNormalized | AnnotationCollectionNormalizedV4 | AnnotationCollection
         : Ref['type'] extends 'Annotation'
           ? AnnotationNormalized
           : Ref['type'] extends 'Range'
             ? RangeNormalized
             : Ref['type'] extends 'Service'
               ? ServiceNormalized
-              : Ref['type'] extends 'ContentResource'
-                ? ContentResource
-                : Ref['type'] extends 'ResourceProvider'
-                  ? ResourceProviderNormalized
-                  : Ref['type'] extends 'Collection'
-                    ? CollectionNormalized
-                    : any;
+              : Ref['type'] extends 'SpecificResource'
+                ? SpecificResourceNormalized
+                : Ref['type'] extends 'ContentResource'
+                  ? ContentResource | ContentResourceNormalizedV4 | SpecificResourceNormalized
+                  : Ref['type'] extends 'ResourceProvider'
+                    ? ResourceProviderNormalized
+                    : Ref['type'] extends 'Agent'
+                      ? ResourceProviderNormalized | AgentNormalizedV4
+                      : Ref['type'] extends 'Collection'
+                        ? CollectionNormalized | CollectionNormalizedV4
+                        : Ref['type'] extends 'CollectionPage'
+                          ? CollectionPageNormalized
+                          : Ref['type'] extends 'Timeline'
+                            ? TimelineNormalized
+                            : Ref['type'] extends 'Scene'
+                              ? SceneNormalized
+                              : any;
 
 export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
   ? Manifest
@@ -118,13 +183,24 @@ export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Mani
                 ? ContentResource
                 : Ref['type'] extends 'ResourceProvider'
                   ? ResourceProvider
-                  : Ref['type'] extends 'Collection'
-                    ? Collection
-                    : any;
+                  : Ref['type'] extends 'Agent'
+                    ? ResourceProvider | AgentV4
+                    : Ref['type'] extends 'Collection'
+                      ? Collection | CollectionV4
+                      : Ref['type'] extends 'CollectionPage'
+                        ? CollectionPage
+                        : Ref['type'] extends 'Timeline'
+                          ? Timeline
+                          : Ref['type'] extends 'Scene'
+                            ? Scene
+                            : any;
 
 export type Entities = {
   Collection: {
-    [id: string]: CollectionNormalized;
+    [id: string]: CollectionNormalized | CollectionNormalizedV4;
+  };
+  CollectionPage: {
+    [id: string]: CollectionPageNormalized;
   };
   Manifest: {
     [id: string]: ManifestNormalized;
@@ -136,13 +212,13 @@ export type Entities = {
     [id: string]: AnnotationPageNormalized;
   };
   AnnotationCollection: {
-    [id: string]: AnnotationCollection;
+    [id: string]: AnnotationCollectionNormalized | AnnotationCollectionNormalizedV4 | AnnotationCollection;
   };
   Annotation: {
     [id: string]: AnnotationNormalized;
   };
   ContentResource: {
-    [id: string]: ContentResource;
+    [id: string]: ContentResource | ContentResourceNormalizedV4 | SpecificResourceNormalized;
   };
   Range: {
     [id: string]: RangeNormalized;
@@ -154,7 +230,13 @@ export type Entities = {
     [id: string]: Selector;
   };
   Agent: {
-    [id: string]: ResourceProviderNormalized;
+    [id: string]: ResourceProviderNormalized | AgentNormalizedV4;
+  };
+  Timeline: {
+    [id: string]: TimelineNormalized;
+  };
+  Scene: {
+    [id: string]: SceneNormalized;
   };
 };
 

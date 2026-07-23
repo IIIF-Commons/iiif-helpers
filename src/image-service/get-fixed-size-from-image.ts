@@ -1,7 +1,17 @@
-import { ContentResource, IIIFExternalWebResource } from '@iiif/presentation-3';
-import { ImageCandidate } from './types';
-import { inferImageSizeFromUrl } from './infer-size-from-url';
 import { getId, getType } from '@iiif/parser/image-3';
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+} from '@iiif/parser/presentation-3/types';
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+} from '@iiif/parser/presentation-4/types';
+import { inferImageSizeFromUrl } from './infer-size-from-url';
+import type { ImageCandidate } from './types';
+
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
 
 /**
  * Get fixed size from image
@@ -36,8 +46,8 @@ export function getFixedSizeFromImage(contentResource: ContentResource | string)
     return {
       id: id,
       type: 'fixed',
-      width: image.width,
-      height: image.height,
+      width: Number(image.width),
+      height: Number(image.height),
       unsafe: true,
     };
   }
