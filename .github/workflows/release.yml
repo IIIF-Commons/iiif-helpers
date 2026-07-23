@@ -36,6 +36,8 @@ jobs:
 
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
+      - run: pnpm run typecheck
+      - run: pnpm run lint
       - run: pnpm run test
 
   release:
