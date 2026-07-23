@@ -602,6 +602,15 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     }
 
     const typedPage: any = page;
+    this.dispatch(
+      entityActions.importEntities({
+        entities: {
+          [paginatedResourceBeforeLoad.type]: {
+            [id]: paginatedResourceBeforeLoad,
+          },
+        },
+      })
+    );
     const expectedPageType =
       paginatedResourceBeforeLoad.type === 'AnnotationCollection'
         ? 'AnnotationPage'
@@ -624,20 +633,13 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     const existingItems = this.getPaginatedItems(resource);
     const pageItems = typedPage.items || [];
     const combinedItems = uniqueReferences([...existingItems, ...pageItems]);
-    const restoredResource =
-      typedPage.type === 'Collection'
-        ? { ...paginatedResourceBeforeLoad, items: combinedItems }
-        : paginatedResourceBeforeLoad;
-
-    this.dispatch(
-      entityActions.importEntities({
-        entities: {
-          [paginatedResourceBeforeLoad.type]: {
-            [id]: restoredResource,
-          },
-        },
-      })
-    );
+    if (typedPage.type === 'Collection') {
+      this.modifyEntityField(
+        { id, type: paginatedResourceBeforeLoad.type },
+        'items',
+        combinedItems
+      );
+    }
     const latestState = this.getPaginationState(resource);
     if (!latestState) throw new Error('Pagination state not found');
     const next = referenceId(typedPage.next);
