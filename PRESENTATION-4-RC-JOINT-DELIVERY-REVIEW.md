@@ -3,7 +3,35 @@
 Date: 2026-07-22  
 Helpers branch reviewed: `feature/presentation-4` at `ef3f6ce`  
 Parser branch reviewed: `feature/presentation-4.0` at `f422ee4`  
-Status: review and joint implementation plan; no implementation fixes are included
+Status: joint implementation complete; coordinated publication is the remaining external action
+
+## Completion pass — 2026-07-23
+
+All six joint delivery phases are implemented and release-ready:
+
+- `Vault` and `Vault4` are lifetime-stable profiles over one typed runtime.
+  Parser conversion happens once at ingestion, source versions and diagnostics
+  remain queryable, complete/partial merge policy is explicit, and canonical
+  state carries only profile-appropriate Container property names.
+- CollectionPage and AnnotationCollection page chains are explicit operations
+  with independent page entities, ordered deduplication, totals/start indexes,
+  safe broken/cyclic termination, and retained loaded prefixes.
+- Shared aggregate resolution, Range/Container APIs, selector fidelity, i18n,
+  thumbnails, content state, sequences, and transcriptions have Presentation 4
+  parity coverage. Equivalent Presentation 2, 3, and 4 resources now have a
+  direct shared-helper contract test on both Vault profiles.
+- The copied unchecked v4 suite was removed. Presentation 4 tests live under
+  `__tests__/presentation-4`, and none uses `@ts-nocheck`.
+- Scene and Activation ship as narrow explicit subpaths over pinned official 3D
+  fixtures. Unsupported resources remain raw and are not presented as rendered
+  or executable 3D behavior.
+- Parser `2.3.0` and Helpers `1.6.0` require Node 22 or newer. The fresh offline
+  tarball gate checks all 41 public subpaths in ESM, CommonJS, NodeNext, and
+  Bundler consumers with library checking enabled.
+
+Registry publication was not performed by this implementation pass. Phase 6 is
+prepared as the ordered handoff below and should use the exact green commits
+from both repositories.
 
 This is the Helpers/Vault companion to `parser/PRESENTATION-4-RC-IMPLEMENTATION-REVIEW.md`. The two documents describe one release project. Where they overlap, the parser review owns wire-format and normalization detail; this review owns Vault lifecycle, helper semantics, packaging, and the cross-repository release gate.
 
@@ -686,7 +714,7 @@ Exit: every advertised 3D helper result has parse, Vault, helper, mutation where
 
 Record the exact parser version range, exact pair tested, supported Node range, specification/fixture SHA, supported feature table, and known 3D exclusions.
 
-## Current verification snapshot
+## Initial review verification snapshot
 
 The following was measured during this review using Helpers HEAD and the sibling parser HEAD linked locally because the committed preview dependency is unavailable:
 
@@ -703,33 +731,52 @@ The following was measured during this review using Helpers HEAD and the sibling
 
 The runtime pass count is useful evidence that much existing behavior remains intact. It is not a conformance result: invalid fixtures, disabled TypeScript checking, copied snapshots, unchecked generic returns, and a locally linked unpublished parser can all hide release failures.
 
+## Final verification snapshot
+
+The completion pass was verified on Node 24 with the sibling parser linked
+through pnpm:
+
+| Command | Result |
+| --- | --- |
+| `pnpm exec vitest run` | Pass: 34 files, 251 tests |
+| `pnpm run typecheck` | Pass |
+| `pnpm run build` | Pass |
+| `pnpm run lint` | Pass |
+| Presentation 4 `@ts-nocheck` audit | Pass: none |
+| `pnpm run test:presentation-4:packed` | Pass: parser 2.3.0 + Helpers 1.6.0, 41 public subpaths |
+| Parser full suite | Pass: 37 files, 417 tests |
+| Parser authored/normalized fixture type gates | Pass: 33/33 and 131/131 |
+
 ## Definition of done
 
-- [ ] `Vault` and `Vault4` are the only initial stable Vault contracts.
-- [ ] A Vault's normalized version is fixed for its lifetime.
-- [ ] Parser conversion occurs once at ingestion, never independently in helpers.
-- [ ] Default Vault accepts v2/v3/supported-v4 and remains genuinely v3-shaped.
-- [ ] Vault4 accepts v2/v3/v4 and remains genuinely v4-shaped.
-- [ ] One runtime Vault engine implements loading, requests, events, metadata, mutation, hydration, and paging.
-- [ ] V3 and v4 store/entity types are separate and parser-owned at the schema boundary.
-- [ ] Every mapping/reference resolves; no sentinel/internal identity reaches output.
-- [ ] Diagnostics and source-version information survive Vault loading.
-- [ ] Complete resources can explicitly clear nullable/list fields; partial references cannot erase rich entities.
-- [ ] Canonical state contains one version-appropriate Container property name.
-- [ ] Collection Page and Annotation Collection paging are first-class.
-- [ ] Aggregate and Specific Resource semantics are resolved once and reused by all helpers.
-- [ ] Existing Canvas/sequence helpers never label Timeline/Scene as Canvas.
-- [ ] Shared helper results are semantically equivalent across equivalent v2/v3/v4 resources.
-- [ ] Helpers never mutate Vault state during read-only resolution.
-- [ ] Positive fixtures validate and carry pinned provenance/checksums.
-- [ ] No v4 test uses `@ts-nocheck`.
-- [ ] Scene/Activation support claims only tested vertical slices and preserves unsupported raw data.
-- [ ] Parser and Helpers install, build, typecheck, test, package, and run together from exact tarballs.
-- [ ] Every public subpath works in ESM, CJS, NodeNext, and Bundler consumers without network access.
-- [ ] Documentation explains both contracts, migration, diagnostics, paging, and 3D exclusions.
+- [x] `Vault` and `Vault4` are the only initial stable Vault contracts.
+- [x] A Vault's normalized version is fixed for its lifetime.
+- [x] Parser conversion occurs once at ingestion, never independently in helpers.
+- [x] Default Vault accepts v2/v3/supported-v4 and remains genuinely v3-shaped.
+- [x] Vault4 accepts v2/v3/v4 and remains genuinely v4-shaped.
+- [x] One runtime Vault engine implements loading, requests, events, metadata, mutation, hydration, and paging.
+- [x] V3 and v4 store/entity types are separate and parser-owned at the schema boundary.
+- [x] Every mapping/reference resolves; no sentinel/internal identity reaches output.
+- [x] Diagnostics and source-version information survive Vault loading.
+- [x] Complete resources can explicitly clear nullable/list fields; partial references cannot erase rich entities.
+- [x] Canonical state contains one version-appropriate Container property name.
+- [x] Collection Page and Annotation Collection paging are first-class.
+- [x] Aggregate and Specific Resource semantics are resolved once and reused by all helpers.
+- [x] Existing Canvas/sequence helpers never label Timeline/Scene as Canvas.
+- [x] Shared helper results are semantically equivalent across equivalent v2/v3/v4 resources.
+- [x] Helpers never mutate Vault state during read-only resolution.
+- [x] Positive fixtures validate and carry pinned provenance/checksums.
+- [x] No v4 test uses `@ts-nocheck`.
+- [x] Scene/Activation support claims only tested vertical slices and preserves unsupported raw data.
+- [x] Parser and Helpers install, build, typecheck, test, package, and run together from exact tarballs.
+- [x] Every public subpath works in ESM, CJS, NodeNext, and Bundler consumers without network access.
+- [x] Documentation explains both contracts, migration, diagnostics, paging, and 3D exclusions.
 
-## Overall recommendation
+## Final release recommendation
 
-Treat parser and Helpers as one release train but keep their responsibilities narrow. The parser decides which canonical version the application requested and produces that normalized store. The Vault owns lifecycle and identity for that fixed store. Helpers consume stable domain shapes and only branch where Presentation 4 introduces a genuinely new concept.
-
-The first implementation pass should remove the auto-switching premise, establish a reproducible two-repository fixture/package gate, and deliver the transparent v3 contract through the real Vault and Helpers. Then build the explicit v4 contract on the same Vault engine. This is both safer and smaller than maintaining three Vaults, duplicated tests, mirrored state fields, and version-aware logic in every helper.
+Publish parser `2.3.0`, run this repository's packed and linked gates against
+that exact registry artifact, then publish Helpers `1.6.0`. Test both published
+artifacts in the same isolated consumer before promoting either release. Record
+Node `>=22`, IIIF/api fixture commit
+`28a88829699ebbbe7722b4692cf3b7b67969bc6c`, and the documented Scene/Activation
+exclusions in the release notes.

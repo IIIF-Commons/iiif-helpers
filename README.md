@@ -1087,6 +1087,158 @@ There are also focused notes and examples in this repository:
 - [Thumbnails](./docs/thumbnails.md)
 - [Demos](./demos/index.html)
 
+## Presentation 4 release candidate support
+
+Helpers and a normalized resource Vault for IIIF Presentation 2.1, 3.0, and
+the supported parts of the Presentation 4.0 release candidate.
+
+Node.js 22 or newer is required.
+
+```sh
+pnpm add @iiif/helpers @iiif/parser
+```
+
+## Choose a Vault contract
+
+| API | Accepted input | Normalized application model | Intended use |
+| --- | --- | --- | --- |
+| `Vault` | Presentation 2.1, 3.0, supported non-3D 4.0 | Presentation 3 | Existing applications; Presentation 4 Timeline resources are projected to Canvas |
+| `Vault4` | Presentation 2.1, 3.0, and 4.0 | Presentation 4 | New applications that need Timeline, Scene identity, CollectionPage, or other v4 concepts |
+
+A Vault's normalized version is fixed for its lifetime. Parser conversion
+happens once when a resource is loaded; helpers consume the resulting model.
+
+### Existing Presentation 3 applications
+
+No version branch is needed:
+
+```ts
+import { Vault } from "@iiif/helpers/vault";
+
+const vault = new Vault();
+const manifest = await vault.loadManifest(manifestUrl);
+
+// Canvas for v2/v3 input and for a compatible v4 Timeline projection.
+const firstCanvas = vault.get(manifest.items[0]);
+```
+
+A Presentation 4 Scene cannot be represented faithfully as Presentation 3.
+The compatibility path throws a
+`Presentation4CompatibilityError` with structured diagnostics instead of
+silently dropping it.
+
+### Presentation 4 applications
+
+```ts
+import { Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest(manifestUrl);
+const firstContainer = vault.get(manifest.items[0]);
+
+const presentation4 = vault.toPresentation4(manifest);
+```
+
+`firstContainer` remains a Canvas, Timeline, or Scene. `Vault4` also accepts
+Presentation 2.1 and 3.0 input and upgrades it once during ingestion.
+
+## Load reports
+
+Both Vaults retain the detected source version. `Vault4` also retains parser
+normalization warnings such as deterministic ID minting:
+
+```ts
+const report = vault.getLoadReport(manifestUrl);
+
+// {
+//   sourceVersion: 2 | 3 | 4 | "unknown",
+//   diagnostics: [...]
+// }
+```
+
+Reports are stored for both the requested URL and the canonical resource ID
+when they differ.
+
+## Explicit page loading
+
+Loading a Collection or AnnotationCollection does not implicitly fetch its
+pages. Page chains are an explicit Vault operation:
+
+```ts
+const collection = await vault.loadCollection(collectionUrl);
+const state = await vault.loadPageChain(collection);
+const members = vault.getPaginatedItems(collection);
+```
+
+CollectionPage and AnnotationPage entities remain independently addressable.
+The derived member list is ordered and deduplicated. Cycles and broken links
+stop safely and are exposed on `state.error`; loaded prefixes are retained.
+
+## Helpers
+
+Helpers are available from the root package and focused subpaths:
+
+- `@iiif/helpers/annotation-targets`
+- `@iiif/helpers/content-state`
+- `@iiif/helpers/i18n`
+- `@iiif/helpers/image-service`
+- `@iiif/helpers/painting-annotations`
+- `@iiif/helpers/ranges`
+- `@iiif/helpers/sequences`
+- `@iiif/helpers/thumbnail`
+- `@iiif/helpers/transcriptions`
+
+Shared helpers accept either fixed Vault profile. Canvas-specific functions
+remain Canvas-specific; `findAllContainersInRange` and the Container
+transcription APIs cover Canvas, Timeline, and Scene without relabeling them.
+Annotation aggregate and SpecificResource semantics are resolved consistently
+by painting, thumbnail, and transcription helpers.
+
+## Deliberate Scene and Activation support
+
+Two optional subpaths expose the first tested 3D vertical slices:
+
+```ts
+import { createSceneHelper } from "@iiif/helpers/scenes";
+import { createActivationsHelper } from "@iiif/helpers/activations";
+
+const scenes = createSceneHelper(vault4);
+const paintables = scenes.getPaintables(scene);
+
+const activations = createActivationsHelper(vault4);
+const annotations = activations.getAllActivatingAnnotations(manifest);
+const transaction = activations.parseActivatingAnnotation(annotations[0]);
+```
+
+The initial supported surface is intentionally narrow:
+
+- Model paintables are returned as a known Scene paintable type.
+- SpecificResource selectors, transforms, and action order are preserved.
+- Activating annotations can be collected and parsed into ordered steps.
+- Unrecognized Scene body types remain available as `unknown` with `rawType`.
+
+The helpers do not compose or render Scenes, apply transforms, choose cameras,
+calculate lighting, spatialize audio emitters, or execute activation actions.
+Camera, light, audio-emitter, animation, and nested extension subtrees are not
+normalized into helper-specific models unless a tested vertical slice is added.
+
+## Local joint development
+
+From this repository, link a sibling parser checkout and run the same gates
+used for the coordinated release:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm link ../parser
+pnpm run typecheck
+pnpm exec vitest run
+pnpm run test:presentation-4:packed
+```
+
+The packed gate builds both repositories, installs their tarballs into a fresh
+offline consumer, imports every public subpath through ESM and CommonJS, and
+compiles NodeNext and Bundler consumers with `skipLibCheck: false`.
+
 ## License
 
 MIT

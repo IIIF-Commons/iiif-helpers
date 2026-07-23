@@ -6,6 +6,9 @@
     "url": "git+https://github.com/iiif-commons/iiif-helpers.git"
   },
   "version": "1.6.1",
+  "engines": {
+    "node": ">=22"
+  },
   "license": "MIT",
   "type": "module",
   "main": "dist/index.cjs",
