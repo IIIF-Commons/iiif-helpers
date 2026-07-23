@@ -14,6 +14,7 @@ import type {
   AnnotationNormalized as AnnotationNormalizedV4,
   CanvasNormalized as CanvasNormalizedV4,
 } from '@iiif/parser/presentation-4-normalized/types';
+import { resolveAnnotationValues } from '../annotation-values';
 import { type CompatVault, compatVault } from '../compat';
 import { parseSpecificResource } from './parse-specific-resource';
 import { getSelectorTransformAttributes, resolveSelectorStyle } from '../annotation-targets/css-selectors';
@@ -86,60 +87,85 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
       const references = Array.from(Array.isArray(annotation.body) ? annotation.body : [annotation.body]);
       for (const reference of references) {
-        const [ref, { selector, styleClass }] = parseSpecificResource(reference as any);
-        const body = vault.get(ref);
-        const type = (body.type || 'unknown').toLowerCase();
+        const [ref, { selector: outerSelector, styleClass: outerStyleClass }] = parseSpecificResource(
+          reference as any
+        );
+        const aggregate = vault.get(ref);
+        const resolved = resolveAnnotationValues(aggregate);
+        const bodies = resolved.map((entry) => ({
+          ...entry,
+          body: vault.get(entry.value as any, { skipSelfReturn: false }) as ContentResource,
+        }));
+        const enabled = new Set(enabledChoices);
+        const choiceGroups = new Map<string, { pathIndex: number; bodies: typeof bodies }>();
+        for (const candidate of bodies) {
+          candidate.aggregatePath.forEach((step, pathIndex) => {
+            if (step.type !== 'Choice') return;
+            const key = JSON.stringify(candidate.aggregatePath.slice(0, pathIndex));
+            const group = choiceGroups.get(key) || { pathIndex, bodies: [] };
+            group.bodies.push(candidate);
+            choiceGroups.set(key, group);
+          });
+        }
+        const selectedChoiceIndexes = new Map<string, Set<number>>();
 
-        // Choice
-        if (type === 'choice') {
-          const nestedBodies = vault.get((body as any).items, {
-            parent: (body as any).id,
-          }) as ContentResource[];
-          // Which are active? By default, the first, but we could push multiple here.
-          const selected = enabledChoices.length
-            ? enabledChoices.map((cid) => nestedBodies.find((b) => b.id === cid)).filter(Boolean)
-            : [nestedBodies[0]];
-
-          if (selected.length === 0) {
-            selected.push(nestedBodies[0]);
+        for (const [key, group] of choiceGroups) {
+          const selected = new Set(
+            group.bodies
+              .filter(({ body }) => !!body.id && enabled.has(body.id))
+              .map(({ aggregatePath }) => aggregatePath[group.pathIndex].index)
+          );
+          if (!selected.size) {
+            selected.add(group.bodies[0].aggregatePath[group.pathIndex].index);
           }
-
-          // Store choice.
+          selectedChoiceIndexes.set(key, selected);
           choices.items.push({
             type: 'single-choice',
-            items: nestedBodies.map((b) => ({
-              id: b.id,
-              label: (b as any).label as any,
-              selected: selected.indexOf(b) !== -1,
+            items: group.bodies.map(({ body, aggregatePath }) => ({
+              id: body.id,
+              label: (body as any).label as any,
+              selected: selected.has(aggregatePath[group.pathIndex].index),
             })) as any[],
-            label: (ref as any).label,
+            label: group.pathIndex === 0 ? (aggregate as any).label || (ref as any).label : undefined,
           });
-
-          // @todo insert in the right order.
-          references.push(...(selected as any[]));
-
-          continue;
         }
 
-        if (types.indexOf(type) === -1) {
-          types.push(type);
+        for (const { body, aggregatePath, specificResources } of bodies) {
+          const isSelected = aggregatePath.every((step, pathIndex) => {
+            if (step.type !== 'Choice') return true;
+            const key = JSON.stringify(aggregatePath.slice(0, pathIndex));
+            return selectedChoiceIndexes.get(key)?.has(step.index);
+          });
+          if (!isSelected) {
+            continue;
+          }
+
+          const type = (body.type || 'unknown').toLowerCase();
+          if (types.indexOf(type) === -1) {
+            types.push(type);
+          }
+
+          const specificResource = specificResources.find(
+            (candidate: any) => candidate.selector || candidate.styleClass
+          ) as any;
+          const selector = outerSelector || specificResource?.selector || null;
+          const styleClass = outerStyleClass || specificResource?.styleClass;
+          const loadedStylesheets = styleClass ? getInlineStylesheets(annotation.stylesheet) : undefined;
+          const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
+          const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
+
+          items.push({
+            type,
+            annotationId: annotation.id,
+            annotation: annotation as any,
+            resource: body as IIIFExternalWebResource,
+            target: annotation.target,
+            selector,
+            ...(styleClass ? { styleClass } : {}),
+            ...(style && Object.keys(style).length ? { style } : {}),
+            ...transformAttributes,
+          });
         }
-
-        const loadedStylesheets = styleClass ? getInlineStylesheets(annotation.stylesheet) : undefined;
-        const style = styleClass ? resolveSelectorStyle(styleClass, loadedStylesheets) : undefined;
-        const transformAttributes = style ? getSelectorTransformAttributes(style) : {};
-
-        items.push({
-          type: type,
-          annotationId: annotation.id,
-          annotation: annotation as any,
-          resource: body as IIIFExternalWebResource,
-          target: annotation.target,
-          selector,
-          ...(styleClass ? { styleClass } : {}),
-          ...(style && Object.keys(style).length ? { style } : {}),
-          ...transformAttributes,
-        });
       }
     }
 

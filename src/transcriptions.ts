@@ -136,6 +136,7 @@ import type {
   CanvasNormalized as CanvasNormalizedV4,
   ManifestNormalized as ManifestNormalizedV4,
 } from '@iiif/parser/presentation-4-normalized/types';
+import { resolveAnnotationValues } from './annotation-values';
 import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from './annotation-targets';
 import type { CompatVault } from './compat';
 
@@ -144,6 +145,15 @@ type AnnotationPage = AnnotationPageV3 | AnnotationPageV4 | AnnotationPageNormal
 type Canvas = CanvasV3 | CanvasV4 | CanvasNormalizedV3 | CanvasNormalizedV4;
 type ContentResource = ContentResourceV3 | ContentResourceV4;
 type Manifest = ManifestV3 | ManifestV4 | ManifestNormalizedV3 | ManifestNormalizedV4;
+
+function getAnnotationBodies(vault: CompatVault, body: unknown): any[] {
+  return resolveAnnotationValues(vault.get(body as any))
+    .filter(({ aggregatePath }) =>
+      aggregatePath.every(({ type, index }) => type !== 'Choice' || index === 0)
+    )
+    .map(({ value }) => vault.get<ContentResource>(value as any, { skipSelfReturn: false }))
+    .filter(Boolean);
+}
 
 interface Transcription {
   id: string;
@@ -188,9 +198,7 @@ export function canvasHasTranscriptionSync(
         const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
-            const bodies = vault.get<ContentResource>(annotation.body as any);
-            const allBodies = Array.isArray(bodies) ? bodies : [bodies];
-            for (const body of allBodies) {
+            for (const body of getAnnotationBodies(vault, annotation.body)) {
               if (body.format === 'text/vtt') return true;
               if (body.format === 'text/plain') return true;
               if (body.type === 'TextualBody') return true;
@@ -208,9 +216,7 @@ export function canvasHasTranscriptionSync(
         const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
-            const bodies = vault.get<ContentResource>(annotation.body as any);
-            const allBodies = Array.isArray(bodies) ? bodies : [bodies];
-            for (const body of allBodies) {
+            for (const body of getAnnotationBodies(vault, annotation.body)) {
               if (body.format === 'text/vtt') return true;
               if (body.format === 'text/plain') return true;
               if (body.type === 'TextualBody') return true;
@@ -351,10 +357,8 @@ export async function annotationPageToTranscription(vault: CompatVault, annotati
     if (annotation.motivation?.includes('supplementing')) {
       if (annotation.body) {
         // @todo smarter ordering based on position?
-        const bodies = vault.get<ContentResource>(annotation.body as any);
-        const body = Array.isArray(bodies) ? bodies[0] : bodies;
-        if (body.format === 'text/plain' || body.type === 'TextualBody') {
-          if (body.value && typeof body.value === 'string') {
+        for (const body of getAnnotationBodies(vault, annotation.body)) {
+          if ((body.format === 'text/plain' || body.type === 'TextualBody') && typeof body.value === 'string') {
             let segmentText = body.value;
             let granularity = (annotation as any).textGranularity;
             if (!granularity) {
@@ -384,8 +388,6 @@ export async function annotationPageToTranscription(vault: CompatVault, annotati
               } catch (e) {
                 // Ignore?
               }
-            } else {
-              // Not a segment?
             }
 
             transcription.segments.push(segment);
@@ -428,9 +430,7 @@ export async function getCanvasTranscription(
         const annotation = vault.get<Annotation>(annotationRef as any);
         if (annotation.motivation?.includes('supplementing')) {
           if (annotation.body) {
-            const bodyRaw = vault.get<ContentResource>(annotation.body as any);
-            const bodies = Array.isArray(bodyRaw) ? bodyRaw : [bodyRaw];
-            for (const body of bodies) {
+            for (const body of getAnnotationBodies(vault, annotation.body)) {
               if (body.format === 'text/vtt') {
                 if (body.id) {
                   const vtt = networkCache[body.id] || (await fetch(body.id, { method: 'GET' }).then((r) => r.text()));
@@ -453,9 +453,7 @@ export async function getCanvasTranscription(
       const annotation = vault.get<Annotation>(annotationRef as any);
       if (annotation.motivation?.includes('supplementing')) {
         if (annotation.body) {
-          const bodyRaw = vault.get<ContentResource>(annotation.body as any);
-          const bodies = Array.isArray(bodyRaw) ? bodyRaw : [bodyRaw];
-          for (const body of bodies) {
+          for (const body of getAnnotationBodies(vault, annotation.body)) {
             if (body.format === 'text/plain' || body.type === 'TextualBody') {
               // WE found a page.
               const plaintext = await annotationPageToTranscription(vault, annotationPage);

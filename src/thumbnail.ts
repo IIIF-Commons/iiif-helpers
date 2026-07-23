@@ -26,6 +26,7 @@ import type {
   DescriptiveNormalized as DescriptiveNormalizedV4,
   ManifestNormalized as ManifestNormalizedV4,
 } from '@iiif/parser/presentation-4-normalized/types';
+import { resolveAnnotationValues } from './annotation-values';
 import { type CompatVault, compatVault } from './compat';
 import {
   type FixedSizeImage,
@@ -161,13 +162,13 @@ export function createThumbnailHelper(
 
     switch (fullInput.type) {
       case 'Annotation': {
-        // Grab the body.
-        const contentResources = Array.isArray(fullInput.body) ? fullInput.body : [fullInput.body];
+        const contentResources = resolveAnnotationValues(vault.get(fullInput.body as any)).filter(({ aggregatePath }) =>
+          aggregatePath.every(({ type, index }) => type !== 'Choice' || index === 0)
+        );
         if (!contentResources[0]) {
           return await thumbnailNotFound();
         }
-        // @todo this could be configuration.
-        const firstContentResources = vault.get(contentResources[0] as any);
+        const firstContentResources = vault.get(contentResources[0].value as any, { skipSelfReturn: false });
         if (dimensions && !(firstContentResources as any).width) {
           (firstContentResources as any).width = dimensions.width;
           (firstContentResources as any).height = dimensions.height;
@@ -193,7 +194,7 @@ export function createThumbnailHelper(
 
       case 'Choice': {
         const choice = fullInput;
-        if (!choice.items || choice.items[0]) {
+        if (!choice.items || !choice.items[0]) {
           return await thumbnailNotFound();
         }
         // @todo this could also be configuration, just choosing the first choice.
