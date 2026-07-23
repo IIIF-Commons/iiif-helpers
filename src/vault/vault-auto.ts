@@ -73,6 +73,11 @@ function splitIdFragment(id: string): {
   };
 }
 
+/**
+ * @deprecated Choose {@link Vault} for the Presentation 3 compatibility view or
+ * {@link Vault4} for Presentation 4. Automatic switching replaces the backing
+ * store and cannot preserve live subscriptions or in-memory edits reliably.
+ */
 export class VaultAuto {
   private readonly options: Required<Pick<VaultAutoOptions, 'enablePresentation4'>> &
     Omit<VaultAutoOptions, 'enablePresentation4'>;

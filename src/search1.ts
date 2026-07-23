@@ -12,7 +12,6 @@ import type {
 import type { ManifestNormalized as ManifestNormalizedV3 } from '@iiif/parser/presentation-3-normalized/types';
 import type { Manifest as ManifestV4 } from '@iiif/parser/presentation-4/types';
 import type { ManifestNormalized as ManifestNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
-import { g } from 'vitest/dist/suite-a18diDsI.js';
 import { createStore } from 'zustand/vanilla';
 
 type SearchManifest = ManifestNormalizedV3 | ManifestNormalizedV4 | ManifestV3 | ManifestV4;

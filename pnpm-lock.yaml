@@ -1,16 +1,13 @@
 lockfileVersion: '9.0'
 
 settings:
-  autoInstallPeers: true
+  autoInstallPeers: false
   excludeLinksFromLockfile: false
 
 importers:
 
   .:
     dependencies:
-      '@iiif/parser':
-        specifier: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60?cache=5
-        version: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60?cache=5
       '@types/geojson':
         specifier: 7946.0.13
         version: 7946.0.13
@@ -343,11 +340,6 @@ packages:
     engines: {node: '>=12'}
     cpu: [x64]
     os: [win32]
-
-  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60?cache=5':
-    resolution: {tarball: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60?cache=5}
-    version: 2.2.9
-    hasBin: true
 
   '@jest/schemas@29.6.3':
     resolution: {integrity: sha512-mo5j5X+jIZmJQveBKeS/clAueipV7KgiX1vMgCxam1RNYiqE1w62n0/tJJnHtjW8ZHcQco5gY85jA3mi0L+nSA==}
@@ -1714,10 +1706,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.20.2':
     optional: true
-
-  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@60?cache=5':
-    dependencies:
-      picocolors: 1.1.1
 
   '@jest/schemas@29.6.3':
     dependencies:
