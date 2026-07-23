@@ -61,58 +61,34 @@ export type WrappedObject<OG = any> = {
   toJSON(): any;
 };
 
+type ReactiveProperty<Value> = Value extends readonly (infer Item)[]
+  ? ReactiveWrapped<Item, Item>[]
+  : Value extends object
+    ? ReactiveWrapped<Value, Value>
+    : Value;
+
+type HydratedProperty =
+  | 'items'
+  | 'annotations'
+  | 'structures'
+  | 'seeAlso'
+  | 'rendering'
+  | 'partOf'
+  | 'start'
+  | 'supplementary'
+  | 'homepage'
+  | 'thumbnail'
+  | 'placeholderContainer'
+  | 'accompanyingContainer'
+  | 'placeholderCanvas'
+  | 'accompanyingCanvas'
+  | 'provider'
+  | 'body'
+  | 'logo';
+
 export type ReactiveWrapped<Full = any, T = any> = {} & WrappedObject<Full> &
-  Omit<
-    Full,
-    | 'items'
-    | 'annotations'
-    | 'structures'
-    | 'seeAlso'
-    | 'rendering'
-    | 'partOf'
-    | 'start'
-    | 'supplementary'
-    | 'homepage'
-    | 'thumbnail'
-    | 'placeholderContainer'
-    | 'accompanyingContainer'
-    | 'placeholderCanvas'
-    | 'accompanyingCanvas'
-    | 'provider'
-    | 'body'
-    | 'logo'
-  > & {
-    items: Full extends { items: (infer A)[] }
-      ? (Full['items'][number] & ReactiveWrapped<any, Full['items'][number]>)[]
-      : never;
-    annotations: Full extends { annotations: (infer A)[] }
-      ? ReactiveWrapped<any, Full['annotations'][number]>[]
-      : never;
-    structures: Full extends { structures: (infer A)[] } ? ReactiveWrapped<any, Full['structures'][number]>[] : never;
-    seeAlso: Full extends { seeAlso: (infer A)[] } ? ReactiveWrapped<any, Full['seeAlso'][number]>[] : never;
-    rendering: Full extends { rendering: (infer A)[] } ? ReactiveWrapped<any, Full['rendering'][number]>[] : never;
-    partOf: Full extends { partOf: (infer A)[] } ? ReactiveWrapped<any, Full['partOf'][number]>[] : never;
-    start: Full extends { start: (infer A)[] } ? ReactiveWrapped<any, Full['start'][number]>[] : never;
-    supplementary: Full extends { supplementary: (infer A)[] }
-      ? ReactiveWrapped<any, Full['supplementary'][number]>[]
-      : never;
-    homepage: Full extends { homepage: (infer A)[] } ? ReactiveWrapped<any, Full['homepage'][number]>[] : never;
-    thumbnail: Full extends { thumbnail: (infer A)[] } ? ReactiveWrapped<any, Full['thumbnail'][number]>[] : never;
-    placeholderContainer: Full extends { placeholderContainer: (infer A)[] }
-      ? ReactiveWrapped<any, Full['placeholderContainer'][number]>[]
-      : never;
-    accompanyingContainer: Full extends { accompanyingContainer: (infer A)[] }
-      ? ReactiveWrapped<any, Full['accompanyingContainer'][number]>[]
-      : never;
-    placeholderCanvas: Full extends { placeholderCanvas: (infer A)[] }
-      ? ReactiveWrapped<any, Full['placeholderCanvas'][number]>[]
-      : never;
-    accompanyingCanvas: Full extends { accompanyingCanvas: (infer A)[] }
-      ? ReactiveWrapped<any, Full['accompanyingCanvas'][number]>[]
-      : never;
-    provider: Full extends { provider: (infer A)[] } ? ReactiveWrapped<any, Full['provider'][number]>[] : never;
-    body: Full extends { body: (infer A)[] } ? ReactiveWrapped<any, Full['body'][number]>[] : never;
-    logo: Full extends { logo: (infer A)[] } ? ReactiveWrapped<any, Full['logo'][number]>[] : never;
+  Omit<Full, HydratedProperty> & {
+    [Key in Extract<keyof Full, HydratedProperty>]: ReactiveProperty<Full[Key]>;
   };
 
 function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string): ReactiveWrapped<T, OG> {

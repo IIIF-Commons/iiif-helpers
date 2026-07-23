@@ -22,55 +22,6 @@ import { getDefaultEntities } from '../../utility';
 import { isReferenceList } from '../../utility/is-reference-list';
 import { quickMerge } from '../../utility/quick-merge';
 
-const aliasFields = {
-  accompanyingCanvas: 'accompanyingContainer',
-  accompanyingContainer: 'accompanyingCanvas',
-  placeholderCanvas: 'placeholderContainer',
-  placeholderContainer: 'placeholderCanvas',
-} as const;
-
-function mirrorContainerAliases(entity: any) {
-  if (!entity || typeof entity !== 'object' || Array.isArray(entity)) {
-    return entity;
-  }
-
-  const hasAccompanyingContainer = Object.prototype.hasOwnProperty.call(entity, 'accompanyingContainer');
-  const hasPlaceholderContainer = Object.prototype.hasOwnProperty.call(entity, 'placeholderContainer');
-
-  if (!hasAccompanyingContainer && !hasPlaceholderContainer) {
-    return entity;
-  }
-
-  const next = { ...entity };
-
-  if (hasAccompanyingContainer) {
-    const accompanyingValue = entity.accompanyingContainer;
-    next.accompanyingCanvas = accompanyingValue;
-  }
-
-  if (hasPlaceholderContainer) {
-    const placeholderValue = entity.placeholderContainer;
-    next.placeholderCanvas = placeholderValue;
-  }
-
-  return next;
-}
-
-function mirrorAliasFieldValues(entity: Record<string, any>, values: Record<string, any>) {
-  const mirrored = { ...values };
-  for (const key of Object.keys(values)) {
-    const alias = aliasFields[key as keyof typeof aliasFields];
-    if (alias) {
-      const keyIsV4Field = key === 'accompanyingContainer' || key === 'placeholderContainer';
-      const aliasExistsOnEntity = Object.prototype.hasOwnProperty.call(entity, alias);
-      if (keyIsV4Field || aliasExistsOnEntity) {
-        mirrored[alias] = values[key];
-      }
-    }
-  }
-  return mirrored;
-}
-
 function payload<T extends { payload: any }>(action: T): T['payload'] {
   return action.payload || {};
 }
@@ -111,14 +62,13 @@ function numberOr(a: number | undefined, b: number): number {
 
 export const entitiesReducer = (state: Entities = getDefaultEntities(), action: EntityActions): Entities => {
   const updateField = (entity: any, values: Record<string, any>) => {
-    const mirroredValues = mirrorAliasFieldValues(entity, values);
     return {
       ...state,
       [(payload(action) as any).type]: {
         ...((state as any)[(payload(action) as any).type] as any),
         [(payload(action) as any).id]: {
           ...entity,
-          ...mirroredValues,
+          ...values,
         },
       },
     };
@@ -295,9 +245,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
         if (entities && ids) {
           for (const id of ids) {
             changed = true;
-            newEntities[id] = mirrorContainerAliases(
-              state[key][id] ? quickMerge(state[key][id], entities[id]) : entities[id]
-            );
+            newEntities[id] = state[key][id] ? quickMerge(state[key][id], entities[id]) : entities[id];
           }
           if (changed) {
             toReturn[key] = newEntities as any;

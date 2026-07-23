@@ -1,6 +1,7 @@
 export function quickMerge(a: any, b: any) {
   const left = a || {};
   const right = b || {};
+  const isPartialReference = right['iiif-parser:isExternal'] === true;
   const newResource: any = {};
   const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
 
@@ -10,14 +11,10 @@ export function quickMerge(a: any, b: any) {
       continue;
     }
 
-    // Imported normalized entities often include placeholder defaults.
-    // Do not let null/empty-array placeholders clobber richer existing values.
-    if (right[key] === null) {
-      newResource[key] = left[key];
-      continue;
-    }
-
-    if (Array.isArray(right[key]) && right[key].length === 0) {
+    // A normalized external reference contains empty defaults that must not
+    // erase a previously loaded resource. A complete resource is
+    // authoritative, including explicit null and empty-list values.
+    if (isPartialReference && (right[key] === null || (Array.isArray(right[key]) && right[key].length === 0))) {
       newResource[key] = left[key];
       continue;
     }
