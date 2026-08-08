@@ -312,7 +312,7 @@
     "zustand": "^4.5.2"
   },
   "peerDependencies": {
-    "@iiif/parser": "^2.3.0"
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@8dd1762"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",
