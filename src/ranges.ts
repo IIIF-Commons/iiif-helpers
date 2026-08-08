@@ -38,6 +38,10 @@ type InternationalString = InternationalStringV3 | InternationalStringV4;
 type AnySpecificResource = SpecificResourceV3 | SpecificResourceV4;
 type SpecificCanvasResource = SpecificResourceV3<Reference<"Canvas">> | SpecificResourceV4;
 
+function resolveRangeItem(vault: CompatVault, item: any): any {
+  return vault.get(item, { preserveSpecificResources: true }) ?? item;
+}
+
 export function createRangeHelper(vault: CompatVault = compatVault) {
   return {
     findFirstCanvasFromRange: (range: RangeNormalizedV3 | RangeNormalizedV4) => findFirstCanvasFromRange(vault, range),
@@ -69,20 +73,20 @@ export function findFirstCanvasFromRange(
   range: RangeNormalizedV3 | RangeNormalizedV4
 ): null | Reference<"Canvas"> {
   for (const inner of range.items) {
-    const innerAny = inner as any;
     if (typeof inner === "string") {
       return { id: inner, type: "Canvas" };
     }
-    if (innerAny.type === "Canvas") {
-      return inner as any as Reference<"Canvas">;
+    const item = resolveRangeItem(vault, inner);
+    if (item.type === "Canvas") {
+      return item as Reference<"Canvas">;
     }
-    if (innerAny.type === "SpecificResource") {
-      if (innerAny.source?.type === "Canvas") {
-        return innerAny.source as Reference<"Canvas">;
+    if (item.type === "SpecificResource") {
+      if (item.source?.type === "Canvas") {
+        return item.source as Reference<"Canvas">;
       }
     }
-    if (innerAny.type === "Range") {
-      const found = findFirstCanvasFromRange(vault, vault.get(inner as any) as any);
+    if (item.type === "Range") {
+      const found = findFirstCanvasFromRange(vault, item);
       if (found) {
         return found;
       }
@@ -96,26 +100,26 @@ export function findFirstCanvasFromRangeWithSelector(
   range: RangeNormalizedV3 | RangeNormalizedV4
 ): null | SpecificCanvasResource {
   for (const inner of range.items) {
-    const innerAny = inner as any;
     if (typeof inner === "string") {
       return {
         type: "SpecificResource",
         source: { id: inner, type: "Canvas" } as Reference<"Canvas">,
       };
     }
-    if (innerAny.type === "Canvas") {
+    const item = resolveRangeItem(vault, inner);
+    if (item.type === "Canvas") {
       return {
         type: "SpecificResource",
-        source: inner as any as Reference<"Canvas">,
+        source: item as Reference<"Canvas">,
       };
     }
-    if (innerAny.type === "SpecificResource") {
-      if (innerAny.source?.type === "Canvas") {
-        return inner as SpecificCanvasResource;
+    if (item.type === "SpecificResource") {
+      if (item.source?.type === "Canvas") {
+        return item as SpecificCanvasResource;
       }
     }
-    if (innerAny.type === "Range") {
-      const found = findFirstCanvasFromRangeWithSelector(vault, vault.get(inner as any) as any);
+    if (item.type === "Range") {
+      const found = findFirstCanvasFromRangeWithSelector(vault, item);
       if (found) {
         return found;
       }
@@ -158,10 +162,9 @@ export function findAllContainersInRange(
         continue;
       }
 
-      const item = inner as any;
+      const item = resolveRangeItem(vault, inner);
       if (item.type === "Range") {
-        const nested = vault.get(item as any) as RangeNormalizedV3 | RangeNormalizedV4 | undefined;
-        if (nested?.items) visit(nested);
+        if (item.items) visit(item);
         continue;
       }
 
@@ -206,19 +209,20 @@ export function findSelectedRange(
   canvasId: string
 ): null | RangeNormalizedV3 | RangeNormalizedV4 {
   for (const inner of range.items) {
-    const innerAny = inner as any;
-    const parsedId = (inner as any)?.source?.id?.split("#")[0];
-    if (innerAny.type === "Canvas" && innerAny.id?.split("#")[0] === canvasId) {
+    const item = typeof inner === "string" ? inner : resolveRangeItem(vault, inner);
+    if (typeof item === "string") continue;
+    const parsedId = item.source?.id?.split("#")[0];
+    if (item.type === "Canvas" && item.id?.split("#")[0] === canvasId) {
       return range;
     }
-    if (innerAny.type === "SpecificResource" && innerAny.source === canvasId) {
+    if (item.type === "SpecificResource" && item.source === canvasId) {
       return range;
     }
-    if (innerAny.type === "SpecificResource" && innerAny.source?.type === "Canvas" && canvasId === parsedId) {
+    if (item.type === "SpecificResource" && item.source?.type === "Canvas" && canvasId === parsedId) {
       return range;
     }
-    if (innerAny.type === "Range") {
-      const found = findSelectedRange(vault, vault.get(inner as any) as any, canvasId);
+    if (item.type === "Range") {
+      const found = findSelectedRange(vault, item, canvasId);
       if (found) {
         return found;
       }
@@ -332,26 +336,27 @@ export function rangeToTableOfContentsTree(
       toc.items!.push(foundCanvas);
       continue;
     }
-    if (inner.type === "SpecificResource" && inner.source?.type === "Canvas") {
-      const maybeCanvas = vault.get(inner.source);
-      const compressed = compressSpecificResource(inner);
+    const item = resolveRangeItem(vault, inner);
+    if (item.type === "SpecificResource" && item.source?.type === "Canvas") {
+      const maybeCanvas = vault.get(item.source);
+      const compressed = compressSpecificResource(item);
 
       if (!maybeCanvas) {
         continue;
       }
 
       const foundCanvas: RangeTableOfContentsNode = {
-        id: compressed.type === "Canvas" ? compressed.id : inner.source.id,
+        id: compressed.type === "Canvas" ? compressed.id : item.source.id,
         type: "Canvas",
         isCanvasLeaf: true,
         isRangeLeaf: false,
         label: maybeCanvas.label || { none: ["Untitled"] },
         untitled: !maybeCanvas.label,
-        resource: inner,
+        resource: item,
         parent: { id: toc.id, type: "Range" },
       };
       if (seenIds.indexOf(foundCanvas.id) !== -1) {
-        foundCanvas.id = `vault://${hash(inner)}`;
+        foundCanvas.id = `vault://${hash(item)}`;
       }
 
       seenIds.push(foundCanvas.id);
@@ -359,22 +364,22 @@ export function rangeToTableOfContentsTree(
       toc.items!.push(foundCanvas);
       continue;
     }
-    if ((inner as any).type === "Canvas") {
+    if (item.type === "Canvas") {
       const foundCanvas: RangeTableOfContentsNode = {
-        id: (inner as any).id,
+        id: item.id,
         type: "Canvas",
-        label: (inner as any).label,
+        label: item.label,
         isCanvasLeaf: true,
         isRangeLeaf: false,
         resource: {
           type: "SpecificResource",
-          source: inner as any,
+          source: item,
         },
         parent: { id: toc.id, type: "Range" },
       };
 
       if (seenIds.indexOf(foundCanvas.id) !== -1) {
-        foundCanvas.id = `vault://${hash(inner)}`;
+        foundCanvas.id = `vault://${hash(item)}`;
       }
 
       seenIds.push(foundCanvas.id);
@@ -382,8 +387,8 @@ export function rangeToTableOfContentsTree(
       toc.items!.push(foundCanvas);
       continue;
     }
-    if ((inner as any).type === "Range") {
-      const foundRange = rangeToTableOfContentsTree(vault, inner as any, seenIds, {
+    if (item.type === "Range") {
+      const foundRange = rangeToTableOfContentsTree(vault, item, seenIds, {
         ...options,
         parentRange: { id: toc.id, type: "Range" },
       });
@@ -412,10 +417,14 @@ function getCanvasesFromRange(
     return canvases;
   }
 
-  for (const item of range.items) {
-    if (typeof item === "string") {
-      canvases.push({ canvas: { id: item, type: "Canvas" }, path: currentPath });
-    } else if (item.type === "SpecificResource") {
+  for (const inner of range.items) {
+    if (typeof inner === "string") {
+      canvases.push({ canvas: { id: inner, type: "Canvas" }, path: currentPath });
+      continue;
+    }
+
+    const item = resolveRangeItem(vault, inner);
+    if (item.type === "SpecificResource") {
       const canvas = item.source;
       if (canvas?.type === "Canvas") {
         canvases.push({ canvas: canvas as CanvasLike, path: currentPath });
@@ -424,7 +433,7 @@ function getCanvasesFromRange(
       }
     } else if (item.type === "Range") {
       canvases.push(...getCanvasesFromRange(vault, item as RangeLike, currentPath));
-    } else if ((item as any).type === "Canvas" || (item as any).type === "Timeline" || (item as any).type === "Scene") {
+    } else if (item.type === "Canvas" || item.type === "Timeline" || item.type === "Scene") {
       // P4 normalization stores container references directly (not wrapped in SpecificResource)
       canvases.push({ canvas: item as unknown as CanvasLike, path: currentPath });
     }

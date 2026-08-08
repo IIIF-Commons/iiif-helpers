@@ -13,8 +13,46 @@ import {
   parseSelector,
 } from "../../src";
 import { compatVault } from "../../src/compat";
+import { Vault4 } from "../../src/vault/vault4";
 
 describe("Presentation 4 helper parity", () => {
+  test("range helpers resolve normalized P4 SpecificResource references", () => {
+    const canvasId = "https://example.org/canvas/normalized";
+    const rangeId = "https://example.org/range/normalized";
+    const manifestId = "https://example.org/manifest/normalized";
+    const vault = new Vault4();
+    const manifest = vault.loadManifestSync(manifestId, {
+      "@context": "http://iiif.io/api/presentation/3/context.json",
+      id: manifestId,
+      type: "Manifest",
+      label: { en: ["Manifest"] },
+      items: [
+        {
+          id: canvasId,
+          type: "Canvas",
+          label: { en: ["Canvas"] },
+          width: 1000,
+          height: 1000,
+          items: [],
+        },
+      ],
+      structures: [
+        {
+          id: rangeId,
+          type: "Range",
+          label: { en: ["Range"] },
+          items: [`${canvasId}#t=0,10`],
+        },
+      ],
+    });
+    const range = vault.get(manifest!.structures[0]);
+
+    expect(range.items[0].type).toBe("ContentResource");
+    expect(findAllCanvasesInRange(vault, range)).toEqual([{ id: canvasId, type: "Canvas" }]);
+    expect(createSequenceHelper(vault).getManifestSequence(range)[0]).toEqual([{ id: canvasId, type: "Canvas" }]);
+    expect(findSelectedRange(vault, range, canvasId)).toBe(range);
+  });
+
   test("ranges expose ordered unique containers while Canvas APIs remain type-safe", () => {
     const range = {
       id: "https://example.org/range",
