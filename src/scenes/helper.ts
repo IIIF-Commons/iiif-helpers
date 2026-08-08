@@ -19,9 +19,13 @@ type ParentRef = { id: string; type: string };
 
 const asArray = <T>(value: T | readonly T[] | null | undefined): T[] =>
   value == null ? [] : Array.isArray(value) ? [...value] : [value as T];
-const parent = (resource: { id: string; type?: string }): ParentRef => ({ id: resource.id, type: resource.type || 'Annotation' });
+const parent = (resource: { id: string; type?: string }): ParentRef => ({
+  id: resource.id,
+  type: resource.type || 'Annotation',
+});
 const motivations = (annotation: SceneAnnotation) => asArray(annotation.motivation);
-const strings = (value: unknown): string[] => asArray(value as string | readonly string[]).filter((item): item is string => typeof item === 'string');
+const strings = (value: unknown): string[] =>
+  asArray(value as string | readonly string[]).filter((item): item is string => typeof item === 'string');
 
 function selectorChain(selector: Selector | readonly Selector[] | undefined): SelectorChain | null {
   const first = asArray(selector)[0];
@@ -64,7 +68,9 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
   }
 
   function getPageItems(page: AnnotationPageLike): SceneAnnotation[] {
-    return asArray((vault.get as any)(page.items as never, { parent: parent({ id: page.id, type: page.type || 'AnnotationPage' }) })) as SceneAnnotation[];
+    return asArray(
+      (vault.get as any)(page.items as never, { parent: parent({ id: page.id, type: page.type || 'AnnotationPage' }) })
+    ) as SceneAnnotation[];
   }
 
   function getPages(sceneOrId: string | SceneNormalized | null | undefined, property: 'items' | 'annotations') {
@@ -74,7 +80,9 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
   }
 
   function getAllPaintingAnnotations(sceneOrId: string | SceneNormalized | null | undefined) {
-    return getPages(sceneOrId, 'items').flatMap(getPageItems).filter((annotation) => motivations(annotation).includes('painting'));
+    return getPages(sceneOrId, 'items')
+      .flatMap(getPageItems)
+      .filter((annotation) => motivations(annotation).includes('painting'));
   }
 
   function getAllAnnotationPages(sceneOrId: string | SceneNormalized | null | undefined) {
@@ -94,36 +102,29 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
       resource: SceneRenderableResource;
       wrappers: unknown[];
       aggregatePath: AnnotationAggregateStep[];
+      aggregateDefaults: Array<number | undefined>;
       rootIndex: number;
     }> = [];
     const choices: ComplexChoice = { type: 'complex-choice', items: [] };
     const enabled = new Set(enabledChoices);
-    const choiceDefaults = new Set<string>();
-
-    const collectChoiceDefaults = (value: unknown, seen = new Set<object>()) => {
-      const hydrated = (vault.get as any)(value as never, { skipSelfReturn: false, preserveSpecificResources: true }) ?? value;
-      if (!hydrated || typeof hydrated !== 'object' || seen.has(hydrated as object)) return;
-      seen.add(hydrated as object);
-      const object = hydrated as { type?: string; id?: string; source?: unknown; items?: unknown; default?: unknown };
-      if (object.type === 'Choice') {
-        const defaultResource = (vault.get as any)(object.default as never, { skipSelfReturn: false }) ?? object.default;
-        const defaultId = typeof defaultResource === 'string' ? defaultResource : (defaultResource as { id?: string })?.id;
-        if (defaultId) choiceDefaults.add(defaultId);
-      }
-      if (object.source) collectChoiceDefaults(object.source, seen);
-      for (const item of asArray(object.items)) collectChoiceDefaults(item, seen);
-    };
 
     for (const annotation of getAllPaintingAnnotations(scene)) {
       const annotationParent = parent(annotation);
-      const body = (vault.get as any)(annotation.body as never, {
-        parent: annotationParent,
-        skipSelfReturn: false,
-        preserveSpecificResources: true,
-      }) ?? annotation.body;
-      collectChoiceDefaults(body);
+      const body =
+        (vault.get as any)(annotation.body as never, {
+          parent: annotationParent,
+          skipSelfReturn: false,
+          preserveSpecificResources: true,
+        }) ?? annotation.body;
       for (const [rootIndex, rootBody] of asArray(body).entries()) {
-        for (const resolved of resolveAnnotationValues(rootBody)) {
+        for (const resolved of resolveAnnotationValues(
+          rootBody,
+          (value) =>
+            (vault.get as any)(value as never, {
+              parent: annotationParent,
+              preserveSpecificResources: true,
+            }) ?? value
+        )) {
           const resource = vault.get<SceneRenderableResource>(resolved.value as never, {
             parent: annotationParent,
             skipSelfReturn: false,
@@ -134,6 +135,7 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
               resource,
               wrappers: resolved.specificResources,
               aggregatePath: resolved.aggregatePath,
+              aggregateDefaults: resolved.aggregateDefaults,
               rootIndex,
             });
           }
@@ -153,17 +155,25 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
     }
     const selectedChoices = new Map<string, Set<number>>();
     for (const [key, group] of choiceGroups) {
-      const selected = new Set(group.candidates.filter(({ resource }) => enabled.has(resource.id)).map(({ aggregatePath }) => aggregatePath[group.pathIndex].index));
+      const selected = new Set(
+        group.candidates
+          .filter(({ resource }) => enabled.has(resource.id))
+          .map(({ aggregatePath }) => aggregatePath[group.pathIndex].index)
+      );
       if (!selected.size) {
-        for (const candidate of group.candidates) {
-          if (choiceDefaults.has(candidate.resource.id)) selected.add(candidate.aggregatePath[group.pathIndex].index);
+        const candidate = group.candidates[0];
+        if (candidate) {
+          selected.add(candidate.aggregateDefaults[group.pathIndex] ?? candidate.aggregatePath[group.pathIndex].index);
         }
       }
-      if (!selected.size && group.candidates[0]) selected.add(group.candidates[0].aggregatePath[group.pathIndex].index);
       selectedChoices.set(key, selected);
       choices.items.push({
         type: 'single-choice',
-        items: group.candidates.map(({ resource, aggregatePath }) => ({ id: resource.id, label: languageMap(resource.label), selected: selected.has(aggregatePath[group.pathIndex].index) ? true : undefined })),
+        items: group.candidates.map(({ resource, aggregatePath }) => ({
+          id: resource.id,
+          label: languageMap(resource.label),
+          selected: selected.has(aggregatePath[group.pathIndex].index) ? true : undefined,
+        })),
       });
     }
 
@@ -183,14 +193,17 @@ export function createSceneHelper(vault: CompatVault = compatVault) {
         continue;
       const { annotation, resource, wrappers, aggregatePath } = candidate;
       const normalized = normalizeScenePaintableType(resource.type);
-      const hydratedTarget = (vault.get as any)(annotation.target as never, {
-        parent: parent(annotation),
-        skipSelfReturn: false,
-        preserveSpecificResources: true,
-      }) ?? annotation.target;
+      const hydratedTarget =
+        (vault.get as any)(annotation.target as never, {
+          parent: parent(annotation),
+          skipSelfReturn: false,
+          preserveSpecificResources: true,
+        }) ?? annotation.target;
       const transforms = wrapperValues<Transform>(wrappers, 'transform');
       const selectors = wrapperValues<Selector>(wrappers, 'selector');
-      const actions = wrapperValues<unknown>(wrappers, 'action').filter((action): action is string => typeof action === 'string');
+      const actions = wrapperValues<unknown>(wrappers, 'action').filter(
+        (action): action is string => typeof action === 'string'
+      );
       if (!types.includes(normalized.type)) types.push(normalized.type);
       if (!rawTypes.includes(normalized.rawType)) rawTypes.push(normalized.rawType);
       items.push({

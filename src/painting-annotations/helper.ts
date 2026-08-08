@@ -87,11 +87,17 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
       const references = Array.from(Array.isArray(annotation.body) ? annotation.body : [annotation.body]);
       for (const reference of references) {
-        const [ref, { selector: outerSelector, styleClass: outerStyleClass }] = parseSpecificResource(
-          reference as any
-        );
+        if (!reference) continue;
+        const [ref, { selector: outerSelector, styleClass: outerStyleClass }] = parseSpecificResource(reference as any);
         const aggregate = vault.get(ref);
-        const resolved = resolveAnnotationValues(aggregate);
+        const resolved = resolveAnnotationValues(
+          aggregate,
+          (value) =>
+            vault.get(value as any, {
+              parent: annotation,
+              preserveSpecificResources: true,
+            }) ?? value
+        );
         const bodies = resolved.map((entry) => ({
           ...entry,
           body: vault.get(entry.value as any, { skipSelfReturn: false }) as ContentResource,
@@ -116,7 +122,8 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
               .map(({ aggregatePath }) => aggregatePath[group.pathIndex].index)
           );
           if (!selected.size) {
-            selected.add(group.bodies[0].aggregatePath[group.pathIndex].index);
+            const candidate = group.bodies[0];
+            selected.add(candidate.aggregateDefaults[group.pathIndex] ?? candidate.aggregatePath[group.pathIndex].index);
           }
           selectedChoiceIndexes.set(key, selected);
           choices.items.push({

@@ -162,8 +162,13 @@ export function createThumbnailHelper(
 
     switch (fullInput.type) {
       case 'Annotation': {
-        const contentResources = resolveAnnotationValues(vault.get(fullInput.body as any)).filter(({ aggregatePath }) =>
-          aggregatePath.every(({ type, index }) => type !== 'Choice' || index === 0)
+        const contentResources = resolveAnnotationValues(
+          vault.get(fullInput.body as any),
+          (value) => vault.get(value as any, { preserveSpecificResources: true }) ?? value
+        ).filter(({ aggregatePath, aggregateDefaults }) =>
+          aggregatePath.every(({ type, index }, pathIndex) =>
+            type !== 'Choice' || index === (aggregateDefaults[pathIndex] ?? 0)
+          )
         );
         if (!contentResources[0]) {
           return await thumbnailNotFound();

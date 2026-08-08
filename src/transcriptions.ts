@@ -152,8 +152,15 @@ type ContentResource = ContentResourceV3 | ContentResourceV4;
 type Manifest = ManifestV3 | ManifestV4 | ManifestNormalizedV3 | ManifestNormalizedV4;
 
 function getAnnotationBodies(vault: CompatVault, body: unknown): any[] {
-  return resolveAnnotationValues(vault.get(body as any))
-    .filter(({ aggregatePath }) => aggregatePath.every(({ type, index }) => type !== 'Choice' || index === 0))
+  return resolveAnnotationValues(
+    vault.get(body as any),
+    (value) => vault.get(value as any, { preserveSpecificResources: true }) ?? value
+  )
+    .filter(({ aggregatePath, aggregateDefaults }) =>
+      aggregatePath.every(
+        ({ type, index }, pathIndex) => type !== 'Choice' || index === (aggregateDefaults[pathIndex] ?? 0)
+      )
+    )
     .map(({ value }) => vault.get<ContentResource>(value as any, { skipSelfReturn: false }))
     .filter(Boolean);
 }

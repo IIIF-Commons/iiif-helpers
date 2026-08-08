@@ -61,7 +61,28 @@ describe('annotation aggregate values', () => {
       ],
     ]);
     expect(resolved.map(({ specificResources }) => specificResources.length)).toEqual([1, 0, 0, 0]);
+    expect(resolved.map(({ aggregateDefaults }) => aggregateDefaults)).toEqual([
+      [undefined, undefined],
+      [undefined, undefined],
+      [undefined, undefined, undefined],
+      [undefined, undefined, undefined],
+    ]);
     expect(values).toEqual(original);
+  });
+
+  test('tracks an authored Choice default without changing aggregate paths', () => {
+    const preferred = { id: 'https://example.org/preferred', type: 'Image' };
+    const resolved = resolveAnnotationValues({
+      type: 'Choice',
+      default: preferred,
+      items: [{ id: 'https://example.org/first', type: 'Image' }, preferred],
+    });
+
+    expect(resolved.map(({ aggregatePath }) => aggregatePath)).toEqual([
+      [{ type: 'Choice', index: 0 }],
+      [{ type: 'Choice', index: 1 }],
+    ]);
+    expect(resolved.map(({ aggregateDefaults }) => aggregateDefaults)).toEqual([[1], [1]]);
   });
 
   test('expands every aggregate target and keeps expandTarget as the first-result API', () => {
