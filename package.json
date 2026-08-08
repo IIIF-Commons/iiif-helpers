@@ -293,7 +293,7 @@
     "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
-    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b",
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@8dd1762",
     "@types/jsdom": "^21.1.4",
     "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",
