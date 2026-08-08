@@ -3,4 +3,6 @@ export * from './annotation-targets/parse-selector';
 export * from './annotation-targets/selector-types';
 export * from './annotation-targets/target-types';
 export * from './annotation-targets/css-selectors';
+export * from './annotation-targets/geometry';
+export * from './annotation-targets/serialize-selector';
 export * from './annotation-targets/wkt';
