@@ -192,20 +192,23 @@ export function parseSelector(
       }
 
       if (geometry?.type === 'Polygon') {
-        selector.points3d = geometry.coordinates.map(([x, y, z]) => [x, y, typeof z === 'number' ? z : 0]);
-        const xs = geometry.coordinates.map(([x]) => x);
-        const ys = geometry.coordinates.map(([, y]) => y);
-        const minX = Math.min(...xs);
-        const minY = Math.min(...ys);
-        const maxX = Math.max(...xs);
-        const maxY = Math.max(...ys);
-        selector.spatial = {
-          unit: 'pixel',
-          x: minX,
-          y: minY,
-          width: maxX - minX,
-          height: maxY - minY,
-        };
+        const ring = geometry.coordinates[0] || [];
+        selector.points3d = ring.map(([x, y, z]) => [x, y, typeof z === 'number' ? z : 0]);
+        if (ring.length) {
+          const xs = ring.map(([x]) => x);
+          const ys = ring.map(([, y]) => y);
+          const minX = Math.min(...xs);
+          const minY = Math.min(...ys);
+          const maxX = Math.max(...xs);
+          const maxY = Math.max(...ys);
+          selector.spatial = {
+            unit: 'pixel',
+            x: minX,
+            y: minY,
+            width: maxX - minX,
+            height: maxY - minY,
+          };
+        }
       }
 
       return resolveHints({

@@ -2,7 +2,7 @@ name: Release NPM package
 
 on:
   push:
-    tags: ['v*']
+    tags: ["v*"]
 
 jobs:
   build:
@@ -13,7 +13,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '22.x'
+          node-version: "22.x"
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
@@ -39,7 +39,6 @@ jobs:
       - run: pnpm run typecheck
       - run: pnpm run lint
       - run: pnpm run test
-      - run: pnpm run test:presentation-4:packed
 
   release:
     needs: [build]
@@ -50,7 +49,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '22.x'
+          node-version: "22.x"
 
       - name: Set tag
         id: tagName

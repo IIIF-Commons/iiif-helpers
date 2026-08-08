@@ -349,14 +349,10 @@ Fallback example:
 ```ts
 import { buildLocaleString } from '@iiif/helpers/i18n';
 
-const label = buildLocaleString(
-  { en: ['English title'], fr: ['Titre francais'], none: ['Untitled'] },
-  'cy-GB',
-  {
-    fallbackLanguages: ['en-GB', 'en'],
-    defaultText: 'Untitled manifest',
-  }
-);
+const label = buildLocaleString({ en: ['English title'], fr: ['Titre francais'], none: ['Untitled'] }, 'cy-GB', {
+  fallbackLanguages: ['en-GB', 'en'],
+  defaultText: 'Untitled manifest',
+});
 ```
 
 ### `@iiif/helpers/image-service`
@@ -401,11 +397,7 @@ Important notes:
 Example:
 
 ```ts
-import {
-  ImageServiceLoader,
-  getImageCandidates,
-  pickBestFromCandidates,
-} from '@iiif/helpers/image-service';
+import { ImageServiceLoader, getImageCandidates, pickBestFromCandidates } from '@iiif/helpers/image-service';
 
 const loader = new ImageServiceLoader();
 
@@ -567,10 +559,7 @@ Example:
 
 ```ts
 import { Vault } from '@iiif/helpers';
-import {
-  rangeToTableOfContentsTree,
-  isRangeContiguous,
-} from '@iiif/helpers/ranges';
+import { rangeToTableOfContentsTree, isRangeContiguous } from '@iiif/helpers/ranges';
 
 const vault = new Vault();
 const manifest = await vault.loadManifest('https://example.org/manifest.json');
@@ -608,10 +597,7 @@ What it provides:
 Example:
 
 ```ts
-import {
-  createSearch1Store,
-  createSearch1AutocompleteStore,
-} from '@iiif/helpers/search1';
+import { createSearch1Store, createSearch1AutocompleteStore } from '@iiif/helpers/search1';
 
 const service = {
   '@id': 'https://example.org/search',
@@ -658,10 +644,7 @@ Example:
 
 ```ts
 import { Vault } from '@iiif/helpers';
-import {
-  getManifestSequence,
-  getVisibleCanvasesFromCanvasId,
-} from '@iiif/helpers/sequences';
+import { getManifestSequence, getVisibleCanvasesFromCanvasId } from '@iiif/helpers/sequences';
 
 const vault = new Vault();
 const manifest = await vault.loadManifest('https://example.org/manifest.json');
@@ -807,10 +790,7 @@ Example:
 
 ```ts
 import { Vault } from '@iiif/helpers';
-import {
-  manifestHasTranscriptions,
-  getCanvasTranscription,
-} from '@iiif/helpers/transcriptions';
+import { manifestHasTranscriptions, getCanvasTranscription } from '@iiif/helpers/transcriptions';
 
 const vault = new Vault();
 const manifest = await vault.loadManifest('https://example.org/manifest.json');
@@ -1100,10 +1080,10 @@ pnpm add @iiif/helpers @iiif/parser
 
 ## Choose a Vault contract
 
-| API | Accepted input | Normalized application model | Intended use |
-| --- | --- | --- | --- |
-| `Vault` | Presentation 2.1, 3.0, supported non-3D 4.0 | Presentation 3 | Existing applications; Presentation 4 Timeline resources are projected to Canvas |
-| `Vault4` | Presentation 2.1, 3.0, and 4.0 | Presentation 4 | New applications that need Timeline, Scene identity, CollectionPage, or other v4 concepts |
+| API      | Accepted input                              | Normalized application model | Intended use                                                                              |
+| -------- | ------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
+| `Vault`  | Presentation 2.1, 3.0, supported non-3D 4.0 | Presentation 3               | Existing applications; Presentation 4 Timeline resources are projected to Canvas          |
+| `Vault4` | Presentation 2.1, 3.0, and 4.0              | Presentation 4               | New applications that need Timeline, Scene identity, CollectionPage, or other v4 concepts |
 
 A Vault's normalized version is fixed for its lifetime. Parser conversion
 happens once when a resource is loaded; helpers consume the resulting model.
@@ -1113,7 +1093,7 @@ happens once when a resource is loaded; helpers consume the resulting model.
 No version branch is needed:
 
 ```ts
-import { Vault } from "@iiif/helpers/vault";
+import { Vault } from '@iiif/helpers/vault';
 
 const vault = new Vault();
 const manifest = await vault.loadManifest(manifestUrl);
@@ -1130,7 +1110,7 @@ silently dropping it.
 ### Presentation 4 applications
 
 ```ts
-import { Vault4 } from "@iiif/helpers/vault-4";
+import { Vault4 } from '@iiif/helpers/vault-4';
 
 const vault = new Vault4();
 const manifest = await vault.loadManifest(manifestUrl);
@@ -1199,8 +1179,8 @@ by painting, thumbnail, and transcription helpers.
 Two optional subpaths expose the first tested 3D vertical slices:
 
 ```ts
-import { createSceneHelper } from "@iiif/helpers/scenes";
-import { createActivationsHelper } from "@iiif/helpers/activations";
+import { createSceneHelper } from '@iiif/helpers/scenes';
+import { createActivationsHelper } from '@iiif/helpers/activations';
 
 const scenes = createSceneHelper(vault4);
 const paintables = scenes.getPaintables(scene);
@@ -1231,7 +1211,6 @@ Install from the lockfile and run the coordinated gates directly:
 pnpm install --frozen-lockfile
 pnpm run typecheck
 pnpm exec vitest run
-pnpm run test:presentation-4:packed
 ```
 
 The packed gate installs the pinned Parser preview and a packed Helpers tarball

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@terraformer/wkt':
+        specifier: 2.2.1
+        version: 2.2.1
       '@types/geojson':
         specifier: 7946.0.13
         version: 7946.0.13
@@ -19,8 +22,8 @@ importers:
         version: 5.1.0
     devDependencies:
       '@iiif/parser':
-        specifier: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe
-        version: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe
+        specifier: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b
+        version: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b
       '@types/jsdom':
         specifier: ^21.1.4
         version: 21.1.4
@@ -128,14 +131,6 @@ packages:
 
   '@babel/helper-string-parser@7.27.1':
     resolution: {integrity: sha512-qMlSxKbpRlAridDExk92nSobyDdpPijUq2DW6oDnUqd0iOGxmQjyqhMIihI9+zv4LPyZdRje2cavWPbCbWm3eA==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.22.20':
-    resolution: {integrity: sha512-Y4OZ+ytlatR8AI+8KZfKuL5urKp7qey08ha31L8b3BwewJAoJamTzyvxPR/5D+KkdJCGPq/+8TukHBlY10FX9A==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/helper-validator-identifier@7.25.9':
-    resolution: {integrity: sha512-Ed61U6XJc3CVRfkERJWDz4dJwKe7iLmmJsbOGu9wSloNSFttHV0I8g6UAgb7qnK5ly5bGLPd4oXZlxCdANBOWQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/helper-validator-identifier@7.28.5':
@@ -344,8 +339,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe':
-    resolution: {integrity: sha512-bmIJQ+XDrBLit73/zSL0OIMAyGlWT+2xCBQcj/ASOg52Q7tZO66daatrJEoGV6lUkgOGR5nl3IUMJiNop3pqrw==, tarball: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe}
+  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b':
+    resolution: {integrity: sha512-8xyzLe2aMgpezTISTPx7pTfgE9j6IjeY+QmO+TOyhjiYx3kYKLD52tKPyK80HnYevxab1oPv6AGeCF5a6ZDqAw==, tarball: https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b}
     version: 2.3.0
     engines: {node: '>=22'}
     hasBin: true
@@ -676,6 +671,9 @@ packages:
 
   '@sinclair/typebox@0.27.8':
     resolution: {integrity: sha512-+Fj43pSMwJs4KRrH/938Uf+uAELIgVBmQzg/q1YG10djyfA3TnrU8N8XzqCh/okZdszqBQTZf96idMfE5lnwTA==}
+
+  '@terraformer/wkt@2.2.1':
+    resolution: {integrity: sha512-XDUsW/lvbMzFi7GIuRD9+UqR4QyP+5C+TugeJLMDczKIRbaHoE9J3N8zLSdyOGmnJL9B6xTS3YMMlBnMU0Ar5A==}
 
   '@tootallnate/once@2.0.0':
     resolution: {integrity: sha512-XCuKFP5PS55gnMVu3dty8KPatLqUoy/ZYzDzAGCQ8JNFCkLXzmI7vNHCR+XpbZaMWQK/vQubr7PkYq8g470J/A==}
@@ -1498,7 +1496,7 @@ snapshots:
 
   '@babel/code-frame@7.26.2':
     dependencies:
-      '@babel/helper-validator-identifier': 7.25.9
+      '@babel/helper-validator-identifier': 7.28.5
       js-tokens: 4.0.0
       picocolors: 1.1.1
 
@@ -1526,8 +1524,8 @@ snapshots:
 
   '@babel/generator@7.26.3':
     dependencies:
-      '@babel/parser': 7.26.3
-      '@babel/types': 7.26.3
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
       jsesc: 3.1.0
@@ -1551,7 +1549,7 @@ snapshots:
   '@babel/helper-module-imports@7.25.9':
     dependencies:
       '@babel/traverse': 7.26.4
-      '@babel/types': 7.26.3
+      '@babel/types': 7.28.5
     transitivePeerDependencies:
       - supports-color
 
@@ -1559,7 +1557,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.0
       '@babel/helper-module-imports': 7.25.9
-      '@babel/helper-validator-identifier': 7.25.9
+      '@babel/helper-validator-identifier': 7.28.5
       '@babel/traverse': 7.26.4
     transitivePeerDependencies:
       - supports-color
@@ -1572,10 +1570,6 @@ snapshots:
 
   '@babel/helper-string-parser@7.27.1': {}
 
-  '@babel/helper-validator-identifier@7.22.20': {}
-
-  '@babel/helper-validator-identifier@7.25.9': {}
-
   '@babel/helper-validator-identifier@7.28.5': {}
 
   '@babel/helper-validator-option@7.25.9': {}
@@ -1583,15 +1577,15 @@ snapshots:
   '@babel/helpers@7.26.0':
     dependencies:
       '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
+      '@babel/types': 7.28.5
 
   '@babel/parser@7.23.0':
     dependencies:
-      '@babel/types': 7.23.0
+      '@babel/types': 7.28.5
 
   '@babel/parser@7.26.3':
     dependencies:
-      '@babel/types': 7.26.3
+      '@babel/types': 7.28.5
 
   '@babel/parser@7.28.5':
     dependencies:
@@ -1610,16 +1604,16 @@ snapshots:
   '@babel/template@7.25.9':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/parser': 7.26.3
-      '@babel/types': 7.26.3
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
 
   '@babel/traverse@7.26.4':
     dependencies:
       '@babel/code-frame': 7.26.2
-      '@babel/generator': 7.26.3
-      '@babel/parser': 7.26.3
+      '@babel/generator': 7.28.5
+      '@babel/parser': 7.28.5
       '@babel/template': 7.25.9
-      '@babel/types': 7.26.3
+      '@babel/types': 7.28.5
       debug: 4.3.4
       globals: 11.12.0
     transitivePeerDependencies:
@@ -1628,13 +1622,13 @@ snapshots:
   '@babel/types@7.23.0':
     dependencies:
       '@babel/helper-string-parser': 7.22.5
-      '@babel/helper-validator-identifier': 7.22.20
+      '@babel/helper-validator-identifier': 7.28.5
       to-fast-properties: 2.0.0
 
   '@babel/types@7.26.3':
     dependencies:
       '@babel/helper-string-parser': 7.25.9
-      '@babel/helper-validator-identifier': 7.25.9
+      '@babel/helper-validator-identifier': 7.28.5
 
   '@babel/types@7.28.5':
     dependencies:
@@ -1726,7 +1720,7 @@ snapshots:
   '@esbuild/win32-x64@0.20.2':
     optional: true
 
-  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe': {}
+  '@iiif/parser@https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b': {}
 
   '@jest/schemas@29.6.3':
     dependencies:
@@ -1740,13 +1734,13 @@ snapshots:
   '@jridgewell/gen-mapping@0.3.3':
     dependencies:
       '@jridgewell/set-array': 1.1.2
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.5
       '@jridgewell/trace-mapping': 0.3.20
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
       '@jridgewell/set-array': 1.2.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.5
       '@jridgewell/trace-mapping': 0.3.25
 
   '@jridgewell/resolve-uri@3.1.1': {}
@@ -1762,12 +1756,12 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.20':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@jridgewell/trace-mapping@0.3.25':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.5
 
   '@jridgewell/trace-mapping@0.3.30':
     dependencies:
@@ -1932,6 +1926,8 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
+  '@terraformer/wkt@2.2.1': {}
+
   '@tootallnate/once@2.0.0': {}
 
   '@tybys/wasm-util@0.10.1':
@@ -1949,16 +1945,16 @@ snapshots:
 
   '@types/babel__generator@7.6.6':
     dependencies:
-      '@babel/types': 7.23.0
+      '@babel/types': 7.28.5
 
   '@types/babel__template@7.4.3':
     dependencies:
-      '@babel/parser': 7.23.0
-      '@babel/types': 7.23.0
+      '@babel/parser': 7.28.5
+      '@babel/types': 7.28.5
 
   '@types/babel__traverse@7.20.3':
     dependencies:
-      '@babel/types': 7.23.0
+      '@babel/types': 7.28.5
 
   '@types/estree@1.0.5': {}
 
@@ -2378,7 +2374,7 @@ snapshots:
   postcss@8.4.38:
     dependencies:
       nanoid: 3.3.7
-      picocolors: 1.0.0
+      picocolors: 1.1.1
       source-map-js: 1.2.0
 
   prettier@3.2.5: {}
@@ -2634,7 +2630,7 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.4
       pathe: 1.1.1
-      picocolors: 1.0.0
+      picocolors: 1.1.1
       vite: 5.2.8(@types/node@20.8.9)
     transitivePeerDependencies:
       - '@types/node'

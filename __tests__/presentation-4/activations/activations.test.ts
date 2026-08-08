@@ -27,5 +27,103 @@ describe('optional Presentation 4 Activation helpers', () => {
         },
       ],
     });
+
+    expect(
+      helper.getActivationsForTarget(
+        commentsWithCameras.id,
+        'https://iiif.io/api/presentation/4.0/example/uc08/3d/commenting-anno-for-mandibular-tooth'
+      )
+    ).toEqual([transaction]);
+    expect(helper.getActivationsForTarget(commentsWithCameras.id, annotations[0].id)).toEqual([transaction]);
+  });
+
+  test('hydrates ordered SpecificResources inside an aggregate body', () => {
+    const manifest = {
+      '@context': 'http://iiif.io/api/presentation/4/context.json',
+      id: 'https://example.org/activation-list/manifest',
+      type: 'Manifest',
+      label: { en: ['Activation list'] },
+      items: [
+        {
+          id: 'https://example.org/activation-list/scene',
+          type: 'Scene',
+          items: [
+            {
+              id: 'https://example.org/activation-list/page',
+              type: 'AnnotationPage',
+              items: [
+                {
+                  id: 'https://example.org/activation-list/a',
+                  type: 'Annotation',
+                  motivation: ['painting'],
+                  body: { id: 'https://example.org/a.glb', type: 'Model' },
+                  target: { id: 'https://example.org/activation-list/scene', type: 'Scene' },
+                },
+                {
+                  id: 'https://example.org/activation-list/b',
+                  type: 'Annotation',
+                  motivation: ['painting'],
+                  body: { id: 'https://example.org/b.glb', type: 'Model' },
+                  target: { id: 'https://example.org/activation-list/scene', type: 'Scene' },
+                },
+              ],
+            },
+          ],
+          annotations: [
+            {
+              id: 'https://example.org/activation-list/annotations',
+              type: 'AnnotationPage',
+              items: [
+                {
+                  id: 'https://example.org/activation-list/activation',
+                  type: 'Annotation',
+                  motivation: ['activating'],
+                  target: { id: 'https://example.org/activation-list/trigger', type: 'Annotation' },
+                  body: {
+                    id: 'https://example.org/activation-list/body',
+                    type: 'List',
+                    items: [
+                      {
+                        id: 'https://example.org/activation-list/hide',
+                        type: 'SpecificResource',
+                        source: { id: 'https://example.org/activation-list/a', type: 'Annotation' },
+                        action: ['hide'],
+                      },
+                      {
+                        id: 'https://example.org/activation-list/show',
+                        type: 'SpecificResource',
+                        source: { id: 'https://example.org/activation-list/b', type: 'Annotation' },
+                        transform: [{ type: 'TranslateTransform', x: 1, y: 2, z: 3 }],
+                        action: ['show'],
+                      },
+                    ],
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    } as any;
+    const vault = new Vault4();
+    vault.loadManifestSync(manifest.id, manifest);
+    const transaction = createActivationsHelper(vault).parseActivatingAnnotation(
+      'https://example.org/activation-list/activation'
+    );
+
+    expect(transaction?.steps).toMatchObject([
+      {
+        source: { id: 'https://example.org/activation-list/a', type: 'Annotation' },
+        actions: ['hide'],
+        transform: [],
+        aggregatePath: [{ type: 'List', index: 0 }],
+      },
+      {
+        source: { id: 'https://example.org/activation-list/b', type: 'Annotation' },
+        actions: ['show'],
+        transform: [{ type: 'TranslateTransform', x: 1, y: 2, z: 3 }],
+        aggregatePath: [{ type: 'List', index: 1 }],
+      },
+    ]);
   });
 });

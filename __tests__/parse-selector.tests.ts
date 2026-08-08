@@ -129,6 +129,13 @@ describe('parse selector', () => {
     `);
   });
 
+  test('does not produce infinite bounds for an empty WKT polygon', () => {
+    const result = parseSelector({ type: 'WktSelector', value: 'POLYGON EMPTY' } as SelectorV4);
+
+    expect(result.selector).toMatchObject({ points3d: [] });
+    expect(result.selector).not.toHaveProperty('spatial');
+  });
+
   describe('SVG Selectors', () => {
     test('Malformed SVG path data returns an empty selector', () => {
       expect(

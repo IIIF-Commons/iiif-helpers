@@ -1,25 +1,22 @@
 {
   "name": "@iiif/helpers",
+  "version": "1.6.1",
   "bugs": "https://github.com/iiif-commons/iiif-helpers/issues",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/iiif-commons/iiif-helpers.git"
   },
-  "version": "1.6.1",
-  "engines": {
-    "node": ">=22"
-  },
-  "license": "MIT",
-  "type": "module",
-  "main": "dist/index.cjs",
-  "module": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "typings": "dist/index.d.ts",
   "files": [
     "npm",
     "dist"
   ],
+  "type": "module",
   "sideEffects": false,
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "typings": "dist/index.d.ts",
   "exports": {
     ".": {
       "require": {
@@ -282,6 +279,9 @@
       }
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsdown",
     "dev": "tsdown --watch",
@@ -293,20 +293,13 @@
     "lint": "publint"
   },
   "dependencies": {
+    "@terraformer/wkt": "2.2.1",
     "@types/geojson": "7946.0.13",
     "mitt": "^3.0.1",
     "typesafe-actions": "^5.1.0"
   },
-  "optionalDependencies": {
-    "abs-svg-path": "^0.1.1",
-    "parse-svg-path": "^0.1.2",
-    "svg-arc-to-cubic-bezier": "^3.2.0"
-  },
-  "peerDependencies": {
-    "@iiif/parser": "^2.3.0"
-  },
   "devDependencies": {
-    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@c9991fe",
+    "@iiif/parser": "https://pkg.pr.new/IIIF-Commons/parser/@iiif/parser@e43432b",
     "@types/jsdom": "^21.1.4",
     "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",
@@ -322,7 +315,15 @@
     "vitest": "^1.4.0",
     "zustand": "^4.5.2"
   },
-  "publishConfig": {
-    "access": "public"
+  "peerDependencies": {
+    "@iiif/parser": "^2.3.0"
+  },
+  "optionalDependencies": {
+    "abs-svg-path": "^0.1.1",
+    "parse-svg-path": "^0.1.2",
+    "svg-arc-to-cubic-bezier": "^3.2.0"
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

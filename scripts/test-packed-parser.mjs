@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process';
-import { copyFileSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { copyFileSync, mkdtempSync, readFileSync, readdirSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -27,9 +27,13 @@ function publicSpecifiers(packageName, packageJson) {
 
 try {
   const helpersPackage = JSON.parse(readFileSync(join(root, 'package.json'), 'utf8'));
-  const parserDependency = helpersPackage.devDependencies['@iiif/parser'];
-  const parserPackage = JSON.parse(readFileSync(join(root, 'node_modules', '@iiif', 'parser', 'package.json'), 'utf8'));
+  const parserModuleRoot = realpathSync(join(root, 'node_modules', '@iiif', 'parser'));
+  const parserPackage = JSON.parse(readFileSync(join(parserModuleRoot, 'package.json'), 'utf8'));
   const helpersTarball = pack(root);
+  const configuredParserDependency = helpersPackage.devDependencies['@iiif/parser'];
+  const parserDependency = configuredParserDependency.startsWith('workspace:')
+    ? `file:${pack(parserModuleRoot)}`
+    : configuredParserDependency;
   const allPublicSpecifiers = [
     ...publicSpecifiers('@iiif/parser', parserPackage),
     ...publicSpecifiers('@iiif/helpers', helpersPackage),
