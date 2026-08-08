@@ -1,6 +1,6 @@
 # `@iiif/helpers`
 
-`@iiif/helpers` is a TypeScript utility library for building IIIF applications.
+`@iiif/helpers` is a TypeScript utility library for building IIIF applications with Presentation 2.1, 3.0, and the supported parts of the Presentation 4.0 release candidate.
 
 It combines:
 
@@ -12,7 +12,7 @@ This repository publishes one npm package, `@iiif/helpers`, with a set of focuse
 
 ## What The Library Covers
 
-- IIIF Presentation 2 and 3 loading, upgrading, and normalization
+- IIIF Presentation 2.1, 3.0, and supported Presentation 4 loading, upgrading, and normalization
 - normalized storage and mutation of IIIF entities through the Vault
 - selector parsing for `xywh`, temporal fragments, Image API selectors, and SVG selectors
 - IIIF Content State parsing, encoding, decoding, validation, and normalization
@@ -20,8 +20,9 @@ This repository publishes one npm package, `@iiif/helpers`, with a set of focuse
 - thumbnail and image-service candidate selection
 - painting annotation extraction, choice handling, and media discovery
 - range traversal, table-of-contents generation, and sequence calculation
-- Search API 1 search/autocomplete stores
+- Search API 1 and 2 search/autocomplete stores
 - transcript discovery and extraction from plain text, VTT, and supplemental annotations
+- Presentation 4 Scene inspection and Activation transaction parsing
 - vault-backed UI glue for events and styles
 
 ## Installation
@@ -42,6 +43,7 @@ yarn add @iiif/helpers @iiif/parser
 
 Notes:
 
+- Node.js 22 or newer is required.
 - The package ships ESM, CJS, and TypeScript declarations for each public entry point.
 - If you parse SVG selectors in Node, provide a `DOMParser` implementation such as `jsdom` or `happy-dom`.
 - If you use remote loading in Node, a modern runtime with built-in `fetch` is the simplest setup.
@@ -58,21 +60,22 @@ Use subpath imports when you want a smaller, more explicit import surface or whe
 
 ```ts
 import { getCanvasTranscription } from "@iiif/helpers/transcriptions";
+import { Vault4 } from "@iiif/helpers/vault-4";
 import { createStore } from "@iiif/helpers/vault/store";
 import { entityActions } from "@iiif/helpers/vault/actions";
 import { Vault as NodeVault } from "@iiif/helpers/vault-node";
 ```
 
-The root entry point re-exports the main helper packages, but it does **not** re-export:
+The root entry point includes feature helpers such as transcriptions, Search 2, Scenes, and Activations. It does **not** re-export:
 
-- `@iiif/helpers/transcriptions`
+- `@iiif/helpers/vault-4`
 - `@iiif/helpers/vault-node`
 - `@iiif/helpers/vault/actions`
 - `@iiif/helpers/vault/store`
 - `@iiif/helpers/vault/utility`
 - `@iiif/helpers/vault/global-vault`
 
-## Quick Start
+## Presentation 3 Quick Start
 
 ```ts
 import { Vault, getValue, createThumbnailHelper } from "@iiif/helpers";
@@ -96,6 +99,22 @@ console.log(label);
 console.log(thumbnails.best);
 ```
 
+For a native Presentation 4 normalized model, choose `Vault4` when the application is created:
+
+```ts
+import { Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
+
+if (!manifest) {
+  throw new Error("Manifest failed to load");
+}
+
+const firstContainer = vault.get(manifest.items[0]);
+const presentation4 = vault.toPresentation4(manifest);
+```
+
 ## Entry Points
 
 The package is organized as subpath exports. The table below is the complete public entry-point map from `package.json`.
@@ -114,15 +133,19 @@ The package is organized as subpath exports. The table below is the complete pub
 | `@iiif/helpers/ranges`               | Yes                              | Range traversal, TOC generation, and range selection helpers.                               |
 | `@iiif/helpers/sequences`            | Yes                              | Visible-canvas and page-order helpers for paged/continuous/individuals behavior.            |
 | `@iiif/helpers/search1`              | Yes                              | Search API 1 search and autocomplete stores.                                                |
+| `@iiif/helpers/search2`              | Yes                              | Search API 2 search and autocomplete stores.                                                |
 | `@iiif/helpers/image-service`        | Yes                              | Image-service loading, prediction, candidate extraction, and selection.                     |
 | `@iiif/helpers/nav-date`             | Yes                              | Date-navigation trees from `navDate` values.                                                |
 | `@iiif/helpers/vault`                | Yes                              | Core `Vault` class, types, and singleton helper.                                            |
+| `@iiif/helpers/vault-4`              | No                               | Native Presentation 4 Vault and profile discriminator.                                      |
 | `@iiif/helpers/vault-node`           | No                               | Node-oriented `Vault` with fetch support.                                                   |
 | `@iiif/helpers/vault/global-vault`   | No                               | Global singleton bridge for browser-global environments.                                    |
 | `@iiif/helpers/vault/actions`        | No                               | Action constants and creators for vault state updates.                                      |
 | `@iiif/helpers/vault/store`          | No                               | Zustand-based store factory and reducers used by the vault.                                 |
 | `@iiif/helpers/vault/utility`        | No                               | Lower-level helpers for fetch pipelines and store access.                                   |
-| `@iiif/helpers/transcriptions`       | No                               | Transcript detection and extraction helpers.                                                |
+| `@iiif/helpers/transcriptions`       | Yes                              | Transcript detection and extraction helpers.                                                |
+| `@iiif/helpers/scenes`               | Yes                              | Presentation 4 Scene paintables, targets, and transforms.                                   |
+| `@iiif/helpers/activations`          | Yes                              | Presentation 4 Activation discovery and transaction parsing.                                |
 
 ## Package Reference
 
@@ -131,6 +154,8 @@ The package is organized as subpath exports. The table below is the complete pub
 The root entry point is a convenience export for the most commonly used helpers. It re-exports:
 
 - `events`
+- `activations`
+- `annotation-values`
 - `styles`
 - `thumbnail`
 - `i18n`
@@ -142,8 +167,11 @@ The root entry point is a convenience export for the most commonly used helpers.
 - `vault`
 - `fetch`
 - `search1`
+- `search2`
+- `scenes`
 - `nav-date`
 - `image-service`
+- `transcriptions`
 
 Use it when you want a single import surface for most browser-side work.
 
@@ -159,6 +187,9 @@ Key exports:
 - `splitCanvasFragment`
 - `isImageApiSelector`
 - `isValidCanvasFragment`
+- `isRectangle`
+- `polygonToBoundingBox`
+- `serializeSupportedSelector`
 - selector and target result types such as `SupportedTarget`, `BoxSelector`, `PointSelector`, `SvgSelector`, `TemporalSelector`, and `TemporalBoxSelector`
 
 What it handles:
@@ -616,6 +647,36 @@ const autocomplete = createSearch1AutocompleteStore(service);
 await autocomplete.getState().search("wunder");
 ```
 
+### `@iiif/helpers/search2`
+
+This package contains helpers for IIIF Search API 2.
+
+Key exports:
+
+- `findSearch2Service`
+- `findSearch2AutocompleteService`
+- `createSearch2Store`
+- `createSearch2AutocompleteStore`
+- Search 2 service, query, result, and store types
+
+The stores manage search and autocomplete requests, abort superseded requests, expose ignored query parameters, and support navigating highlighted hits.
+
+Example:
+
+```ts
+import { createSearch2Store, findSearch2Service } from "@iiif/helpers/search2";
+
+const service = findSearch2Service(manifest);
+
+if (service) {
+  const store = createSearch2Store(service);
+  await store.getState().search({ q: "example", motivation: "commenting" });
+  store.getState().highlightHit(0);
+
+  console.log(store.getState().resources);
+}
+```
+
 ### `@iiif/helpers/sequences`
 
 This package calculates visible canvases and page order from IIIF behavior.
@@ -820,7 +881,7 @@ Key exports:
 - `globalVault`
 - vault types such as `VaultOptions`, `Entities`, `IIIFStore`, `RequestState`, `MetaState`, and related action/type helpers
 
-The `Vault` is a normalized IIIF resource store with loading, mutation, serialization, subscription, and helper methods.
+The `Vault` is a normalized Presentation 3 resource store with loading, mutation, serialization, subscription, and helper methods. It accepts Presentation 2.1 and 3.0 input, plus supported non-3D Presentation 4 input through the parser's Presentation 3 compatibility projection. Its profile never changes after construction.
 
 Major capabilities:
 
@@ -834,6 +895,7 @@ Major capabilities:
 - serialize resources back to Presentation 2 or Presentation 3 with `toPresentation2()` and `toPresentation3()`
 - manage per-resource meta state with `setMetaValue()` and `getResourceMeta()`
 - paginate paged collections with `getPaginationState()` and `loadNextPage()`
+- inspect the detected source version and normalization diagnostics with `getLoadReport()`
 
 The `Vault` also includes higher-level object wrappers:
 
@@ -865,6 +927,34 @@ console.log(vault.getResourceMeta(firstCanvas.id, "ui"));
 const wrapped = vault.getObject(manifest);
 console.log(wrapped.items[0].id);
 console.log(wrapped.items[0].unwrap());
+```
+
+### `@iiif/helpers/vault-4`
+
+This package provides the explicit Presentation 4 Vault contract.
+
+Key exports:
+
+- `Vault4`
+- `isVault4`
+- Presentation 4-specific option, reference, and result types
+
+`Vault4` shares the core Vault runtime while using Presentation 4 normalization and serialization. It preserves Canvas, Timeline, Scene, CollectionPage, and other Presentation 4 identities, and can serialize loaded resources with `toPresentation2()`, `toPresentation3()`, or `toPresentation4()`.
+
+Use `isVault4()` instead of `instanceof Vault4` when a Vault may come from another installed copy of `@iiif/helpers`.
+
+Example:
+
+```ts
+import { isVault4, Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
+
+if (manifest && isVault4(vault)) {
+  console.log(vault.getLoadReport(manifest.id));
+  console.log(vault.toPresentation4(manifest));
+}
 ```
 
 ### `@iiif/helpers/vault-node`
@@ -1049,10 +1139,12 @@ If you are not sure where to start:
 
 - start with `@iiif/helpers` for general browser-side helper work
 - use `@iiif/helpers/vault` when you want normalized loading and resource access
+- use `@iiif/helpers/vault-4` when your application needs a native Presentation 4 model
 - use `@iiif/helpers/thumbnail` and `@iiif/helpers/image-service` for image selection and delivery logic
 - use `@iiif/helpers/annotation-targets` and `@iiif/helpers/content-state` for viewer/deeplink interoperability
 - use `@iiif/helpers/ranges`, `@iiif/helpers/sequences`, and `@iiif/helpers/nav-date` for navigation structures
-- use `@iiif/helpers/search1` and `@iiif/helpers/transcriptions` for discovery and text experiences
+- use `@iiif/helpers/search1`, `@iiif/helpers/search2`, and `@iiif/helpers/transcriptions` for discovery and text experiences
+- use `@iiif/helpers/scenes` and `@iiif/helpers/activations` for the tested Presentation 4 3D helper surface
 
 ## Repo Docs And Demos
 
@@ -1067,18 +1159,11 @@ There are also focused notes and examples in this repository:
 - [Thumbnails](./docs/thumbnails.md)
 - [Demos](./demos/index.html)
 
-## Presentation 4 release candidate support
+## Presentation 4
 
-Helpers and a normalized resource Vault for IIIF Presentation 2.1, 3.0, and
-the supported parts of the Presentation 4.0 release candidate.
+Presentation 4 uses an explicit, lifetime-stable Vault contract. Choose the normalized model when the application is created; loading a resource never replaces the Vault or changes its profile.
 
-Node.js 22 or newer is required.
-
-```sh
-pnpm add @iiif/helpers @iiif/parser
-```
-
-## Choose a Vault contract
+### Choose a Vault Contract
 
 | API      | Accepted input                              | Normalized application model | Intended use                                                                              |
 | -------- | ------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
@@ -1122,7 +1207,7 @@ const presentation4 = vault.toPresentation4(manifest);
 `firstContainer` remains a Canvas, Timeline, or Scene. `Vault4` also accepts
 Presentation 2.1 and 3.0 input and upgrades it once during ingestion.
 
-## Load reports
+### Load Reports
 
 Both Vaults retain the detected source version. `Vault4` also retains parser
 normalization warnings such as deterministic ID minting:
@@ -1139,7 +1224,7 @@ const report = vault.getLoadReport(manifestUrl);
 Reports are stored for both the requested URL and the canonical resource ID
 when they differ.
 
-## Explicit page loading
+### Explicit Page Loading
 
 Loading a Collection or AnnotationCollection does not implicitly fetch its
 pages. Page chains are an explicit Vault operation:
@@ -1154,27 +1239,11 @@ CollectionPage and AnnotationPage entities remain independently addressable.
 The derived member list is ordered and deduplicated. Cycles and broken links
 stop safely and are exposed on `state.error`; loaded prefixes are retained.
 
-## Helpers
+### Helper Compatibility
 
-Helpers are available from the root package and focused subpaths:
+Shared helpers accept either fixed Vault profile. Canvas-specific functions remain Canvas-specific; `findAllContainersInRange` and the Container transcription APIs cover Canvas, Timeline, and Scene without relabeling them. Painting, thumbnail, transcription, and Scene helpers consistently resolve nested Choice, Composite, List, Independents, and SpecificResource bodies, including authored Choice defaults.
 
-- `@iiif/helpers/annotation-targets`
-- `@iiif/helpers/content-state`
-- `@iiif/helpers/i18n`
-- `@iiif/helpers/image-service`
-- `@iiif/helpers/painting-annotations`
-- `@iiif/helpers/ranges`
-- `@iiif/helpers/sequences`
-- `@iiif/helpers/thumbnail`
-- `@iiif/helpers/transcriptions`
-
-Shared helpers accept either fixed Vault profile. Canvas-specific functions
-remain Canvas-specific; `findAllContainersInRange` and the Container
-transcription APIs cover Canvas, Timeline, and Scene without relabeling them.
-Annotation aggregate and SpecificResource semantics are resolved consistently
-by painting, thumbnail, and transcription helpers.
-
-## Deliberate Scene and Activation support
+### Deliberate Scene and Activation Support
 
 Two optional subpaths expose the first tested 3D vertical slices:
 
@@ -1202,16 +1271,21 @@ calculate lighting, spatialize audio emitters, or execute activation actions.
 Camera, light, audio-emitter, animation, and nested extension subtrees are not
 normalized into helper-specific models unless a tested vertical slice is added.
 
-## Presentation 4 development
+## Development
 
 This checkout pins the exact Parser preview used for development and testing.
 Install from the lockfile and run the coordinated gates directly:
 
 ```sh
 pnpm install --frozen-lockfile
+pnpm run fmt:check
+pnpm run lint
+pnpm run lint:pkg
 pnpm run typecheck
 pnpm exec vitest run
 ```
+
+Run `pnpm fmt` to apply the shared oxfmt configuration. The checked-in Zed settings use oxfmt on save and oxlint on type.
 
 The packed gate installs the pinned Parser preview and a packed Helpers tarball
 into a fresh consumer, imports every public subpath through ESM and CommonJS,
