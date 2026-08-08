@@ -7,6 +7,7 @@ import {
   expandTarget,
   findAllCanvasesInRange,
   findAllContainersInRange,
+  findSelectedRange,
   getAvailableLanguagesFromResource,
   normaliseContentState,
   parseSelector,
@@ -47,6 +48,7 @@ describe('Presentation 4 helper parity', () => {
       { id: 'https://example.org/canvas/2', type: 'Canvas' },
     ]);
     expect(createRangeHelper().findAllContainersInRange(range)).toHaveLength(4);
+    expect(findSelectedRange(compatVault, range, 'https://example.org/canvas/1')).toBe(range);
 
     const [sequence] = createSequenceHelper().getManifestSequence({
       id: 'https://example.org/manifest',

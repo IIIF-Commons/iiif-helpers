@@ -208,6 +208,9 @@ export function findSelectedRange(
   for (const inner of range.items) {
     const innerAny = inner as any;
     const parsedId = (inner as any)?.source?.id?.split('#')[0];
+    if (innerAny.type === 'Canvas' && innerAny.id?.split('#')[0] === canvasId) {
+      return range;
+    }
     if (innerAny.type === 'SpecificResource' && innerAny.source === canvasId) {
       return range;
     }

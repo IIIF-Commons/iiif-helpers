@@ -126,4 +126,42 @@ describe('optional Presentation 4 Activation helpers', () => {
       },
     ]);
   });
+
+  test('finds activating annotations below Timeline containers', () => {
+    const manifest = {
+      '@context': 'http://iiif.io/api/presentation/4/context.json',
+      id: 'https://example.org/timeline-activation/manifest',
+      type: 'Manifest',
+      label: { en: ['Timeline activation'] },
+      items: [
+        {
+          id: 'https://example.org/timeline-activation/timeline',
+          type: 'Timeline',
+          duration: 10,
+          items: [],
+          annotations: [
+            {
+              id: 'https://example.org/timeline-activation/page',
+              type: 'AnnotationPage',
+              items: [
+                {
+                  id: 'https://example.org/timeline-activation/annotation',
+                  type: 'Annotation',
+                  motivation: ['activating'],
+                  body: { id: 'https://example.org/timeline-activation/model', type: 'Model' },
+                  target: { id: 'https://example.org/timeline-activation/trigger', type: 'Annotation' },
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    } as any;
+    const vault = new Vault4();
+    vault.loadManifestSync(manifest.id, manifest);
+
+    expect(createActivationsHelper(vault).getAllActivatingAnnotations(manifest.id).map(({ id }) => id)).toEqual([
+      'https://example.org/timeline-activation/annotation',
+    ]);
+  });
 });

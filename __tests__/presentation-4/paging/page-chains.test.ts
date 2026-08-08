@@ -132,4 +132,11 @@ describe('Vault page chains', () => {
     expect(state?.error.message).toBe(`Missing fixture: ${collectionPage2.id}`);
     expect(vault.getPaginatedItems(collection.id)).toHaveLength(2);
   });
+
+  test('returns no pagination state for an unknown resource', async () => {
+    const vault = new Vault4();
+
+    expect(vault.getPaginationState('https://example.org/iiif/missing')).toBeNull();
+    await expect(vault.loadPageChain('https://example.org/iiif/missing')).resolves.toBeNull();
+  });
 });

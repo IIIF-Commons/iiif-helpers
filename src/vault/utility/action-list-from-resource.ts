@@ -73,6 +73,7 @@ function toActionList(
   if (resource.id !== id) {
     actions.push(addMapping({ id, type: resource.type as string }));
     actions.push(requestMismatch({ requestId: id, actualId: resource.id }));
+    actions.push(requestComplete({ id: resource.id }));
   }
   if (sourceVersion !== undefined && diagnostics !== undefined) {
     const report = { sourceVersion, diagnostics };

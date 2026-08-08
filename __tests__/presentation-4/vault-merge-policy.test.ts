@@ -50,8 +50,11 @@ describe('Vault profile state policy', () => {
     ['TextualBody', 'ContentResource'],
     ['Choice', 'ContentResource'],
     ['Camera', 'ContentResource'],
+    ['ImageBasedLight', 'ContentResource'],
     ['AudioEmitters', 'ContentResource'],
     ['WktSelector', 'Selector'],
+    ['PolygonZSelector', 'Selector'],
+    ['CompositeSelector', 'Selector'],
     ['CollectionPage', 'CollectionPage'],
   ] as const)('routes %s to %s', (input, expected) => {
     expect(resolveType(input)).toBe(expected);

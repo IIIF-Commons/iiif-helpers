@@ -60,7 +60,10 @@ export function createActivationsHelper(vault: CompatVault = compatVault) {
       }
       for (const entry of [...asArray(node.items), ...asArray((node as Container).annotations)]) {
         const child = resolve<Container | AnnotationPage>(entry, node);
-        if (child && (child.type === 'AnnotationPage' || child.type === 'Scene' || child.type === 'Manifest'))
+        if (
+          child &&
+          ['AnnotationPage', 'Canvas', 'Timeline', 'Scene', 'Manifest'].includes(child.type || '')
+        )
           visit(child);
       }
     };

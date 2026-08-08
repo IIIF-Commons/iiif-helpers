@@ -1,6 +1,10 @@
 /// <reference types="geojson" />
 
-import { serializeConfigPresentation2 } from '@iiif/parser';
+import {
+  normalize as normalizePresentation3,
+  serialize as serializePresentation3,
+  serializeConfigPresentation2,
+} from '@iiif/parser';
 import {
   type SerializeConfig,
   serialize,
@@ -14,9 +18,19 @@ import type {
   Reference,
 } from '@iiif/parser/presentation-4/types';
 import type {
+  AgentNormalized,
+  AnnotationCollectionNormalized,
+  AnnotationNormalized,
+  AnnotationPageNormalized,
+  CanvasNormalized,
   CollectionNormalized,
   CollectionPageNormalized,
+  ContentResourceNormalized,
   ManifestNormalized,
+  RangeNormalized,
+  SceneNormalized,
+  SpecificResourceNormalized,
+  TimelineNormalized,
 } from '@iiif/parser/presentation-4-normalized/types';
 import type { Entities } from './types';
 import { actionListFromResourceV4, type ActionListFromResource } from './utility/action-list-from-resource';
@@ -35,6 +49,21 @@ type Vault4TypeMap = VaultTypeMap & {
   Collection: Collection;
   ManifestNormalized: ManifestNormalized;
   CollectionNormalized: CollectionNormalized;
+  Normalized: {
+    Manifest: ManifestNormalized;
+    Collection: CollectionNormalized;
+    CollectionPage: CollectionPageNormalized;
+    Canvas: CanvasNormalized;
+    Timeline: TimelineNormalized;
+    Scene: SceneNormalized;
+    AnnotationPage: AnnotationPageNormalized;
+    AnnotationCollection: AnnotationCollectionNormalized;
+    Annotation: AnnotationNormalized;
+    ContentResource: ContentResourceNormalized | SpecificResourceNormalized;
+    SpecificResource: SpecificResourceNormalized;
+    Range: RangeNormalized;
+    Agent: AgentNormalized;
+  };
 };
 
 export type Vault4Options = VaultOptions;
@@ -49,6 +78,8 @@ export type Vault4EntityRef<Ref extends keyof Entities> = EntityRef<Ref>;
  * loading, subscriptions, pagination and wrapping are inherited unchanged.
  */
 export class Vault4 extends Vault<Vault4TypeMap> {
+  override readonly presentationVersion = 4;
+
   protected override getActionListFromResource(): ActionListFromResource {
     return actionListFromResourceV4;
   }
@@ -58,7 +89,13 @@ export class Vault4 extends Vault<Vault4TypeMap> {
   }
 
   override toPresentation2<Return>(entity: Reference<keyof Entities>): Return {
-    return this.serialize<Return>(entity, serializeConfigPresentation2 as any);
+    const presentation3 = this.toPresentation3<unknown>(entity);
+    const normalized = normalizePresentation3(presentation3);
+    return serializePresentation3<Return>(
+      { entities: normalized.entities, mapping: normalized.mapping, requests: {} },
+      normalized.resource,
+      serializeConfigPresentation2
+    );
   }
 
   override toPresentation3<Return>(entity: Reference<keyof Entities>): Return {
@@ -91,4 +128,8 @@ export class Vault4 extends Vault<Vault4TypeMap> {
   ): Promise<ReactiveWrapped<CollectionPage, CollectionPageNormalized>> {
     return super.loadObject<CollectionPage, CollectionPageNormalized>(id as any, json);
   }
+}
+
+export function isVault4(value: unknown): value is Vault4 {
+  return !!value && typeof value === 'object' && (value as { presentationVersion?: unknown }).presentationVersion === 4;
 }

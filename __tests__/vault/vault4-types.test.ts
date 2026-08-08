@@ -1,4 +1,6 @@
 import type {
+  AnnotationNormalized,
+  CanvasNormalized,
   CollectionNormalized,
   ManifestNormalized,
   SceneNormalized,
@@ -6,7 +8,7 @@ import type {
 import { describe, expectTypeOf, test } from 'vitest';
 import cssManifest from '../../fixtures/cookbook/css.json';
 import p4SceneManifest from '../../fixtures/presentation-4/cookbook/0608-mvm-3d.json';
-import { Vault4 } from '../../src/vault/vault4';
+import { isVault4, Vault4 } from '../../src/vault/vault4';
 
 describe('Vault4 types', () => {
   test('core method signatures remain type-safe', () => {
@@ -26,6 +28,18 @@ describe('Vault4 types', () => {
       type: 'Scene',
     });
     expectTypeOf(scene).toMatchTypeOf<SceneNormalized>();
+
+    const canvas = vault.get({
+      id: 'https://example.org/canvas/1',
+      type: 'Canvas',
+    });
+    expectTypeOf(canvas).toEqualTypeOf<CanvasNormalized>();
+
+    const annotation = vault.get({
+      id: 'https://example.org/annotation/1',
+      type: 'Annotation',
+    });
+    expectTypeOf(annotation).toEqualTypeOf<AnnotationNormalized>();
 
     const hydratedScene = vault.hydrate({
       id: 'https://example.org/scene/1',
@@ -89,5 +103,11 @@ describe('Vault4 types', () => {
       type: 'Scene',
     });
     expectTypeOf(scene).toMatchTypeOf<SceneNormalized>();
+  });
+
+  test('exposes a cross-package-copy Presentation 4 discriminator', () => {
+    expect(isVault4(new Vault4())).toBe(true);
+    expect(isVault4({ presentationVersion: 4 })).toBe(true);
+    expect(isVault4({ presentationVersion: 3 })).toBe(false);
   });
 });

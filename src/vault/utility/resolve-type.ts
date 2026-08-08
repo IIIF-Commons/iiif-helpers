@@ -14,6 +14,7 @@ export function resolveType(type?: string): keyof Entities {
     case 'Composite':
     case 'List':
     case 'Independents':
+    case 'Transform':
     case 'Audience':
     case 'SpecificResource':
     case 'Quantity':
@@ -24,6 +25,7 @@ export function resolveType(type?: string): keyof Entities {
     case 'OrthographicCamera':
     case 'AmbientLight':
     case 'DirectionalLight':
+    case 'ImageBasedLight':
     case 'PointLight':
     case 'SpotLight':
     case 'AmbientAudio':
@@ -38,6 +40,8 @@ export function resolveType(type?: string): keyof Entities {
     case 'FragmentSelector':
     case 'ImageApiSelector':
     case 'PointSelector':
+    case 'PolygonZSelector':
+    case 'CompositeSelector':
     case 'SvgSelector':
     case 'VisualContentSelector':
     case 'WktSelector':

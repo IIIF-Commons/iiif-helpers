@@ -50,4 +50,34 @@ describe('Vault4 load reports', () => {
       diagnostics: [],
     });
   });
+
+  test('marks both requested and canonical identifiers ready after a URI mismatch', async () => {
+    const requestedId = 'https://example.org/iiif/requested';
+    const canonicalId = 'https://example.org/iiif/canonical';
+    const vault = new Vault4({
+      customFetcher: async () => ({
+        '@context': 'http://iiif.io/api/presentation/4/context.json',
+        id: canonicalId,
+        type: 'Manifest',
+        label: { en: ['Canonical resource'] },
+        items: [],
+      }),
+    });
+
+    const requested = await vault.loadManifest(requestedId);
+    const canonical = await vault.loadManifest(canonicalId);
+
+    expect(requested?.id).toBe(canonicalId);
+    expect(canonical).toBe(requested);
+    expect(vault.requestStatus(requestedId)).toMatchObject({
+      loadingState: 'RESOURCE_READY',
+      resourceUri: canonicalId,
+      uriMismatch: true,
+    });
+    expect(vault.requestStatus(canonicalId)).toMatchObject({
+      loadingState: 'RESOURCE_READY',
+      resourceUri: canonicalId,
+      uriMismatch: true,
+    });
+  });
 });

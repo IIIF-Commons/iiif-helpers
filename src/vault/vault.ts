@@ -11,7 +11,17 @@ import {
   serializeConfigPresentation3,
 } from '@iiif/parser';
 import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
-import type { CollectionNormalized, ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
+import type {
+  AnnotationCollectionNormalized,
+  AnnotationNormalized,
+  AnnotationPageNormalized,
+  CanvasNormalized,
+  CollectionNormalized,
+  ManifestNormalized,
+  RangeNormalized,
+  ResourceProviderNormalized,
+  ServiceNormalized,
+} from '@iiif/parser/presentation-3-normalized/types';
 import mitt, { type Emitter } from 'mitt';
 import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from './actions';
 import { createStore, type VaultZustandStore } from './store';
@@ -83,6 +93,7 @@ export type VaultTypeMap = {
   Collection: unknown;
   ManifestNormalized: unknown;
   CollectionNormalized: unknown;
+  Normalized?: object;
 };
 
 export type Vault3TypeMap = {
@@ -90,18 +101,30 @@ export type Vault3TypeMap = {
   Collection: Collection;
   ManifestNormalized: ManifestNormalized;
   CollectionNormalized: CollectionNormalized;
+  Normalized: {
+    Manifest: ManifestNormalized;
+    Collection: CollectionNormalized;
+    Canvas: CanvasNormalized;
+    AnnotationPage: AnnotationPageNormalized;
+    AnnotationCollection: AnnotationCollectionNormalized;
+    Annotation: AnnotationNormalized;
+    Range: RangeNormalized;
+    Service: ServiceNormalized;
+    Agent: ResourceProviderNormalized;
+  };
 };
 
 export type RefToNormalizedFor<
   Ref extends { type?: string },
   Types extends VaultTypeMap,
-> = Ref['type'] extends 'Manifest'
-  ? Types['ManifestNormalized']
-  : Ref['type'] extends 'Collection'
-    ? Types['CollectionNormalized']
-    : RefToNormalized<Ref>;
+> = Ref['type'] extends string
+  ? Ref['type'] extends keyof NonNullable<Types['Normalized']>
+    ? NonNullable<Types['Normalized']>[Ref['type']]
+    : RefToNormalized<Ref>
+  : RefToNormalized<Ref>;
 
 export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
+  readonly presentationVersion: 3 | 4 = 3;
   protected readonly options: VaultOptions;
   private readonly store: VaultZustandStore;
   private readonly emitter: Emitter<any>;
@@ -131,10 +154,10 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         enableDevtools: this.options.enableDevtools,
       });
     this.emitter = mitt();
-    this.remoteFetcher = createFetchHelper(this as Vault, this.options.customFetcher || defaultFetcher, {
+    this.remoteFetcher = createFetchHelper(this as Vault<any>, this.options.customFetcher || defaultFetcher, {
       actionListFromResource: this.getActionListFromResource(),
     }) as any;
-    this.staticFetcher = createFetchHelper(this as Vault, (id: string, json: any) => json, {
+    this.staticFetcher = createFetchHelper(this as Vault<any>, (id: string, json: any) => json, {
       actionListFromResource: this.getActionListFromResource(),
     });
   }
@@ -333,7 +356,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     if (!entities) {
       const request = state.iiif.requests[_id];
       if (request && request.resourceUri !== _id) {
-        return this.get(request.resourceUri, options);
+        return this.get(request.resourceUri, options) as any;
       }
 
       if (skipSelfReturn) {
@@ -491,7 +514,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     }
 
     const fullResource: any = this.get(resource);
-    if (fullResource.first) {
+    if (fullResource?.first) {
       const firstPage = referenceId(fullResource.first);
       if (!firstPage) {
         return null;
@@ -726,14 +749,14 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     options: GetObjectOptions = {}
   ): RefToNormalizedFor<R, Types> {
     const { reactive, ...otherOptions } = options;
-    return wrapObject(this.get(reference as any, type, otherOptions), this as Vault, reactive) as any;
+    return wrapObject(this.get(reference as any, type, otherOptions), this as Vault<any>, reactive) as any;
   }
 
   async loadObject<Type, NormalizedType = any>(
     id: string | Reference<any>,
     json?: any
   ): Promise<ReactiveWrapped<Type, NormalizedType>> {
-    return wrapObject<Type, NormalizedType>(await this.load(id, json), this as Vault);
+    return wrapObject<Type, NormalizedType>(await this.load(id, json), this as Vault<any>);
   }
   async loadManifestObject(
     id: string | Reference<any>,
@@ -741,7 +764,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   ): Promise<ReactiveWrapped<Types['Manifest'], Types['ManifestNormalized']>> {
     return wrapObject<Types['Manifest'], Types['ManifestNormalized']>(
       await this.loadManifest(id, json),
-      this as Vault
+      this as Vault<any>
     );
   }
   async loadCollectionObject(
@@ -750,11 +773,11 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   ): Promise<ReactiveWrapped<Types['Collection'], Types['CollectionNormalized']>> {
     return wrapObject<Types['Collection'], Types['CollectionNormalized']>(
       await this.loadCollection(id, json),
-      this as Vault
+      this as Vault<any>
     );
   }
   wrapObject<T extends string>(objectType: Reference<T>) {
-    return wrapObject(this.get(objectType, { skipSelfReturn: false }), this as Vault);
+    return wrapObject(this.get(objectType, { skipSelfReturn: false }), this as Vault<any>);
   }
   isWrapped(object: any) {
     return isWrapped(object);
