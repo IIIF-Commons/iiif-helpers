@@ -32,9 +32,10 @@
 export type Point = { x: number; y: number };
 
 function stablePoints(points: Point[]): Point[] {
+  // V8 versions can differ in the 12th decimal for this Math.pow-based subdivision.
   return points.map(({ x, y }) => ({
-    x: Number(x.toFixed(12)),
-    y: Number(y.toFixed(12)),
+    x: Number(x.toFixed(11)),
+    y: Number(y.toFixed(11)),
   }));
 }
 
