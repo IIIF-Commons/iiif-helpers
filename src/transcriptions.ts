@@ -116,13 +116,13 @@ import type {
   Canvas as CanvasV3,
   ContentResource as ContentResourceV3,
   Manifest as ManifestV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV3,
   AnnotationPageNormalized as AnnotationPageNormalizedV3,
   CanvasNormalized as CanvasNormalizedV3,
   ManifestNormalized as ManifestNormalizedV3,
-} from '@iiif/parser/presentation-3-normalized/types';
+} from "@iiif/parser/presentation-3-normalized/types";
 import type {
   AnnotationPage as AnnotationPageV4,
   Annotation as AnnotationV4,
@@ -131,7 +131,7 @@ import type {
   Manifest as ManifestV4,
   Scene as SceneV4,
   Timeline as TimelineV4,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV4,
   AnnotationPageNormalized as AnnotationPageNormalizedV4,
@@ -139,10 +139,10 @@ import type {
   ManifestNormalized as ManifestNormalizedV4,
   SceneNormalized as SceneNormalizedV4,
   TimelineNormalized as TimelineNormalizedV4,
-} from '@iiif/parser/presentation-4-normalized/types';
-import { resolveAnnotationValues } from './annotation-values';
-import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from './annotation-targets';
-import type { CompatVault } from './compat';
+} from "@iiif/parser/presentation-4-normalized/types";
+import { resolveAnnotationValues } from "./annotation-values";
+import { expandTarget, type ParsedSelector, parseSelector, type TemporalSelector } from "./annotation-targets";
+import type { CompatVault } from "./compat";
 
 type Annotation = AnnotationV3 | AnnotationV4 | AnnotationNormalizedV3 | AnnotationNormalizedV4;
 type AnnotationPage = AnnotationPageV3 | AnnotationPageV4 | AnnotationPageNormalizedV3 | AnnotationPageNormalizedV4;
@@ -158,7 +158,7 @@ function getAnnotationBodies(vault: CompatVault, body: unknown): any[] {
   )
     .filter(({ aggregatePath, aggregateDefaults }) =>
       aggregatePath.every(
-        ({ type, index }, pathIndex) => type !== 'Choice' || index === (aggregateDefaults[pathIndex] ?? 0)
+        ({ type, index }, pathIndex) => type !== "Choice" || index === (aggregateDefaults[pathIndex] ?? 0)
       )
     )
     .map(({ value }) => vault.get<ContentResource>(value as any, { skipSelfReturn: false }))
@@ -172,7 +172,7 @@ interface Transcription {
   segments: Array<{
     text: string;
     textRaw: string;
-    granularity?: 'word' | 'line' | 'paragraph' | 'block' | 'page';
+    granularity?: "word" | "line" | "paragraph" | "block" | "page";
     language?: string;
     selector?: ParsedSelector;
     startRaw?: string;
@@ -185,16 +185,16 @@ export function containerHasTranscriptionSync(
   containerRef: Container | string,
   annotationPages?: AnnotationPage[]
 ): boolean {
-  if (typeof containerRef === 'string') containerRef = { id: containerRef, type: 'Canvas' };
+  if (typeof containerRef === "string") containerRef = { id: containerRef, type: "Canvas" };
   const container = vault.get<Container>(containerRef);
 
   // Check for rendering
   if (container.rendering) {
     for (const renderingRef of container.rendering) {
       const rendering = vault.get<ContentResource>(renderingRef as any);
-      if ('format' in rendering) {
-        if (rendering.format === 'text/plain') return true;
-        if (rendering.format === 'application/xml' && rendering?.profile === 'http://www.loc.gov/standards/alto/')
+      if ("format" in rendering) {
+        if (rendering.format === "text/plain") return true;
+        if (rendering.format === "application/xml" && rendering?.profile === "http://www.loc.gov/standards/alto/")
           return true;
       }
     }
@@ -206,12 +206,12 @@ export function containerHasTranscriptionSync(
       const annotationPage = vault.get<AnnotationPage>(annotationPageRef);
       for (const annotationRef of annotationPage.items || []) {
         const annotation = vault.get<Annotation>(annotationRef as any);
-        if (annotation.motivation?.includes('supplementing')) {
+        if (annotation.motivation?.includes("supplementing")) {
           if (annotation.body) {
             for (const body of getAnnotationBodies(vault, annotation.body)) {
-              if (body.format === 'text/vtt') return true;
-              if (body.format === 'text/plain') return true;
-              if (body.type === 'TextualBody') return true;
+              if (body.format === "text/vtt") return true;
+              if (body.format === "text/plain") return true;
+              if (body.type === "TextualBody") return true;
             }
           }
         }
@@ -224,12 +224,12 @@ export function containerHasTranscriptionSync(
     for (const annotationPage of annotationPages) {
       for (const annotationRef of annotationPage.items || []) {
         const annotation = vault.get<Annotation>(annotationRef as any);
-        if (annotation.motivation?.includes('supplementing')) {
+        if (annotation.motivation?.includes("supplementing")) {
           if (annotation.body) {
             for (const body of getAnnotationBodies(vault, annotation.body)) {
-              if (body.format === 'text/vtt') return true;
-              if (body.format === 'text/plain') return true;
-              if (body.type === 'TextualBody') return true;
+              if (body.format === "text/vtt") return true;
+              if (body.format === "text/plain") return true;
+              if (body.type === "TextualBody") return true;
             }
           }
         }
@@ -251,7 +251,7 @@ export async function containerLoadExternalAnnotationPages(
   vault: CompatVault,
   containerRef: Container | string
 ): Promise<AnnotationPage[]> {
-  if (typeof containerRef === 'string') containerRef = { id: containerRef, type: 'Canvas' };
+  if (typeof containerRef === "string") containerRef = { id: containerRef, type: "Canvas" };
   const container = vault.get<Container>(containerRef);
   const promises: Promise<AnnotationPage>[] = [];
   if (container.annotations) {
@@ -269,17 +269,17 @@ export async function containerLoadExternalAnnotationPages(
         }
       }
 
-      if (!annotationPage.items || (annotationPage as any)['iiif-parser:isExternal']) {
+      if (!annotationPage.items || (annotationPage as any)["iiif-parser:isExternal"]) {
         if (requestStatus) {
           promises.push(
             new Promise((resolve, reject) => {
               const cleanup = vault.subscribe(() => {
                 const loadingState = vault.requestStatus(annotationPage.id)?.loadingState;
-                if (loadingState === 'RESOURCE_ERROR') {
+                if (loadingState === "RESOURCE_ERROR") {
                   reject(new Error(`Failed to load annotation page ${annotationPage.id}`));
                   cleanup();
                 }
-                if (loadingState === 'RESOURCE_READY') {
+                if (loadingState === "RESOURCE_READY") {
                   resolve(annotationPage);
                   cleanup();
                 }
@@ -308,12 +308,12 @@ export const canvasHasTranscriptionSync = containerHasTranscriptionSync;
 const vttRegex = /^(\d{2}:\d{2}:\d{2}[.,]\d{3})\s-->\s(\d{2}:\d{2}:\d{2}[.,]\d{3})(.*)\r?\n(.*(?:\r?\n(?!\r?\n).*)*)/gm;
 
 export function timeStampToSeconds(time: string) {
-  const [hours, minutes, seconds] = time.split(':').map((t) => parseFloat(t || '0'));
+  const [hours, minutes, seconds] = time.split(":").map((t) => parseFloat(t || "0"));
   return hours * 3600 + minutes * 60 + seconds;
 }
 
 export async function vttToTranscription(vtt: string, id: string): Promise<Transcription | null> {
-  const segments: Transcription['segments'] = [];
+  const segments: Transcription["segments"] = [];
 
   // Reset lastIndex to avoid race conditions with the global regex
   vttRegex.lastIndex = 0;
@@ -326,7 +326,7 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
 
     // @todo support more VTT including styles and positioning.
     const selector: TemporalSelector = {
-      type: 'TemporalSelector',
+      type: "TemporalSelector",
       temporal: {
         startTime: timeStampToSeconds(start),
         endTime: timeStampToSeconds(end),
@@ -336,7 +336,7 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
     segments.push({
       startRaw: start,
       endRaw: end,
-      text: text.replace(/(<([^>]+)>)/gi, ''),
+      text: text.replace(/(<([^>]+)>)/gi, ""),
       textRaw: text,
       selector: {
         selector,
@@ -349,8 +349,8 @@ export async function vttToTranscription(vtt: string, id: string): Promise<Trans
 
   return {
     id,
-    source: { id, type: 'Text', format: 'text/vtt' },
-    plaintext: segments.map((s) => s.text).join('\n'),
+    source: { id, type: "Text", format: "text/vtt" },
+    plaintext: segments.map((s) => s.text).join("\n"),
     segments,
   };
 }
@@ -363,8 +363,8 @@ async function altoToTranscription(alto: string) {
 export async function annotationPageToTranscription(vault: CompatVault, annotationPage: AnnotationPage) {
   const transcription: Transcription = {
     id: annotationPage.id,
-    source: { id: annotationPage.id, type: 'AnnotationPage' },
-    plaintext: '',
+    source: { id: annotationPage.id, type: "AnnotationPage" },
+    plaintext: "",
     segments: [],
   };
 
@@ -373,28 +373,28 @@ export async function annotationPageToTranscription(vault: CompatVault, annotati
   for (const annotationRef of annotationPage.items) {
     const annotation = vault.get<Annotation>(annotationRef as any);
 
-    if (annotation.motivation?.includes('supplementing')) {
+    if (annotation.motivation?.includes("supplementing")) {
       if (annotation.body) {
         // @todo smarter ordering based on position?
         for (const body of getAnnotationBodies(vault, annotation.body)) {
-          if ((body.format === 'text/plain' || body.type === 'TextualBody') && typeof body.value === 'string') {
+          if ((body.format === "text/plain" || body.type === "TextualBody") && typeof body.value === "string") {
             let segmentText = body.value;
             let granularity = (annotation as any).textGranularity;
             if (!granularity) {
-              granularity = segmentText.includes(' ') ? 'line' : 'word';
+              granularity = segmentText.includes(" ") ? "line" : "word";
             }
             if (
-              granularity === 'line' ||
-              granularity === 'paragraph' ||
-              granularity === 'block' ||
-              granularity === 'page'
+              granularity === "line" ||
+              granularity === "paragraph" ||
+              granularity === "block" ||
+              granularity === "page"
             ) {
-              segmentText += '\n';
+              segmentText += "\n";
             } else {
-              segmentText += ' ';
+              segmentText += " ";
             }
 
-            const segment: Transcription['segments'][number] = {
+            const segment: Transcription["segments"][number] = {
               text: segmentText,
               textRaw: body.value,
               granularity,
@@ -418,7 +418,7 @@ export async function annotationPageToTranscription(vault: CompatVault, annotati
 
   transcription.plaintext = transcription.plaintext.trim();
 
-  if (transcription.plaintext === '' && transcription.segments.length === 0) return null;
+  if (transcription.plaintext === "" && transcription.segments.length === 0) return null;
 
   return transcription;
 }
@@ -438,7 +438,7 @@ export async function getContainerTranscription(
   const transcription: Transcription = {
     id: container.id,
     source: container,
-    plaintext: '',
+    plaintext: "",
     segments: [],
   };
 
@@ -447,12 +447,12 @@ export async function getContainerTranscription(
     for (const annotationPage of annotationPages) {
       for (const annotationRef of annotationPage.items || []) {
         const annotation = vault.get<Annotation>(annotationRef as any);
-        if (annotation.motivation?.includes('supplementing')) {
+        if (annotation.motivation?.includes("supplementing")) {
           if (annotation.body) {
             for (const body of getAnnotationBodies(vault, annotation.body)) {
-              if (body.format === 'text/vtt') {
+              if (body.format === "text/vtt") {
                 if (body.id) {
-                  const vtt = networkCache[body.id] || (await fetch(body.id, { method: 'GET' }).then((r) => r.text()));
+                  const vtt = networkCache[body.id] || (await fetch(body.id, { method: "GET" }).then((r) => r.text()));
                   const transcription = await vttToTranscription(vtt, body.id);
                   if (transcription) {
                     return transcription;
@@ -470,10 +470,10 @@ export async function getContainerTranscription(
   pageLabel: for (const annotationPage of annotationPages) {
     for (const annotationRef of annotationPage.items || []) {
       const annotation = vault.get<Annotation>(annotationRef as any);
-      if (annotation.motivation?.includes('supplementing')) {
+      if (annotation.motivation?.includes("supplementing")) {
         if (annotation.body) {
           for (const body of getAnnotationBodies(vault, annotation.body)) {
-            if (body.format === 'text/plain' || body.type === 'TextualBody') {
+            if (body.format === "text/plain" || body.type === "TextualBody") {
               // WE found a page.
               const plaintext = await annotationPageToTranscription(vault, annotationPage);
               if (plaintext) {
@@ -492,9 +492,9 @@ export async function getContainerTranscription(
   if (container.rendering) {
     for (const renderingRef of container.rendering) {
       const rendering = vault.get<ContentResource>(renderingRef as any);
-      if (rendering.format === 'text/plain') {
+      if (rendering.format === "text/plain") {
         const plaintext =
-          networkCache[rendering.id] || (await fetch(rendering.id, { method: 'GET' }).then((r) => r.text()));
+          networkCache[rendering.id] || (await fetch(rendering.id, { method: "GET" }).then((r) => r.text()));
         return { ...transcription, plaintext };
       }
     }
@@ -504,7 +504,7 @@ export async function getContainerTranscription(
   if (container.rendering) {
     for (const renderingRef of container.rendering) {
       const rendering = vault.get<ContentResource>(renderingRef as any);
-      if (rendering.format === 'application/xml' && rendering.profile === 'http://www.loc.gov/standards/alto/') {
+      if (rendering.format === "application/xml" && rendering.profile === "http://www.loc.gov/standards/alto/") {
         // @todo parse ALTO
         const transcription = await altoToTranscription(rendering.id);
         if (transcription) {

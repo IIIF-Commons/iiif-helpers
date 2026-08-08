@@ -10,7 +10,7 @@ import type {
   ResourceProvider,
   Selector,
   Service,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   AnnotationCollectionNormalized,
   AnnotationNormalized,
@@ -21,14 +21,14 @@ import type {
   RangeNormalized,
   ResourceProviderNormalized,
   ServiceNormalized,
-} from '@iiif/parser/presentation-3-normalized/types';
+} from "@iiif/parser/presentation-3-normalized/types";
 import type {
   Agent as AgentV4,
   Collection as CollectionV4,
   CollectionPage,
   Scene,
   Timeline,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 import type {
   AgentNormalized as AgentNormalizedV4,
   AnnotationCollectionNormalized as AnnotationCollectionNormalizedV4,
@@ -38,12 +38,12 @@ import type {
   SceneNormalized,
   SpecificResourceNormalized,
   TimelineNormalized,
-} from '@iiif/parser/presentation-4-normalized/types';
-import type { PayloadAction } from 'typesafe-actions';
-import type { EntityActions } from './actions/entity-actions';
-import type { MappingActions } from './actions/mapping-actions';
-import type { MetaActions } from './actions/meta-actions';
-import type { RequestActions } from './actions/request-actions';
+} from "@iiif/parser/presentation-4-normalized/types";
+import type { PayloadAction } from "typesafe-actions";
+import type { EntityActions } from "./actions/entity-actions";
+import type { MappingActions } from "./actions/mapping-actions";
+import type { MetaActions } from "./actions/meta-actions";
+import type { RequestActions } from "./actions/request-actions";
 
 declare global {
   // Work around for something else.
@@ -61,7 +61,7 @@ export type MetaState = Record<string, Record<string, Record<string, any>>>;
 
 export type RequestState = {
   [id: string]: {
-    loadingState: 'RESOURCE_ERROR' | 'RESOURCE_LOADING' | 'RESOURCE_READY';
+    loadingState: "RESOURCE_ERROR" | "RESOURCE_LOADING" | "RESOURCE_READY";
     uriMismatch: boolean;
     requestUri: string;
     resourceUri: string;
@@ -72,7 +72,7 @@ export type RequestState = {
 export type PaginationState = {
   pages: Array<{
     id: string;
-    type: 'Collection' | 'CollectionPage' | 'AnnotationPage';
+    type: "Collection" | "CollectionPage" | "AnnotationPage";
     order: number;
     startIndex: number;
     pageLength: number;
@@ -92,7 +92,7 @@ export type PaginationState = {
 
 export type VaultLoadDiagnostic = {
   code: string;
-  severity: 'error' | 'warning' | 'info';
+  severity: "error" | "warning" | "info";
   message: string;
   path: string;
   resourceType?: string;
@@ -101,14 +101,11 @@ export type VaultLoadDiagnostic = {
 };
 
 export type VaultLoadReport = {
-  sourceVersion: 2 | 3 | 4 | 'unknown';
+  sourceVersion: 2 | 3 | 4 | "unknown";
   diagnostics: VaultLoadDiagnostic[];
 };
 
-export type PaginationPageNormalized =
-  | CollectionNormalized
-  | CollectionPageNormalized
-  | AnnotationPageNormalized;
+export type PaginationPageNormalized = CollectionNormalized | CollectionPageNormalized | AnnotationPageNormalized;
 
 export type NormalizedEntity =
   | CollectionNormalized
@@ -133,65 +130,65 @@ export type NormalizedEntity =
   | SceneNormalized
   | GenericNormalizedEntity;
 
-export type RefToNormalized<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
+export type RefToNormalized<Ref extends { type?: string }> = Ref["type"] extends "Manifest"
   ? ManifestNormalized
-  : Ref['type'] extends 'Canvas'
+  : Ref["type"] extends "Canvas"
     ? CanvasNormalized
-    : Ref['type'] extends 'AnnotationPage'
+    : Ref["type"] extends "AnnotationPage"
       ? AnnotationPageNormalized
-      : Ref['type'] extends 'AnnotationCollection'
+      : Ref["type"] extends "AnnotationCollection"
         ? AnnotationCollectionNormalized | AnnotationCollectionNormalizedV4 | AnnotationCollection
-        : Ref['type'] extends 'Annotation'
+        : Ref["type"] extends "Annotation"
           ? AnnotationNormalized
-          : Ref['type'] extends 'Range'
+          : Ref["type"] extends "Range"
             ? RangeNormalized
-            : Ref['type'] extends 'Service'
+            : Ref["type"] extends "Service"
               ? ServiceNormalized
-              : Ref['type'] extends 'SpecificResource'
+              : Ref["type"] extends "SpecificResource"
                 ? SpecificResourceNormalized
-                : Ref['type'] extends 'ContentResource'
+                : Ref["type"] extends "ContentResource"
                   ? ContentResource | ContentResourceNormalizedV4 | SpecificResourceNormalized
-                  : Ref['type'] extends 'ResourceProvider'
+                  : Ref["type"] extends "ResourceProvider"
                     ? ResourceProviderNormalized
-                    : Ref['type'] extends 'Agent'
+                    : Ref["type"] extends "Agent"
                       ? ResourceProviderNormalized | AgentNormalizedV4
-                      : Ref['type'] extends 'Collection'
+                      : Ref["type"] extends "Collection"
                         ? CollectionNormalized | CollectionNormalizedV4
-                        : Ref['type'] extends 'CollectionPage'
+                        : Ref["type"] extends "CollectionPage"
                           ? CollectionPageNormalized
-                          : Ref['type'] extends 'Timeline'
+                          : Ref["type"] extends "Timeline"
                             ? TimelineNormalized
-                            : Ref['type'] extends 'Scene'
+                            : Ref["type"] extends "Scene"
                               ? SceneNormalized
                               : any;
 
-export type RefToFull<Ref extends { type?: string }> = Ref['type'] extends 'Manifest'
+export type RefToFull<Ref extends { type?: string }> = Ref["type"] extends "Manifest"
   ? Manifest
-  : Ref['type'] extends 'Canvas'
+  : Ref["type"] extends "Canvas"
     ? Canvas
-    : Ref['type'] extends 'AnnotationPage'
+    : Ref["type"] extends "AnnotationPage"
       ? AnnotationPage
-      : Ref['type'] extends 'AnnotationCollection'
+      : Ref["type"] extends "AnnotationCollection"
         ? AnnotationCollection
-        : Ref['type'] extends 'Annotation'
+        : Ref["type"] extends "Annotation"
           ? Annotation
-          : Ref['type'] extends 'Range'
+          : Ref["type"] extends "Range"
             ? Range
-            : Ref['type'] extends 'Service'
+            : Ref["type"] extends "Service"
               ? Service
-              : Ref['type'] extends 'ContentResource'
+              : Ref["type"] extends "ContentResource"
                 ? ContentResource
-                : Ref['type'] extends 'ResourceProvider'
+                : Ref["type"] extends "ResourceProvider"
                   ? ResourceProvider
-                  : Ref['type'] extends 'Agent'
+                  : Ref["type"] extends "Agent"
                     ? ResourceProvider | AgentV4
-                    : Ref['type'] extends 'Collection'
+                    : Ref["type"] extends "Collection"
                       ? Collection | CollectionV4
-                      : Ref['type'] extends 'CollectionPage'
+                      : Ref["type"] extends "CollectionPage"
                         ? CollectionPage
-                        : Ref['type'] extends 'Timeline'
+                        : Ref["type"] extends "Timeline"
                           ? Timeline
-                          : Ref['type'] extends 'Scene'
+                          : Ref["type"] extends "Scene"
                             ? Scene
                             : any;
 
@@ -263,5 +260,5 @@ export type ActionFromType<Type, Actions extends PayloadAction<any, any> = AllAc
 
 // Ranges.
 type ReparentDropEvent = {
-  target: { type: 'root' } | { type: 'item'; key: any; dropPosition: 'on' | 'before' | 'after' };
+  target: { type: "root" } | { type: "item"; key: any; dropPosition: "on" | "before" | "after" };
 };

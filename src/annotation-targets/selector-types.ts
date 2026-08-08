@@ -1,9 +1,9 @@
-import type { ImageApiSelector as ImageApiSelectorV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageApiSelector as ImageApiSelectorV4 } from '@iiif/parser/presentation-4/types';
+import type { ImageApiSelector as ImageApiSelectorV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageApiSelector as ImageApiSelectorV4 } from "@iiif/parser/presentation-4/types";
 
 type ImageApiSelector = ImageApiSelectorV3 | ImageApiSelectorV4;
 
-export type SvgShapeType = 'rect' | 'circle' | 'ellipse' | 'line' | 'polyline' | 'polygon' | 'path';
+export type SvgShapeType = "rect" | "circle" | "ellipse" | "line" | "polyline" | "polygon" | "path";
 export interface SupportedSelector {
   type: string;
   temporal?: {
@@ -11,7 +11,7 @@ export interface SupportedSelector {
     endTime?: number;
   };
   spatial?: {
-    unit?: 'percent' | 'pixel';
+    unit?: "percent" | "pixel";
     x: number;
     y: number;
     z?: number;
@@ -31,11 +31,11 @@ export interface SupportedSelector {
 }
 
 export type BoxStyle = _BoxStyle & {
-  ':hover'?: _BoxStyle;
-  ':active'?: _BoxStyle;
+  ":hover"?: _BoxStyle;
+  ":active"?: _BoxStyle;
 };
 
-export type TransformUnit = 'pixel' | 'percent';
+export type TransformUnit = "pixel" | "percent";
 
 export type TransformPoint = {
   x: number;
@@ -81,9 +81,9 @@ export interface SelectorStyle {
 }
 
 export interface BoxSelector extends SupportedSelector {
-  type: 'BoxSelector';
+  type: "BoxSelector";
   spatial: {
-    unit?: 'percent' | 'pixel';
+    unit?: "percent" | "pixel";
     x: number;
     y: number;
     width: number;
@@ -96,7 +96,7 @@ export interface BoxSelector extends SupportedSelector {
 }
 
 export interface PointSelector extends SupportedSelector {
-  type: 'PointSelector';
+  type: "PointSelector";
   spatial: {
     x: number;
     y: number;
@@ -109,27 +109,27 @@ export interface PointSelector extends SupportedSelector {
 }
 
 export interface WktSelector extends SupportedSelector {
-  type: 'WktSelector' | 'WKTSelector';
+  type: "WktSelector" | "WKTSelector";
   value: string;
 }
 
 export interface PolygonZSelector extends SupportedSelector {
-  type: 'PolygonZSelector';
+  type: "PolygonZSelector";
   value: string;
 }
 
 export interface AnimationSelector extends SupportedSelector {
-  type: 'AnimationSelector';
+  type: "AnimationSelector";
   value: string;
 }
 
 export interface SvgSelector extends SupportedSelector {
-  type: 'SvgSelector';
+  type: "SvgSelector";
   svg: string;
   svgShape?: SvgShapeType;
   points?: [number, number][];
   spatial?: {
-    unit: 'pixel';
+    unit: "pixel";
     x: number;
     y: number;
     width: number;
@@ -142,7 +142,7 @@ export interface SvgSelector extends SupportedSelector {
 }
 
 export interface TemporalSelector extends SupportedSelector {
-  type: 'TemporalSelector';
+  type: "TemporalSelector";
   temporal: {
     startTime: number;
     endTime?: number;
@@ -150,14 +150,14 @@ export interface TemporalSelector extends SupportedSelector {
 }
 
 export interface RotationSelector extends SupportedSelector {
-  type: 'RotationSelector';
+  type: "RotationSelector";
   rotation: number;
 }
 
 export interface TemporalBoxSelector extends SupportedSelector {
-  type: 'TemporalBoxSelector';
+  type: "TemporalBoxSelector";
   spatial: {
-    unit?: 'percent' | 'pixel';
+    unit?: "percent" | "pixel";
     x: number;
     y: number;
     width: number;

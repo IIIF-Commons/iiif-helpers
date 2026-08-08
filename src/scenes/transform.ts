@@ -1,10 +1,22 @@
-import type { Transform } from '@iiif/parser/presentation-4/types';
+import type { Transform } from "@iiif/parser/presentation-4/types";
 
 export type MatrixTuple = readonly [
-  number, number, number, number,
-  number, number, number, number,
-  number, number, number, number,
-  number, number, number, number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
+  number,
 ];
 
 const identity = (): number[] => [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
@@ -24,9 +36,60 @@ function multiply(a: readonly number[], b: readonly number[]): number[] {
 
 const translate = (x = 0, y = 0, z = 0) => [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, x, y, z, 1];
 const scale = (x = 1, y = 1, z = 1) => [x, 0, 0, 0, 0, y, 0, 0, 0, 0, z, 0, 0, 0, 0, 1];
-const rotateX = (r: number) => [1, 0, 0, 0, 0, Math.cos(r), Math.sin(r), 0, 0, -Math.sin(r), Math.cos(r), 0, 0, 0, 0, 1];
-const rotateY = (r: number) => [Math.cos(r), 0, -Math.sin(r), 0, 0, 1, 0, 0, Math.sin(r), 0, Math.cos(r), 0, 0, 0, 0, 1];
-const rotateZ = (r: number) => [Math.cos(r), Math.sin(r), 0, 0, -Math.sin(r), Math.cos(r), 0, 0, 0, 0, 1, 0, 0, 0, 0, 1];
+const rotateX = (r: number) => [
+  1,
+  0,
+  0,
+  0,
+  0,
+  Math.cos(r),
+  Math.sin(r),
+  0,
+  0,
+  -Math.sin(r),
+  Math.cos(r),
+  0,
+  0,
+  0,
+  0,
+  1,
+];
+const rotateY = (r: number) => [
+  Math.cos(r),
+  0,
+  -Math.sin(r),
+  0,
+  0,
+  1,
+  0,
+  0,
+  Math.sin(r),
+  0,
+  Math.cos(r),
+  0,
+  0,
+  0,
+  0,
+  1,
+];
+const rotateZ = (r: number) => [
+  Math.cos(r),
+  Math.sin(r),
+  0,
+  0,
+  -Math.sin(r),
+  Math.cos(r),
+  0,
+  0,
+  0,
+  0,
+  1,
+  0,
+  0,
+  0,
+  0,
+  1,
+];
 
 export function createSceneTransformMatrix(
   transforms: readonly Transform[],
@@ -34,11 +97,11 @@ export function createSceneTransformMatrix(
 ): MatrixTuple {
   let matrix = identity();
   for (const transform of transforms) {
-    if (transform.type === 'TranslateTransform') {
+    if (transform.type === "TranslateTransform") {
       matrix = multiply(translate(transform.x, transform.y, transform.z), matrix);
-    } else if (transform.type === 'ScaleTransform') {
+    } else if (transform.type === "ScaleTransform") {
       matrix = multiply(scale(transform.x, transform.y, transform.z), matrix);
-    } else if (transform.type === 'RotateTransform') {
+    } else if (transform.type === "RotateTransform") {
       const radians = Math.PI / 180;
       const rotation = multiply(
         rotateZ((transform.z || 0) * radians),

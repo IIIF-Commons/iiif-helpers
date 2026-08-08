@@ -26,4 +26,4 @@ import {
   SupportedTarget,
   expandTarget,
   getClosestLanguage,
-} from '@iiif/helpers';
+} from "@iiif/helpers";

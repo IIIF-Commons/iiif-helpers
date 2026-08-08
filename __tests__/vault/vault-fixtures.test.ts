@@ -1,24 +1,24 @@
-import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
-import invariant from 'tiny-invariant';
-import { describe, expect, test } from 'vitest';
-import cssManifest from '../../fixtures/cookbook/css.json';
-import nlsManifest from '../../fixtures/presentation-2/nls-manifest.json';
-import nlsManifest2 from '../../fixtures/presentation-2/nls-manifest.json';
-import hasPart from '../../fixtures/presentation-3/has-part.json';
-import { Vault } from '../../src/vault';
-import { entityActions } from '../../src/vault/actions/entity-actions';
+import type { ManifestNormalized } from "@iiif/parser/presentation-3-normalized/types";
+import invariant from "tiny-invariant";
+import { describe, expect, test } from "vitest";
+import cssManifest from "../../fixtures/cookbook/css.json";
+import nlsManifest from "../../fixtures/presentation-2/nls-manifest.json";
+import nlsManifest2 from "../../fixtures/presentation-2/nls-manifest.json";
+import hasPart from "../../fixtures/presentation-3/has-part.json";
+import { Vault } from "../../src/vault";
+import { entityActions } from "../../src/vault/actions/entity-actions";
 
-describe('vault', () => {
-  test('nls manifest (sync)', () => {
+describe("vault", () => {
+  test("nls manifest (sync)", () => {
     const vault = new Vault();
     const manifestJson = JSON.parse(JSON.stringify(nlsManifest));
-    const manifest = vault.loadSync<ManifestNormalized>(manifestJson['@id'], manifestJson);
-    expect(manifest!.id).toEqual(manifestJson['@id']);
+    const manifest = vault.loadSync<ManifestNormalized>(manifestJson["@id"], manifestJson);
+    expect(manifest!.id).toEqual(manifestJson["@id"]);
   });
 
-  test('nls manifest 2', async () => {
+  test("nls manifest 2", async () => {
     const vault = new Vault();
-    const manifest = await vault.loadManifest(nlsManifest['@id'], nlsManifest);
+    const manifest = await vault.loadManifest(nlsManifest["@id"], nlsManifest);
 
     expect(manifest).toMatchInlineSnapshot(`
       {
@@ -757,9 +757,9 @@ describe('vault', () => {
     `);
   });
 
-  test('batch mutation', async () => {
+  test("batch mutation", async () => {
     const vault = new Vault();
-    const manifest = await vault.loadManifest(nlsManifest2['@id'], nlsManifest2);
+    const manifest = await vault.loadManifest(nlsManifest2["@id"], nlsManifest2);
 
     invariant(manifest);
 
@@ -769,8 +769,8 @@ describe('vault', () => {
     }, true);
 
     vault.batch((v) => {
-      v.modifyEntityField(manifest, 'label', { en: ['TEST LABEL VALUE'] });
-      v.modifyEntityField(manifest, 'summary', { en: ['TEST SUMMARY VALUE'] });
+      v.modifyEntityField(manifest, "label", { en: ["TEST LABEL VALUE"] });
+      v.modifyEntityField(manifest, "summary", { en: ["TEST SUMMARY VALUE"] });
     });
 
     expect(i).toEqual(1);
@@ -792,21 +792,21 @@ describe('vault', () => {
     `);
   });
 
-  test('skipSelfReturn', () => {
+  test("skipSelfReturn", () => {
     const vault = new Vault();
 
-    expect(vault.get({ id: 'https://example.org/not-in-vault', type: 'Manifest' }, { skipSelfReturn: false })).toEqual({
-      id: 'https://example.org/not-in-vault',
-      type: 'Manifest',
+    expect(vault.get({ id: "https://example.org/not-in-vault", type: "Manifest" }, { skipSelfReturn: false })).toEqual({
+      id: "https://example.org/not-in-vault",
+      type: "Manifest",
     });
 
-    expect(vault.get({ id: 'https://example.org/not-in-vault', type: 'Manifest' }, { skipSelfReturn: true })).toEqual(
+    expect(vault.get({ id: "https://example.org/not-in-vault", type: "Manifest" }, { skipSelfReturn: true })).toEqual(
       null
     );
-    expect(vault.get('https://example.org/not-in-vault', 'Manifest', { skipSelfReturn: true })).toEqual(null);
+    expect(vault.get("https://example.org/not-in-vault", "Manifest", { skipSelfReturn: true })).toEqual(null);
   });
 
-  test('Has part integration', async () => {
+  test("Has part integration", async () => {
     const vault = new Vault();
     const manifest = await vault.load<ManifestNormalized>(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
 
@@ -825,11 +825,11 @@ describe('vault', () => {
     const thumbnail2 = vault.get(anno.body, { parent: anno });
 
     const thumbnail3 = vault.get({
-      type: 'SpecificResource',
+      type: "SpecificResource",
       source: {
-        id: 'https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg',
-        type: 'Image',
-        partOf: 'https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1',
+        id: "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg",
+        type: "Image",
+        partOf: "https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1",
       },
     });
 
@@ -908,7 +908,7 @@ describe('vault', () => {
     `);
   });
 
-  test('Update metadata actions', async () => {
+  test("Update metadata actions", async () => {
     const vault = new Vault();
     const manifest = await vault.load<ManifestNormalized>(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
 
@@ -918,9 +918,9 @@ describe('vault', () => {
     vault.dispatch(
       entityActions.addMetadata({
         id: manifest.id,
-        type: 'Manifest',
-        label: { en: ['Test example label'] },
-        value: { en: ['Test example value'] },
+        type: "Manifest",
+        label: { en: ["Test example label"] },
+        value: { en: ["Test example value"] },
       })
     );
 
@@ -944,9 +944,9 @@ describe('vault', () => {
     vault.dispatch(
       entityActions.addMetadata({
         id: manifest.id,
-        type: 'Manifest',
-        label: { en: ['Test example label 2'] },
-        value: { en: ['Test example value 2'] },
+        type: "Manifest",
+        label: { en: ["Test example label 2"] },
+        value: { en: ["Test example value 2"] },
       })
     );
 
@@ -983,9 +983,9 @@ describe('vault', () => {
       entityActions.updateMetadata({
         id: manifest.id,
         atIndex: 0,
-        type: 'Manifest',
-        label: { en: ['Update label'] },
-        value: { en: ['Update value'] },
+        type: "Manifest",
+        label: { en: ["Update label"] },
+        value: { en: ["Update value"] },
       })
     );
 
@@ -1022,9 +1022,9 @@ describe('vault', () => {
       entityActions.updateMetadata({
         id: manifest.id,
         atIndex: 1,
-        type: 'Manifest',
-        label: { en: ['Update label 2'] },
-        value: { en: ['Update value 2'] },
+        type: "Manifest",
+        label: { en: ["Update label 2"] },
+        value: { en: ["Update value 2"] },
       })
     );
 
@@ -1061,9 +1061,9 @@ describe('vault', () => {
       entityActions.addMetadata({
         id: manifest.id,
         beforeIndex: 0,
-        type: 'Manifest',
-        label: { en: ['Value 3'] },
-        value: { en: ['Value 3'] },
+        type: "Manifest",
+        label: { en: ["Value 3"] },
+        value: { en: ["Value 3"] },
       })
     );
 
@@ -1111,7 +1111,7 @@ describe('vault', () => {
     vault.dispatch(
       entityActions.reorderMetadata({
         id: manifest.id,
-        type: 'Manifest',
+        type: "Manifest",
         startIndex: 0,
         endIndex: 2,
       })
@@ -1161,7 +1161,7 @@ describe('vault', () => {
     vault.dispatch(
       entityActions.removeMetadata({
         id: manifest.id,
-        type: 'Manifest',
+        type: "Manifest",
         atIndex: 0,
       })
     );
@@ -1196,15 +1196,15 @@ describe('vault', () => {
     `);
   });
 
-  test('css manifest', () => {
+  test("css manifest", () => {
     const vault = new Vault();
     const manifestJson = JSON.parse(JSON.stringify(cssManifest));
     const manifest = vault.loadSync<ManifestNormalized>(manifestJson.id, manifestJson);
     expect(manifest!.id).toEqual(manifestJson.id);
 
     const annotation1 = vault.get({
-      id: 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/page/p2/anno-1',
-      type: 'Annotation',
+      id: "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/page/p2/anno-1",
+      type: "Annotation",
     });
 
     expect(annotation1.target).toMatchInlineSnapshot(`

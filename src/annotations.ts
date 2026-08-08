@@ -1,11 +1,11 @@
-import { ImageService, InternationalString } from '@iiif/parser/presentation-3/types';
-import { ParsedSelector, SupportedTarget } from './annotation-targets';
-import { ChoiceDescription } from './painting-annotations';
+import { ImageService, InternationalString } from "@iiif/parser/presentation-3/types";
+import { ParsedSelector, SupportedTarget } from "./annotation-targets";
+import { ChoiceDescription } from "./painting-annotations";
 
 // A wrapper for annotations that are "well-known"
 interface ClassifiedAnnotation {
   id: string;
-  type: 'Annotation';
+  type: "Annotation";
   label?: InternationalString;
   summary?: InternationalString;
   motivation: string;
@@ -31,7 +31,7 @@ interface SimpleImage {
 
 type SupportedBody = {
   type: string;
-  order: Array<'label' | 'summary' | 'image' | 'link' | 'internalLink' | 'content'>; // e.g. ['label', 'image', 'link', 'image']
+  order: Array<"label" | "summary" | "image" | "link" | "internalLink" | "content">; // e.g. ['label', 'image', 'link', 'image']
   label?: InternationalString;
   summary?: InternationalString;
   content: InternationalString;
@@ -40,7 +40,7 @@ type SupportedBody = {
   internalLink: {
     id: string;
     label?: InternationalString;
-    type: 'Canvas';
+    type: "Canvas";
     target: ParsedSelector;
   } | null;
   link: {

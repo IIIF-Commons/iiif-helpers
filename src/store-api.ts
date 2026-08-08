@@ -9,8 +9,8 @@ export type StoreApi<State> = {
   destroy: () => void;
 };
 
-export type SelectorStoreApi<State> = Omit<StoreApi<State>, 'subscribe'> & {
-  subscribe: StoreApi<State>['subscribe'] & {
+export type SelectorStoreApi<State> = Omit<StoreApi<State>, "subscribe"> & {
+  subscribe: StoreApi<State>["subscribe"] & {
     <Selection>(
       selector: (state: State) => Selection,
       listener: (selection: Selection, previousSelection: Selection) => void,

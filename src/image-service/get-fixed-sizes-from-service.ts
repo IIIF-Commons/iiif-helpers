@@ -1,8 +1,8 @@
-import { getId, getImageServiceLevel, isImageService } from '@iiif/parser/image-3';
-import type { Service as ServiceV3 } from '@iiif/parser/presentation-3/types';
-import type { Service as ServiceV4 } from '@iiif/parser/presentation-4/types';
-import { isImage3 } from './is-image-3';
-import type { FixedSizeImageService } from './types';
+import { getId, getImageServiceLevel, isImageService } from "@iiif/parser/image-3";
+import type { Service as ServiceV3 } from "@iiif/parser/presentation-3/types";
+import type { Service as ServiceV4 } from "@iiif/parser/presentation-4/types";
+import { isImage3 } from "./is-image-3";
+import type { FixedSizeImageService } from "./types";
 
 type Service = ServiceV3 | ServiceV4;
 
@@ -21,7 +21,7 @@ export function getFixedSizesFromService(service: Service): FixedSizeImageServic
   return (service && service.sizes ? service.sizes : []).map((size: any) => {
     return {
       id: getId(service),
-      type: 'fixed-service',
+      type: "fixed-service",
       height: size.height,
       width: size.width,
       level: getImageServiceLevel(service),

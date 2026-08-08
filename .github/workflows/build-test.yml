@@ -40,7 +40,9 @@ jobs:
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
       - run: pnpm run typecheck
+      - run: pnpm run fmt:check
       - run: pnpm run lint
+      - run: pnpm run lint:pkg
       - run: pnpm run test
         if: matrix.node == '22'
       - run: node pkg-tests/node-load.cjs

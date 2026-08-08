@@ -1,9 +1,9 @@
-import { Vault } from '../src/vault';
-import { createStylesHelper } from '../src/styles';
-import { describe, expect, test } from 'vitest';
+import { Vault } from "../src/vault";
+import { createStylesHelper } from "../src/styles";
+import { describe, expect, test } from "vitest";
 
-describe('style helper', function () {
-  test('setting styles', () => {
+describe("style helper", function () {
+  test("setting styles", () => {
     const vault = new Vault();
     const helper = createStylesHelper(vault);
     let times = 0;
@@ -15,18 +15,18 @@ describe('style helper', function () {
       true
     );
 
-    helper.applyStyles({ id: 'https://example.org/manifest-1' }, 'scope-1', {
-      background: 'red',
+    helper.applyStyles({ id: "https://example.org/manifest-1" }, "scope-1", {
+      background: "red",
     });
-    helper.applyStyles({ id: 'https://example.org/manifest-1' }, 'scope-2', {
-      background: 'green',
+    helper.applyStyles({ id: "https://example.org/manifest-1" }, "scope-2", {
+      background: "green",
     });
-    helper.applyStyles({ id: 'https://example.org/manifest-2' }, 'scope-1', {
-      background: 'blue',
+    helper.applyStyles({ id: "https://example.org/manifest-2" }, "scope-1", {
+      background: "blue",
     });
 
     expect(times).toEqual(3);
-    expect(helper.getAppliedStyles({ id: 'https://example.org/manifest-1' })).toMatchInlineSnapshot(`
+    expect(helper.getAppliedStyles({ id: "https://example.org/manifest-1" })).toMatchInlineSnapshot(`
       {
         "scope-1": {
           "background": "red",
@@ -36,7 +36,7 @@ describe('style helper', function () {
         },
       }
     `);
-    expect(helper.getAppliedStyles({ id: 'https://example.org/manifest-2' })).toMatchInlineSnapshot(`
+    expect(helper.getAppliedStyles({ id: "https://example.org/manifest-2" })).toMatchInlineSnapshot(`
       {
         "scope-1": {
           "background": "blue",
@@ -45,7 +45,7 @@ describe('style helper', function () {
     `);
   });
 
-  test('works with batching', () => {
+  test("works with batching", () => {
     const vault = new Vault();
     const helper = createStylesHelper(vault);
     let times = 0;
@@ -54,19 +54,19 @@ describe('style helper', function () {
     }, true);
 
     vault.batch((v) => {
-      helper.applyStyles({ id: 'https://example.org/manifest-1' }, 'scope-1', {
-        background: 'red',
+      helper.applyStyles({ id: "https://example.org/manifest-1" }, "scope-1", {
+        background: "red",
       });
-      helper.applyStyles({ id: 'https://example.org/manifest-1' }, 'scope-2', {
-        background: 'green',
+      helper.applyStyles({ id: "https://example.org/manifest-1" }, "scope-2", {
+        background: "green",
       });
-      helper.applyStyles({ id: 'https://example.org/manifest-2' }, 'scope-1', {
-        background: 'blue',
+      helper.applyStyles({ id: "https://example.org/manifest-2" }, "scope-1", {
+        background: "blue",
       });
     });
 
     expect(times).toEqual(1);
-    expect(helper.getAppliedStyles({ id: 'https://example.org/manifest-1' })).toMatchInlineSnapshot(`
+    expect(helper.getAppliedStyles({ id: "https://example.org/manifest-1" })).toMatchInlineSnapshot(`
       {
         "scope-1": {
           "background": "red",
@@ -76,7 +76,7 @@ describe('style helper', function () {
         },
       }
     `);
-    expect(helper.getAppliedStyles({ id: 'https://example.org/manifest-2' })).toMatchInlineSnapshot(`
+    expect(helper.getAppliedStyles({ id: "https://example.org/manifest-2" })).toMatchInlineSnapshot(`
       {
         "scope-1": {
           "background": "blue",

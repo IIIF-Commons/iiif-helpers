@@ -17,7 +17,7 @@ import {
   createSearch1Store,
   findAutocompleteService,
   findSearch1Service,
-} from '@iiif/helpers/search1';
+} from "@iiif/helpers/search1";
 ```
 
 ## Finding the Search Service
@@ -25,12 +25,12 @@ import {
 If you already have a manifest, use `findSearch1Service()` to pull the Search API 1 service from its `service` array.
 
 ```ts
-import { findSearch1Service } from '@iiif/helpers/search1';
+import { findSearch1Service } from "@iiif/helpers/search1";
 
 const searchService = findSearch1Service(manifest);
 
 if (!searchService) {
-  console.log('This manifest does not expose a Search API 1 service');
+  console.log("This manifest does not expose a Search API 1 service");
 }
 ```
 
@@ -46,12 +46,12 @@ If you already have the search endpoint URL, you can skip discovery and pass the
 `createSearch1Store()` creates a vanilla Zustand store for executing searches and stepping through hits.
 
 ```ts
-import { createSearch1Store, findSearch1Service } from '@iiif/helpers/search1';
+import { createSearch1Store, findSearch1Service } from "@iiif/helpers/search1";
 
 const service = findSearch1Service(manifest);
 const search = createSearch1Store(service || undefined);
 
-await search.getState().search({ q: '1615' });
+await search.getState().search({ q: "1615" });
 
 console.log(search.getState().resources);
 console.log(search.getState().hits);
@@ -60,11 +60,11 @@ console.log(search.getState().hits);
 If you only have an endpoint:
 
 ```ts
-import { createSearch1Store } from '@iiif/helpers/search1';
+import { createSearch1Store } from "@iiif/helpers/search1";
 
-const search = createSearch1Store('https://example.org/iiif/search');
+const search = createSearch1Store("https://example.org/iiif/search");
 
-await search.getState().search({ q: 'birds' });
+await search.getState().search({ q: "birds" });
 ```
 
 ### Search query
@@ -79,12 +79,12 @@ The search helper accepts the Search API 1 query params supported by the impleme
 ```ts
 await search.getState().search(
   {
-    q: 'wunder',
-    motivation: 'painting',
+    q: "wunder",
+    motivation: "painting",
   },
   {
     headers: {
-      Authorization: 'Bearer token',
+      Authorization: "Bearer token",
     },
   }
 );
@@ -121,7 +121,7 @@ The store exposes:
 Use `highlightHit()` after a search to select a specific hit and pull out the matching annotation resources.
 
 ```ts
-await search.getState().search({ q: '1615' });
+await search.getState().search({ q: "1615" });
 
 search.getState().highlightHit(0);
 
@@ -137,12 +137,12 @@ search.getState().previousHit();
 `createSearch1AutocompleteStore()` creates a second store for the nested autocomplete service.
 
 ```ts
-import { createSearch1AutocompleteStore, findSearch1Service } from '@iiif/helpers/search1';
+import { createSearch1AutocompleteStore, findSearch1Service } from "@iiif/helpers/search1";
 
 const service = findSearch1Service(manifest);
 const autocomplete = createSearch1AutocompleteStore(service || undefined);
 
-await autocomplete.getState().search('wunder');
+await autocomplete.getState().search("wunder");
 
 console.log(autocomplete.getState().results);
 ```
@@ -150,7 +150,7 @@ console.log(autocomplete.getState().results);
 To inspect the autocomplete service without creating a store:
 
 ```ts
-import { findAutocompleteService } from '@iiif/helpers/search1';
+import { findAutocompleteService } from "@iiif/helpers/search1";
 
 const autocompleteService = service ? findAutocompleteService(service) : undefined;
 ```
@@ -172,10 +172,10 @@ The autocomplete helper accepts:
 - `headers`
 
 ```ts
-await autocomplete.getState().search('wunder', {
-  user: 'https://example.org/users/1',
+await autocomplete.getState().search("wunder", {
+  user: "https://example.org/users/1",
   headers: {
-    Authorization: 'Bearer token',
+    Authorization: "Bearer token",
   },
 });
 ```
@@ -211,25 +211,21 @@ The store exposes:
 ## Minimal Example
 
 ```ts
-import {
-  createSearch1AutocompleteStore,
-  createSearch1Store,
-  findSearch1Service,
-} from '@iiif/helpers/search1';
+import { createSearch1AutocompleteStore, createSearch1Store, findSearch1Service } from "@iiif/helpers/search1";
 
 const service = findSearch1Service(manifest);
 
 if (!service) {
-  throw new Error('Search service not found');
+  throw new Error("Search service not found");
 }
 
 const search = createSearch1Store(service);
 const autocomplete = createSearch1AutocompleteStore(service);
 
-await autocomplete.getState().search('wun');
+await autocomplete.getState().search("wun");
 console.log(autocomplete.getState().results);
 
-await search.getState().search({ q: 'wunder' });
+await search.getState().search({ q: "wunder" });
 search.getState().highlightHit(0);
 
 console.log(search.getState().highlight);

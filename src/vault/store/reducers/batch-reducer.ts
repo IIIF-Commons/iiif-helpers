@@ -1,5 +1,5 @@
-import { BatchAction, BATCH_ACTIONS, BATCH_IMPORT } from '../../actions/batch-actions';
-import { AllActions, IIIFStore, Reducer } from '../../types';
+import { BatchAction, BATCH_ACTIONS, BATCH_IMPORT } from "../../actions/batch-actions";
+import { AllActions, IIIFStore, Reducer } from "../../types";
 
 export function createBatchReducer(rootReducer: Reducer<IIIFStore, AllActions>) {
   return (state: IIIFStore, action: BatchAction | AllActions) => {

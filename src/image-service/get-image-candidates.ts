@@ -1,16 +1,16 @@
-import { getId, getImageServices } from '@iiif/parser/image-3';
+import { getId, getImageServices } from "@iiif/parser/image-3";
 import type {
   ContentResource as ContentResourceV3,
   IIIFExternalWebResource as IIIFExternalWebResourceV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   ContentResource as ContentResourceV4,
   ContentResourceLike as IIIFExternalWebResourceV4,
-} from '@iiif/parser/presentation-4/types';
-import { getFixedSizeFromImage } from './get-fixed-size-from-image';
-import { getImageCandidatesFromService } from './get-image-candidates-from-service';
-import type { ImageServiceLoader, ImageServiceRequest } from './image-service-loader';
-import type { ImageCandidate } from './types';
+} from "@iiif/parser/presentation-4/types";
+import { getFixedSizeFromImage } from "./get-fixed-size-from-image";
+import { getImageCandidatesFromService } from "./get-image-candidates-from-service";
+import type { ImageServiceLoader, ImageServiceRequest } from "./image-service-loader";
+import type { ImageCandidate } from "./types";
 
 type ContentResource = ContentResourceV3 | ContentResourceV4;
 type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;

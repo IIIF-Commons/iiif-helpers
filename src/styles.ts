@@ -1,6 +1,6 @@
-import type { Reference as ReferenceV3 } from '@iiif/parser/presentation-3/types';
-import type { Reference as ReferenceV4 } from '@iiif/parser/presentation-4/types';
-import { type CompatVault, compatVault } from './compat';
+import type { Reference as ReferenceV3 } from "@iiif/parser/presentation-3/types";
+import type { Reference as ReferenceV4 } from "@iiif/parser/presentation-4/types";
+import { type CompatVault, compatVault } from "./compat";
 
 export type StyleDefinition = Record<string, any>;
 type AnyReference = ReferenceV3<any> | ReferenceV4<any>;
@@ -17,12 +17,12 @@ export function createStylesHelper<S extends StyleDefinition>(vault: CompatVault
       scope: string,
       styles: Style[string]
     ) {
-      const id = typeof resource === 'string' ? resource : resource.id;
-      return vault.setMetaValue<Style[string]>([id, 'styles', scope], styles);
+      const id = typeof resource === "string" ? resource : resource.id;
+      return vault.setMetaValue<Style[string]>([id, "styles", scope], styles);
     },
     getAppliedStyles<Style extends StyleDefinition = S>(resource: string | AnyReference): Style | undefined {
-      const id = typeof resource === 'string' ? resource : resource.id;
-      return vault.getResourceMeta<{ styles: Style }, 'styles'>(id, 'styles');
+      const id = typeof resource === "string" ? resource : resource.id;
+      return vault.getResourceMeta<{ styles: Style }, "styles">(id, "styles");
     },
   };
 }

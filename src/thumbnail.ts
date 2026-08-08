@@ -3,7 +3,7 @@ import type {
   CollectionItemSchemas as CollectionItemSchemasV3,
   ContentResource as ContentResourceV3,
   Reference as ReferenceV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV3,
   AnnotationPageNormalized as AnnotationPageNormalizedV3,
@@ -11,13 +11,13 @@ import type {
   CollectionNormalized as CollectionNormalizedV3,
   DescriptiveNormalized as DescriptiveNormalizedV3,
   ManifestNormalized as ManifestNormalizedV3,
-} from '@iiif/parser/presentation-3-normalized/types';
+} from "@iiif/parser/presentation-3-normalized/types";
 import type {
   ChoiceResource as ChoiceBodyV4,
   CollectionItemSchemas as CollectionItemSchemasV4,
   ContentResource as ContentResourceV4,
   Reference as ReferenceV4,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV4,
   AnnotationPageNormalized as AnnotationPageNormalizedV4,
@@ -25,9 +25,9 @@ import type {
   CollectionNormalized as CollectionNormalizedV4,
   DescriptiveNormalized as DescriptiveNormalizedV4,
   ManifestNormalized as ManifestNormalizedV4,
-} from '@iiif/parser/presentation-4-normalized/types';
-import { resolveAnnotationValues } from './annotation-values';
-import { type CompatVault, compatVault } from './compat';
+} from "@iiif/parser/presentation-4-normalized/types";
+import { resolveAnnotationValues } from "./annotation-values";
+import { type CompatVault, compatVault } from "./compat";
 import {
   type FixedSizeImage,
   type FixedSizeImageService,
@@ -37,7 +37,7 @@ import {
   ImageServiceLoader,
   type UnknownSizeImage,
   type VariableSizeImage,
-} from './image-service';
+} from "./image-service";
 
 export const imageServiceLoader = new ImageServiceLoader();
 
@@ -55,12 +55,12 @@ type DescriptiveNormalized = DescriptiveNormalizedV3 | DescriptiveNormalizedV4;
 export type ThumbnailInput =
   | string
   | Reference<CollectionItemSchemas>
-  | Reference<'Collection'>
-  | Reference<'Manifest'>
-  | Reference<'Canvas'>
-  | Reference<'Annotation'>
-  | Reference<'AnnotationPage'>
-  | Reference<'ContentResource'>
+  | Reference<"Collection">
+  | Reference<"Manifest">
+  | Reference<"Canvas">
+  | Reference<"Annotation">
+  | Reference<"AnnotationPage">
+  | Reference<"ContentResource">
   | CollectionNormalized
   | ManifestNormalized
   | CanvasNormalized
@@ -115,7 +115,7 @@ export function createThumbnailHelper(
       return await loader.getThumbnailFromResource(undefined as any, request, dereference, candidates);
     }
 
-    if (typeof input === 'string') {
+    if (typeof input === "string") {
       const fixed = getFixedSizeFromImage(input as any);
       if (fixed) {
         candidates.push(fixed);
@@ -136,7 +136,7 @@ export function createThumbnailHelper(
       | ChoiceBody
       | undefined = vault.get(input as any, { skipSelfReturn: false }) as any;
 
-    if (typeof fullInput === 'string') {
+    if (typeof fullInput === "string") {
       return {
         best: getFixedSizeFromImage(fullInput as any),
         fallback: [],
@@ -161,28 +161,34 @@ export function createThumbnailHelper(
     await parseThumbnail(fullInput as any);
 
     switch (fullInput.type) {
-      case 'Annotation': {
+      case "Annotation": {
         const contentResources = resolveAnnotationValues(
           vault.get(fullInput.body as any),
           (value) => vault.get(value as any, { preserveSpecificResources: true }) ?? value
         ).filter(({ aggregatePath, aggregateDefaults }) =>
-          aggregatePath.every(({ type, index }, pathIndex) =>
-            type !== 'Choice' || index === (aggregateDefaults[pathIndex] ?? 0)
+          aggregatePath.every(
+            ({ type, index }, pathIndex) => type !== "Choice" || index === (aggregateDefaults[pathIndex] ?? 0)
           )
         );
         if (!contentResources[0]) {
           return await thumbnailNotFound();
         }
-        const firstContentResources = vault.get(contentResources[0].value as any, { skipSelfReturn: false });
+        const firstContentResources = vault.get(contentResources[0].value as any, {
+          skipSelfReturn: false,
+        });
         const resource =
           dimensions && !(firstContentResources as any).width
-            ? { ...(firstContentResources as any), width: dimensions.width, height: dimensions.height }
+            ? {
+                ...(firstContentResources as any),
+                width: dimensions.width,
+                height: dimensions.height,
+              }
             : firstContentResources;
 
         return await loader.getThumbnailFromResource(resource as any, request, dereference, candidates);
       }
 
-      case 'Canvas': {
+      case "Canvas": {
         const canvas = fullInput as CanvasNormalized;
 
         return getBestThumbnailAtSize(canvas.items[0] as any, request, dereference, candidates, {
@@ -192,12 +198,12 @@ export function createThumbnailHelper(
       }
 
       // Unsupported for now.
-      case 'AnnotationPage': {
+      case "AnnotationPage": {
         const annotationPage = fullInput as AnnotationPageNormalized;
         return getBestThumbnailAtSize(annotationPage.items[0] as any, request, dereference, candidates, dimensions);
       }
 
-      case 'Choice': {
+      case "Choice": {
         const choice = fullInput;
         if (!choice.items || !choice.items[0]) {
           return await thumbnailNotFound();
@@ -205,7 +211,7 @@ export function createThumbnailHelper(
         // @todo this could also be configuration, just choosing the first choice.
         return getBestThumbnailAtSize(choice.items[0] as any, request, dereference, candidates, dimensions);
       }
-      case 'Collection': {
+      case "Collection": {
         // This one is tricky, as the manifests may not have been loaded. But we will give it a shot.
         const collection = fullInput as CollectionNormalized;
         const firstManifest = collection.items[0];
@@ -215,7 +221,7 @@ export function createThumbnailHelper(
         return getBestThumbnailAtSize(firstManifest as any, request, dereference, candidates, dimensions);
       }
 
-      case 'Manifest': {
+      case "Manifest": {
         const manifest = fullInput as ManifestNormalized;
         const firstCanvas = manifest.items[0];
         if (!firstCanvas) {
@@ -224,13 +230,13 @@ export function createThumbnailHelper(
         return getBestThumbnailAtSize(firstCanvas as any, request, dereference, candidates, dimensions);
       }
 
-      case 'SpecificResource':
-      case 'Image':
-      case 'Dataset':
-      case 'Sound':
-      case 'Text':
-      case 'TextualBody':
-      case 'Video':
+      case "SpecificResource":
+      case "Image":
+      case "Dataset":
+      case "Sound":
+      case "Text":
+      case "TextualBody":
+      case "Video":
         const resource =
           dimensions && !(fullInput as any).width
             ? { ...(fullInput as any), width: dimensions.width, height: dimensions.height }

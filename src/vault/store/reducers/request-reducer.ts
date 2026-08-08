@@ -8,8 +8,8 @@ import {
   RESOURCE_ERROR,
   RESOURCE_LOADING,
   RESOURCE_READY,
-} from '../../actions';
-import { RequestState } from '../../types';
+} from "../../actions";
+import { RequestState } from "../../types";
 
 export const requestReducer = (state: RequestState = {}, action: RequestActions) => {
   switch (action.type) {

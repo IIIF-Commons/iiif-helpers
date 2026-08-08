@@ -4,6 +4,6 @@ export const defaultFetcher = async (url: string) => {
     return r.json();
   }
   const err = new Error(`${r.status} ${r.statusText}`);
-  err.name = 'HTTPError';
+  err.name = "HTTPError";
   throw err;
 };

@@ -1,12 +1,12 @@
 export function quickMerge(a: any, b: any) {
   const left = a || {};
   const right = b || {};
-  const isPartialReference = right['iiif-parser:isExternal'] === true;
+  const isPartialReference = right["iiif-parser:isExternal"] === true;
   const newResource: any = {};
   const keys = new Set([...Object.keys(left), ...Object.keys(right)]);
 
   for (const key of keys) {
-    if (!Object.hasOwn(right, key) || typeof right[key] === 'undefined') {
+    if (!Object.hasOwn(right, key) || typeof right[key] === "undefined") {
       newResource[key] = left[key];
       continue;
     }
@@ -19,7 +19,7 @@ export function quickMerge(a: any, b: any) {
       continue;
     }
 
-    if (typeof right[key] !== 'undefined') {
+    if (typeof right[key] !== "undefined") {
       newResource[key] = right[key];
       continue;
     }

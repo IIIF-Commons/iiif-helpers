@@ -32,9 +32,7 @@ export function isRectangle(points: readonly Point2D[]): boolean {
   );
 }
 
-export function polygonToBoundingBox<T extends { points: readonly Point2D[] }>(
-  polygon: T | null
-): BoundingBox | null {
+export function polygonToBoundingBox<T extends { points: readonly Point2D[] }>(polygon: T | null): BoundingBox | null {
   if (!polygon || polygon.points.length < 3) {
     return null;
   }

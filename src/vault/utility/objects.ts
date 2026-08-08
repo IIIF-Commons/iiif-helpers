@@ -1,4 +1,4 @@
-import { Vault } from '../vault';
+import { Vault } from "../vault";
 
 function defineProperty(name: string, prototype: any, vault: Vault, enumerable = true) {
   prototype[DEFINED] = prototype[DEFINED] || [];
@@ -9,7 +9,7 @@ function defineProperty(name: string, prototype: any, vault: Vault, enumerable =
   Object.defineProperty(prototype, name, {
     enumerable,
     get(): any {
-      if (typeof prototype[REFS][name] === 'undefined') {
+      if (typeof prototype[REFS][name] === "undefined") {
         return undefined;
       }
 
@@ -43,10 +43,10 @@ function defineProperty(name: string, prototype: any, vault: Vault, enumerable =
   });
 }
 
-export const REFS = Symbol.for('_refs_');
-export const REACTIVE = Symbol.for('_reactive_');
-export const DEFINED = Symbol.for('_defined_');
-export const PARENT = Symbol.for('_parent_');
+export const REFS = Symbol.for("_refs_");
+export const REACTIVE = Symbol.for("_reactive_");
+export const DEFINED = Symbol.for("_defined_");
+export const PARENT = Symbol.for("_parent_");
 
 export type WrappedObject<OG = any> = {
   subscribe(subscription: (object: any, vault: Vault) => void, skipInitial?: boolean): () => void;
@@ -68,23 +68,23 @@ type ReactiveProperty<Value> = Value extends readonly (infer Item)[]
     : Value;
 
 type HydratedProperty =
-  | 'items'
-  | 'annotations'
-  | 'structures'
-  | 'seeAlso'
-  | 'rendering'
-  | 'partOf'
-  | 'start'
-  | 'supplementary'
-  | 'homepage'
-  | 'thumbnail'
-  | 'placeholderContainer'
-  | 'accompanyingContainer'
-  | 'placeholderCanvas'
-  | 'accompanyingCanvas'
-  | 'provider'
-  | 'body'
-  | 'logo';
+  | "items"
+  | "annotations"
+  | "structures"
+  | "seeAlso"
+  | "rendering"
+  | "partOf"
+  | "start"
+  | "supplementary"
+  | "homepage"
+  | "thumbnail"
+  | "placeholderContainer"
+  | "accompanyingContainer"
+  | "placeholderCanvas"
+  | "accompanyingCanvas"
+  | "provider"
+  | "body"
+  | "logo";
 
 export type ReactiveWrapped<Full = any, T = any> = {} & WrappedObject<Full> &
   Omit<Full, HydratedProperty> & {
@@ -100,15 +100,15 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
     [PARENT]: null | string;
     [REACTIVE]: null | (() => void);
   } = {
-    id: '',
-    type: 'unknown',
+    id: "",
+    type: "unknown",
     [DEFINED]: [],
     [REFS]: {},
     [PARENT]: parent || null,
     [REACTIVE]: null,
 
     is(refOrObject: any) {
-      if (typeof refOrObject === 'string') {
+      if (typeof refOrObject === "string") {
         return this.id === refOrObject;
       }
 
@@ -153,10 +153,10 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
 
     unwrap() {
       if (!this.id) {
-        throw new Error('Invalid object');
+        throw new Error("Invalid object");
       }
       const parent = this[PARENT];
-      return vault.get(this.id, { parent: parent ? { id: parent, type: 'unknown' } : undefined });
+      return vault.get(this.id, { parent: parent ? { id: parent, type: "unknown" } : undefined });
     },
 
     toPresentation3() {
@@ -206,31 +206,31 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
   };
 
   // Structural
-  defineProperty('items', prototype, vault);
-  defineProperty('annotations', prototype, vault);
-  defineProperty('structures', prototype, vault);
+  defineProperty("items", prototype, vault);
+  defineProperty("annotations", prototype, vault);
+  defineProperty("structures", prototype, vault);
 
   // Linking
-  defineProperty('seeAlso', prototype, vault);
+  defineProperty("seeAlso", prototype, vault);
   // defineProperty('service', prototype, vault);
   // defineProperty('services', prototype, vault);
-  defineProperty('rendering', prototype, vault);
-  defineProperty('partOf', prototype, vault);
-  defineProperty('start', prototype, vault, false);
-  defineProperty('supplementary', prototype, vault);
-  defineProperty('homepage', prototype, vault);
+  defineProperty("rendering", prototype, vault);
+  defineProperty("partOf", prototype, vault);
+  defineProperty("start", prototype, vault, false);
+  defineProperty("supplementary", prototype, vault);
+  defineProperty("homepage", prototype, vault);
 
   // Descriptive
-  defineProperty('thumbnail', prototype, vault);
-  defineProperty('placeholderContainer', prototype, vault, false);
-  defineProperty('accompanyingContainer', prototype, vault, false);
-  defineProperty('placeholderCanvas', prototype, vault, false);
-  defineProperty('accompanyingCanvas', prototype, vault, false);
-  defineProperty('provider', prototype, vault);
+  defineProperty("thumbnail", prototype, vault);
+  defineProperty("placeholderContainer", prototype, vault, false);
+  defineProperty("accompanyingContainer", prototype, vault, false);
+  defineProperty("placeholderCanvas", prototype, vault, false);
+  defineProperty("accompanyingCanvas", prototype, vault, false);
+  defineProperty("provider", prototype, vault);
 
   // Annotation
-  defineProperty('body', prototype, vault);
-  defineProperty('logo', prototype, vault);
+  defineProperty("body", prototype, vault);
+  defineProperty("logo", prototype, vault);
 
   return prototype as any;
 }

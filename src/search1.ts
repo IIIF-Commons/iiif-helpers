@@ -8,12 +8,12 @@ import type {
   SearchServiceCommonHitSelectors,
   SearchServiceQueryParams,
   SearchServiceSearchResponse,
-} from '@iiif/parser/presentation-3/types';
-import type { ManifestNormalized as ManifestNormalizedV3 } from '@iiif/parser/presentation-3-normalized/types';
-import type { Manifest as ManifestV4 } from '@iiif/parser/presentation-4/types';
-import type { ManifestNormalized as ManifestNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
-import { createStore } from 'zustand/vanilla';
-import type { StoreApi } from './store-api';
+} from "@iiif/parser/presentation-3/types";
+import type { ManifestNormalized as ManifestNormalizedV3 } from "@iiif/parser/presentation-3-normalized/types";
+import type { Manifest as ManifestV4 } from "@iiif/parser/presentation-4/types";
+import type { ManifestNormalized as ManifestNormalizedV4 } from "@iiif/parser/presentation-4-normalized/types";
+import { createStore } from "zustand/vanilla";
+import type { StoreApi } from "./store-api";
 
 type SearchManifest = ManifestNormalizedV3 | ManifestNormalizedV4 | ManifestV3 | ManifestV4;
 
@@ -21,12 +21,12 @@ export type Search1Service = _SearchService & {
   service?: SearchServiceAutocomplete | SearchServiceAutocomplete[] | undefined;
 };
 
-const getId = (idOrAtId: IdOrAtId<any>): string => (idOrAtId as any).id || (idOrAtId as any)['@id'];
+const getId = (idOrAtId: IdOrAtId<any>): string => (idOrAtId as any).id || (idOrAtId as any)["@id"];
 
 export interface Search1AutocompleteStore {
   hasAutocomplete: boolean;
   endpoint: string | undefined;
-  results: SearchServiceAutocompleteResponse['terms'];
+  results: SearchServiceAutocompleteResponse["terms"];
   lastQuery: SearchServiceAutocompleteQueryParams | null;
   loading: boolean;
   error: boolean;
@@ -52,8 +52,8 @@ export function findSearch1Service(manifest: SearchManifest): Search1Service | n
   return manifest
     ? (manifest.service.find(
         (service: any) =>
-          (service as any).profile === 'SearchService1' ||
-          (service as any).profile === 'http://iiif.io/api/search/1/search'
+          (service as any).profile === "SearchService1" ||
+          (service as any).profile === "http://iiif.io/api/search/1/search"
       ) as any)
     : null;
 }
@@ -63,9 +63,9 @@ export function findAutocompleteService(service: Search1Service): SearchServiceA
   const services = Array.isArray(service.service) ? service.service : [service.service];
   return services.find(
     (s: any) =>
-      s.profile === 'http://iiif.io/api/search/0/autocomplete' ||
-      s.profile === 'http://iiif.io/api/search/1/autocomplete' ||
-      s.profile === 'AutoCompleteService1'
+      s.profile === "http://iiif.io/api/search/0/autocomplete" ||
+      s.profile === "http://iiif.io/api/search/1/autocomplete" ||
+      s.profile === "AutoCompleteService1"
   );
 }
 
@@ -86,7 +86,7 @@ export const createSearch1AutocompleteStore = (
     endpoint: autocompleteEndpoint,
     loading: false,
     error: false,
-    errorMessage: '',
+    errorMessage: "",
     ignored: [],
 
     setSearchService(newService: Search1Service) {
@@ -99,7 +99,7 @@ export const createSearch1AutocompleteStore = (
           loading: false,
           lastQuery: null,
           error: false,
-          errorMessage: '',
+          errorMessage: "",
         });
       }
     },
@@ -128,15 +128,15 @@ export const createSearch1AutocompleteStore = (
       abort = new AbortController();
 
       const params = new URLSearchParams();
-      params.set('q', query);
+      params.set("q", query);
       if (options.motivation) {
-        params.set('motivation', options.motivation);
+        params.set("motivation", options.motivation);
       }
       if (options.date) {
-        params.set('date', options.date);
+        params.set("date", options.date);
       }
       if (options.user) {
-        params.set('user', options.user);
+        params.set("user", options.user);
       }
 
       let shouldLoad = true;
@@ -162,8 +162,8 @@ export const createSearch1AutocompleteStore = (
       return fetcher(`${endpoint}?${params.toString()}`, {
         signal: abort.signal,
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
           ...(options.headers || {}),
         },
       }).then(async ([json, error]) => {
@@ -176,7 +176,7 @@ export const createSearch1AutocompleteStore = (
             ignored: json.ignored || [],
             results: json.terms,
             error: false,
-            errorMessage: '',
+            errorMessage: "",
           });
         } else {
           set({ results: [], error: true, errorMessage: error || undefined });
@@ -187,7 +187,7 @@ export const createSearch1AutocompleteStore = (
 };
 
 export type SingleSearchHit = {
-  '@type': 'search:Hit';
+  "@type": "search:Hit";
   annotations: string[];
   selectors: Array<SearchServiceCommonHitSelectors>;
   match?: string;
@@ -199,7 +199,7 @@ export interface Search1Store {
   endpoint: string | undefined;
   service: Search1Service | undefined;
   lastQuery: SearchServiceQueryParams;
-  resources: SearchServiceSearchResponse['resources'];
+  resources: SearchServiceSearchResponse["resources"];
   hits: SingleSearchHit[];
   loading: boolean;
   error: boolean;
@@ -208,7 +208,7 @@ export interface Search1Store {
   errorMessage: string;
   hitIndex: number;
   highlight: {
-    results: SearchServiceSearchResponse['resources'] | null;
+    results: SearchServiceSearchResponse["resources"] | null;
     hit: SingleSearchHit | null;
   };
   search: (query: SearchServiceQueryParams, options?: { headers?: HeadersInit }) => void | Promise<void>;
@@ -229,8 +229,8 @@ function defaultFetcher(
   return fetch(query, {
     signal: signal,
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+      "Content-Type": "application/json",
+      Accept: "application/json",
       ...(headers || {}),
     },
   }).then(async (response) => {
@@ -250,11 +250,11 @@ export const createSearch1Store = (
   const fetcher = options?.fetcher || defaultFetcher;
 
   let searchService: Search1Service | undefined;
-  if (typeof service === 'string') {
+  if (typeof service === "string") {
     searchService = {
-      '@context': 'http://iiif.io/api/search/1/context.json',
-      profile: 'http://iiif.io/api/search/1/search',
-      '@id': service,
+      "@context": "http://iiif.io/api/search/1/context.json",
+      profile: "http://iiif.io/api/search/1/search",
+      "@id": service,
       id: service,
       service: [],
     };
@@ -279,11 +279,11 @@ export const createSearch1Store = (
     hitIndex: -1,
     hasSearch: !!searchService,
     hasAutocomplete: searchService ? !!findAutocompleteService(searchService) : false,
-    errorMessage: '',
+    errorMessage: "",
     async search(query: SearchServiceQueryParams, options: { headers?: HeadersInit } = {}) {
       const endpoint = get().endpoint;
       if (!endpoint) {
-        throw new Error('No search service found.');
+        throw new Error("No search service found.");
       }
       if (abort && !abort.signal.aborted) {
         abort.abort();
@@ -293,16 +293,16 @@ export const createSearch1Store = (
 
       const params = new URLSearchParams();
       if (query.q) {
-        params.set('q', query.q);
+        params.set("q", query.q);
       }
       if (query.motivation) {
-        params.set('motivation', query.motivation);
+        params.set("motivation", query.motivation);
       }
       if (query.date) {
-        params.set('date', query.date);
+        params.set("date", query.date);
       }
       if (query.user) {
-        params.set('user', query.user);
+        params.set("user", query.user);
       }
 
       set({
@@ -329,15 +329,15 @@ export const createSearch1Store = (
               json.hits ||
               (json.resources || []).map((result: any) => {
                 return {
-                  '@type': 'search:Hit',
-                  after: '',
-                  annotations: [result['@id']],
-                  before: '',
+                  "@type": "search:Hit",
+                  after: "",
+                  annotations: [result["@id"]],
+                  before: "",
                   match: result.resource.chars,
                 };
               }),
             error: false,
-            errorMessage: '',
+            errorMessage: "",
             loading: false,
           });
         } else {
@@ -362,14 +362,14 @@ export const createSearch1Store = (
         loading: false,
         resources: [],
         error: false,
-        errorMessage: '',
+        errorMessage: "",
         highlight: { results: null, hit: null },
       });
     },
 
     // Other actions?
     clearSearch() {
-      set({ resources: [], error: false, errorMessage: '' });
+      set({ resources: [], error: false, errorMessage: "" });
     },
 
     highlightHit(index: number) {
@@ -378,7 +378,7 @@ export const createSearch1Store = (
       if (!hit) {
         return;
       }
-      const results = state.resources.filter((r) => hit.annotations.includes(r['@id']));
+      const results = state.resources.filter((r) => hit.annotations.includes(r["@id"]));
       set({ hitIndex: index, highlight: { results, hit } });
     },
     nextHit() {

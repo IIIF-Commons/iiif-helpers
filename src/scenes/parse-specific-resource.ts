@@ -3,7 +3,7 @@ import type {
   Selector,
   SpecificResource,
   Transform,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 
 export type ParsedSpecificResource = {
   source: unknown;
@@ -15,14 +15,14 @@ export type ParsedSpecificResource = {
 
 function isSpecificResourceCandidate(
   resource: unknown
-): resource is Partial<SpecificResource> & { type: 'SpecificResource' } {
-  return !!resource && typeof resource === 'object' && (resource as { type?: string }).type === 'SpecificResource';
+): resource is Partial<SpecificResource> & { type: "SpecificResource" } {
+  return !!resource && typeof resource === "object" && (resource as { type?: string }).type === "SpecificResource";
 }
 
 export function parseSceneSpecificResource(resource: unknown): ParsedSpecificResource {
   if (isSpecificResourceCandidate(resource)) {
     const selector =
-      Array.isArray(resource.selector) && resource.selector.length === 0 ? null : resource.selector ?? null;
+      Array.isArray(resource.selector) && resource.selector.length === 0 ? null : (resource.selector ?? null);
     const transform = resource.transform;
     const action = resource.action;
     return {

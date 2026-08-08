@@ -1,16 +1,16 @@
 // Test utility.
 
-import { emptyManifest } from '@iiif/parser';
-import type { Manifest, Range, RangeItems } from '@iiif/parser/presentation-3/types';
-import { getValue, type RangeTableOfContentsNode } from '../src';
+import { emptyManifest } from "@iiif/parser";
+import type { Manifest, Range, RangeItems } from "@iiif/parser/presentation-3/types";
+import { getValue, type RangeTableOfContentsNode } from "../src";
 
 // Render range in ascii with children + indentation.
 const treeChars = {
-  vertical: '│',
-  horizontal: '─',
-  corner: '└',
-  tee: '├',
-  space: ' ',
+  vertical: "│",
+  horizontal: "─",
+  corner: "└",
+  tee: "├",
+  space: " ",
 };
 
 export const copy = (obj: any) => JSON.parse(JSON.stringify(obj));
@@ -26,7 +26,7 @@ export function rangeMaker(fn: (r: RangeMakerHelper) => Range): [
   {
     canvasIds: string[];
     getManifest(): Manifest;
-    canvases: Array<{ id: string; type: 'Canvas' }>;
+    canvases: Array<{ id: string; type: "Canvas" }>;
   },
 ] {
   const canvasIds: string[] = [];
@@ -34,7 +34,7 @@ export function rangeMaker(fn: (r: RangeMakerHelper) => Range): [
     range: (id: string, items: any[]) => {
       return {
         id,
-        type: 'Range',
+        type: "Range",
         items: items.filter((t) => t !== null),
       } as Range;
     },
@@ -46,7 +46,7 @@ export function rangeMaker(fn: (r: RangeMakerHelper) => Range): [
       canvasIds.push(id);
       return {
         id,
-        type: 'Canvas',
+        type: "Canvas",
       } as RangeItems;
     },
   };
@@ -58,11 +58,11 @@ export function rangeMaker(fn: (r: RangeMakerHelper) => Range): [
       getManifest(): Manifest {
         return {
           ...(emptyManifest as any),
-          id: 'https://example.org/manifest',
-          label: { en: ['Manifest'] },
+          id: "https://example.org/manifest",
+          label: { en: ["Manifest"] },
           items: canvasIds.map((c, idx) => ({
             id: c,
-            type: 'Canvas' as const,
+            type: "Canvas" as const,
             width: 1000,
             height: 1000,
             label: { en: [`Canvas ${idx}`] },
@@ -70,14 +70,14 @@ export function rangeMaker(fn: (r: RangeMakerHelper) => Range): [
           structures: [response],
         };
       },
-      canvases: canvasIds.map((c) => ({ id: c, type: 'Canvas' as const })),
+      canvases: canvasIds.map((c) => ({ id: c, type: "Canvas" as const })),
     },
   ] as const;
 }
 
 export function renderRange(range: RangeTableOfContentsNode | null, skipCanvases = false, indent = 0) {
   if (!range) {
-    return '';
+    return "";
   }
   let spaces = treeChars.space.repeat(indent);
   let str = `${getValue(range.label)}\n`;
@@ -85,14 +85,14 @@ export function renderRange(range: RangeTableOfContentsNode | null, skipCanvases
   range.items?.forEach((item, index) => {
     const isLastItem = index === itemsCount - 1;
     if (item.isCanvasLeaf && skipCanvases) return;
-    const nn = item.isNoNav ? ' [no-nav]' : '';
+    const nn = item.isNoNav ? " [no-nav]" : "";
 
-    if (typeof item === 'string') {
+    if (typeof item === "string") {
       str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal} ${item}${nn}\n`;
     } else {
       str += `${spaces}${isLastItem ? treeChars.corner : treeChars.tee}${treeChars.horizontal}${treeChars.horizontal}${nn} ${renderRange(item, skipCanvases, indent + 2)}`;
     }
   });
   // Keep snapshots stable by stripping trailing spaces before line breaks.
-  return str.replace(/[ \t]+\n/g, '\n');
+  return str.replace(/[ \t]+\n/g, "\n");
 }

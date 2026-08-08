@@ -5,12 +5,12 @@ import {
   RESOURCE_READY,
   requestError,
   requestResource,
-} from '../actions';
-import type { NormalizedEntity } from '../types';
-import type { Vault } from '../vault';
-import { type ActionListFromResource, actionListFromResource } from './action-list-from-resource';
-import { isPromise } from './is-promise';
-import { resolveIfExists } from './resolve-if-exists';
+} from "../actions";
+import type { NormalizedEntity } from "../types";
+import type { Vault } from "../vault";
+import { type ActionListFromResource, actionListFromResource } from "./action-list-from-resource";
+import { isPromise } from "./is-promise";
+import { resolveIfExists } from "./resolve-if-exists";
 
 export function createFetchHelper<T>(
   vault: Vault,
@@ -108,10 +108,10 @@ export function createFetchHelper<T>(
       if (!resource) {
         return undefined;
       }
-      if (!resource.id && !resource['@id']) {
-        if (resource['@type']) {
+      if (!resource.id && !resource["@id"]) {
+        if (resource["@type"]) {
           // assume it might be presentation 2.
-          resource['@id'] = url;
+          resource["@id"] = url;
           resource.id = url;
         } else {
           // assume presentation 3.

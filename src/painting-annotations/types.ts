@@ -2,22 +2,22 @@ import type {
   IIIFExternalWebResource as IIIFExternalWebResourceV3,
   InternationalString as InternationalStringV3,
   SpecificResource as SpecificResourceV3,
-} from '@iiif/parser/presentation-3/types';
-import type { AnnotationNormalized as AnnotationNormalizedV3 } from '@iiif/parser/presentation-3-normalized/types';
+} from "@iiif/parser/presentation-3/types";
+import type { AnnotationNormalized as AnnotationNormalizedV3 } from "@iiif/parser/presentation-3-normalized/types";
 import type {
   ContentResourceLike as ContentResourceLikeV4,
   LanguageMap as InternationalStringV4,
   SpecificResource as SpecificResourceV4,
-} from '@iiif/parser/presentation-4/types';
-import type { AnnotationNormalized as AnnotationNormalizedV4 } from '@iiif/parser/presentation-4-normalized/types';
-import { BoxStyle, SelectorTransform, TransformPoint } from '../annotation-targets/selector-types';
+} from "@iiif/parser/presentation-4/types";
+import type { AnnotationNormalized as AnnotationNormalizedV4 } from "@iiif/parser/presentation-4-normalized/types";
+import { BoxStyle, SelectorTransform, TransformPoint } from "../annotation-targets/selector-types";
 
 type InternationalString = InternationalStringV3 | InternationalStringV4;
 type PaintableResource = IIIFExternalWebResourceV3 | SpecificResourceV3 | ContentResourceLikeV4 | SpecificResourceV4;
 type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
 
 export interface SingleChoice {
-  type: 'single-choice';
+  type: "single-choice";
   label?: InternationalString;
   items: Array<{
     id: string;
@@ -27,7 +27,7 @@ export interface SingleChoice {
 }
 
 export interface ComplexChoice {
-  type: 'complex-choice';
+  type: "complex-choice";
   items: SingleChoice[];
 }
 

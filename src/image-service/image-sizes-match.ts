@@ -1,5 +1,5 @@
-import type { ImageSize as ImageSizeV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageSize as ImageSizeV4 } from '@iiif/parser/presentation-4/types';
+import type { ImageSize as ImageSizeV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageSize as ImageSizeV4 } from "@iiif/parser/presentation-4/types";
 
 type ImageSize = ImageSizeV3 | ImageSizeV4;
 

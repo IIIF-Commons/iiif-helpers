@@ -1,4 +1,4 @@
-import type { Entities } from '../types';
+import type { Entities } from "../types";
 
 export function getDefaultEntities(): Entities {
   return {

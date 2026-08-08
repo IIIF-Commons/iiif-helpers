@@ -4,19 +4,14 @@ import {
   normalize as normalizePresentation3,
   serialize as serializePresentation3,
   serializeConfigPresentation2,
-} from '@iiif/parser';
+} from "@iiif/parser";
 import {
   type SerializeConfig,
   serialize,
   serializeConfigPresentation3,
   serializeConfigPresentation4,
-} from '@iiif/parser/presentation-4';
-import type {
-  Collection,
-  CollectionPage,
-  Manifest,
-  Reference,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4";
+import type { Collection, CollectionPage, Manifest, Reference } from "@iiif/parser/presentation-4/types";
 import type {
   AgentNormalized,
   AnnotationCollectionNormalized,
@@ -31,10 +26,10 @@ import type {
   SceneNormalized,
   SpecificResourceNormalized,
   TimelineNormalized,
-} from '@iiif/parser/presentation-4-normalized/types';
-import type { Entities } from './types';
-import { actionListFromResourceV4, type ActionListFromResource } from './utility/action-list-from-resource';
-import type { ReactiveWrapped } from './utility/objects';
+} from "@iiif/parser/presentation-4-normalized/types";
+import type { Entities } from "./types";
+import { actionListFromResourceV4, type ActionListFromResource } from "./utility/action-list-from-resource";
+import type { ReactiveWrapped } from "./utility/objects";
 import {
   type EntityRef,
   type GetObjectOptions,
@@ -42,7 +37,7 @@ import {
   Vault,
   type VaultOptions,
   type VaultTypeMap,
-} from './vault';
+} from "./vault";
 
 type Vault4TypeMap = VaultTypeMap & {
   Manifest: Manifest;
@@ -131,5 +126,5 @@ export class Vault4 extends Vault<Vault4TypeMap> {
 }
 
 export function isVault4(value: unknown): value is Vault4 {
-  return !!value && typeof value === 'object' && (value as { presentationVersion?: unknown }).presentationVersion === 4;
+  return !!value && typeof value === "object" && (value as { presentationVersion?: unknown }).presentationVersion === 4;
 }

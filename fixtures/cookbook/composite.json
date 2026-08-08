@@ -3,18 +3,14 @@
   "id": "https://gist.githubusercontent.com/stephenwf/19e61dac5c329c77db8cf22fe0366dad/raw/a81c3739711d140bd04be4f0b4800e421cc61761/manifest.json",
   "type": "Manifest",
   "label": {
-    "en": [
-      "Folio from Grandes Chroniques de France, ca. 1460"
-    ]
+    "en": ["Folio from Grandes Chroniques de France, ca. 1460"]
   },
   "items": [
     {
       "id": "https://preview.iiif.io/cookbook/3333-choice/recipe/0036-composition-from-multiple-images/canvas/p1",
       "type": "Canvas",
       "label": {
-        "none": [
-          "f. 033v-034r [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"
-        ]
+        "none": ["f. 033v-034r [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"]
       },
       "height": 5412,
       "width": 7216,
@@ -52,9 +48,7 @@
                 "type": "Image",
                 "format": "image/jpeg",
                 "label": {
-                  "fr": [
-                    "Miniature [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"
-                  ]
+                  "fr": ["Miniature [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]"]
                 },
                 "width": 2138,
                 "height": 2414,

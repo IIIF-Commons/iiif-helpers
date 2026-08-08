@@ -1,6 +1,6 @@
-import { isSpecificResource, toRef } from '@iiif/parser';
-import type { Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
-import { changeRefIdentifier } from '../../../shared-utilities';
+import { isSpecificResource, toRef } from "@iiif/parser";
+import type { Reference, SpecificResource } from "@iiif/parser/presentation-3/types";
+import { changeRefIdentifier } from "../../../shared-utilities";
 import {
   ADD_METADATA,
   ADD_REFERENCE,
@@ -16,13 +16,13 @@ import {
   REORDER_METADATA,
   UPDATE_METADATA,
   UPDATE_REFERENCE,
-} from '../../actions';
-import type { Entities } from '../../types';
-import { getDefaultEntities } from '../../utility';
-import { isReferenceList } from '../../utility/is-reference-list';
-import { quickMerge } from '../../utility/quick-merge';
+} from "../../actions";
+import type { Entities } from "../../types";
+import { getDefaultEntities } from "../../utility";
+import { isReferenceList } from "../../utility/is-reference-list";
+import { quickMerge } from "../../utility/quick-merge";
 
-function payload<T extends { payload: any }>(action: T): T['payload'] {
+function payload<T extends { payload: any }>(action: T): T["payload"] {
   return action.payload || {};
 }
 
@@ -32,7 +32,7 @@ function findEntity(entity: any, property: string, resource: { id: string; type:
   }
 
   const index =
-    typeof resource.index === 'undefined'
+    typeof resource.index === "undefined"
       ? entity[property].findIndex((item: any) => {
           if (!item) return false;
           return toRef(item)?.id === resource.id;
@@ -57,7 +57,7 @@ function getEntity(state: Entities, entity: { id: string; type: keyof Entities }
 }
 
 function numberOr(a: number | undefined, b: number): number {
-  return typeof a === 'undefined' ? b : a;
+  return typeof a === "undefined" ? b : a;
 }
 
 export const entitiesReducer = (state: Entities = getDefaultEntities(), action: EntityActions): Entities => {
@@ -82,7 +82,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       }
 
       const entity = state[payload(action).type][payload(action).id];
-      if (typeof entity === 'string') {
+      if (typeof entity === "string") {
         return state;
       }
 
@@ -96,7 +96,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       }
 
       const entity = state[payload(action).type][payload(action).id];
-      if (typeof entity === 'string') {
+      if (typeof entity === "string") {
         return state;
       }
 
@@ -120,7 +120,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       let newFromItems: any[] = [];
       let itemsToMove: any[] = [];
 
-      if (subjects.type === 'slice') {
+      if (subjects.type === "slice") {
         // Is there a fast path here.
         const startIndex = subjects.startIndex;
         const length = subjects.length;
@@ -158,7 +158,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
         return state; // Hoepfully not!
       }
 
-      const toIndex = typeof to?.index === 'undefined' ? toEntity[toKey].length : to.index;
+      const toIndex = typeof to?.index === "undefined" ? toEntity[toKey].length : to.index;
 
       const newToItems = Array.from(toEntity[to.key]);
       newToItems.splice(toIndex, 0, ...itemsToMove);
@@ -182,7 +182,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       return entitiesReducer(state, {
         type: MOVE_ENTITIES,
         payload: {
-          subjects: { type: 'list', items: [payload(action).subject] },
+          subjects: { type: "list", items: [payload(action).subject] },
           from: payload(action).from,
           to: payload(action).to,
         },
@@ -211,10 +211,10 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       // Better to do this when editing reducers keep the hasPart consistent over time though.
       const newEntity = { ...fullItem, id: newIdentifier };
 
-      if (newEntity['iiif-parser:hasPart']) {
-        newEntity['iiif-parser:hasPart'] = newEntity['iiif-parser:hasPart']
+      if (newEntity["iiif-parser:hasPart"]) {
+        newEntity["iiif-parser:hasPart"] = newEntity["iiif-parser:hasPart"]
           .filter((item: any) => {
-            return item['iiif-parser:partOf'] === id /* Parent id */;
+            return item["iiif-parser:partOf"] === id; /* Parent id */
           })
           .map((item: any) => {
             return {
@@ -311,7 +311,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
     }
     case REORDER_METADATA: {
       const entity: any = state[payload(action).type][payload(action).id];
-      if (typeof entity === 'string' || !entity) {
+      if (typeof entity === "string" || !entity) {
         return state;
       }
 
@@ -327,7 +327,7 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
       const metadata = Array.from(entity.metadata || []);
       const indexToRemove = payload(action).atIndex;
 
-      if (typeof indexToRemove === 'undefined' || indexToRemove === -1 || !(metadata as any[])[indexToRemove]) {
+      if (typeof indexToRemove === "undefined" || indexToRemove === -1 || !(metadata as any[])[indexToRemove]) {
         // Nothing to remove.
         return state;
       }

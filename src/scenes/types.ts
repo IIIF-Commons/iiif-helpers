@@ -1,25 +1,25 @@
-import type { InternationalString } from '@iiif/parser/presentation-3/types';
-import type { ExcludeType, Selector, Transform } from '@iiif/parser/presentation-4/types';
-import type { AnnotationNormalized, SceneNormalized } from '@iiif/parser/presentation-4-normalized/types';
-import type { AnnotationAggregateStep } from '../annotation-values';
-import type { ChoiceDescription, ComplexChoice } from '../painting-annotations/types';
-import type { SceneTarget, SelectorChain } from './target';
+import type { InternationalString } from "@iiif/parser/presentation-3/types";
+import type { ExcludeType, Selector, Transform } from "@iiif/parser/presentation-4/types";
+import type { AnnotationNormalized, SceneNormalized } from "@iiif/parser/presentation-4-normalized/types";
+import type { AnnotationAggregateStep } from "../annotation-values";
+import type { ChoiceDescription, ComplexChoice } from "../painting-annotations/types";
+import type { SceneTarget, SelectorChain } from "./target";
 
 export const KNOWN_SCENE_PAINTABLE_TYPES = [
-  'model',
-  'scene',
-  'canvas',
-  'perspective-camera',
-  'orthographic-camera',
-  'ambient-light',
-  'directional-light',
-  'image-based-light',
-  'point-light',
-  'spot-light',
-  'ambient-audio',
-  'point-audio',
-  'spot-audio',
-  'unknown',
+  "model",
+  "scene",
+  "canvas",
+  "perspective-camera",
+  "orthographic-camera",
+  "ambient-light",
+  "directional-light",
+  "image-based-light",
+  "point-light",
+  "spot-light",
+  "ambient-audio",
+  "point-audio",
+  "spot-audio",
+  "unknown",
 ] as const;
 
 export type KnownScenePaintableType = (typeof KNOWN_SCENE_PAINTABLE_TYPES)[number];
@@ -31,10 +31,13 @@ export function isKnownScenePaintableType(type: string): type is KnownScenePaint
   return knownScenePaintableTypeSet.has(type);
 }
 
-export function normalizeScenePaintableType(type: unknown): { type: ScenePaintableType; rawType: string } {
-  if (typeof type !== 'string' || !type) return { type: 'unknown', rawType: 'Unknown' };
-  const normalized = type.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase();
-  return { type: isKnownScenePaintableType(normalized) ? normalized : 'unknown', rawType: type };
+export function normalizeScenePaintableType(type: unknown): {
+  type: ScenePaintableType;
+  rawType: string;
+} {
+  if (typeof type !== "string" || !type) return { type: "unknown", rawType: "Unknown" };
+  const normalized = type.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+  return { type: isKnownScenePaintableType(normalized) ? normalized : "unknown", rawType: type };
 }
 
 export type SceneAnnotation = AnnotationNormalized & {
@@ -68,7 +71,7 @@ export type ScenePaintable = {
   bodyAction: readonly string[];
   behavior: readonly string[];
   exclude: readonly ExcludeType[];
-  timeMode: 'trim' | 'scale' | 'loop' | string;
+  timeMode: "trim" | "scale" | "loop" | string;
   aggregatePath: readonly AnnotationAggregateStep[];
 };
 

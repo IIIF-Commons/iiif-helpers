@@ -1,17 +1,17 @@
 import type {
   ExternalWebResource as ExternalWebResourceV3,
   W3CAnnotationTarget as W3CAnnotationTargetV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   Annotation as AnnotationV4,
   ContentResourceLike as ContentResourceLikeV4,
-} from '@iiif/parser/presentation-4/types';
-import { resolveAnnotationValues, type AnnotationAggregateStep } from '../annotation-values';
-import { parseSelector, splitCanvasFragment } from './parse-selector';
-import type { ParsedSelector, SupportedSelector } from './selector-types';
-import type { SupportedTarget } from './target-types';
+} from "@iiif/parser/presentation-4/types";
+import { resolveAnnotationValues, type AnnotationAggregateStep } from "../annotation-values";
+import { parseSelector, splitCanvasFragment } from "./parse-selector";
+import type { ParsedSelector, SupportedSelector } from "./selector-types";
+import type { SupportedTarget } from "./target-types";
 
-type AnnotationTargetV4 = Exclude<AnnotationV4['target'], undefined>;
+type AnnotationTargetV4 = Exclude<AnnotationV4["target"], undefined>;
 type ExpandableTarget = W3CAnnotationTargetV3 | AnnotationTargetV4;
 type ExternalWebResource = ExternalWebResourceV3 | ContentResourceLikeV4;
 
@@ -35,7 +35,7 @@ export function expandTarget(
 ): SupportedTarget {
   const first = expandTargets(target, options)[0];
   if (!first) {
-    throw new Error('Cannot expand an empty annotation target');
+    throw new Error("Cannot expand an empty annotation target");
   }
   return first.target;
 }
@@ -51,16 +51,16 @@ export function expandTargets(
 }
 
 function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOptions): SupportedTarget {
-  if (typeof target === 'string') {
+  if (typeof target === "string") {
     const [id, fragment] = splitCanvasFragment(target);
 
     if (!fragment) {
       // This is an unknown selector.
       return {
-        type: 'SpecificResource',
+        type: "SpecificResource",
         source: {
           id,
-          type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || 'Canvas',
+          type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || "Canvas",
         },
         selector: null,
         selectors: [],
@@ -69,10 +69,13 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
 
     return expandTargetValue(
       {
-        type: 'SpecificResource',
-        source: { id, type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || 'Canvas' },
+        type: "SpecificResource",
+        source: {
+          id,
+          type: (options.typeMap && (options.typeMap[id] as any)) || options.defaultType || "Canvas",
+        },
         selector: {
-          type: 'FragmentSelector',
+          type: "FragmentSelector",
           value: fragment,
         },
       },
@@ -82,19 +85,19 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
 
   let targetAny = target as any;
 
-  if (!targetAny.type && 'source' in targetAny) {
-    targetAny = { ...targetAny, type: 'SpecificResource' };
+  if (!targetAny.type && "source" in targetAny) {
+    targetAny = { ...targetAny, type: "SpecificResource" };
   }
 
-  if (targetAny.type === 'SpecificResource') {
+  if (targetAny.type === "SpecificResource") {
     let source = targetAny.source;
-    if (source?.type === 'Canvas' && source.partOf && typeof source.partOf === 'string') {
+    if (source?.type === "Canvas" && source.partOf && typeof source.partOf === "string") {
       source = {
         ...source,
         partOf: [
           {
             id: source.partOf,
-            type: 'Manifest',
+            type: "Manifest",
           },
         ],
       };
@@ -102,7 +105,7 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
     const styleClass = targetAny.styleClass || options.styleClass;
 
     let preParsedSelector = { selector: null, selectors: [] } as ParsedSelector;
-    if (typeof source === 'string') {
+    if (typeof source === "string") {
       const [, sourceFragment] = splitCanvasFragment(source);
       if (sourceFragment) {
         const expandedAgain = expandTargetValue(source, { ...options, styleClass });
@@ -119,7 +122,7 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
       : preParsedSelector;
 
     return {
-      type: 'SpecificResource',
+      type: "SpecificResource",
       source,
       ...(Array.isArray(targetAny.transform) ? { transform: [...targetAny.transform] } : {}),
       ...(Array.isArray(targetAny.action) ? { action: [...targetAny.action] } : {}),
@@ -130,13 +133,13 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
 
   if (targetAny.id) {
     let source = targetAny;
-    if (targetAny.type === 'Canvas' && targetAny.partOf && typeof targetAny.partOf === 'string') {
+    if (targetAny.type === "Canvas" && targetAny.partOf && typeof targetAny.partOf === "string") {
       source = {
         ...targetAny,
         partOf: [
           {
             id: targetAny.partOf,
-            type: 'Manifest',
+            type: "Manifest",
           },
         ],
       };
@@ -146,7 +149,7 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
     if (!fragment) {
       // This is an unknown selector.
       return {
-        type: 'SpecificResource',
+        type: "SpecificResource",
         source: {
           ...source,
           id,
@@ -158,13 +161,13 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
 
     return expandTargetValue(
       {
-        type: 'SpecificResource',
+        type: "SpecificResource",
         source: {
           ...source,
           id,
         },
         selector: {
-          type: 'FragmentSelector',
+          type: "FragmentSelector",
           value: fragment,
         },
       },
@@ -173,7 +176,7 @@ function expandTargetValue(target: ExpandableTarget, options: ExpandTargetOption
   }
 
   return {
-    type: 'SpecificResource',
+    type: "SpecificResource",
     source: targetAny as ExternalWebResource,
     selector: null,
     selectors: [],

@@ -1,8 +1,8 @@
-import { getId, getImageServiceLevel, supportsCustomSizes } from '@iiif/parser/image-3';
-import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
-import { isImage3 } from './is-image-3';
-import type { ImageCandidate } from './types';
+import { getId, getImageServiceLevel, supportsCustomSizes } from "@iiif/parser/image-3";
+import type { ImageService as ImageServiceV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageService as ImageServiceV4 } from "@iiif/parser/presentation-4/types";
+import { isImage3 } from "./is-image-3";
+import type { ImageCandidate } from "./types";
 
 type ImageService = ImageServiceV3 | ImageServiceV4;
 
@@ -30,18 +30,18 @@ export function getCustomSizeFromService(service: ImageService): ImageCandidate[
   const pLen = profiles.length;
   for (let x = 0; x < pLen; x++) {
     const profile = profiles[x];
-    if (profile && typeof profile !== 'string') {
+    if (profile && typeof profile !== "string") {
       if (profile.maxHeight || profile.maxWidth) {
         return [
           {
             id: getId(service),
-            type: 'variable',
+            type: "variable",
             minWidth: 0,
             minHeight: 0,
             maxHeight: (profile.maxHeight || profile.maxWidth) as number,
             maxWidth: (profile.maxWidth || profile.maxHeight) as number,
             level: getImageServiceLevel(service),
-            version: service['@context'] === 'http://iiif.io/api/image/3/context.json' ? 3 : 2,
+            version: service["@context"] === "http://iiif.io/api/image/3/context.json" ? 3 : 2,
           },
         ];
       }
@@ -55,7 +55,7 @@ export function getCustomSizeFromService(service: ImageService): ImageCandidate[
       if (tile && (tile.height || tile.width)) {
         imagesSizes.push({
           id: getId(service),
-          type: 'variable',
+          type: "variable",
           minHeight: 0,
           minWidth: 0,
           maxHeight: tile.height || tile.width,

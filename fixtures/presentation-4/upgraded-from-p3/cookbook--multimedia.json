@@ -3,9 +3,7 @@
   "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/manifest.json",
   "type": "Manifest",
   "label": {
-    "en": [
-      "Multimedia Canvas"
-    ]
+    "en": ["Multimedia Canvas"]
   },
   "items": [
     {
@@ -22,9 +20,7 @@
             {
               "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/annotation/p0001-image",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg",
                 "type": "Image",
@@ -47,9 +43,7 @@
             {
               "id": "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/annotation/p0002-video q",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://fixtures.iiif.io/video/indiana/donizetti-elixir/vae0637_accessH264_low_act_1.mp4",
                 "type": "Video",

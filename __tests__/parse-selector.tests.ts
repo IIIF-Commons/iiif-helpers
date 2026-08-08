@@ -1,16 +1,16 @@
-import type { Selector } from '@iiif/parser/presentation-3/types';
-import type { Selector as SelectorV4 } from '@iiif/parser/presentation-4/types';
-import { JSDOM } from 'jsdom';
-import { describe, expect, test } from 'vitest';
-import ghentChoices from '../fixtures/presentation-3/ghent-choices.json';
-import { expandTarget } from '../src';
-import { parseSelector } from '../src/annotation-targets/parse-selector';
+import type { Selector } from "@iiif/parser/presentation-3/types";
+import type { Selector as SelectorV4 } from "@iiif/parser/presentation-4/types";
+import { JSDOM } from "jsdom";
+import { describe, expect, test } from "vitest";
+import ghentChoices from "../fixtures/presentation-3/ghent-choices.json";
+import { expandTarget } from "../src";
+import { parseSelector } from "../src/annotation-targets/parse-selector";
 
-describe('parse selector', () => {
-  test('Parsing a 3D PointSelector (including zeros + z)', () => {
+describe("parse selector", () => {
+  test("Parsing a 3D PointSelector (including zeros + z)", () => {
     expect(
       parseSelector({
-        type: 'PointSelector',
+        type: "PointSelector",
         x: 0,
         y: 0,
         z: 0,
@@ -39,11 +39,11 @@ describe('parse selector', () => {
     `);
   });
 
-  test('Parsing a PolygonZSelector WKT', () => {
+  test("Parsing a PolygonZSelector WKT", () => {
     expect(
       parseSelector({
-        type: 'PolygonZSelector',
-        value: 'POLYGONZ((-1.0843 2.8273 -2, 1.0843 2.8273 -2, 1.0843 0 -2, -1.0843 0 -2, -1.0843 2.8273 -2))',
+        type: "PolygonZSelector",
+        value: "POLYGONZ((-1.0843 2.8273 -2, 1.0843 2.8273 -2, 1.0843 0 -2, -1.0843 0 -2, -1.0843 2.8273 -2))",
       } as SelectorV4)
     ).toMatchInlineSnapshot(`
       {
@@ -129,31 +129,30 @@ describe('parse selector', () => {
     `);
   });
 
-  test('does not produce infinite bounds for an empty WKT polygon', () => {
-    const result = parseSelector({ type: 'WktSelector', value: 'POLYGON EMPTY' } as SelectorV4);
+  test("does not produce infinite bounds for an empty WKT polygon", () => {
+    const result = parseSelector({ type: "WktSelector", value: "POLYGON EMPTY" } as SelectorV4);
 
     expect(result.selector).toMatchObject({ points3d: [] });
-    expect(result.selector).not.toHaveProperty('spatial');
+    expect(result.selector).not.toHaveProperty("spatial");
   });
 
-  describe('SVG Selectors', () => {
-    test('Malformed SVG path data returns an empty selector', () => {
+  describe("SVG Selectors", () => {
+    test("Malformed SVG path data returns an empty selector", () => {
       expect(
         parseSelector(
           {
-            type: 'SvgSelector',
-            value:
-              "<svg xmlns='http://www.w3.org/2000/svg'><g><path d='MNaN,NaN NaN,NaN NaN,NaN NaN,NaN' /></g></svg>",
+            type: "SvgSelector",
+            value: "<svg xmlns='http://www.w3.org/2000/svg'><g><path d='MNaN,NaN NaN,NaN NaN,NaN NaN,NaN' /></g></svg>",
           },
           { domParser: new new JSDOM().window.DOMParser() }
         )
       ).toEqual({ selector: null, selectors: [] });
     });
 
-    test('Parsing a rectangle selector', () => {
+    test("Parsing a rectangle selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><rect x="100" y="100" width="300" height="300" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -249,18 +248,18 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing svg with temporal element', () => {
+    test("Parsing svg with temporal element", () => {
       expect(
         parseSelector([
           {
-            type: 'SvgSelector',
+            type: "SvgSelector",
             value:
               '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4512 6174" width="4512" height="6174"><polygon points="3069,1586 3069,1616 3100,1586 3100,1616" /></svg>',
           },
           {
-            type: 'FragmentSelector',
-            conformsTo: 'http://www.w3.org/TR/media-frags/',
-            value: 't=10.46,10.46',
+            type: "FragmentSelector",
+            conformsTo: "http://www.w3.org/TR/media-frags/",
+            value: "t=10.46,10.46",
           },
         ])
       ).toMatchInlineSnapshot(`
@@ -358,10 +357,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing svg without size', () => {
+    test("Parsing svg without size", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" fill="#FF0055" stroke="#FF0055" stroke-width="1" fill-opacity="0.1" d="M 2596,6948 L 2571,6952 L 2597,6959 L 2616,6953 L 2596,6948 Z"/></svg>',
         })
@@ -471,10 +470,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a circle selector', () => {
+    test("Parsing a circle selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><circle r="147.5" cy="199.83333" cx="225.5" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -778,10 +777,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing an ellipse selector', () => {
+    test("Parsing an ellipse selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><ellipse ry="31.5" rx="346.5" id="svg_2" cy="77.83333" cx="399.5" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -1085,10 +1084,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a cubic bézier selector', () => {
+    test("Parsing a cubic bézier selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -1496,10 +1495,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a quadratic bézier selector', () => {
+    test("Parsing a quadratic bézier selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333 q -270.12536,222.67568 -108.78352,-65.06757" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -1691,10 +1690,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a polygon selector', () => {
+    test("Parsing a polygon selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polygon points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -1790,10 +1789,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a polyline selector', () => {
+    test("Parsing a polyline selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><polyline points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
         })
@@ -1881,10 +1880,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing the cookbook polygon selector', () => {
+    test("Parsing the cookbook polygon selector", () => {
       expect(
         parseSelector({
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             "<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'><g><path d='M270.000000,1900.000000 L1530.000000,1900.000000 L1530.000000,1610.000000 L1315.000000,1300.000000 L1200.000000,986.000000 L904.000000,661.000000 L600.000000,986.000000 L500.000000,1300.000000 L270,1630 L270.000000,1900.000000' /></g></svg>",
         })
@@ -2008,11 +2007,11 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a cubic bézier selector with jsdom', () => {
+    test("Parsing a cubic bézier selector with jsdom", () => {
       expect(
         parseSelector(
           {
-            type: 'SvgSelector',
+            type: "SvgSelector",
             value:
               '<svg width="800" height="600" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
           },
@@ -2422,7 +2421,7 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing a real world example selector', () => {
+    test("Parsing a real world example selector", () => {
       const annotations: any[] = ghentChoices.items[0]!.annotations[0].items;
 
       const firstTarget = annotations[0].target;
@@ -2533,11 +2532,11 @@ describe('parse selector', () => {
       `);
     });
 
-    test('Parsing svg target', () => {
+    test("Parsing svg target", () => {
       const target = {
-        source: 'https://data.globalise.huygens.knaw.nl/manifests/maps/4.VEL/B/B.3/B.3.3/229.json/canvas/p1',
+        source: "https://data.globalise.huygens.knaw.nl/manifests/maps/4.VEL/B/B.3/B.3.3/229.json/canvas/p1",
         selector: {
-          type: 'SvgSelector',
+          type: "SvgSelector",
           value:
             '<svg xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" fill="#FF0055" stroke="#FF0055" stroke-width="1" fill-opacity="0.1" d="M 29234,89 Z"/></svg>',
         },
@@ -2620,11 +2619,11 @@ describe('parse selector', () => {
     });
   });
 
-  describe('temporal selectors', () => {
-    test('temporal with start only', () => {
+  describe("temporal selectors", () => {
+    test("temporal with start only", () => {
       const selector: Selector = {
-        type: 'FragmentSelector',
-        value: 't=10.5',
+        type: "FragmentSelector",
+        value: "t=10.5",
       };
 
       expect(parseSelector(selector)).toMatchInlineSnapshot(`
@@ -2648,10 +2647,10 @@ describe('parse selector', () => {
         }
       `);
     });
-    test('temporal with start and end', () => {
+    test("temporal with start and end", () => {
       const selector: Selector = {
-        type: 'FragmentSelector',
-        value: 't=10.5,20.5',
+        type: "FragmentSelector",
+        value: "t=10.5,20.5",
       };
 
       expect(parseSelector(selector)).toMatchInlineSnapshot(`
@@ -2676,10 +2675,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('temporal with start offset', () => {
+    test("temporal with start offset", () => {
       const selector: Selector = {
-        type: 'FragmentSelector',
-        value: 't=302.05,3971.24',
+        type: "FragmentSelector",
+        value: "t=302.05,3971.24",
       };
 
       expect(parseSelector(selector)).toMatchInlineSnapshot(`
@@ -2704,10 +2703,10 @@ describe('parse selector', () => {
       `);
     });
 
-    test('temporal with start and end decimals', () => {
+    test("temporal with start and end decimals", () => {
       const selector: Selector = {
-        type: 'FragmentSelector',
-        value: 't=0.1,302.05',
+        type: "FragmentSelector",
+        value: "t=0.1,302.05",
       };
 
       expect(parseSelector(selector)).toMatchInlineSnapshot(`
@@ -2733,10 +2732,10 @@ describe('parse selector', () => {
     });
   });
 
-  describe('temporal box selector', () => {
-    test('temporal box selector', () => {
+  describe("temporal box selector", () => {
+    test("temporal box selector", () => {
       const target =
-        'https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas#xywh=200,200,480,360&t=27,57';
+        "https://preview.iiif.io/cookbook/0489-multimedia-canvas/recipe/0489-multimedia-canvas/canvas#xywh=200,200,480,360&t=27,57";
 
       const expanded = expandTarget(target);
 
@@ -2784,10 +2783,10 @@ describe('parse selector', () => {
     });
   });
 
-  describe('point selector', () => {
-    test('point selector', () => {
+  describe("point selector", () => {
+    test("point selector", () => {
       const examplePointSelector: Selector = {
-        type: 'PointSelector',
+        type: "PointSelector",
         x: 3385,
         y: 1464,
       };
@@ -2815,20 +2814,20 @@ describe('parse selector', () => {
     });
   });
 
-  describe('parse selector with stylesheet', () => {
-    test('box selector with css', () => {
+  describe("parse selector with stylesheet", () => {
+    test("box selector with css", () => {
       const exampleSelector: Selector = {
-        type: 'FragmentSelector',
-        value: 'xywh=100,140,480,360',
+        type: "FragmentSelector",
+        value: "xywh=100,140,480,360",
       };
 
       const parsed = parseSelector(
         exampleSelector,
         {
-          loadedStylesheets: { 'https://example.org/styles': '.test { background: red }' },
+          loadedStylesheets: { "https://example.org/styles": ".test { background: red }" },
         },
         {
-          styleClass: 'test',
+          styleClass: "test",
         }
       );
 
@@ -2866,17 +2865,17 @@ describe('parse selector', () => {
       `);
     });
 
-    test('box selector with css transform', () => {
+    test("box selector with css transform", () => {
       const exampleSelector: Selector = {
-        type: 'FragmentSelector',
-        value: 'xywh=0,0,2105,1523',
+        type: "FragmentSelector",
+        value: "xywh=0,0,2105,1523",
       };
 
       const parsed = parseSelector(
         exampleSelector,
         {
           loadedStylesheets: {
-            'https://example.org/styles': `
+            "https://example.org/styles": `
               .rotated {
                 transform-origin: 761px 1344px;
                 transform: rotate(90deg) translateY(-582px);
@@ -2885,7 +2884,7 @@ describe('parse selector', () => {
           },
         },
         {
-          styleClass: 'rotated',
+          styleClass: "rotated",
         }
       );
 
@@ -2977,16 +2976,16 @@ describe('parse selector', () => {
       `);
     });
 
-    test('expandTarget with CSS', () => {
+    test("expandTarget with CSS", () => {
       const expanded = expandTarget(
         {
-          type: 'SpecificResource',
-          source: 'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1#xywh=170,160,2200,1000',
-          styleClass: 'author2',
+          type: "SpecificResource",
+          source: "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/canvas/p1#xywh=170,160,2200,1000",
+          styleClass: "author2",
         },
         {
           loadedStylesheets: {
-            'https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/style.css': `
+            "https://preview.iiif.io/cookbook/0045-css/recipe/0045-css/style.css": `
               .author1 {
                	color: #f00;
                	background-color: #fff;

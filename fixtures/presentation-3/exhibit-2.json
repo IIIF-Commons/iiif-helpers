@@ -2,16 +2,12 @@
   "@context": "http://iiif.io/api/presentation/3/context.json",
   "type": "Manifest",
   "label": {
-    "en": [
-      "Inventing Creativity"
-    ]
+    "en": ["Inventing Creativity"]
   },
   "items": [
     {
       "label": {
-        "en": [
-          "A Do-Nothing Machine"
-        ]
+        "en": ["A Do-Nothing Machine"]
       },
       "height": 1600,
       "width": 1600,
@@ -44,9 +40,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/7c654266-b000-bc2b-5b99-fb22e4437d12",
               "motivation": "painting",
               "label": {
-                "en": [
-                  "Solar Do-Nothing Machine, a film by Charles and Ray Eames (1957)"
-                ]
+                "en": ["Solar Do-Nothing Machine, a film by Charles and Ray Eames (1957)"]
               },
               "summary": {
                 "en": [
@@ -64,11 +58,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/5759f5d0-62c6-7ea6-2c30-ca3cf4ad7e6d",
-      "behavior": [
-        "left",
-        "w-8",
-        "h-8"
-      ]
+      "behavior": ["left", "w-8", "h-8"]
     },
     {
       "height": 1000,
@@ -98,11 +88,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/43a44fd6-4bd2-2b9a-ad2e-cbfd28c6f4f4",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-4"
-      ],
+      "behavior": ["info", "w-4", "h-4"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -129,9 +115,7 @@
     },
     {
       "label": {
-        "en": [
-          "Creativity, Consumerism, and the Cold War"
-        ]
+        "en": ["Creativity, Consumerism, and the Cold War"]
       },
       "height": 774,
       "width": 774,
@@ -150,9 +134,7 @@
                 "height": 6415,
                 "width": 5000,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -165,14 +147,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -196,14 +171,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -229,15 +198,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 798,
@@ -266,9 +229,7 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/155fcabf-8e51-0782-5ce5-c128dbd005c1",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/775cc804-ec8b-1087-09de-b7eed2101561#xywh=28,33,297,381",
               "label": {
-                "en": [
-                  "Chicago Commuters, 1953"
-                ]
+                "en": ["Chicago Commuters, 1953"]
               },
               "summary": {
                 "en": [
@@ -286,9 +247,7 @@
                 "height": 4054,
                 "width": 5000,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -301,14 +260,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -332,14 +284,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -365,15 +311,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -402,9 +342,7 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/64141e57-0d02-96b9-dd73-8e0c1710cb16",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/775cc804-ec8b-1087-09de-b7eed2101561#xywh=50,457,314,255",
               "label": {
-                "en": [
-                  "Mushroom cloud of the Test Baker atomic bomb, Bikini Atoll, July 25, 1946"
-                ]
+                "en": ["Mushroom cloud of the Test Baker atomic bomb, Bikini Atoll, July 25, 1946"]
               },
               "summary": {
                 "en": [
@@ -422,9 +360,7 @@
                 "height": 3760,
                 "width": 2913,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -437,13 +373,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -467,14 +397,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -500,15 +424,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 793,
@@ -538,9 +456,7 @@
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/775cc804-ec8b-1087-09de-b7eed2101561#xywh=405,32,339,437",
               "requiredStatement": {
                 "value": {
-                  "en": [
-                    ""
-                  ]
+                  "en": [""]
                 }
               },
               "summary": {
@@ -549,9 +465,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Oldsmobile advertisement, USA, 1955"
-                ]
+                "en": ["Oldsmobile advertisement, USA, 1955"]
               }
             }
           ],
@@ -559,10 +473,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/775cc804-ec8b-1087-09de-b7eed2101561",
-      "behavior": [
-        "w-8",
-        "h-8"
-      ],
+      "behavior": ["w-8", "h-8"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -627,11 +538,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/c8d39540-e003-ff5c-d4ea-81ed3a4a8056",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-8"
-      ],
+      "behavior": ["info", "w-4", "h-8"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -677,9 +584,7 @@
                   "height": 5417,
                   "width": 5417,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -691,14 +596,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -722,14 +620,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -760,15 +652,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -802,9 +688,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "BBDO"
-                ]
+                "en": ["BBDO"]
               }
             }
           ],
@@ -812,16 +696,11 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/a4f17d27-6a80-ed4a-098b-390ae648e826",
-      "behavior": [
-        "w-12",
-        "h-5"
-      ]
+      "behavior": ["w-12", "h-5"]
     },
     {
       "label": {
-        "en": [
-          "Managing the Muse"
-        ]
+        "en": ["Managing the Muse"]
       },
       "height": 1000,
       "width": 800,
@@ -843,9 +722,7 @@
                   "height": 6610,
                   "width": 6812,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -857,14 +734,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -888,14 +758,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -926,15 +790,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -968,9 +826,7 @@
                 ]
               },
               "summary": {
-                "en": [
-                  "Alex F. Osborn, Applied Imagination, Charles Scribner’s Sons, Third Revised Edition, 1963"
-                ]
+                "en": ["Alex F. Osborn, Applied Imagination, Charles Scribner’s Sons, Third Revised Edition, 1963"]
               }
             },
             {
@@ -983,9 +839,7 @@
                 "height": 3183,
                 "width": 5096,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -998,14 +852,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -1029,14 +876,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1062,15 +903,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -1099,9 +934,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/6b47f632-f355-3fe4-1a7b-2657e62a3a6e",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/ff197cef-ae36-5a7a-2feb-fcb2b6bd3ab2#xywh=314,58,420,261",
               "label": {
-                "en": [
-                  "New York Herald Tribune, December 1956"
-                ]
+                "en": ["New York Herald Tribune, December 1956"]
               }
             },
             {
@@ -1114,9 +947,7 @@
                 "height": 3667,
                 "width": 2583,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1129,13 +960,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1159,14 +984,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1192,15 +1011,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 721,
@@ -1229,14 +1042,10 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/3119e8c8-9eaa-cf81-068b-c8d8d7d22aa8",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/ff197cef-ae36-5a7a-2feb-fcb2b6bd3ab2#xywh=41,454,271,389",
               "label": {
-                "en": [
-                  "Nation’s Business, February 1959"
-                ]
+                "en": ["Nation’s Business, February 1959"]
               },
               "summary": {
-                "en": [
-                  "Courtesy of Hagley Museum and Library"
-                ]
+                "en": ["Courtesy of Hagley Museum and Library"]
               }
             },
             {
@@ -1249,9 +1058,7 @@
                 "height": 2159,
                 "width": 3141,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1264,13 +1071,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1294,14 +1095,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1327,15 +1122,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -1369,9 +1158,7 @@
                 ]
               },
               "summary": {
-                "en": [
-                  "Creative Thinking, Charles S. Whiting, Reinhold Publishing Corporation, 1958"
-                ]
+                "en": ["Creative Thinking, Charles S. Whiting, Reinhold Publishing Corporation, 1958"]
               }
             },
             {
@@ -1384,9 +1171,7 @@
                 "height": 2792,
                 "width": 5000,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1399,14 +1184,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -1430,14 +1208,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1463,15 +1235,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -1505,9 +1271,7 @@
                 ]
               },
               "summary": {
-                "en": [
-                  "Life, June 1956"
-                ]
+                "en": ["Life, June 1956"]
               }
             }
           ],
@@ -1515,11 +1279,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/ff197cef-ae36-5a7a-2feb-fcb2b6bd3ab2",
-      "behavior": [
-        "left",
-        "w-12",
-        "h-10"
-      ],
+      "behavior": ["left", "w-12", "h-10"],
       "summary": {
         "en": [
           "Postwar managers of corporations like General Electric, Alcoa, and General Motors dreamed of making innovation as predictable as cars off an assembly line. But they also worried that too much bureaucracy might stifle good ideas. How to summon the genius of the nineteenth-century inventor within the modern corporation? Increasingly they looked to experts offering new-fangled techniques for \"creative thinking\" and \"creative problem-solving\".",
@@ -1583,9 +1343,7 @@
     },
     {
       "label": {
-        "en": [
-          "When brainstorming was new"
-        ]
+        "en": ["When brainstorming was new"]
       },
       "height": 1000,
       "width": 1000,
@@ -1604,9 +1362,7 @@
                 "height": 4038,
                 "width": 4038,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1619,13 +1375,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1649,14 +1399,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1682,15 +1426,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -1719,9 +1457,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/e799fa1f-dc65-c61f-22b5-d3e74374ac6a",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/5144f647-9ae9-51fb-e285-88c5f1cec72a#xywh=0,0,1000,1000",
               "label": {
-                "en": [
-                  "New York Herald Tribune, January 1958"
-                ]
+                "en": ["New York Herald Tribune, January 1958"]
               },
               "summary": {
                 "en": [
@@ -1739,11 +1475,7 @@
           "Brainstorming was a new craze in the 1950s. Its inventor, advertising executive Alex Osborn, proselytized his method for generating ideas: judgement was strictly prohibited, and shouting out ideas encouraged. A secretary would write down ideas as they came flying forth – the more the better – and later pass them to upper management for vetting. When a 1958 Yale study claimed brain­storming was ineffective, it became a national controversy, a lightning rod for the larger question facing mass society: are more heads better than one, or should the individual reign supreme?"
         ]
       },
-      "behavior": [
-        "bottom",
-        "w-6",
-        "h-10"
-      ]
+      "behavior": ["bottom", "w-6", "h-10"]
     },
     {
       "height": 1000,
@@ -1773,11 +1505,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/1def6fea-cba0-259b-b073-d7c959fdeb4e",
-      "behavior": [
-        "info",
-        "w-6",
-        "h-4"
-      ],
+      "behavior": ["info", "w-6", "h-4"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -1804,9 +1532,7 @@
     },
     {
       "label": {
-        "en": [
-          "Synectics session"
-        ]
+        "en": ["Synectics session"]
       },
       "height": 266,
       "width": 360,
@@ -1825,9 +1551,7 @@
                 "height": 2758,
                 "width": 3754,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1840,13 +1564,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1870,14 +1588,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1903,15 +1615,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -1940,14 +1646,10 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/43da7b7e-fb7e-6f7a-d031-3d66e461ca7f",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/a7dc6147-894c-dd1d-0edb-fbb0d4aa01b9#xywh=0,0,360,266",
               "label": {
-                "en": [
-                  "Synectics session, showing recording equipment in use, c.1974"
-                ]
+                "en": ["Synectics session, showing recording equipment in use, c.1974"]
               },
               "summary": {
-                "en": [
-                  "Courtesy of Synecticsworld®, Inc. (synecticsworld.com)"
-                ]
+                "en": ["Courtesy of Synecticsworld®, Inc. (synecticsworld.com)"]
               }
             }
           ],
@@ -1955,10 +1657,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/a7dc6147-894c-dd1d-0edb-fbb0d4aa01b9",
-      "behavior": [
-        "w-6",
-        "h-6"
-      ]
+      "behavior": ["w-6", "h-6"]
     },
     {
       "height": 999,
@@ -1978,9 +1677,7 @@
                 "height": 10417,
                 "width": 10417,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -1993,15 +1690,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -2025,14 +1714,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2058,15 +1741,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -2095,14 +1772,10 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/1febb90d-5e2a-0838-766e-22dd4aeb85eb",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/c6d6462b-8d86-446a-9314-153647c3e639#xywh=0,0,999,999",
               "summary": {
-                "en": [
-                  "Kaiser Aluminum News, 1968"
-                ]
+                "en": ["Kaiser Aluminum News, 1968"]
               },
               "label": {
-                "en": [
-                  "Rorschach inkblot"
-                ]
+                "en": ["Rorschach inkblot"]
               }
             }
           ],
@@ -2110,16 +1783,11 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/c6d6462b-8d86-446a-9314-153647c3e639",
-      "behavior": [
-        "w-12",
-        "h-5"
-      ]
+      "behavior": ["w-12", "h-5"]
     },
     {
       "label": {
-        "en": [
-          "The Science of Creativity"
-        ]
+        "en": ["The Science of Creativity"]
       },
       "height": 1000,
       "width": 800,
@@ -2138,9 +1806,7 @@
                 "height": 6668,
                 "width": 10152,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -2153,15 +1819,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -2185,14 +1843,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2218,15 +1870,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -2260,9 +1906,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Torrance test completed by Dr. Samuel Franklin in 2014"
-                ]
+                "en": ["Torrance test completed by Dr. Samuel Franklin in 2014"]
               }
             },
             {
@@ -2278,9 +1922,7 @@
                   "height": 8008,
                   "width": 6506,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -2292,14 +1934,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -2323,14 +1958,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2361,15 +1990,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 832,
@@ -2403,9 +2026,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Torrance test completed by Dr. Samuel Franklin in 2014"
-                ]
+                "en": ["Torrance test completed by Dr. Samuel Franklin in 2014"]
               }
             },
             {
@@ -2418,9 +2039,7 @@
                 "height": 6309,
                 "width": 4590,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -2433,14 +2052,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -2464,14 +2076,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2497,15 +2103,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 745,
@@ -2539,9 +2139,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, 1968"
-                ]
+                "en": ["Kaiser Aluminum News, 1968"]
               }
             },
             {
@@ -2554,9 +2152,7 @@
                 "height": 2607,
                 "width": 3600,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -2569,13 +2165,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -2599,14 +2189,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2632,15 +2216,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -2689,9 +2267,7 @@
                 "height": 6115,
                 "width": 9213,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -2704,15 +2280,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -2736,14 +2304,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2769,15 +2331,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -2811,9 +2367,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Frank Barron, Creativity and Psychological Health, D. van Nostrand Company, Inc., 1963"
-                ]
+                "en": ["Frank Barron, Creativity and Psychological Health, D. van Nostrand Company, Inc., 1963"]
               }
             }
           ],
@@ -2828,11 +2382,7 @@
           "But before they could approach the topic researchers had to first define it: how would they know creativity when they saw it? Some researchers would only consider eminent figures with a proven record, while others insisted they could study creativity in children. Though researchers never reached a consensus on the ultimate criteria of creativity, they were united in the belief that creativity research was a dire social need. The figure of the “creative person” that emerged from their research was an ideal liberal citizen capable of resisting conformity, adapting to change, and being innovative all at the same time."
         ]
       },
-      "behavior": [
-        "left",
-        "w-12",
-        "h-10"
-      ],
+      "behavior": ["left", "w-12", "h-10"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -2905,9 +2455,7 @@
                 "height": 5417,
                 "width": 5417,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -2920,14 +2468,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -2951,14 +2492,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2984,15 +2519,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3026,9 +2555,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Diagramming the Creative Process"
-                ]
+                "en": ["Diagramming the Creative Process"]
               }
             }
           ],
@@ -3042,15 +2569,9 @@
         ]
       },
       "label": {
-        "en": [
-          "Diagramming the Creative Process"
-        ]
+        "en": ["Diagramming the Creative Process"]
       },
-      "behavior": [
-        "bottom",
-        "w-6",
-        "h-9"
-      ]
+      "behavior": ["bottom", "w-6", "h-9"]
     },
     {
       "height": 1000,
@@ -3080,11 +2601,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/b09c7b78-dd2e-5cc1-f643-10e5af061834",
-      "behavior": [
-        "info",
-        "w-6",
-        "h-3"
-      ],
+      "behavior": ["info", "w-6", "h-3"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -3111,9 +2628,7 @@
     },
     {
       "label": {
-        "en": [
-          "Constructing the Creative Personality"
-        ]
+        "en": ["Constructing the Creative Personality"]
       },
       "height": 1000,
       "width": 1000,
@@ -3135,9 +2650,7 @@
                   "height": 6036,
                   "width": 8174,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -3149,14 +2662,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -3180,14 +2686,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3218,15 +2718,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3260,9 +2754,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"
-                ]
+                "en": ["Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"]
               }
             },
             {
@@ -3278,9 +2770,7 @@
                   "height": 6237,
                   "width": 8713,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -3292,15 +2782,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -3324,14 +2806,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3362,15 +2838,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3399,9 +2869,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/27efc122-6e41-0792-dcfe-aa001147d254",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/66dc7c31-e263-79bc-08a7-43a5f6e6ad59#xywh=365,622,205,296",
               "label": {
-                "en": [
-                  "Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"
-                ]
+                "en": ["Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"]
               },
               "summary": {
                 "en": [
@@ -3422,9 +2890,7 @@
                   "height": 6452,
                   "width": 8840,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -3436,15 +2902,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -3468,14 +2926,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3506,15 +2958,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3543,9 +2989,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/3c6f823d-4999-2cd7-d7a8-3ff9209f6dee",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/66dc7c31-e263-79bc-08a7-43a5f6e6ad59#xywh=603,622,203,293",
               "label": {
-                "en": [
-                  "Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"
-                ]
+                "en": ["Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"]
               },
               "summary": {
                 "en": [
@@ -3563,9 +3007,7 @@
                 "height": 6423,
                 "width": 8722,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -3578,15 +3020,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -3610,14 +3044,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3643,15 +3071,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3685,9 +3107,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"
-                ]
+                "en": ["Sidney J. Parnes and Harold F. Harding eds., The Sourcebook for Creative Thinking, 1962"]
               }
             }
           ],
@@ -3695,10 +3115,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/66dc7c31-e263-79bc-08a7-43a5f6e6ad59",
-      "behavior": [
-        "w-6",
-        "h-6"
-      ],
+      "behavior": ["w-6", "h-6"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -3765,9 +3182,7 @@
                   "height": 10417,
                   "width": 10417,
                   "label": {
-                    "en": [
-                      "-"
-                    ]
+                    "en": ["-"]
                   },
                   "service": {
                     "type": "ImageService2",
@@ -3779,15 +3194,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -3811,14 +3218,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3849,15 +3250,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -3886,14 +3281,10 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/948d003d-2eac-6916-95c5-b54bdfb17909",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/b8f3a066-c17b-e125-b3b8-5294155cb48e#xywh=-9418,-9418,10417,10417",
               "label": {
-                "en": [
-                  "Peter Max for Tin Lizzie Restaurant New York"
-                ]
+                "en": ["Peter Max for Tin Lizzie Restaurant New York"]
               },
               "summary": {
-                "en": [
-                  "Reprinted in Kaiser Aluminum News, 1968"
-                ]
+                "en": ["Reprinted in Kaiser Aluminum News, 1968"]
               }
             }
           ],
@@ -3901,16 +3292,11 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/b8f3a066-c17b-e125-b3b8-5294155cb48e",
-      "behavior": [
-        "w-12",
-        "h-5"
-      ]
+      "behavior": ["w-12", "h-5"]
     },
     {
       "label": {
-        "en": [
-          "A Corporate Counterculture"
-        ]
+        "en": ["A Corporate Counterculture"]
       },
       "height": 1000,
       "width": 1000,
@@ -3929,9 +3315,7 @@
                 "height": 3215,
                 "width": 5009,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -3944,14 +3328,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -3975,14 +3352,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4008,15 +3379,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4045,9 +3410,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/31466717-e1ea-ecab-ddc8-ed55f334340a",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=18,42,229,146",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4060,9 +3423,7 @@
                 "height": 3230,
                 "width": 5040,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4075,14 +3436,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4106,14 +3460,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4139,15 +3487,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4176,9 +3518,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/e2afad69-442c-82b6-259e-5b9c1efb38ab",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=263,48,230,147",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4191,9 +3531,7 @@
                 "height": 3208,
                 "width": 5035,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4206,14 +3544,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4237,14 +3568,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4270,15 +3595,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4307,9 +3626,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/c24489ae-b4ed-0e1d-2cf0-b14649345be0",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=508,39,230,147",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4322,9 +3639,7 @@
                 "height": 3219,
                 "width": 5011,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4337,14 +3652,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4368,14 +3676,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4401,15 +3703,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4438,9 +3734,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/13301733-9e5a-a1b7-c5aa-46e8c8da8454",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=750,33,233,149",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4453,9 +3747,7 @@
                 "height": 3219,
                 "width": 5002,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4468,14 +3760,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4499,14 +3784,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4532,15 +3811,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4569,9 +3842,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/36229569-3f9e-c11d-2f05-0016d089326f",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=20,226,232,148",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4584,9 +3855,7 @@
                 "height": 3201,
                 "width": 5000,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4599,14 +3868,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4630,14 +3892,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4663,15 +3919,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4700,9 +3950,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/09640709-1b54-a90c-114c-394424c29238",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=266,228,222,141",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4715,9 +3963,7 @@
                 "height": 3229,
                 "width": 5037,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4730,14 +3976,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4761,14 +4000,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4794,15 +4027,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4831,9 +4058,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/163af9c8-84b6-9d1b-99ef-9d77cb190345",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=510,221,232,148",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4846,9 +4071,7 @@
                 "height": 3239,
                 "width": 5012,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4861,14 +4084,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4892,14 +4108,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4925,15 +4135,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -4962,9 +4166,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/9a30bd2e-b202-adf9-0a44-2e5f650e3feb",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=764,234,223,144",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -4977,9 +4179,7 @@
                 "height": 3226,
                 "width": 5003,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -4992,14 +4192,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5023,14 +4216,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5056,15 +4243,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5093,9 +4274,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/3bb8624e-c1dc-b07d-e301-a9cf7ef4e0c3",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=15,396,235,151",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5108,9 +4287,7 @@
                 "height": 3224,
                 "width": 4979,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5123,14 +4300,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5154,14 +4324,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5187,15 +4351,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5224,9 +4382,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/8ad0d15b-2c27-e73e-47bb-f4199056c8cf",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=276,394,224,145",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5239,9 +4395,7 @@
                 "height": 3233,
                 "width": 4978,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5254,14 +4408,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5285,14 +4432,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5318,15 +4459,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5355,9 +4490,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/513eb124-da3c-55ea-fb54-bc01a1dbbaff",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=518,404,218,141",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5370,9 +4503,7 @@
                 "height": 3194,
                 "width": 4962,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5385,14 +4516,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5416,14 +4540,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5449,15 +4567,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5486,9 +4598,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/50fe8189-90f6-1e78-e8a6-16d9688dce7c",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=755,411,232,148",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5501,9 +4611,7 @@
                 "height": 3226,
                 "width": 4982,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5516,14 +4624,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5547,14 +4648,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5580,15 +4675,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5617,9 +4706,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/c0913eac-9272-0b7e-f73d-79436a9e49f1",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=12,601,229,148",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5632,9 +4719,7 @@
                 "height": 3229,
                 "width": 4978,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5647,14 +4732,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5678,14 +4756,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5711,15 +4783,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5748,9 +4814,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/e6081f7c-7ba9-4f7b-990a-0e74cdabe78f",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=257,584,237,153",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5763,9 +4827,7 @@
                 "height": 3234,
                 "width": 5009,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5778,14 +4840,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5809,14 +4864,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5842,15 +4891,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -5879,9 +4922,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/08997bad-bc2f-65d6-b918-480547ceecca",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=510,603,231,149",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -5894,9 +4935,7 @@
                 "height": 3232,
                 "width": 5015,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -5909,14 +4948,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -5940,14 +4972,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -5973,15 +4999,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -6010,9 +5030,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/accc95b6-1120-fe01-e3b8-97cbc686506c",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=761,586,225,144",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -6025,9 +5043,7 @@
                 "height": 3226,
                 "width": 5007,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -6040,14 +5056,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -6071,14 +5080,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -6104,15 +5107,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -6141,9 +5138,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/c32d124a-718d-8e23-a519-938b6f1f8e18",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=10,779,238,152",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -6156,9 +5151,7 @@
                 "height": 3233,
                 "width": 5012,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -6171,14 +5164,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -6202,14 +5188,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -6235,15 +5215,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -6272,9 +5246,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/836eef4d-1f08-4240-4577-10504228a3ad",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=263,789,237,152",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -6287,9 +5259,7 @@
                 "height": 3228,
                 "width": 5020,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -6302,14 +5272,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -6333,14 +5296,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -6366,15 +5323,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -6403,9 +5354,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/cfebe2ab-731f-400c-e336-e437f9a2ac3f",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=514,809,232,148",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             },
             {
@@ -6418,9 +5367,7 @@
                 "height": 3233,
                 "width": 5010,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -6433,14 +5380,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -6464,14 +5404,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -6497,15 +5431,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -6534,9 +5462,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/1918f1bd-46f3-bac6-8ffa-53ffa2efbbe1",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/d46faeda-cc65-9e66-5380-545bb93e4e92#xywh=754,797,235,150",
               "label": {
-                "en": [
-                  "Kaiser Aluminum News, “You and Creativity,” 1968"
-                ]
+                "en": ["Kaiser Aluminum News, “You and Creativity,” 1968"]
               }
             }
           ],
@@ -6550,11 +5476,7 @@
           "The 1968 edition of Kaiser News featured tests and exercises to help improve employee creativity alongside lyrical essays and psychedelic art inspired by the blossoming counterculture in nearby Berkeley and San Francisco. Kaiser apparently saw in creativity a value it shared with the counterculture, and hoped it could channel the spirit of liberation, self-expression, and innovation for its own gain."
         ]
       },
-      "behavior": [
-        "left",
-        "w-12",
-        "h-8"
-      ],
+      "behavior": ["left", "w-12", "h-8"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -6746,9 +5668,7 @@
     },
     {
       "label": {
-        "en": [
-          "The Appeal of Art"
-        ]
+        "en": ["The Appeal of Art"]
       },
       "height": 1000,
       "width": 696,
@@ -6767,9 +5687,7 @@
                 "height": 8292,
                 "width": 5775,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -6782,15 +5700,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -6814,14 +5724,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -6847,15 +5751,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 713,
@@ -6884,9 +5782,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/cab264ad-d299-4774-ea0c-601181791fc9",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/820c7365-b5a4-3e07-da24-006bf156d258#xywh=0,0,696,1000",
               "label": {
-                "en": [
-                  "Scientific American, September 1958"
-                ]
+                "en": ["Scientific American, September 1958"]
               },
               "summary": {
                 "en": [
@@ -6899,11 +5795,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/820c7365-b5a4-3e07-da24-006bf156d258",
-      "behavior": [
-        "bottom",
-        "w-6",
-        "h-9"
-      ],
+      "behavior": ["bottom", "w-6", "h-9"],
       "summary": {
         "en": [
           "In 1958 Alcoa ran an ad in Scientific American with an array of missiles styled in a modern, cubist painting, suggesting missiles, like paintings, were just another product of imagination."
@@ -6938,11 +5830,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/e304ea99-4d7d-a4c7-9757-27913c617f08",
-      "behavior": [
-        "info",
-        "w-6",
-        "h-3"
-      ],
+      "behavior": ["info", "w-6", "h-3"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -6969,9 +5857,7 @@
     },
     {
       "label": {
-        "en": [
-          "Creativity Is Not About Art"
-        ]
+        "en": ["Creativity Is Not About Art"]
       },
       "height": 681,
       "width": 681,
@@ -6990,9 +5876,7 @@
                 "height": 3398,
                 "width": 5227,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7005,14 +5889,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -7036,14 +5913,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7069,15 +5940,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -7111,9 +5976,7 @@
                 ]
               },
               "label": {
-                "en": [
-                  "The artist in the business suit"
-                ]
+                "en": ["The artist in the business suit"]
               }
             },
             {
@@ -7126,9 +5989,7 @@
                 "height": 3210,
                 "width": 5181,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7141,14 +6002,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -7172,14 +6026,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7205,15 +6053,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -7242,9 +6084,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/7abe4c4d-509e-5b62-4521-07e2758cb92f",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/fc793715-1612-ba3c-2c39-eb201b814e25#xywh=193,330,463,286",
               "label": {
-                "en": [
-                  "The artist in the business suit"
-                ]
+                "en": ["The artist in the business suit"]
               },
               "summary": {
                 "en": [
@@ -7257,10 +6097,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/fc793715-1612-ba3c-2c39-eb201b814e25",
-      "behavior": [
-        "w-6",
-        "h-6"
-      ],
+      "behavior": ["w-6", "h-6"],
       "annotations": [
         {
           "type": "AnnotationPage",
@@ -7290,9 +6127,7 @@
     },
     {
       "label": {
-        "en": [
-          "Creative Spaces"
-        ]
+        "en": ["Creative Spaces"]
       },
       "height": 1000,
       "width": 792,
@@ -7311,9 +6146,7 @@
                 "height": 4079,
                 "width": 3234,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7326,13 +6159,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -7356,14 +6183,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7389,15 +6210,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 812,
@@ -7426,9 +6241,7 @@
               "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/annotation/39ee5c41-cd5f-2352-a90c-15af871be681",
               "target": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/5178cf84-8590-d231-e7e3-d09995b3ae1c#xywh=0,0,792,1000",
               "label": {
-                "en": [
-                  "Action Office promotional photograph from the Herman Miller company, 1964"
-                ]
+                "en": ["Action Office promotional photograph from the Herman Miller company, 1964"]
               },
               "summary": {
                 "en": [
@@ -7441,11 +6254,7 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/inventing-creativity/canvas/5178cf84-8590-d231-e7e3-d09995b3ae1c",
-      "behavior": [
-        "right",
-        "w-12",
-        "h-9"
-      ],
+      "behavior": ["right", "w-12", "h-9"],
       "summary": {
         "en": [
           "In 1964 the designers Robert Propst and George Nelson attempted to revolutionize the white collar workplace with their new Action Office line of furniture for the Herman Miller company.",
@@ -7472,9 +6281,7 @@
                 "height": 11812,
                 "width": 11812,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7487,15 +6294,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -7519,14 +6318,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7552,15 +6345,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -7589,14 +6376,10 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/6a579d95-9667-08b7-f19e-dc1749a21a74",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/18c95c24-60c6-96d5-01b3-7ff60c0926b7#xywh=0,0,500,500",
               "label": {
-                "en": [
-                  "Creative work"
-                ]
+                "en": ["Creative work"]
               },
               "summary": {
-                "en": [
-                  "Creativity cliches - artistically interpreted by Xaviera Altena"
-                ]
+                "en": ["Creativity cliches - artistically interpreted by Xaviera Altena"]
               }
             },
             {
@@ -7609,9 +6392,7 @@
                 "height": 11812,
                 "width": 11812,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7624,15 +6405,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -7656,14 +6429,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7689,15 +6456,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -7726,14 +6487,10 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/c6e43b29-35e6-d10e-455e-6a07e2cd3a99",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/18c95c24-60c6-96d5-01b3-7ff60c0926b7#xywh=0,500,500,500",
               "label": {
-                "en": [
-                  "Creative person"
-                ]
+                "en": ["Creative person"]
               },
               "summary": {
-                "en": [
-                  "Creativity cliches - artistically interpreted by Xaviera Altena"
-                ]
+                "en": ["Creativity cliches - artistically interpreted by Xaviera Altena"]
               }
             },
             {
@@ -7746,9 +6503,7 @@
                 "height": 11812,
                 "width": 11812,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7761,15 +6516,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -7793,14 +6540,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7826,15 +6567,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -7863,14 +6598,10 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/f32da43f-0c40-36f1-49ab-355138d79cf2",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/18c95c24-60c6-96d5-01b3-7ff60c0926b7#xywh=500,0,500,500",
               "label": {
-                "en": [
-                  "Creative workplace"
-                ]
+                "en": ["Creative workplace"]
               },
               "summary": {
-                "en": [
-                  "Creativity cliches - artistically interpreted by Xaviera Altena"
-                ]
+                "en": ["Creativity cliches - artistically interpreted by Xaviera Altena"]
               }
             },
             {
@@ -7883,9 +6614,7 @@
                 "height": 11812,
                 "width": 11812,
                 "label": {
-                  "en": [
-                    "-"
-                  ]
+                  "en": ["-"]
                 },
                 "service": [
                   {
@@ -7898,15 +6627,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32,
-                          64
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32, 64]
                       }
                     ],
                     "sizes": [
@@ -7930,14 +6651,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -7963,15 +6678,9 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level0.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "color"
-                        ],
-                        "supports": [
-                          "sizeByWhListed"
-                        ]
+                        "formats": ["jpg"],
+                        "qualities": ["color"],
+                        "supports": ["sizeByWhListed"]
                       }
                     ],
                     "width": 1024,
@@ -8000,14 +6709,10 @@
               "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/annotation/7775972e-5694-bc2c-5b48-9311bebd5f0f",
               "target": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/18c95c24-60c6-96d5-01b3-7ff60c0926b7#xywh=500,500,500,500",
               "label": {
-                "en": [
-                  "Creative session"
-                ]
+                "en": ["Creative session"]
               },
               "summary": {
-                "en": [
-                  "Creativity cliches - artistically interpreted by Xaviera Altena"
-                ]
+                "en": ["Creativity cliches - artistically interpreted by Xaviera Altena"]
               }
             }
           ],
@@ -8015,15 +6720,9 @@
         }
       ],
       "id": "https://heritage.tudelft.nl/iiif/67beaa88-13cc-52cd-6d9a-f7a7549448f8/canvas/18c95c24-60c6-96d5-01b3-7ff60c0926b7",
-      "behavior": [
-        "left",
-        "w-12",
-        "h-8"
-      ],
+      "behavior": ["left", "w-12", "h-8"],
       "label": {
-        "en": [
-          "What does it mean to be creative?"
-        ]
+        "en": ["What does it mean to be creative?"]
       },
       "summary": {
         "en": [
@@ -8033,9 +6732,7 @@
       },
       "requiredStatement": {
         "value": {
-          "en": [
-            "Illustrations by Xaviera Altena"
-          ]
+          "en": ["Illustrations by Xaviera Altena"]
         }
       },
       "annotations": [
@@ -8090,17 +6787,13 @@
       "id": "https://heritage.tudelft.nl/nl/exhibitions/inventing-creativity",
       "type": "Text",
       "format": "text/html",
-      "language": [
-        "nl"
-      ]
+      "language": ["nl"]
     },
     {
       "id": "https://heritage.tudelft.nl/en/exhibitions/inventing-creativity",
       "type": "Text",
       "format": "text/html",
-      "language": [
-        "en"
-      ]
+      "language": ["en"]
     }
   ]
 }

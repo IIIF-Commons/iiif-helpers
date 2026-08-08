@@ -1,17 +1,17 @@
-import type { Range, RangeItems } from '@iiif/parser/presentation-3/types';
-import type { ManifestNormalized } from '@iiif/parser/presentation-3-normalized/types';
-import invariant from 'tiny-invariant';
-import tableOfContentManifests from '../fixtures/cookbook/toc.json';
-import tableOfContentsAvManifest from '../fixtures/cookbook/toc-av.json';
-import bodleian from '../fixtures/presentation-2/bodleian.json';
-import wellcomeRange from '../fixtures/presentation-2/wellcome-range.json';
-import blManifest from '../fixtures/presentation-3/bl-av-manifest.json';
-import { isRangeContiguous, rangesToTableOfContentsTree, rangeToTableOfContentsTree, Vault } from '../src';
-import { copy, rangeMaker, renderRange } from './helpers';
+import type { Range, RangeItems } from "@iiif/parser/presentation-3/types";
+import type { ManifestNormalized } from "@iiif/parser/presentation-3-normalized/types";
+import invariant from "tiny-invariant";
+import tableOfContentManifests from "../fixtures/cookbook/toc.json";
+import tableOfContentsAvManifest from "../fixtures/cookbook/toc-av.json";
+import bodleian from "../fixtures/presentation-2/bodleian.json";
+import wellcomeRange from "../fixtures/presentation-2/wellcome-range.json";
+import blManifest from "../fixtures/presentation-3/bl-av-manifest.json";
+import { isRangeContiguous, rangesToTableOfContentsTree, rangeToTableOfContentsTree, Vault } from "../src";
+import { copy, rangeMaker, renderRange } from "./helpers";
 
-describe('range helper', () => {
-  describe('rangeToTableOfContentsTree', () => {
-    test('it can make a table of contents tree', () => {
+describe("range helper", () => {
+  describe("rangeToTableOfContentsTree", () => {
+    test("it can make a table of contents tree", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
@@ -314,7 +314,7 @@ describe('range helper', () => {
       `);
     });
 
-    test('it can make a table of contents tree', () => {
+    test("it can make a table of contents tree", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, tableOfContentsAvManifest);
 
@@ -563,9 +563,9 @@ describe('range helper', () => {
       `);
     });
 
-    test('it can make a table of contents tree', () => {
+    test("it can make a table of contents tree", () => {
       const vault = new Vault();
-      const manifest = vault.loadSync<ManifestNormalized>(wellcomeRange['@id'], wellcomeRange);
+      const manifest = vault.loadSync<ManifestNormalized>(wellcomeRange["@id"], wellcomeRange);
 
       invariant(manifest);
 
@@ -591,7 +591,7 @@ describe('range helper', () => {
       `);
     });
 
-    test('it can parse BL manifest', () => {
+    test("it can parse BL manifest", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(blManifest.id, JSON.parse(JSON.stringify(blManifest)));
 
@@ -623,13 +623,15 @@ describe('range helper', () => {
       `);
     });
 
-    test('it can parse BL manifest (showNoNav=true)', () => {
+    test("it can parse BL manifest (showNoNav=true)", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(blManifest.id, JSON.parse(JSON.stringify(blManifest)));
 
       invariant(manifest);
 
-      const tree = rangesToTableOfContentsTree(vault, manifest.structures, undefined, { showNoNav: true });
+      const tree = rangesToTableOfContentsTree(vault, manifest.structures, undefined, {
+        showNoNav: true,
+      });
 
       expect(renderRange(tree, true)).toMatchInlineSnapshot(`
         "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)
@@ -667,17 +669,17 @@ describe('range helper', () => {
       `);
     });
 
-    test('very basic range', () => {
+    test("very basic range", () => {
       const vault = new Vault();
 
       const [range, { getManifest }] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
@@ -690,15 +692,17 @@ describe('range helper', () => {
     });
   });
 
-  describe('isRangeContiguous', () => {
-    test('simple contiguous range', () => {
+  describe("isRangeContiguous", () => {
+    test("simple contiguous range", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
       const firstRange = manifest?.structures[0]!;
       const canvases = manifest?.items!;
 
-      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, {
+        detail: true,
+      });
 
       expect(isContiguous).toBe(true);
       expect(details).toMatchInlineSnapshot(`
@@ -714,7 +718,7 @@ describe('range helper', () => {
       `);
     });
 
-    test('simple non-contiguous range with missing canvases', () => {
+    test("simple non-contiguous range with missing canvases", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
@@ -723,7 +727,9 @@ describe('range helper', () => {
 
       const canvases = [allCanvases[0], allCanvases[2], allCanvases[4]];
 
-      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, {
+        detail: true,
+      });
 
       expect(isContiguous).toBe(false);
       expect(details).toMatchInlineSnapshot(`
@@ -762,17 +768,17 @@ describe('range helper', () => {
       `);
     });
 
-    test('crafted range', () => {
+    test("crafted range", () => {
       const vault = new Vault();
 
       const [range, { canvases }] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
@@ -795,17 +801,17 @@ describe('range helper', () => {
       `);
     });
 
-    test('crafted range with gap', () => {
+    test("crafted range with gap", () => {
       const vault = new Vault();
 
       const [range, { canvases }] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.gap('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.gap("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
@@ -836,17 +842,17 @@ describe('range helper', () => {
       `);
     });
 
-    test('crafted range with gap (length=2)', () => {
+    test("crafted range with gap (length=2)", () => {
       const vault = new Vault();
 
       const [range, { canvases }] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.gap('https://example.org/canvas4'),
-          c.gap('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.gap("https://example.org/canvas4"),
+          c.gap("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
@@ -878,17 +884,17 @@ describe('range helper', () => {
       `);
     });
 
-    test('crafted range with gap (allowed)', () => {
+    test("crafted range with gap (allowed)", () => {
       const vault = new Vault();
 
       const [range, { canvases }] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.gap('https://example.org/canvas4'),
-          c.gap('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.gap("https://example.org/canvas4"),
+          c.gap("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
@@ -924,27 +930,27 @@ describe('range helper', () => {
       `);
     });
 
-    test('crafted range out of order', () => {
+    test("crafted range out of order", () => {
       const vault = new Vault();
 
       const [range] = rangeMaker((c) =>
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas5'), // <--
-          c.canvas('https://example.org/canvas4'), // <--
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas5"), // <--
+          c.canvas("https://example.org/canvas4"), // <--
+          c.canvas("https://example.org/canvas6"),
         ])
       );
 
       const canvases = [
-        { id: 'https://example.org/canvas1', type: 'Canvas' as const },
-        { id: 'https://example.org/canvas2', type: 'Canvas' as const },
-        { id: 'https://example.org/canvas3', type: 'Canvas' as const },
-        { id: 'https://example.org/canvas4', type: 'Canvas' as const },
-        { id: 'https://example.org/canvas5', type: 'Canvas' as const },
-        { id: 'https://example.org/canvas6', type: 'Canvas' as const },
+        { id: "https://example.org/canvas1", type: "Canvas" as const },
+        { id: "https://example.org/canvas2", type: "Canvas" as const },
+        { id: "https://example.org/canvas3", type: "Canvas" as const },
+        { id: "https://example.org/canvas4", type: "Canvas" as const },
+        { id: "https://example.org/canvas5", type: "Canvas" as const },
+        { id: "https://example.org/canvas6", type: "Canvas" as const },
       ];
 
       vault.loadSync(range.id, range);
@@ -985,7 +991,7 @@ describe('range helper', () => {
       `);
     });
 
-    test('simple non-contiguous range with valid canvases but out of order', () => {
+    test("simple non-contiguous range with valid canvases but out of order", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
@@ -1002,7 +1008,9 @@ describe('range helper', () => {
         allCanvases[4],
       ];
 
-      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, {
+        detail: true,
+      });
 
       expect(isContiguous).toBe(false);
       expect(details).toMatchInlineSnapshot(`
@@ -1033,7 +1041,7 @@ describe('range helper', () => {
       `);
     });
 
-    test('simple non-contiguous range with valid canvases but out of order - different ranges', () => {
+    test("simple non-contiguous range with valid canvases but out of order - different ranges", () => {
       const vault = new Vault();
       const manifest = vault.loadSync<ManifestNormalized>(tableOfContentManifests.id, copy(tableOfContentManifests));
 
@@ -1050,7 +1058,9 @@ describe('range helper', () => {
         allCanvases[5],
       ];
 
-      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, { detail: true });
+      const [isContiguous, details] = isRangeContiguous(vault, firstRange, canvases, {
+        detail: true,
+      });
 
       expect(isContiguous).toBe(false);
       expect(details).toMatchInlineSnapshot(`
@@ -1082,13 +1092,13 @@ describe('range helper', () => {
     });
   });
 
-  test('it can parse bodleian ranges', () => {
+  test("it can parse bodleian ranges", () => {
     const vault = new Vault();
-    const manifest = vault.loadSync<ManifestNormalized>(bodleian['@id'], bodleian);
+    const manifest = vault.loadSync<ManifestNormalized>(bodleian["@id"], bodleian);
 
     invariant(manifest);
 
-    expect(vault.get('https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281'))
+    expect(vault.get("https://iiif.bodleian.ox.ac.uk/iiif/range/390fd0e8-9eae-475d-9564-ed916ab9035c/LOG_0281"))
       .toMatchInlineSnapshot(`
         {
           "accompanyingCanvas": null,

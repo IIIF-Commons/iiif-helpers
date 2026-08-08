@@ -4,7 +4,7 @@ import type {
   InternationalString as InternationalStringV3,
   Manifest as ManifestV3,
   Range as RangeV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   Canvas as CanvasV4,
   Collection as CollectionV4,
@@ -13,7 +13,7 @@ import type {
   Range as RangeV4,
   Scene as SceneV4,
   Timeline as TimelineV4,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 
 type InternationalString = InternationalStringV3 | InternationalStringV4;
 type LanguageResource =
@@ -49,8 +49,8 @@ export function getClosestLanguage(
   }
 
   if (!i18nLanguage) {
-    if (languages.indexOf('none') !== -1) {
-      return 'none';
+    if (languages.indexOf("none") !== -1) {
+      return "none";
     }
     return languages[0];
   }
@@ -61,7 +61,7 @@ export function getClosestLanguage(
   }
 
   // Root match (en-us === en)
-  const root = i18nLanguage.indexOf('-') !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf('-')) : null;
+  const root = i18nLanguage.indexOf("-") !== -1 ? i18nLanguage.slice(0, i18nLanguage.indexOf("-")) : null;
   if (root && languages.indexOf(root) !== -1) {
     return root;
   }
@@ -75,7 +75,7 @@ export function getClosestLanguage(
 
   if (!strictFallback && i18nLanguage) {
     // Inverse root match (en === en-us)
-    const inverseRoot = languages.map((l) => (l.indexOf('-') !== -1 ? l.slice(0, l.indexOf('-')) : null));
+    const inverseRoot = languages.map((l) => (l.indexOf("-") !== -1 ? l.slice(0, l.indexOf("-")) : null));
     const inverseIdx = inverseRoot.indexOf(i18nLanguage);
     if (inverseIdx !== -1) {
       return languages[inverseIdx];
@@ -83,7 +83,7 @@ export function getClosestLanguage(
 
     // Inverse root (fallback)
     for (const lang of i18nLanguages) {
-      const root = lang.indexOf('-') !== -1 ? lang.slice(0, lang.indexOf('-')) : null;
+      const root = lang.indexOf("-") !== -1 ? lang.slice(0, lang.indexOf("-")) : null;
       const inverseIdx = root ? languages.indexOf(root) : -1;
       if (inverseIdx !== -1) {
         return languages[inverseIdx];
@@ -91,13 +91,13 @@ export function getClosestLanguage(
     }
   }
 
-  if (languages.indexOf('none') !== -1) {
-    return 'none';
+  if (languages.indexOf("none") !== -1) {
+    return "none";
   }
 
   // Catch some legacy
-  if (languages.indexOf('@none') !== -1) {
-    return '@none';
+  if (languages.indexOf("@none") !== -1) {
+    return "@none";
   }
 
   // Finally, fall back to the first.
@@ -118,8 +118,8 @@ export function buildLocaleString(
 ) {
   const {
     strictFallback = false,
-    defaultText = '',
-    separator = '\n',
+    defaultText = "",
+    separator = "\n",
     fallbackLanguages = [],
     closest,
     skipLanguages,
@@ -133,18 +133,18 @@ export function buildLocaleString(
     return defaultText;
   }
 
-  if (typeof inputText === 'string') {
+  if (typeof inputText === "string") {
     return inputText;
   }
 
   const candidateText = language ? inputText[language] : undefined;
   if (candidateText && language) {
     // Slightly tolerant of typos in IIIF like: `{"en": "Some value"}`
-    if (typeof candidateText === 'string') {
+    if (typeof candidateText === "string") {
       return candidateText;
     }
     // Skip empty strings.
-    if (candidateText.length === 1 && candidateText[0] === '') {
+    if (candidateText.length === 1 && candidateText[0] === "") {
       const skip: string[] = options.skipLanguages || [];
       return buildLocaleString(inputText, i18nLanguage, {
         ...options,
@@ -154,7 +154,7 @@ export function buildLocaleString(
     return candidateText.join(separator);
   }
 
-  return '';
+  return "";
 }
 
 export function getValue(
@@ -168,16 +168,16 @@ export function getValue(
 ) {
   return buildLocaleString(
     inputText,
-    options.language || (typeof navigator !== 'undefined' ? navigator.language : 'en'),
+    options.language || (typeof navigator !== "undefined" ? navigator.language : "en"),
     options
   );
 }
 
 function getLanguagesFromLanguageMap(languageMap: InternationalString) {
   if (!languageMap) return [];
-  if (typeof languageMap === 'string') return [];
+  if (typeof languageMap === "string") return [];
   if (Array.isArray(languageMap)) return [];
-  return Object.keys(languageMap).filter((l) => l !== 'none');
+  return Object.keys(languageMap).filter((l) => l !== "none");
 }
 
 export function getAvailableLanguagesFromResource(item: LanguageResource) {
@@ -189,7 +189,7 @@ export function getAvailableLanguagesFromResource(item: LanguageResource) {
   };
 
   const visit = (value: unknown) => {
-    if (!value || typeof value !== 'object') return;
+    if (!value || typeof value !== "object") return;
     if (visited.has(value)) return;
     visited.add(value);
 
@@ -202,11 +202,11 @@ export function getAvailableLanguagesFromResource(item: LanguageResource) {
     if (resource.label) addLanguageMap(resource.label);
     if (resource.summary) addLanguageMap(resource.summary);
 
-    if (typeof resource.language === 'string') {
+    if (typeof resource.language === "string") {
       foundLanguages.add(resource.language);
     } else if (Array.isArray(resource.language)) {
       resource.language.forEach((language: unknown) => {
-        if (typeof language === 'string') foundLanguages.add(language);
+        if (typeof language === "string") foundLanguages.add(language);
       });
     }
 
@@ -243,7 +243,7 @@ export function createStringHelper(
     template: TemplateStringsArray,
     ...params: Array<null | string[] | undefined | string | InternationalString>
   ) => {
-    let result = '';
+    let result = "";
 
     for (let i = 0; i < template.length; i++) {
       // Add the template part
@@ -254,7 +254,7 @@ export function createStringHelper(
         const param = params[i];
 
         if (param === null || param === undefined) {
-        } else if (typeof param === 'string') {
+        } else if (typeof param === "string") {
           // Add string params directly
           result += param;
         } else {

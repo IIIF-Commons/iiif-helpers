@@ -1,6 +1,6 @@
-import { Collection } from '@iiif/parser/presentation-3/types';
-import { createDateNavigation } from '../src/nav-date';
-import { Vault } from '../src';
+import { Collection } from "@iiif/parser/presentation-3/types";
+import { createDateNavigation } from "../src/nav-date";
+import { Vault } from "../src";
 
 function renderTreeAsAscii(navDates: any[]) {
   const lines: string[] = [];
@@ -43,51 +43,51 @@ function renderTreeAsAscii(navDates: any[]) {
       }
     }
   }
-  return lines.join('\n');
+  return lines.join("\n");
 }
 
-describe('nav-date helper', () => {
-  describe('createDateNavigation', () => {
-    test('should create a navigation tree', () => {
+describe("nav-date helper", () => {
+  describe("createDateNavigation", () => {
+    test("should create a navigation tree", () => {
       const collection: Collection = {
-        '@context': 'http://iiif.io/api/presentation/3/context.json',
-        id: 'https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json',
-        type: 'Collection',
+        "@context": "http://iiif.io/api/presentation/3/context.json",
+        id: "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate-collection.json",
+        type: "Collection",
         label: {
-          en: ['Chesapeake and Ohio Canal map and guide pamphlets'],
+          en: ["Chesapeake and Ohio Canal map and guide pamphlets"],
         },
         thumbnail: [
           {
-            id: 'https://iiif.io/api/image/3.0/example/reference/43153e2ec7531f14dd1c9b2fc401678a-88695674/full/max/0/default.jpg',
-            type: 'Image',
-            format: 'image/jpeg',
+            id: "https://iiif.io/api/image/3.0/example/reference/43153e2ec7531f14dd1c9b2fc401678a-88695674/full/max/0/default.jpg",
+            type: "Image",
+            format: "image/jpeg",
             height: 300,
             width: 221,
             service: [
               {
-                id: 'https://iiif.io/api/image/3.0/example/reference/43153e2ec7531f14dd1c9b2fc401678a-88695674',
-                profile: 'level1',
-                type: 'ImageService3',
+                id: "https://iiif.io/api/image/3.0/example/reference/43153e2ec7531f14dd1c9b2fc401678a-88695674",
+                profile: "level1",
+                type: "ImageService3",
               },
             ],
           },
         ],
         items: [
           {
-            id: 'https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_2-manifest.json',
-            type: 'Manifest',
+            id: "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_2-manifest.json",
+            type: "Manifest",
             label: {
-              en: ['1986 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide'],
+              en: ["1986 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"],
             },
-            navDate: '1986-01-01T00:00:00+00:00',
+            navDate: "1986-01-01T00:00:00+00:00",
           },
           {
-            id: 'https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_1-manifest.json',
-            type: 'Manifest',
+            id: "https://iiif.io/api/cookbook/recipe/0230-navdate/navdate_map_1-manifest.json",
+            type: "Manifest",
             label: {
-              en: ['1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide'],
+              en: ["1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"],
             },
-            navDate: '1987-01-01T00:00:00+00:00',
+            navDate: "1987-01-01T00:00:00+00:00",
           },
         ],
       } as any;
@@ -106,7 +106,7 @@ describe('nav-date helper', () => {
               1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"
       `);
 
-      const byCentury = createDateNavigation(vault, col as any, 'century');
+      const byCentury = createDateNavigation(vault, col as any, "century");
       expect(renderTreeAsAscii(byCentury)).toMatchInlineSnapshot(`
         "1900 - 1999
           1980 - 1989
@@ -120,7 +120,7 @@ describe('nav-date helper', () => {
                   1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide (1987-01-01T00:00:00+00:00)"
       `);
 
-      const byDecade = createDateNavigation(vault, col as any, 'decade');
+      const byDecade = createDateNavigation(vault, col as any, "decade");
       expect(renderTreeAsAscii(byDecade)).toMatchInlineSnapshot(`
         "1980 - 1989
           1986
@@ -133,7 +133,7 @@ describe('nav-date helper', () => {
                 1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"
       `);
 
-      const byYear = createDateNavigation(vault, col as any, 'year');
+      const byYear = createDateNavigation(vault, col as any, "year");
       expect(renderTreeAsAscii(byYear)).toMatchInlineSnapshot(`
         "1986
           January
@@ -145,7 +145,7 @@ describe('nav-date helper', () => {
               1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"
       `);
 
-      const byMonth = createDateNavigation(vault, col as any, 'month');
+      const byMonth = createDateNavigation(vault, col as any, "month");
       expect(renderTreeAsAscii(byMonth)).toMatchInlineSnapshot(`
         "January 1986
           Wed Jan 01 1986
@@ -155,7 +155,7 @@ describe('nav-date helper', () => {
             1987 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide"
       `);
 
-      const byDay = createDateNavigation(vault, col as any, 'day');
+      const byDay = createDateNavigation(vault, col as any, "day");
       expect(renderTreeAsAscii(byDay)).toMatchInlineSnapshot(`
         "Wed Jan 01 1986
           1986 Chesapeake and Ohio Canal, Washington, D.C., Maryland, West Virginia, official map and guide

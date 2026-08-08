@@ -1,15 +1,15 @@
-import * as vaultModule from './vault';
-import { getGlobal } from './utility/get-global';
+import * as vaultModule from "./vault";
+import { getGlobal } from "./utility/get-global";
 
 declare global {
-  const IIIF_VAULT: import('./vault').Vault;
-  const IIIFVault: typeof import('./vault');
+  const IIIF_VAULT: import("./vault").Vault;
+  const IIIFVault: typeof import("./vault");
 }
 
-export function globalVault(options?: import('./vault').VaultOptions) {
+export function globalVault(options?: import("./vault").VaultOptions) {
   const g = getGlobal();
   try {
-    const gv = g['IIIF_VAULT'];
+    const gv = g["IIIF_VAULT"];
 
     if (gv) {
       return gv;
@@ -21,7 +21,7 @@ export function globalVault(options?: import('./vault').VaultOptions) {
   const newVault = new vaultModule.Vault(options);
 
   try {
-    g['IIIF_VAULT'] = newVault;
+    g["IIIF_VAULT"] = newVault;
   } catch (e) {
     // no-op
   }

@@ -17,7 +17,10 @@
     },
     { "label": { "nl": ["identificatie"] }, "value": { "nl": ["00002"] } },
     { "label": { "nl": ["itemLocatie"] }, "value": { "nl": ["KO.rek06.40"] } },
-    { "label": { "nl": ["naam"] }, "value": { "nl": ["De familie van Grenthe, het kippenvrouwtje"] } }
+    {
+      "label": { "nl": ["naam"] },
+      "value": { "nl": ["De familie van Grenthe, het kippenvrouwtje"] }
+    }
   ],
   "summary": {
     "nl": ["De kunstenares maakte zes illustraties voor het sprookje 'Grethe het kippenvrouwtje' van H.C. Andersen."]
@@ -101,7 +104,10 @@
   "rights": "http://creativecommons.org/licenses/by/4.0",
   "requiredStatement": {
     "label": { "en": ["Attribution"], "nl": ["Naamsvermelding"] },
-    "value": { "en": ["Provided by Museum Kranenburgh"], "nl": ["Aangeboden door Museum Kranenburgh"] }
+    "value": {
+      "en": ["Provided by Museum Kranenburgh"],
+      "nl": ["Aangeboden door Museum Kranenburgh"]
+    }
   },
   "provider": [
     {

@@ -1,6 +1,6 @@
-import { getImageFromTileSource } from './get-image-from-tile-source';
-import { isBestMatch } from './is-best-match';
-import { FixedSizeImage, ImageCandidate, ImageCandidateRequest, UnknownSizeImage, VariableSizeImage } from './types';
+import { getImageFromTileSource } from "./get-image-from-tile-source";
+import { isBestMatch } from "./is-best-match";
+import { FixedSizeImage, ImageCandidate, ImageCandidateRequest, UnknownSizeImage, VariableSizeImage } from "./types";
 
 /**
  * Pick best from candidates
@@ -40,8 +40,8 @@ export function pickBestFromCandidates(
       ? log.push(
           new Array(indent)
             .fill(0)
-            .map((e) => '    ')
-            .join('') + text().trim()
+            .map((e) => "    ")
+            .join("") + text().trim()
         )
       : undefined;
   const lastResorts: UnknownSizeImage[] = [];
@@ -51,7 +51,7 @@ export function pickBestFromCandidates(
   explain(() => `Using configuration: ${JSON.stringify(request, null, 2)}`);
 
   const swapChoice = (candidate: FixedSizeImage, current: FixedSizeImage | null) => {
-    explain(() => 'Swapping choice', 3);
+    explain(() => "Swapping choice", 3);
 
     if (isBestMatch(request, current, candidate)) {
       // If we prefer a fixed size, we'll push it onto the fallback. But a fixed size will be looked for
@@ -88,11 +88,11 @@ export function pickBestFromCandidates(
     for (let y = 0; y < candidatesLength; y++) {
       const candidate = group[y]!;
       explain(() => `-> Checking candidate ${y}`, 1);
-      if (candidate.type === 'unknown' && request.atAnyCost) {
+      if (candidate.type === "unknown" && request.atAnyCost) {
         explain(() => `We've found an unknown image type, adding this to the "last resort" list`, 2);
         lastResorts.push(candidate);
       }
-      if (candidate.type === 'fixed') {
+      if (candidate.type === "fixed") {
         if (candidate.unsafe) {
           explain(() => `We've found an unsafe fixed image type, adding this to the "last resort" list`, 2);
           lastResorts.push(candidate as any);
@@ -101,7 +101,7 @@ export function pickBestFromCandidates(
           swapChoice(candidate, currentChoice);
         }
       }
-      if (candidate.type === 'fixed-service') {
+      if (candidate.type === "fixed-service") {
         if (request.unsafeImageService) {
           // @todo fit within on request height/width based on candidate.
           explain(
@@ -118,12 +118,12 @@ export function pickBestFromCandidates(
           swapChoice(choice, currentChoice);
         }
       }
-      if (candidate.type === 'variable') {
+      if (candidate.type === "variable") {
         if (candidate.maxWidth) {
           const choice = getImageFromTileSource(
             {
               id: candidate.id,
-              type: 'fixed-service',
+              type: "fixed-service",
               width: candidate.maxWidth,
               height: candidate.maxWidth,
               level: candidate.level,

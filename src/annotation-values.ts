@@ -1,4 +1,4 @@
-export type AnnotationAggregateType = 'Choice' | 'Composite' | 'List' | 'Independents';
+export type AnnotationAggregateType = "Choice" | "Composite" | "List" | "Independents";
 
 export type AnnotationAggregateStep = {
   type: AnnotationAggregateType;
@@ -14,7 +14,7 @@ export type ResolvedAnnotationValue = {
 
 export type AnnotationValueResolver = (value: unknown) => unknown;
 
-const aggregateTypes = new Set<AnnotationAggregateType>(['Choice', 'Composite', 'List', 'Independents']);
+const aggregateTypes = new Set<AnnotationAggregateType>(["Choice", "Composite", "List", "Independents"]);
 
 /**
  * Flattens annotation aggregates in document order while retaining their
@@ -39,15 +39,12 @@ function visit(
   for (const unresolved of values) {
     const value = resolve(unresolved) ?? unresolved;
     if (isAggregate(value)) {
-      const defaultIndex = value.type === 'Choice' ? choiceDefaultIndex(value, resolve) : undefined;
+      const defaultIndex = value.type === "Choice" ? choiceDefaultIndex(value, resolve) : undefined;
       value.items.forEach((item, index) => {
         resolved.push(
           ...visit(
             [item],
-            [
-              ...aggregatePath,
-              { type: value.type, index },
-            ],
+            [...aggregatePath, { type: value.type, index }],
             [...aggregateDefaults, defaultIndex],
             specificResources,
             resolve
@@ -55,9 +52,7 @@ function visit(
         );
       });
     } else if (isSpecificResource(value)) {
-      resolved.push(
-        ...visit([value.source], aggregatePath, aggregateDefaults, [...specificResources, value], resolve)
-      );
+      resolved.push(...visit([value.source], aggregatePath, aggregateDefaults, [...specificResources, value], resolve));
     } else {
       resolved.push({ value, aggregatePath, aggregateDefaults, specificResources });
     }
@@ -69,7 +64,7 @@ function visit(
 function isAggregate(value: unknown): value is { type: AnnotationAggregateType; items: unknown[]; default?: unknown } {
   return (
     !!value &&
-    typeof value === 'object' &&
+    typeof value === "object" &&
     aggregateTypes.has((value as { type?: AnnotationAggregateType }).type as AnnotationAggregateType) &&
     Array.isArray((value as { items?: unknown[] }).items)
   );
@@ -90,17 +85,17 @@ function choiceDefaultIndex(
 }
 
 function referenceId(value: unknown): string | undefined {
-  if (typeof value === 'string') return value;
-  return value && typeof value === 'object' && typeof (value as { id?: unknown }).id === 'string'
+  if (typeof value === "string") return value;
+  return value && typeof value === "object" && typeof (value as { id?: unknown }).id === "string"
     ? (value as { id: string }).id
     : undefined;
 }
 
-function isSpecificResource(value: unknown): value is { type?: 'SpecificResource'; source: unknown } {
-  if (!value || typeof value !== 'object' || !('source' in value)) {
+function isSpecificResource(value: unknown): value is { type?: "SpecificResource"; source: unknown } {
+  if (!value || typeof value !== "object" || !("source" in value)) {
     return false;
   }
 
   const type = (value as { type?: string }).type;
-  return type === undefined || type === 'SpecificResource';
+  return type === undefined || type === "SpecificResource";
 }

@@ -1,6 +1,6 @@
-import { normalize as normalizePresentation3 } from '@iiif/parser';
-import { normalize as normalizePresentation4 } from '@iiif/parser/presentation-4';
-import type { AllActions } from '../types';
+import { normalize as normalizePresentation3 } from "@iiif/parser";
+import { normalize as normalizePresentation4 } from "@iiif/parser/presentation-4";
+import type { AllActions } from "../types";
 import {
   addMapping,
   addMappings,
@@ -9,32 +9,32 @@ import {
   requestComplete,
   requestError,
   requestMismatch,
-} from '../actions';
+} from "../actions";
 
 export type ActionListFromResource = (id: string, response: unknown) => AllActions[];
 
-function detectSourceVersion(response: unknown): 2 | 3 | 4 | 'unknown' {
-  if (!response || typeof response !== 'object') {
-    return 'unknown';
+function detectSourceVersion(response: unknown): 2 | 3 | 4 | "unknown" {
+  if (!response || typeof response !== "object") {
+    return "unknown";
   }
   const resource = response as Record<string, unknown>;
-  const markers = [resource['@context'], resource.profile]
+  const markers = [resource["@context"], resource.profile]
     .flat(Infinity)
-    .filter((value): value is string => typeof value === 'string');
-  if (markers.some((value) => value.includes('/presentation/4/'))) {
+    .filter((value): value is string => typeof value === "string");
+  if (markers.some((value) => value.includes("/presentation/4/"))) {
     return 4;
   }
-  if (markers.some((value) => value.includes('/presentation/3/'))) {
+  if (markers.some((value) => value.includes("/presentation/3/"))) {
     return 3;
   }
   if (
-    markers.some((value) => value.includes('/presentation/2/')) ||
-    typeof resource['@id'] === 'string' ||
-    typeof resource['@type'] === 'string'
+    markers.some((value) => value.includes("/presentation/2/")) ||
+    typeof resource["@id"] === "string" ||
+    typeof resource["@type"] === "string"
   ) {
     return 2;
   }
-  return 'unknown';
+  return "unknown";
 }
 
 function toActionList(
@@ -44,18 +44,18 @@ function toActionList(
     mapping: any;
     diagnostics?: Array<{
       code: string;
-      severity: 'error' | 'warning' | 'info';
+      severity: "error" | "warning" | "info";
       message: string;
       path: string;
       resourceType?: string;
       resourceId?: string;
       specRef?: string;
     }>;
-    sourceVersion?: 2 | 3 | 4 | 'unknown';
+    sourceVersion?: 2 | 3 | 4 | "unknown";
   },
   id: string,
   response: unknown,
-  fallbackReport?: { sourceVersion: 2 | 3 | 4 | 'unknown'; diagnostics: [] }
+  fallbackReport?: { sourceVersion: 2 | 3 | 4 | "unknown"; diagnostics: [] }
 ): AllActions[] {
   const {
     entities,
@@ -65,7 +65,7 @@ function toActionList(
     sourceVersion = fallbackReport?.sourceVersion,
   } = normalizeFn(response);
   if (resource.id === undefined) {
-    return [requestError({ id, message: 'ID is not defined in resource.' })] as AllActions[];
+    return [requestError({ id, message: "ID is not defined in resource." })] as AllActions[];
   }
   // Always import and add mappings.
   const actions: AllActions[] = [importEntities({ entities: entities as any }), addMappings({ mapping })];
@@ -80,8 +80,8 @@ function toActionList(
     actions.push(
       metaActions.setMetaValue({
         id: resource.id,
-        meta: '@vault/load',
-        key: 'report',
+        meta: "@vault/load",
+        key: "report",
         value: report,
       })
     );
@@ -89,8 +89,8 @@ function toActionList(
       actions.push(
         metaActions.setMetaValue({
           id,
-          meta: '@vault/load',
-          key: 'report',
+          meta: "@vault/load",
+          key: "report",
           value: report,
         })
       );

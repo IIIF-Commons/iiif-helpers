@@ -3,18 +3,14 @@
   "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219",
   "type": "Manifest",
   "label": {
-    "en": [
-      "O.0219"
-    ]
+    "en": ["O.0219"]
   },
   "items": [
     {
       "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001",
       "type": "Canvas",
       "label": {
-        "en": [
-          "O.0219"
-        ]
+        "en": ["O.0219"]
       },
       "height": 6270,
       "width": 2551,
@@ -26,9 +22,7 @@
             {
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/layers",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "Choice",
                 "items": [
@@ -46,9 +40,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ColorB"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ColorB"]
                     }
                   },
                   {
@@ -65,9 +57,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ShadedA"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ShadedA"]
                     }
                   },
                   {
@@ -84,9 +74,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ColorA"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ColorA"]
                     }
                   },
                   {
@@ -103,9 +91,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_Sketch01Soft"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_Sketch01Soft"]
                     }
                   },
                   {
@@ -122,9 +108,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ShadedC"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ShadedC"]
                     }
                   },
                   {
@@ -141,9 +125,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ColorD"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ColorD"]
                     }
                   },
                   {
@@ -160,9 +142,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_Color00"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_Color00"]
                     }
                   },
                   {
@@ -179,9 +159,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_Sketch01Hard"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_Sketch01Hard"]
                     }
                   },
                   {
@@ -198,9 +176,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ColorC"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ColorC"]
                     }
                   },
                   {
@@ -217,9 +193,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ShadedD"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ShadedD"]
                     }
                   },
                   {
@@ -236,9 +210,7 @@
                     ],
                     "format": "image/jpeg",
                     "label": {
-                      "en": [
-                        "cune-iiif-orm:testset:O.0219:O.0219_ShadedB"
-                      ]
+                      "en": ["cune-iiif-orm:testset:O.0219:O.0219_ShadedB"]
                     }
                   }
                 ]
@@ -303,9 +275,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c426144a-b36b-4503-bcf6-7a0c36edd371",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -363,9 +333,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2b053d88-5bce-49ff-aba9-104bd645b279",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -423,9 +391,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0417f494-13e9-4e95-8fff-1040c5e1ce86",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -479,9 +445,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e691a439-a30a-4d67-9828-f0718b07af62",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -539,9 +503,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2b34febc-4ae0-4dd0-a7e6-d5e023d4bdb2",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -599,9 +561,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#23e7b773-92e0-4bef-afdc-5a923dd68111",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -659,9 +619,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0e968c19-e4a0-4120-a94c-8bcc867c99e3",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -719,9 +677,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#24ed6b89-1364-4ca6-b9d9-44b2572dd6b7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -775,9 +731,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9738e9ac-3873-4683-9210-c658ced8d0b1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -835,9 +789,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1d500524-b74c-4e07-89ba-5d3d90a3e3c3",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -895,9 +847,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6c455ecf-9d52-41b3-b010-d12b9aba3c5c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -955,9 +905,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#38d7bccb-b518-4dd2-96cd-c2321bff1241",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1015,9 +963,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b6d7b7f5-16c5-4b2b-b65b-110522cd683e",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1075,9 +1021,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#67ae185f-fb06-4d0b-bf59-41fc71c12f0f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1135,9 +1079,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6b290be0-3502-491a-adfe-efa45cef0dd8",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1195,9 +1137,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#bdcd0efb-7ef4-4699-a5b2-7ea1cd373735",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1255,9 +1195,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#7319ccb1-d442-400f-bbdb-e70801de6852",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1315,9 +1253,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2d4ba567-31dd-47fb-a3c4-f0d92f350456",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1375,9 +1311,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4ba32aa7-c882-465a-b1e0-48a826717b29",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1435,9 +1369,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#7cb2d6e5-782d-4cfc-a33e-f47afb87da8a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1495,9 +1427,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#80fc4205-8d91-49a6-ab75-a150e1f63e5f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1555,9 +1485,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4d8d7312-874b-4183-80b4-5a910a1e2404",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1615,9 +1543,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6a95d7c2-3e6c-493f-853c-b949eba94f83",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1675,9 +1601,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#37d01b14-1bf6-4962-a21c-19936442c3c6",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1735,9 +1659,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0dced633-9902-4d1e-8a5c-996b3befab70",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1795,9 +1717,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#77b00339-3d34-437f-b161-d8a488ee6377",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1855,9 +1775,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3a83bb45-e1da-407a-8125-09d5147d9cb1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1915,9 +1833,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#7e2f5d68-07c1-4f80-b29f-484fbee6171b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -1971,9 +1887,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#210e2dcd-3ca2-43dc-908d-48b379b89458",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2031,9 +1945,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#5305137e-c099-4142-a7f7-cd99a4882ca6",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2091,9 +2003,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2da3bd88-400e-4ddd-904c-3cc26c4101c9",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2151,9 +2061,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#76a47021-848c-4475-8492-23504234b2b6",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2211,9 +2119,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#32c11fd9-21ce-4a6b-9d46-a2e72b3026d2",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2271,9 +2177,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#541f884b-aec8-4ae0-9d65-7779ba968178",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2331,9 +2235,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#cc72ab91-ec7e-41cd-8850-96d861eaa620",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2391,9 +2293,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6ca4fe58-710e-4a28-b844-a09626549a62",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2451,9 +2351,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3396511f-bb35-4331-af10-497bd56ec44f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2515,9 +2413,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3dbc632d-c1d8-4cce-9ccc-ea66a818ba35",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2575,9 +2471,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#806a9bad-1f85-4c53-977c-445ac56d5d70",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2635,9 +2529,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#bcf228f8-732f-4308-a548-970c0ccef28f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2695,9 +2587,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f5c8881c-73d0-4e8d-b8fd-c0cb221a7237",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2755,9 +2645,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2dfb00e8-e9c0-4dc3-be34-0ecc5f55760d",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2815,9 +2703,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#8c6fc70e-d799-4517-9f12-d80f666b9e44",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2875,9 +2761,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f87cc403-6b47-4bfe-8ebc-1f0e9e7ffa35",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2935,9 +2819,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#bdea0ad3-1d2a-4ab4-897a-d8b743a784e6",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -2995,9 +2877,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0693f74e-4d6d-4500-8f87-be5ea22e2be6",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3055,9 +2935,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f1838cc4-d0bf-413b-bed9-178cb0f0ef85",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3115,9 +2993,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#05fb6483-1848-4e95-884d-90596ffa0727",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3175,9 +3051,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#822f3bc4-5944-4486-8556-800f5b61ef17",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3235,9 +3109,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d63ac510-62c7-440e-9e02-8a1187c9b2b4",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3295,9 +3167,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d0674eb3-34a9-4708-b80e-3fed6582db6f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3355,9 +3225,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f5867d69-9282-43c5-afb9-5ce18a9d54bf",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3415,9 +3283,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#30b10b87-2944-4e75-9999-b9c2fef8b1ac",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3475,9 +3341,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2afa342c-7dbd-431b-ae11-740fecf3bb26",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3535,9 +3399,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#07ab3be6-829b-4336-83d7-5d98cd36f336",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3595,9 +3457,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#65b92dc8-0da0-4c13-bde5-1609c2c665c5",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3655,9 +3515,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#cc0cc404-632f-4cec-b863-7b6653bb7548",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3715,9 +3573,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1ba510b3-08b3-4d5d-b8ca-aa98959135a4",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3775,9 +3631,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f190fcab-6b54-464b-94d2-98981b8cbf62",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3835,9 +3689,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#af084012-ad9e-4344-b57f-f3918dd7e962",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3895,9 +3747,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b31d5f01-2ceb-460f-98fd-316c4daad229",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -3955,9 +3805,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e3f038b1-3aa4-41b8-a7b6-01c02a7e7e57",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4015,9 +3863,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6e18ed6b-b3c0-4d6e-aa56-aff45616515a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4075,9 +3921,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#a99766b2-be55-400b-97c0-72ba76c52973",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4135,9 +3979,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6d0797c8-815f-45a7-a09a-c6569327fe56",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4195,9 +4037,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#073006f2-c233-40e7-b4e6-8fb57bcb3879",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4251,9 +4091,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#876c9690-7aa9-4387-a05a-520bcd7dbeeb",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4311,9 +4149,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#927ea45d-66d3-41cf-ba79-1def1221a11c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4371,9 +4207,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e6572b26-5574-4898-8f73-8bcba06dbf84",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4431,9 +4265,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#5ee31f96-5896-47c9-985d-f5338cb52fd9",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4491,9 +4323,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#10708a15-3b93-4e64-882d-6d3bfdcd8e90",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4551,9 +4381,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6be60fef-ff06-4693-a71b-ee9e21bef8a5",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4611,9 +4439,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d2fefdc4-c268-47b5-94c3-a7d0eb5760dc",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4675,9 +4501,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c505c508-3977-42e2-a3cc-8cbb62a4a739",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4735,9 +4559,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#81692287-3ebd-482a-b1de-36c492604d2a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4795,9 +4617,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#15e5f14a-3700-477a-b1db-2ffce10c34a0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4855,9 +4675,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0ce92c79-7e45-45a4-b6d7-cf877ea570a4",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4915,9 +4733,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#af566a2c-85e8-43b3-9043-3ea118cf3dc0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -4975,9 +4791,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9d380a28-0568-491d-acff-93a7ead798f5",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5035,9 +4849,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9d3fcca5-75d4-4a7f-ad2b-8ab7e51cb7d7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5090,9 +4902,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d32f19ed-ab81-4813-9bb1-a89501b094ee",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5150,9 +4960,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#50c50634-3f5e-4203-9867-1ab6f6a13819",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5210,9 +5018,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#8d823b8e-9a7d-4f4e-ab3e-2babfcbf9b50",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5270,9 +5076,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#23fbfc92-a856-4e7b-a6ba-c2b8223809bc",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5334,9 +5138,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#39d37237-4d50-47f9-9c50-4126720f175c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5394,9 +5196,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e467dad2-23ad-4ca4-9e90-c3f41f1021e3",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5454,9 +5254,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#07b7c131-b110-41d4-9bf1-cc940481df55",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5514,9 +5312,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6fa133b2-044e-4063-a3f4-0c782c31a502",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5574,9 +5370,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#65815467-3fc8-4239-87fc-1d3bb8ba4e14",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5634,9 +5428,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b9eeef4e-2030-478a-a40a-4979b1c35739",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5694,9 +5486,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1fbdcad7-a202-4371-a75e-2a4ecb6053be",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5754,9 +5544,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#74b5481c-25c5-430c-be1a-58cad8ac5528",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5814,9 +5602,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9abac41e-6425-429d-bcd8-892b21327387",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5874,9 +5660,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4c35868f-c81a-4753-944a-539feee43e63",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5934,9 +5718,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#42461aee-9590-45b7-a1a7-855b74e63ba8",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -5994,9 +5776,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d346108a-c810-4b9b-823d-aecfcbe77727",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6058,9 +5838,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b6a937a5-bdc9-4c1e-9984-c0d331439056",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6118,9 +5896,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0e45fc02-5fbc-4be6-b690-51f3898ef060",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6178,9 +5954,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f031b2a7-5b60-4863-b05a-9e1f7594bb52",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6238,9 +6012,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6a0114f0-b36c-4d40-a81e-8ddbd89fe21c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6298,9 +6070,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e173ee15-1c11-40a3-9dd2-e6ef701b8947",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6358,9 +6128,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#aee3ca12-8ec6-49d7-83d0-12a6e17285a1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6418,9 +6186,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1e84bb7d-aa50-4735-bfb1-b9f9c2bb5a3c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6478,9 +6244,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4d1bd19a-e978-4f89-baa6-e33b4d929835",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6538,9 +6302,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#70abf5c6-7744-446a-97fd-d89b0719d94d",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6598,9 +6360,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#64333bd0-a3eb-4e69-9005-974318dac169",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6658,9 +6418,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3b1f5534-834b-4464-a0b4-5359ab2cddfb",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6718,9 +6476,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#71b0179a-dd7a-4e60-af1a-0279413b0db7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6778,9 +6534,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1302ab52-cb83-4a75-bed1-5d4a99718ab9",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6838,9 +6592,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#a9f9b8e0-51db-4b1a-960b-d99f0e827279",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6898,9 +6650,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4a4f053d-9e76-48f7-b56f-9e5ff2df1c6c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -6958,9 +6708,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#df6ded75-b0a5-4028-acb6-2a571bab5f6b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7022,9 +6770,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c09403f7-8b7b-4e1e-91ba-280c7a59abff",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7082,9 +6828,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#97a9e37f-4b8a-4ccd-8c55-94f080089ca9",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7142,9 +6886,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c6542cf0-1211-4d13-bcf2-3721b1276586",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7202,9 +6944,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0c01b49e-9ebf-4099-ba4c-62e50487d501",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7262,9 +7002,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f3d80430-4564-40aa-abf6-9fff6589b2e0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7322,9 +7060,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0b6e287a-d3d1-407a-9b31-930d422a709b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7382,9 +7118,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#317696fa-36a9-4563-8537-e2c8580f3d84",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7442,9 +7176,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#835f3152-5f51-4e2f-aeac-88e23c7a6b2c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7502,9 +7234,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#aaeb970d-84f7-463b-af62-4869ee27efb5",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7562,9 +7292,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#af26748b-12dc-493f-a3a6-21b7fcd4600b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7622,9 +7350,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2ee73f5a-13db-4ab5-bd9b-628921c68da9",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7682,9 +7408,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#0c80ce22-1942-4985-a46d-03e8d57f1b9a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7742,9 +7466,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6c62ae29-4532-454e-a00e-f7d932ccf114",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7802,9 +7524,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#45c38035-5a82-4b8c-b166-b10b1bb57dd7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7862,9 +7582,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#fb94bb47-0e7b-4554-abb2-179895703fd1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7922,9 +7640,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#cf62d6db-166f-4958-be1f-fb948a5ee5da",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -7982,9 +7698,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9e5e25a0-cb01-40e4-be2a-3262bbbaa58a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8042,9 +7756,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f1b292ad-f85f-4291-a16c-2c8e77827521",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8102,9 +7814,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6e6ddbb1-9428-4f9d-b2cf-923443711776",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8162,9 +7872,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e1440654-a3ea-4153-acfe-1c5e5d635368",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8222,9 +7930,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1f5487b6-3f53-4096-8327-d32adf2d4e83",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8282,9 +7988,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9ccbe406-284d-4489-8f67-26f13fd6198a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8338,9 +8042,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#63c34d01-57af-4a13-b46d-d22d801f165b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8398,9 +8100,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b984046e-66f3-4c31-88fd-bd1cb1a80f7e",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8458,9 +8158,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ca06ec7e-f77c-4e28-9f2c-914bd6ea1950",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8518,9 +8216,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#1e07d2a8-6fe5-42dd-ae70-80e543f0afea",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8582,9 +8278,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#90dfa187-04fa-4367-a350-16ed7be05093",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8642,9 +8336,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ba97ca65-b53f-472e-9f61-231aca8dfe5f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8702,9 +8394,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#29c3f876-ba2a-4013-bba2-8df180f48023",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8762,9 +8452,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#25945214-963a-4d3a-8bc2-367b9f300da2",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8822,9 +8510,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f7e6c92a-7cdc-4478-825b-922494b79b92",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8882,9 +8568,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#5b5ed5e0-c085-4b46-bf08-12a92d6a446d",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -8947,9 +8631,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f496d0ec-88dc-4b1c-9a2e-7ff53ea58741",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9007,9 +8689,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#b024d758-053e-463a-86e7-1d4a7751d4e2",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9067,9 +8747,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#bf7632f3-9287-463e-b432-8154323976dc",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9127,9 +8805,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ae689a4b-5837-4631-9058-17aeea33e53e",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9187,9 +8863,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ecb18e32-0c93-4f79-a194-3ef77090ed9d",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9247,9 +8921,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#aa2e9c9c-11ff-4ce3-ba90-abea327f5559",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9303,9 +8975,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c2f22535-26e9-4bd8-87ba-3a772b80c5cc",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9363,9 +9033,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4210808b-82fe-4ac6-a981-c2aa927858c0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9423,9 +9091,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#70748999-5ec1-4827-8e81-8203d4c9569c",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9487,9 +9153,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ad7b2655-b685-4571-be23-30126ab4c4c4",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9547,9 +9211,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#2a942048-86a9-4781-9f68-f01bc0e04fe8",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9607,9 +9269,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#575ce70e-b72d-4c62-aa38-ae8b4494a003",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9667,9 +9327,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3f337d58-2622-43b2-a5b8-e53391eee97a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9727,9 +9385,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#4d069d60-2feb-4b04-9cc8-72c85a7d8a27",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9787,9 +9443,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#72f18670-2f06-46ed-92f4-c4357ba70177",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9847,9 +9501,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#03482e0c-9483-4a9e-bb97-a44504ec833b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9907,9 +9559,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3a73cf29-a306-4a3f-a7c5-04ae3f6c52c1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -9967,9 +9617,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9e5207d6-020e-46ed-938f-333da54373fd",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10027,9 +9675,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#e9e6ac96-efa5-478a-a72a-2c01779ecee1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10087,9 +9733,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#35b2366d-207f-4e2b-b21d-9b17c4d47f42",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10151,9 +9795,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#fc9ac66f-885c-4ee3-a6db-f79e4478d1b7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10211,9 +9853,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#720dae2c-285b-4398-81ca-1142c5b672b0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10271,9 +9911,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#d815aeb4-74a1-4fe9-9ac6-6c9f2e58e81a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10331,9 +9969,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#9bf50a63-990d-45e3-bb05-4685db321108",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10391,9 +10027,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c5d488d9-0a05-447f-bbc6-1fe7e781921b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10451,9 +10085,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#c34c61ca-b895-4d5e-8089-09c330b566dd",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10511,9 +10143,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#be02179c-d033-407c-b191-75d03abd52f7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10571,9 +10201,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ec78d225-ddb9-4ea8-ad54-478cabddbc5f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10631,9 +10259,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#cd00e814-8bd3-4acd-9d19-bb60cf73f299",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10691,9 +10317,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#ecbcce6d-0230-4828-a8cc-112042775c84",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10751,9 +10375,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#a3e0f777-5e22-4d02-810b-5ce99f44f220",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10811,9 +10433,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#7e2aa440-df60-453a-a483-91a793c93df1",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10871,9 +10491,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#295c95ec-78bb-456e-995a-5bdb450f5efb",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10931,9 +10549,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#55ea7e7a-f613-47f3-8cf0-f038b5a14ec7",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -10991,9 +10607,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#5e4c4209-9d11-41ad-91f9-be3bf1f856e0",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11051,9 +10665,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#34510804-6274-4945-8031-9b45b7dc7125",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11115,9 +10727,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#435c513d-49d8-4c48-a3a6-60b8844f062a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11166,9 +10776,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#3592f0da-5e25-49b8-9093-d9a370c95159",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11226,9 +10834,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#f3924d78-17c7-4199-b9ab-2e22e4a62463",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11290,9 +10896,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#788c96d3-8e31-4b7c-8283-b9a2b884e84f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11350,9 +10954,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6b3af227-90fd-4ceb-a837-edfb2efe549b",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11410,9 +11012,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#72d14cca-2b9a-4399-8817-8b5c536dac3f",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11470,9 +11070,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#7a77b427-fec8-4489-8edd-962d1271826e",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11530,9 +11128,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#80957bda-f6a9-4267-96ee-2a175f3af61a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11590,9 +11186,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#49bfcf04-50c4-4e87-a983-a6c922d3855e",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             },
             {
               "type": "Annotation",
@@ -11650,9 +11244,7 @@
                 "type": "SpecificResource"
               },
               "id": "https://iiif.ghentcdh.ugent.be/iiif/manifests/cune-iiif-orm:sde:O.0219/canvas/0001/annotation/#6500d6b9-de49-4fdb-83a7-ccab7d0ef59a",
-              "motivation": [
-                "tagging"
-              ]
+              "motivation": ["tagging"]
             }
           ]
         }

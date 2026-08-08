@@ -6,24 +6,24 @@ to bind the events, but those events could come from many sources.
 Useful in UI frameworks where an alternative may be to drill down props through layers of components.
 
 ```tsx
-import { createEventsHelper } from '@iiif/vault-helpers/styles';
+import { createEventsHelper } from "@iiif/vault-helpers/styles";
 
 const vault = new Vault();
 const events = createEventsHelper(vault);
 
-const annotation = { id: 'https://example.org/anno-1', type: 'Annotation' };
+const annotation = { id: "https://example.org/anno-1", type: "Annotation" };
 
 // You can bind multiple callbacks to a single event.
-events.addEventListener(annotation, 'onClick', () => {
-  console.log('Anno clicked');
+events.addEventListener(annotation, "onClick", () => {
+  console.log("Anno clicked");
 });
 
 // Where you render:
 const props = events.getListenersAsProps(annotation);
-$el.addEventListener('click', props.onClick);
+$el.addEventListener("click", props.onClick);
 
-// In React this might look like: 
-<div className="anno" {...props} />
+// In React this might look like:
+<div className="anno" {...props} />;
 ```
 
 ### Supported events

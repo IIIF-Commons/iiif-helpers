@@ -1,8 +1,8 @@
-import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
-import { getCustomSizeFromService } from './get-custom-size-from-service';
-import { getFixedSizesFromService } from './get-fixed-sizes-from-service';
-import type { ImageCandidate } from './types';
+import type { ImageService as ImageServiceV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageService as ImageServiceV4 } from "@iiif/parser/presentation-4/types";
+import { getCustomSizeFromService } from "./get-custom-size-from-service";
+import { getFixedSizesFromService } from "./get-fixed-sizes-from-service";
+import type { ImageCandidate } from "./types";
 
 type ImageService = ImageServiceV3 | ImageServiceV4;
 

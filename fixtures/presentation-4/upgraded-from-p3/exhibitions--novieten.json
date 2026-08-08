@@ -3,12 +3,8 @@
   "id": "https://heritage.tudelft.nl/iiif/novieten/manifest",
   "type": "Manifest",
   "label": {
-    "nl": [
-      "Novieten"
-    ],
-    "en": [
-      "Novices"
-    ]
+    "nl": ["Novieten"],
+    "en": ["Novices"]
   },
   "homepage": [
     {
@@ -29,17 +25,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/2e68af88-2b63-6c45-f4e3-6e2d3fdfa35d",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "De enige vrouw in de collegezaal"
-        ],
-        "en": [
-          "The only woman in the lecture hal"
-        ]
+        "nl": ["De enige vrouw in de collegezaal"],
+        "en": ["The only woman in the lecture hal"]
       },
-      "behavior": [
-        "w-8",
-        "h-8"
-      ],
+      "behavior": ["w-8", "h-8"],
       "height": 2749,
       "width": 2666,
       "annotations": [
@@ -50,9 +39,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/2e68af88-2b63-6c45-f4e3-6e2d3fdfa35d/annotations/97",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/1a5e682f-f7fc-f089-a448-91cd572b7a77",
                 "type": "Annotation"
@@ -61,9 +48,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/2e68af88-2b63-6c45-f4e3-6e2d3fdfa35d/annotations/98",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -117,20 +102,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/1a5e682f-f7fc-f089-a448-91cd572b7a77",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "De enige vrouw in de collegezaal (Introductieweek 1965)"
-                ],
-                "en": [
-                  "The only woman in the lecture hal (Orientation Week 1965)"
-                ]
+                "nl": ["De enige vrouw in de collegezaal (Introductieweek 1965)"],
+                "en": ["The only woman in the lecture hal (Orientation Week 1965)"]
               },
               "summary": {
-                "nl": [
-                  "TU Delft Library, Bijzondere Collecties"
-                ],
-                "en": [
-                  "TU Delft Library, Special Collections"
-                ]
+                "nl": ["TU Delft Library, Bijzondere Collecties"],
+                "en": ["TU Delft Library, Special Collections"]
               },
               "thumbnail": [
                 {
@@ -144,15 +121,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 1024,
@@ -179,9 +150,7 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/1a5e682f-f7fc-f089-a448-91cd572b7a77/specificResource",
                 "type": "SpecificResource",
@@ -233,11 +202,7 @@
     {
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/d5040e5c-1e59-1da8-058d-aad3bb7e0e49",
       "type": "Canvas",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-4"
-      ],
+      "behavior": ["info", "w-4", "h-4"],
       "height": 1000,
       "width": 1000,
       "annotations": [
@@ -248,9 +213,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/d5040e5c-1e59-1da8-058d-aad3bb7e0e49/annotations/0",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -286,9 +249,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/497d8d8c-f07e-dd1c-8655-d3fe783c2b31",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "List",
                 "items": [
@@ -321,12 +282,8 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/193095ba-8eeb-9716-8f29-881b3d1ac982",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Eerstejaarsstudenten van de TH en TU Delft in de periode 1905-2018"
-        ],
-        "en": [
-          "First-year students at the Delft Institute of Technology and TU Delft in the period 1905-2018"
-        ]
+        "nl": ["Eerstejaarsstudenten van de TH en TU Delft in de periode 1905-2018"],
+        "en": ["First-year students at the Delft Institute of Technology and TU Delft in the period 1905-2018"]
       },
       "summary": {
         "nl": [
@@ -342,19 +299,13 @@
       },
       "requiredStatement": {
         "value": {
-          "nl": [
-            "Bronnen: Jaarboeken en -verslagen TH Delft, Statistisch jaarboeken TU Delft en OSIRIS"
-          ],
+          "nl": ["Bronnen: Jaarboeken en -verslagen TH Delft, Statistisch jaarboeken TU Delft en OSIRIS"],
           "en": [
             "Sources: Delft Institute of Technology Yearbooks and reports, TU Delft Statistical Yearbooks and OSIRIS"
           ]
         }
       },
-      "behavior": [
-        "right",
-        "w-12",
-        "h-8"
-      ],
+      "behavior": ["right", "w-12", "h-8"],
       "height": 991,
       "width": 992,
       "annotations": [
@@ -365,9 +316,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/193095ba-8eeb-9716-8f29-881b3d1ac982/annotations/99",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/e74ff4bb-9529-2b0a-b384-9b0b6880139c",
                 "type": "Annotation"
@@ -376,9 +325,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/193095ba-8eeb-9716-8f29-881b3d1ac982/annotations/100",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -432,17 +379,11 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/e74ff4bb-9529-2b0a-b384-9b0b6880139c",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Eerstejaarsstudenten van de TH en TU Delft in de periode 1905-2018"
-                ],
-                "en": [
-                  "First-year students at the Delft Institute of Technology and TU Delft in the period 1905-2018"
-                ]
+                "nl": ["Eerstejaarsstudenten van de TH en TU Delft in de periode 1905-2018"],
+                "en": ["First-year students at the Delft Institute of Technology and TU Delft in the period 1905-2018"]
               },
               "summary": {
-                "nl": [
-                  "Bronnen: Jaarboeken en -verslagen TH Delft, Statistisch jaarboeken TU Delft en OSIRIS"
-                ],
+                "nl": ["Bronnen: Jaarboeken en -verslagen TH Delft, Statistisch jaarboeken TU Delft en OSIRIS"],
                 "en": [
                   "Sources: Delft Institute of Technology Yearbooks and reports, TU Delft Statistical Yearbooks and OSIRIS"
                 ]
@@ -459,15 +400,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 1024,
@@ -494,16 +429,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/21/4d8776d3-31a9-bf36-22ad-536c39f6ba5d/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 7087,
@@ -519,14 +450,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -550,14 +474,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -602,12 +520,8 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "'Weest geen preutsch juffertje'"
-        ],
-        "en": [
-          "'Don’t be a prudish little miss'"
-        ]
+        "nl": ["'Weest geen preutsch juffertje'"],
+        "en": ["'Don’t be a prudish little miss'"]
       },
       "summary": {
         "nl": [
@@ -621,24 +535,16 @@
       },
       "requiredStatement": {
         "label": {
-          "nl": [
-            ""
-          ]
+          "nl": [""]
         },
         "value": {
           "nl": [
             "Lees hier de redes uit 1930 en 1931. Klik op 'Start tour' en vervolgens op 'Bekijk object' om de volledige almanakken te bekijken."
           ],
-          "en": [
-            "Click ‘Start tour' and then 'View object' to view the complete yearbooks."
-          ]
+          "en": ["Click ‘Start tour' and then 'View object' to view the complete yearbooks."]
         }
       },
-      "behavior": [
-        "left",
-        "w-12",
-        "h-6"
-      ],
+      "behavior": ["left", "w-12", "h-6"],
       "height": 762,
       "width": 999,
       "annotations": [
@@ -649,9 +555,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/101",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/0a21149f-4dc2-c711-2072-5de2f0cd68e4",
                 "type": "Annotation"
@@ -660,9 +564,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/102",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/cbd6e9a7-f9e1-d4bd-a301-25101d08431b",
                 "type": "Annotation"
@@ -671,9 +573,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/103",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/d61be51e-edb9-fc8e-fcb7-dc1c54eb3361",
                 "type": "Annotation"
@@ -682,9 +582,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/104",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/63ba0257-0b2a-2bc7-154d-b1fc1a926cde",
                 "type": "Annotation"
@@ -693,9 +591,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/105",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/32b1ce1c-1454-fd44-88a4-8faa1a1d5842",
                 "type": "Annotation"
@@ -704,9 +600,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/106",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/24e929ee-9902-e397-88f2-400352c29689",
                 "type": "Annotation"
@@ -715,9 +609,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/0a168bd3-4104-9dfa-2c47-ac7d53506426/annotations/107",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/37a0537b-5074-55a2-a5df-a5f8a013a602",
                 "type": "Annotation"
@@ -735,20 +627,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/0a21149f-4dc2-c711-2072-5de2f0cd68e4",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Toespraak tot de nieuwe leden in 1930"
-                ],
-                "en": [
-                  "Speech to the new members in 1930"
-                ]
+                "nl": ["Toespraak tot de nieuwe leden in 1930"],
+                "en": ["Speech to the new members in 1930"]
               },
               "summary": {
-                "nl": [
-                  "1/2"
-                ],
-                "en": [
-                  "1/2"
-                ]
+                "nl": ["1/2"],
+                "en": ["1/2"]
               },
               "thumbnail": [
                 {
@@ -762,15 +646,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 730,
@@ -797,16 +675,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/26266921-71ad-4692-aa85-3257b2d5d036/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2301,
@@ -822,13 +696,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -852,14 +720,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -900,20 +762,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/cbd6e9a7-f9e1-d4bd-a301-25101d08431b",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Toespraak tot de nieuwe leden 1930"
-                ],
-                "en": [
-                  "Speech to the new members in 1930"
-                ]
+                "nl": ["Toespraak tot de nieuwe leden 1930"],
+                "en": ["Speech to the new members in 1930"]
               },
               "summary": {
-                "nl": [
-                  "2/2"
-                ],
-                "en": [
-                  "2/2"
-                ]
+                "nl": ["2/2"],
+                "en": ["2/2"]
               },
               "thumbnail": [
                 {
@@ -927,15 +781,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 739,
@@ -962,16 +810,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/1ada59a2-03da-42b6-a6aa-9f96e677b463/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2304,
@@ -987,13 +831,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1017,14 +855,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1065,12 +897,8 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/d61be51e-edb9-fc8e-fcb7-dc1c54eb3361",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Bestuur der D.V.S.V. 1928-1929"
-                ],
-                "en": [
-                  "Board of D.V.S.V. 1928-1929"
-                ]
+                "nl": ["Bestuur der D.V.S.V. 1928-1929"],
+                "en": ["Board of D.V.S.V. 1928-1929"]
               },
               "thumbnail": [
                 {
@@ -1084,15 +912,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 728,
@@ -1119,9 +941,7 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/d61be51e-edb9-fc8e-fcb7-dc1c54eb3361/specificResource",
                 "type": "SpecificResource",
@@ -1170,20 +990,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/63ba0257-0b2a-2bc7-154d-b1fc1a926cde",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Toespraak tot de nieuwe leden in 1931"
-                ],
-                "en": [
-                  "Speech to the new members in 1931"
-                ]
+                "nl": ["Toespraak tot de nieuwe leden in 1931"],
+                "en": ["Speech to the new members in 1931"]
               },
               "summary": {
-                "nl": [
-                  "1/3"
-                ],
-                "en": [
-                  "1/3"
-                ]
+                "nl": ["1/3"],
+                "en": ["1/3"]
               },
               "thumbnail": [
                 {
@@ -1197,15 +1009,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 728,
@@ -1232,16 +1038,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/f778d6f7-4ff1-467f-a81c-a2b77ece034c/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2363,
@@ -1257,13 +1059,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1287,14 +1083,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1335,20 +1125,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/32b1ce1c-1454-fd44-88a4-8faa1a1d5842",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Toespraak tot de nieuwe leden in 1931"
-                ],
-                "en": [
-                  "Speech to the new members in 1931"
-                ]
+                "nl": ["Toespraak tot de nieuwe leden in 1931"],
+                "en": ["Speech to the new members in 1931"]
               },
               "summary": {
-                "nl": [
-                  "2/3"
-                ],
-                "en": [
-                  "2/3"
-                ]
+                "nl": ["2/3"],
+                "en": ["2/3"]
               },
               "thumbnail": [
                 {
@@ -1362,15 +1144,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 716,
@@ -1397,16 +1173,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/c28b095c-91d1-4c47-b0eb-5dfe97f5b8ea/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2358,
@@ -1422,13 +1194,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1452,14 +1218,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1500,20 +1260,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/24e929ee-9902-e397-88f2-400352c29689",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Toespraak tot de nieuwe leden in 1931"
-                ],
-                "en": [
-                  "Speech to the new members in 1931"
-                ]
+                "nl": ["Toespraak tot de nieuwe leden in 1931"],
+                "en": ["Speech to the new members in 1931"]
               },
               "summary": {
-                "nl": [
-                  "3/3"
-                ],
-                "en": [
-                  "3/3"
-                ]
+                "nl": ["3/3"],
+                "en": ["3/3"]
               },
               "thumbnail": [
                 {
@@ -1527,15 +1279,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 730,
@@ -1562,16 +1308,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/49a2d230-4508-4020-ba89-2f216cc6f6a9/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2365,
@@ -1587,13 +1329,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1617,14 +1353,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1665,12 +1395,8 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/37a0537b-5074-55a2-a5df-a5f8a013a602",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Bestuur der D.V.S.V. 1929-1930"
-                ],
-                "en": [
-                  "Board of D.V.S.V. 1929-1930"
-                ]
+                "nl": ["Bestuur der D.V.S.V. 1929-1930"],
+                "en": ["Board of D.V.S.V. 1929-1930"]
               },
               "thumbnail": [
                 {
@@ -1684,15 +1410,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 730,
@@ -1719,9 +1439,7 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/37a0537b-5074-55a2-a5df-a5f8a013a602/specificResource",
                 "type": "SpecificResource",
@@ -1774,17 +1492,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f087a33b-cf1f-923f-407d-87e99fe269a1",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Koker met promotiebul van Antonia Korvezee"
-        ],
-        "en": [
-          "Tube with the PhD award certificate of Antonia Korvezee"
-        ]
+        "nl": ["Koker met promotiebul van Antonia Korvezee"],
+        "en": ["Tube with the PhD award certificate of Antonia Korvezee"]
       },
-      "behavior": [
-        "w-8",
-        "h-6"
-      ],
+      "behavior": ["w-8", "h-6"],
       "height": 906,
       "width": 1000,
       "items": [
@@ -1796,20 +1507,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/f47fbd93-77ad-37fc-c6ac-a1a1dbe2bdaa",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Koker met promotiebul van Antonia Korvezee"
-                ],
-                "en": [
-                  "Tube with the PhD award certificate of Antonia Korvezee"
-                ]
+                "nl": ["Koker met promotiebul van Antonia Korvezee"],
+                "en": ["Tube with the PhD award certificate of Antonia Korvezee"]
               },
               "summary": {
-                "nl": [
-                  "TU Delft Library, Bijzondere Collecties, 2016.0290.LIB"
-                ],
-                "en": [
-                  "TU Delft Library, Special Collections, 2016.0290.LIB"
-                ]
+                "nl": ["TU Delft Library, Bijzondere Collecties, 2016.0290.LIB"],
+                "en": ["TU Delft Library, Special Collections, 2016.0290.LIB"]
               },
               "thumbnail": [
                 {
@@ -1823,15 +1526,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 1024,
@@ -1858,16 +1555,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/18/e76ce7df-b9c6-47d4-b5e0-8f1dc8fd1d51/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 1970,
@@ -1883,13 +1576,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -1913,14 +1600,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -1964,11 +1645,7 @@
     {
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/ac93661b-0f24-170f-c8ed-e158250d2bbf",
       "type": "Canvas",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-6"
-      ],
+      "behavior": ["info", "w-4", "h-6"],
       "height": 1000,
       "width": 1000,
       "annotations": [
@@ -1979,9 +1656,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/ac93661b-0f24-170f-c8ed-e158250d2bbf/annotations/0",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2017,9 +1692,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/990d9f5f-71ef-28b4-46af-e9e9e28c17e4",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2051,11 +1724,7 @@
     {
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/77947f0a-e920-99ab-8616-11f978be7778",
       "type": "Canvas",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-5"
-      ],
+      "behavior": ["info", "w-4", "h-5"],
       "height": 1000,
       "width": 1000,
       "annotations": [
@@ -2066,9 +1735,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/77947f0a-e920-99ab-8616-11f978be7778/annotations/0",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2104,9 +1771,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/6b870481-dfa5-46b4-598b-9f6783efd563",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2139,18 +1804,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/6118e9ac-0aff-f5cb-47dd-5b9a2f8715ac",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "De Club van de DVSV"
-        ],
-        "en": [
-          "The DVSV Club (circa 1956)"
-        ]
+        "nl": ["De Club van de DVSV"],
+        "en": ["The DVSV Club (circa 1956)"]
       },
-      "behavior": [
-        "left",
-        "w-8",
-        "h-5"
-      ],
+      "behavior": ["left", "w-8", "h-5"],
       "height": 656,
       "width": 1000,
       "items": [
@@ -2162,12 +1819,8 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/bd1cee2a-2711-286e-85c0-e59fba3b4487",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "De Club van de DVSV (Rond 1956)"
-                ],
-                "en": [
-                  "The DVSV Club (circa 1956)"
-                ]
+                "nl": ["De Club van de DVSV (Rond 1956)"],
+                "en": ["The DVSV Club (circa 1956)"]
               },
               "summary": {
                 "nl": [
@@ -2189,15 +1842,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 1024,
@@ -2224,16 +1871,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/21/59cbd665-a7b3-5f8a-2c16-f406ca74f5fb/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2950,
@@ -2249,14 +1892,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -2280,14 +1916,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2332,17 +1962,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/2a2810e5-ad56-fac9-029a-d0c9fc038c1c",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Mejuffrouw, Mijne Heren (1964)"
-        ],
-        "en": [
-          "Mejuffrouw, Mijne Heren (Miss and Gentlemen, 1964)"
-        ]
+        "nl": ["Mejuffrouw, Mijne Heren (1964)"],
+        "en": ["Mejuffrouw, Mijne Heren (Miss and Gentlemen, 1964)"]
       },
-      "behavior": [
-        "w-12",
-        "h-9"
-      ],
+      "behavior": ["w-12", "h-9"],
       "height": 1440,
       "width": 1903,
       "items": [
@@ -2354,12 +1977,8 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/6179e7da-69e0-00bb-f87d-14d8c9790be1",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Mejuffrouw, Mijne Heren (1964)"
-                ],
-                "en": [
-                  "Mejuffrouw, Mijne Heren (Miss and Gentlemen, 1964)"
-                ]
+                "nl": ["Mejuffrouw, Mijne Heren (1964)"],
+                "en": ["Mejuffrouw, Mijne Heren (Miss and Gentlemen, 1964)"]
               },
               "summary": {
                 "nl": [
@@ -2375,9 +1994,7 @@
                   "type": "ContentResource"
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://www.youtube.com/watch?v=popa6e9Sv5E",
                 "type": "Video",
@@ -2424,11 +2041,7 @@
     {
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/c7f195ab-93ef-5bad-d356-a8a84acf4667",
       "type": "Canvas",
-      "behavior": [
-        "info",
-        "w-6",
-        "h-4"
-      ],
+      "behavior": ["info", "w-6", "h-4"],
       "height": 1000,
       "width": 1000,
       "annotations": [
@@ -2439,9 +2052,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/c7f195ab-93ef-5bad-d356-a8a84acf4667/annotations/0",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2477,9 +2088,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/39fdfd31-1d8f-78ff-fc4f-8052be27ca4e",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "List",
                 "items": [
@@ -2512,17 +2121,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/7f3fc73e-4abd-5cac-3817-435788b762a0",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Meisjeshuis Boterbrug 5"
-        ],
-        "en": [
-          "Boterbrug 5 Girls House"
-        ]
+        "nl": ["Meisjeshuis Boterbrug 5"],
+        "en": ["Boterbrug 5 Girls House"]
       },
-      "behavior": [
-        "w-6",
-        "h-4"
-      ],
+      "behavior": ["w-6", "h-4"],
       "height": 679,
       "width": 1000,
       "items": [
@@ -2534,20 +2136,14 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/98fe5ec2-587f-74aa-2177-608e700c7e26",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Meisjeshuis Boterbrug 5"
-                ],
-                "en": [
-                  "Boterbrug 5 Girls House"
-                ]
+                "nl": ["Meisjeshuis Boterbrug 5"],
+                "en": ["Boterbrug 5 Girls House"]
               },
               "summary": {
                 "nl": [
                   "Afkomstig uit de almanak van de DVSV voor het jaar 1970 (Persoonlijk archief Marjan van den Bos)"
                 ],
-                "en": [
-                  "From the 1970 DVSV Yearbook (Personal archives of Marjan van den Bos)."
-                ]
+                "en": ["From the 1970 DVSV Yearbook (Personal archives of Marjan van den Bos)."]
               },
               "thumbnail": [
                 {
@@ -2561,15 +2157,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 1024,
@@ -2596,16 +2186,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/21/187c91d0-9d6d-79ab-01f5-8f2d4757e71b/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 2216,
@@ -2621,13 +2207,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -2651,14 +2231,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -2703,12 +2277,8 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/6ac3a85d-0ee8-0c03-ca04-d62796417372",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Vrouwenstudies"
-        ],
-        "en": [
-          "Women’s Studies"
-        ]
+        "nl": ["Vrouwenstudies"],
+        "en": ["Women’s Studies"]
       },
       "summary": {
         "nl": [
@@ -2730,11 +2300,7 @@
           ]
         }
       },
-      "behavior": [
-        "right",
-        "w-12",
-        "h-5"
-      ],
+      "behavior": ["right", "w-12", "h-5"],
       "height": 1440,
       "width": 2560,
       "items": [
@@ -2746,20 +2312,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/69e1c967-a73c-8e76-9b89-fce50e2d5996",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Noortje Weenink in gesprek met Anna Vos, initiatiefnemer van het vak Vrouwenstudies in 1979"
-                ],
-                "en": [
-                  "Noortje Weenink interviews Anna Vos who founded Women’s Studies in 1979"
-                ]
+                "nl": ["Noortje Weenink in gesprek met Anna Vos, initiatiefnemer van het vak Vrouwenstudies in 1979"],
+                "en": ["Noortje Weenink interviews Anna Vos who founded Women’s Studies in 1979"]
               },
               "summary": {
-                "nl": [
-                  "Geproduceerd in samenwerking met het NewMedia Centre"
-                ],
-                "en": [
-                  "Produced in collaboration with the NewMedia Centre"
-                ]
+                "nl": ["Geproduceerd in samenwerking met het NewMedia Centre"],
+                "en": ["Produced in collaboration with the NewMedia Centre"]
               },
               "thumbnail": [
                 {
@@ -2767,9 +2325,7 @@
                   "type": "ContentResource"
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://www.youtube.com/watch?v=9fKQ1eXX-QI",
                 "type": "Video",
@@ -2816,17 +2372,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/554a23c9-aa7e-158e-184c-44d0cc8cb2ac",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Vakomschrijving van Vrouwenstudies (1979)"
-        ],
-        "en": [
-          "Description of Womens’s Studies (1979)"
-        ]
+        "nl": ["Vakomschrijving van Vrouwenstudies (1979)"],
+        "en": ["Description of Womens’s Studies (1979)"]
       },
-      "behavior": [
-        "w-5",
-        "h-7"
-      ],
+      "behavior": ["w-5", "h-7"],
       "height": 1000,
       "width": 762,
       "annotations": [
@@ -2837,9 +2386,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/554a23c9-aa7e-158e-184c-44d0cc8cb2ac/annotations/113",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/753a302f-6d50-d88e-9cd6-a92c33fa1cf9",
                 "type": "Annotation"
@@ -2848,9 +2395,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/554a23c9-aa7e-158e-184c-44d0cc8cb2ac/annotations/114",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/bee8a9bd-3f4f-9800-c79f-350ef8297c92",
                 "type": "Annotation"
@@ -2868,20 +2413,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/753a302f-6d50-d88e-9cd6-a92c33fa1cf9",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Vakomschrijving van Vrouwenstudies (1979)"
-                ],
-                "en": [
-                  "Description of Womens’s Studies (1979)"
-                ]
+                "nl": ["Vakomschrijving van Vrouwenstudies (1979)"],
+                "en": ["Description of Womens’s Studies (1979)"]
               },
               "summary": {
-                "nl": [
-                  "Archief Vrouwenstudies"
-                ],
-                "en": [
-                  "Women’s Studies Archives"
-                ]
+                "nl": ["Archief Vrouwenstudies"],
+                "en": ["Women’s Studies Archives"]
               },
               "thumbnail": [
                 {
@@ -2895,15 +2432,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 727,
@@ -2930,16 +2461,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/21/fa878eb3-9ac0-6223-79ee-488d0ed70f72/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 3490,
@@ -2955,13 +2482,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -2985,14 +2506,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3033,20 +2548,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/bee8a9bd-3f4f-9800-c79f-350ef8297c92",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Vakomschrijving van Vrouwenstudies (1979)"
-                ],
-                "en": [
-                  "Description of Womens’s Studies (1979)"
-                ]
+                "nl": ["Vakomschrijving van Vrouwenstudies (1979)"],
+                "en": ["Description of Womens’s Studies (1979)"]
               },
               "summary": {
-                "nl": [
-                  "Archief Vrouwenstudies"
-                ],
-                "en": [
-                  "Women’s Studies Archives"
-                ]
+                "nl": ["Archief Vrouwenstudies"],
+                "en": ["Women’s Studies Archives"]
               },
               "thumbnail": [
                 {
@@ -3060,15 +2567,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 725,
@@ -3095,16 +2596,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/21/ff7a4955-4c38-93db-8878-b8c3a4bcf97d/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 3495,
@@ -3120,13 +2617,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -3150,14 +2641,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3202,12 +2687,8 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/92868b52-421e-69ab-70f5-ef5c60017ccb",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "'Je kunt zelfs hoogleraar worden'"
-        ],
-        "en": [
-          "'You can even become a professor'"
-        ]
+        "nl": ["'Je kunt zelfs hoogleraar worden'"],
+        "en": ["'You can even become a professor'"]
       },
       "summary": {
         "nl": [
@@ -3217,11 +2698,7 @@
           "News report by the Dutch public broadcasting service NOS on the orientation days for female students in 1984. Franziska Bollerey, who was appointed professor at the Architecture Faculty in 1979, is featured in a play titled ‘You Can Even Become a Professor'. Twenty-five years after Korvezee, Bollerey became the second woman at the Institute of Technology to hold this title."
         ]
       },
-      "behavior": [
-        "bottom",
-        "w-7",
-        "h-7"
-      ],
+      "behavior": ["bottom", "w-7", "h-7"],
       "height": 2778,
       "width": 3735,
       "items": [
@@ -3233,17 +2710,11 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/36fba69e-160b-18d1-e24e-97c2b52f2a68",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "'Je kunt zelfs hoogleraar worden'"
-                ],
-                "en": [
-                  "'You can even become a professor'"
-                ]
+                "nl": ["'Je kunt zelfs hoogleraar worden'"],
+                "en": ["'You can even become a professor'"]
               },
               "summary": {
-                "nl": [
-                  "Verslag van het NOS Journaal van de meisjesinformatiedagen in 1984."
-                ],
+                "nl": ["Verslag van het NOS Journaal van de meisjesinformatiedagen in 1984."],
                 "en": [
                   "News report by the Dutch public broadcasting service NOS on the orientation days for female students in 1984. "
                 ]
@@ -3254,9 +2725,7 @@
                   "type": "ContentResource"
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://www.youtube.com/watch?v=muPRP5lOWOg",
                 "type": "Video",
@@ -3303,12 +2772,8 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/ae31c498-5cb8-247c-5cb3-d58bce409e52",
       "type": "Canvas",
       "label": {
-        "en": [
-          "Cracks in the bulwarks?"
-        ],
-        "nl": [
-          "Barsten in het bolwerk?"
-        ]
+        "en": ["Cracks in the bulwarks?"],
+        "nl": ["Barsten in het bolwerk?"]
       },
       "summary": {
         "nl": [
@@ -3323,19 +2788,11 @@
       },
       "requiredStatement": {
         "value": {
-          "nl": [
-            "Bekijk het volledige boek door te klikken op het beeld en vervolgens op 'Bekijk object'."
-          ],
-          "en": [
-            "View the complete book by clicking the image and then 'View object'."
-          ]
+          "nl": ["Bekijk het volledige boek door te klikken op het beeld en vervolgens op 'Bekijk object'."],
+          "en": ["View the complete book by clicking the image and then 'View object'."]
         }
       },
-      "behavior": [
-        "left",
-        "w-12",
-        "h-6"
-      ],
+      "behavior": ["left", "w-12", "h-6"],
       "height": 1000,
       "width": 690,
       "items": [
@@ -3347,20 +2804,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/6ee30385-10b4-7c8d-1065-24d43e845f69",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "De TU Delft, een mannenwereld (1989)"
-                ],
-                "en": [
-                  "The University of Technology: A Man’s World (1989)"
-                ]
+                "nl": ["De TU Delft, een mannenwereld (1989)"],
+                "en": ["The University of Technology: A Man’s World (1989)"]
               },
               "summary": {
-                "nl": [
-                  "Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis "
-                ],
-                "en": [
-                  "Atria, institute on gender equality and women's history"
-                ]
+                "nl": ["Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis "],
+                "en": ["Atria, institute on gender equality and women's history"]
               },
               "thumbnail": [
                 {
@@ -3374,15 +2823,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 707,
@@ -3409,16 +2852,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/23/39ba4c46-5c12-4d32-9f71-ad60a2795a0e/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 3746,
@@ -3434,13 +2873,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -3464,14 +2897,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3516,17 +2943,10 @@
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f4519824-8482-4d56-18cb-03ff6aad2736",
       "type": "Canvas",
       "label": {
-        "nl": [
-          "Verder lezen?"
-        ],
-        "en": [
-          "Like to read more?"
-        ]
+        "nl": ["Verder lezen?"],
+        "en": ["Like to read more?"]
       },
-      "behavior": [
-        "w-8",
-        "h-6"
-      ],
+      "behavior": ["w-8", "h-6"],
       "height": 679,
       "width": 1000,
       "annotations": [
@@ -3537,9 +2957,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f4519824-8482-4d56-18cb-03ff6aad2736/annotations/117",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/8523fe29-cb1a-7a51-be0b-22415ba86745",
                 "type": "Annotation"
@@ -3548,9 +2966,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f4519824-8482-4d56-18cb-03ff6aad2736/annotations/118",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/06031e13-e770-9dc7-7649-40f3c7b2ad7e",
                 "type": "Annotation"
@@ -3559,9 +2975,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f4519824-8482-4d56-18cb-03ff6aad2736/annotations/119",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/306ca6cd-a840-a917-3bbd-29232ed0e5e6",
                 "type": "Annotation"
@@ -3570,9 +2984,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/f4519824-8482-4d56-18cb-03ff6aad2736/annotations/120",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "target": {
                 "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/7a84546b-2cf9-6293-9fc4-e50220bf0101",
                 "type": "Annotation"
@@ -3590,20 +3002,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/8523fe29-cb1a-7a51-be0b-22415ba86745",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Almanak van de Delftsche Vrouwelijke Studenten Vereeniging (1994)"
-                ],
-                "en": [
-                  "Almanak van de Delftsche Vrouwelijke Studenten Vereeniging (1994)"
-                ]
+                "nl": ["Almanak van de Delftsche Vrouwelijke Studenten Vereeniging (1994)"],
+                "en": ["Almanak van de Delftsche Vrouwelijke Studenten Vereeniging (1994)"]
               },
               "summary": {
-                "nl": [
-                  "TU Delft Library"
-                ],
-                "en": [
-                  "TU Delft Library"
-                ]
+                "nl": ["TU Delft Library"],
+                "en": ["TU Delft Library"]
               },
               "thumbnail": [
                 {
@@ -3617,15 +3021,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 729,
@@ -3652,16 +3050,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/1641f326-5ebb-4b55-839d-b6e7dd748683/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 4672,
@@ -3677,14 +3071,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -3708,14 +3095,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3756,20 +3137,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/06031e13-e770-9dc7-7649-40f3c7b2ad7e",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Vrouwen in techniek: 90 jaar Delftse vrouwelijke ingenieurs (1995)"
-                ],
-                "en": [
-                  "Vrouwen in techniek: 90 jaar Delftse vrouwelijke ingenieurs (1995)"
-                ]
+                "nl": ["Vrouwen in techniek: 90 jaar Delftse vrouwelijke ingenieurs (1995)"],
+                "en": ["Vrouwen in techniek: 90 jaar Delftse vrouwelijke ingenieurs (1995)"]
               },
               "summary": {
-                "nl": [
-                  "TU Delft Library"
-                ],
-                "en": [
-                  "TU Delft Library"
-                ]
+                "nl": ["TU Delft Library"],
+                "en": ["TU Delft Library"]
               },
               "thumbnail": [
                 {
@@ -3783,15 +3156,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 861,
@@ -3818,16 +3185,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/6/69f7f9b7-03fe-4b30-8038-7a63c8cbfa23/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 3808,
@@ -3843,13 +3206,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -3873,14 +3230,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -3921,20 +3272,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/306ca6cd-a840-a917-3bbd-29232ed0e5e6",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "Vrouwen die techniek studeren... hoe apart (1984)"
-                ],
-                "en": [
-                  "Vrouwen die techniek studeren... hoe apart (1984)"
-                ]
+                "nl": ["Vrouwen die techniek studeren... hoe apart (1984)"],
+                "en": ["Vrouwen die techniek studeren... hoe apart (1984)"]
               },
               "summary": {
-                "nl": [
-                  "Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis"
-                ],
-                "en": [
-                  "Atria, institute on gender equality and women's history"
-                ]
+                "nl": ["Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis"],
+                "en": ["Atria, institute on gender equality and women's history"]
               },
               "thumbnail": [
                 {
@@ -3948,15 +3291,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 702,
@@ -3983,16 +3320,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/23/d232fb19-02b2-46c0-a6ec-91b502bd667c/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 4646,
@@ -4008,14 +3341,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16,
-                          32
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16, 32]
                       }
                     ],
                     "sizes": [
@@ -4039,14 +3365,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4087,20 +3407,12 @@
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/7a84546b-2cf9-6293-9fc4-e50220bf0101",
               "type": "Annotation",
               "label": {
-                "nl": [
-                  "THD-vrouwendag 1985 : lezingen - vraagstelling - forum"
-                ],
-                "en": [
-                  "THD-vrouwendag 1985 : lezingen - vraagstelling - forum"
-                ]
+                "nl": ["THD-vrouwendag 1985 : lezingen - vraagstelling - forum"],
+                "en": ["THD-vrouwendag 1985 : lezingen - vraagstelling - forum"]
               },
               "summary": {
-                "nl": [
-                  "Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis"
-                ],
-                "en": [
-                  "Atria, institute on gender equality and women's history"
-                ]
+                "nl": ["Atria, kennisinstituut voor emancipatie en vrouwengeschiedenis"],
+                "en": ["Atria, institute on gender equality and women's history"]
               },
               "thumbnail": [
                 {
@@ -4114,15 +3426,9 @@
                       "profile": [
                         "http://iiif.io/api/image/2/level0.json",
                         {
-                          "formats": [
-                            "jpg"
-                          ],
-                          "qualities": [
-                            "color"
-                          ],
-                          "supports": [
-                            "sizeByWhListed"
-                          ]
+                          "formats": ["jpg"],
+                          "qualities": ["color"],
+                          "supports": ["sizeByWhListed"]
                         }
                       ],
                       "width": 731,
@@ -4149,16 +3455,12 @@
                   ]
                 }
               ],
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "id": "https://dlc.services/iiif-img/7/23/c7f16b95-d4dd-4596-875b-12a2652d7670/full/full/0/default.jpg",
                 "type": "Image",
                 "label": {
-                  "nl": [
-                    "-"
-                  ]
+                  "nl": ["-"]
                 },
                 "format": "image/jpeg",
                 "height": 3270,
@@ -4174,13 +3476,7 @@
                       {
                         "width": 256,
                         "height": 256,
-                        "scaleFactors": [
-                          1,
-                          2,
-                          4,
-                          8,
-                          16
-                        ]
+                        "scaleFactors": [1, 2, 4, 8, 16]
                       }
                     ],
                     "sizes": [
@@ -4204,14 +3500,8 @@
                     "profile": [
                       "http://iiif.io/api/image/2/level1.json",
                       {
-                        "formats": [
-                          "jpg"
-                        ],
-                        "qualities": [
-                          "native",
-                          "color",
-                          "gray"
-                        ],
+                        "formats": ["jpg"],
+                        "qualities": ["native", "color", "gray"],
                         "supports": [
                           "regionByPct",
                           "sizeByForcedWh",
@@ -4255,11 +3545,7 @@
     {
       "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/46ce51f6-f3be-7ac8-6e54-48d3b5dffc4e",
       "type": "Canvas",
-      "behavior": [
-        "info",
-        "w-4",
-        "h-6"
-      ],
+      "behavior": ["info", "w-4", "h-6"],
       "height": 1000,
       "width": 1000,
       "annotations": [
@@ -4270,9 +3556,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/canvas/46ce51f6-f3be-7ac8-6e54-48d3b5dffc4e/annotations/0",
               "type": "Annotation",
-              "motivation": [
-                "describing"
-              ],
+              "motivation": ["describing"],
               "body": {
                 "type": "List",
                 "items": [
@@ -4308,9 +3592,7 @@
             {
               "id": "https://heritage.tudelft.nl/iiif/62d39710-83ec-5064-a890-2bb3845cb67d/annotation/9b64ade1-3240-2a6c-c8fb-7aec6cd30b1a",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "body": {
                 "type": "List",
                 "items": [

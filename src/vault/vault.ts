@@ -9,8 +9,8 @@ import {
   serialize,
   serializeConfigPresentation2,
   serializeConfigPresentation3,
-} from '@iiif/parser';
-import type { Collection, Manifest, Reference, SpecificResource } from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser";
+import type { Collection, Manifest, Reference, SpecificResource } from "@iiif/parser/presentation-3/types";
 import type {
   AnnotationCollectionNormalized,
   AnnotationNormalized,
@@ -21,10 +21,10 @@ import type {
   RangeNormalized,
   ResourceProviderNormalized,
   ServiceNormalized,
-} from '@iiif/parser/presentation-3-normalized/types';
-import mitt, { type Emitter } from 'mitt';
-import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from './actions';
-import { createStore, type VaultZustandStore } from './store';
+} from "@iiif/parser/presentation-3-normalized/types";
+import mitt, { type Emitter } from "mitt";
+import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from "./actions";
+import { createStore, type VaultZustandStore } from "./store";
 import type {
   ActionFromType,
   AllActions,
@@ -36,12 +36,12 @@ import type {
   RefToNormalized,
   RequestState,
   VaultLoadReport,
-} from './types';
-import { areInputsEqual, createFetchHelper } from './utility';
-import { type ActionListFromResource, actionListFromResourceV3 } from './utility/action-list-from-resource';
-import { defaultFetcher } from './utility/default-fetcher';
-import { isWrapped, type ReactiveWrapped, wrapObject } from './utility/objects';
-import { resolveType } from './utility/resolve-type';
+} from "./types";
+import { areInputsEqual, createFetchHelper } from "./utility";
+import { type ActionListFromResource, actionListFromResourceV3 } from "./utility/action-list-from-resource";
+import { defaultFetcher } from "./utility/default-fetcher";
+import { isWrapped, type ReactiveWrapped, wrapObject } from "./utility/objects";
+import { resolveType } from "./utility/resolve-type";
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -58,15 +58,15 @@ export type GetOptions = {
 };
 export type GetObjectOptions = GetOptions & { reactive?: boolean };
 
-type AllActionsType = Extract<AllActions['type'], string>;
+type AllActionsType = Extract<AllActions["type"], string>;
 
-export type EntityRef<Ref extends keyof Entities> = IIIFStore['iiif']['entities'][Ref][string];
+export type EntityRef<Ref extends keyof Entities> = IIIFStore["iiif"]["entities"][Ref][string];
 
 function referenceId(reference: unknown): string | null {
-  if (typeof reference === 'string') {
+  if (typeof reference === "string") {
     return reference;
   }
-  if (reference && typeof reference === 'object' && typeof (reference as any).id === 'string') {
+  if (reference && typeof reference === "object" && typeof (reference as any).id === "string") {
     return (reference as any).id;
   }
   return null;
@@ -76,7 +76,7 @@ function uniqueReferences(references: any[]): Array<{ id: string; type: string }
   const seen = new Set<string>();
   const unique: Array<{ id: string; type: string }> = [];
   for (const reference of references) {
-    if (!reference || typeof reference.id !== 'string' || typeof reference.type !== 'string') {
+    if (!reference || typeof reference.id !== "string" || typeof reference.type !== "string") {
       continue;
     }
     const key = `${reference.type}\0${reference.id}`;
@@ -114,12 +114,9 @@ export type Vault3TypeMap = {
   };
 };
 
-export type RefToNormalizedFor<
-  Ref extends { type?: string },
-  Types extends VaultTypeMap,
-> = Ref['type'] extends string
-  ? Ref['type'] extends keyof NonNullable<Types['Normalized']>
-    ? NonNullable<Types['Normalized']>[Ref['type']]
+export type RefToNormalizedFor<Ref extends { type?: string }, Types extends VaultTypeMap> = Ref["type"] extends string
+  ? Ref["type"] extends keyof NonNullable<Types["Normalized"]>
+    ? NonNullable<Types["Normalized"]>[Ref["type"]]
     : RefToNormalized<Ref>
   : RefToNormalized<Ref>;
 
@@ -285,12 +282,12 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   get<R extends { type?: string }>(
-    reference: string | Partial<R> | Reference<R['type']> | SpecificResource<R>,
+    reference: string | Partial<R> | Reference<R["type"]> | SpecificResource<R>,
     type?: string | GetOptions,
     options?: GetOptions
   ): RefToNormalizedFor<R, Types>;
   get<R extends { type?: string }>(
-    reference: string[] | Partial<R>[] | Reference<R['type']>[] | SpecificResource<R>[],
+    reference: string[] | Partial<R>[] | Reference<R["type"]>[] | SpecificResource<R>[],
     type?: string | GetOptions,
     options?: GetOptions
   ): RefToNormalizedFor<R, Types>[];
@@ -307,13 +304,13 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     type?: string | GetOptions,
     options: GetOptions = {}
   ): RefToNormalizedFor<R, Types> | RefToNormalizedFor<R, Types>[] {
-    if (typeof type !== 'string') {
+    if (typeof type !== "string") {
       options = type || {};
       type = undefined;
     }
 
     const { skipSelfReturn = true } = options || {};
-    let parent = options.parent ? (typeof options.parent === 'string' ? options.parent : options.parent.id) : undefined;
+    let parent = options.parent ? (typeof options.parent === "string" ? options.parent : options.parent.id) : undefined;
 
     // Multiples.
     if (Array.isArray(reference)) {
@@ -327,13 +324,13 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     }
 
     // String IDs.
-    if (typeof reference === 'string') {
+    if (typeof reference === "string") {
       const _type: any = resolveType(type ? type : state.iiif.mapping[reference]);
       if (!_type) {
         if (skipSelfReturn) {
           return null as any;
         }
-        return { id: reference, type: 'unknown' } as any;
+        return { id: reference, type: "unknown" } as any;
       }
       reference = { id: reference, type: _type };
     }
@@ -341,10 +338,10 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     if (reference && (reference as any).partOf && !parent && !options.skipPartOfCheck) {
       const first = Array.isArray((reference as any).partOf) ? (reference as any).partOf[0] : (reference as any).partOf;
       if (first) {
-        if (typeof first === 'string') {
+        if (typeof first === "string") {
           parent = first;
         }
-        if (typeof first.id === 'string') {
+        if (typeof first.id === "string") {
           parent = first.id;
         }
       }
@@ -389,10 +386,10 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   deep(input?: any, prev?: any) {
-    if (typeof input === 'undefined') {
+    if (typeof input === "undefined") {
       return this.get(prev, { skipSelfReturn: false });
     }
-    if (typeof input === 'function') {
+    if (typeof input === "function") {
       try {
         const next = input(this.get(prev, { skipSelfReturn: false }));
         const fn: any = (newInput: any) => this.deep(newInput, next);
@@ -413,22 +410,22 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     id: string | Reference<any>,
     json?: unknown,
     mapper?: (resource: any) => any
-  ): Promise<Types['ManifestNormalized'] | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.load<Types['ManifestNormalized']>(_id, json, mapper);
+  ): Promise<Types["ManifestNormalized"] | undefined> {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.load<Types["ManifestNormalized"]>(_id, json, mapper);
   }
 
   loadCollection(
     id: string | Reference<any>,
     json?: unknown,
     mapper?: (resource: any) => any
-  ): Promise<Types['CollectionNormalized'] | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.load<Types['CollectionNormalized']>(_id, json, mapper);
+  ): Promise<Types["CollectionNormalized"] | undefined> {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.load<Types["CollectionNormalized"]>(_id, json, mapper);
   }
 
   load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
+    const _id = typeof id === "string" ? id : id.id;
     if (json) {
       return Promise.resolve(this.staticFetcher(_id, json, mapper)) as Promise<T | undefined>;
     }
@@ -436,7 +433,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   loadSync<T>(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): T | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
+    const _id = typeof id === "string" ? id : id.id;
     return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
@@ -444,18 +441,18 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     id: string | Reference<any>,
     json: unknown,
     mapper?: (resource: any) => any
-  ): Types['ManifestNormalized'] | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<Types['ManifestNormalized']>(_id, json, mapper);
+  ): Types["ManifestNormalized"] | undefined {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.loadSync<Types["ManifestNormalized"]>(_id, json, mapper);
   }
 
   loadCollectionSync(
     id: string | Reference<any>,
     json: unknown,
     mapper?: (resource: any) => any
-  ): Types['CollectionNormalized'] | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<Types['CollectionNormalized']>(_id, json, mapper);
+  ): Types["CollectionNormalized"] | undefined {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.loadSync<Types["CollectionNormalized"]>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -474,8 +471,8 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     skipInitial?: boolean
   ): () => void {
     if (
-      typeof skipInitial === 'undefined' &&
-      (typeof subscription === 'undefined' || subscription === false || subscription === true)
+      typeof skipInitial === "undefined" &&
+      (typeof subscription === "undefined" || subscription === false || subscription === true)
     ) {
       skipInitial = subscription;
       subscription = selector as any;
@@ -489,7 +486,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   async ensureLoaded(_id: string | Reference<any>): Promise<void> {
-    const id = typeof _id === 'string' ? _id : _id.id;
+    const id = typeof _id === "string" ? _id : _id.id;
     if (!this.requestStatus(id)) {
       await this.load(id);
     }
@@ -505,10 +502,10 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   getPaginationState<T = any>(resource: string | Reference): PaginationState | null {
     // This will return the pagination state of a resource from it's meta.
     // If there is no pagination state, it will create it if needed.
-    const id = typeof resource === 'string' ? resource : resource.id;
+    const id = typeof resource === "string" ? resource : resource.id;
     if (!id) return null;
 
-    const existing = this.getResourceMeta(id, '@vault/pagination');
+    const existing = this.getResourceMeta(id, "@vault/pagination");
     if (existing?.state) {
       return existing.state;
     }
@@ -532,7 +529,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         currentLength: 0,
       };
 
-      this.setMetaValue([id, '@vault/pagination', 'state'], initialState);
+      this.setMetaValue([id, "@vault/pagination", "state"], initialState);
 
       return initialState;
     }
@@ -546,7 +543,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     resource: string | Reference,
     json?: any
   ): Promise<[PaginationState | null, PaginationPageNormalized | null]> {
-    const id = typeof resource === 'string' ? resource : resource.id;
+    const id = typeof resource === "string" ? resource : resource.id;
     if (!id) return [null, null];
 
     // This will get the pagination state and fetch the next page and load it into the vault.
@@ -565,9 +562,9 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         ...state,
         isFetching: false,
         isFullyLoaded: true,
-        error: new Error('Page reference does not have an id'),
+        error: new Error("Page reference does not have an id"),
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
@@ -578,7 +575,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         isFullyLoaded: true,
         error: new Error(`Pagination cycle detected at ${nextPage}`),
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
     const previousPage = state.currentPage;
@@ -589,17 +586,17 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       ...state,
       isFetching: true,
     };
-    this.setMetaValue([id, '@vault/pagination', 'state'], newState);
+    this.setMetaValue([id, "@vault/pagination", "state"], newState);
 
     // 2. Make the fetch request.
     let page;
     try {
       page = await this.load<PaginationPageNormalized>(nextPage, json, (mapped) => {
         // This is required because the page MIGHT have the same id.
-        const { id, ['@id']: _id, ...properties } = mapped || {};
+        const { id, ["@id"]: _id, ...properties } = mapped || {};
 
         if (_id) {
-          return { ['@id']: nextPage, ...properties };
+          return { ["@id"]: nextPage, ...properties };
         }
 
         return { id: nextPage, ...properties };
@@ -610,7 +607,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         isFetching: false,
         error: err,
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
@@ -620,7 +617,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         isFetching: false,
         error: new Error(`Page not found: ${nextPage}`),
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
@@ -635,36 +632,33 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       })
     );
     const expectedPageType =
-      paginatedResourceBeforeLoad.type === 'AnnotationCollection'
-        ? 'AnnotationPage'
-        : referenceId(paginatedResourceBeforeLoad.first) === nextPage && (paginatedResourceBeforeLoad.first as any)?.type
+      paginatedResourceBeforeLoad.type === "AnnotationCollection"
+        ? "AnnotationPage"
+        : referenceId(paginatedResourceBeforeLoad.first) === nextPage &&
+            (paginatedResourceBeforeLoad.first as any)?.type
           ? (paginatedResourceBeforeLoad.first as any).type
           : undefined;
     if (
-      (expectedPageType === 'AnnotationPage' && typedPage.type !== 'AnnotationPage') ||
-      (paginatedResourceBeforeLoad.type === 'Collection' && !['Collection', 'CollectionPage'].includes(typedPage.type))
+      (expectedPageType === "AnnotationPage" && typedPage.type !== "AnnotationPage") ||
+      (paginatedResourceBeforeLoad.type === "Collection" && !["Collection", "CollectionPage"].includes(typedPage.type))
     ) {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
-        error: new Error(`Expected ${expectedPageType || 'collection'} page, received ${typedPage.type || 'unknown'}`),
+        error: new Error(`Expected ${expectedPageType || "collection"} page, received ${typedPage.type || "unknown"}`),
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
     const existingItems = this.getPaginatedItems(resource);
     const pageItems = typedPage.items || [];
     const combinedItems = uniqueReferences([...existingItems, ...pageItems]);
-    if (typedPage.type === 'Collection') {
-      this.modifyEntityField(
-        { id, type: paginatedResourceBeforeLoad.type },
-        'items',
-        combinedItems
-      );
+    if (typedPage.type === "Collection") {
+      this.modifyEntityField({ id, type: paginatedResourceBeforeLoad.type }, "items", combinedItems);
     }
     const latestState = this.getPaginationState(resource);
-    if (!latestState) throw new Error('Pagination state not found');
+    if (!latestState) throw new Error("Pagination state not found");
     const next = referenceId(typedPage.next);
     const successState: PaginationState = {
       ...latestState,
@@ -679,9 +673,9 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         {
           id: typedPage.id,
           type: typedPage.type,
-          startIndex: typeof typedPage.startIndex === 'number' ? typedPage.startIndex : existingItems.length,
+          startIndex: typeof typedPage.startIndex === "number" ? typedPage.startIndex : existingItems.length,
           pageLength: pageItems.length,
-          order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
+          order: typeof latestState.currentPageIndex === "number" ? latestState.currentPageIndex + 1 : 0,
         },
       ],
       isFullyLoaded: !next,
@@ -689,7 +683,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
       page: latestState.pages.length + 1,
     };
 
-    this.setMetaValue([id, '@vault/pagination', 'state'], successState);
+    this.setMetaValue([id, "@vault/pagination", "state"], successState);
 
     return [successState, page];
   }
@@ -716,8 +710,8 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   getLoadReport(resource: string | Reference): VaultLoadReport | undefined {
-    const id = typeof resource === 'string' ? resource : resource.id;
-    return this.getResourceMeta<{ '@vault/load': { report: VaultLoadReport } }>(id, '@vault/load')?.report;
+    const id = typeof resource === "string" ? resource : resource.id;
+    return this.getResourceMeta<{ "@vault/load": { report: VaultLoadReport } }>(id, "@vault/load")?.report;
   }
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
@@ -761,8 +755,8 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   async loadManifestObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Types['Manifest'], Types['ManifestNormalized']>> {
-    return wrapObject<Types['Manifest'], Types['ManifestNormalized']>(
+  ): Promise<ReactiveWrapped<Types["Manifest"], Types["ManifestNormalized"]>> {
+    return wrapObject<Types["Manifest"], Types["ManifestNormalized"]>(
       await this.loadManifest(id, json),
       this as Vault<any>
     );
@@ -770,8 +764,8 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   async loadCollectionObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Types['Collection'], Types['CollectionNormalized']>> {
-    return wrapObject<Types['Collection'], Types['CollectionNormalized']>(
+  ): Promise<ReactiveWrapped<Types["Collection"], Types["CollectionNormalized"]>> {
+    return wrapObject<Types["Collection"], Types["CollectionNormalized"]>(
       await this.loadCollection(id, json),
       this as Vault<any>
     );
@@ -787,7 +781,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     newValueOrUpdate: Value | ((oldValue: Value | undefined) => Value)
   ) {
     this.dispatch(
-      typeof newValueOrUpdate === 'function'
+      typeof newValueOrUpdate === "function"
         ? metaActions.setMetaValueDynamic({
             id,
             meta: meta as any,

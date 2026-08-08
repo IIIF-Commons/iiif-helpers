@@ -1,12 +1,12 @@
-import { validateAuthoredPresentation4 } from '@iiif/parser/presentation-4/validator';
-import { describe, expect, test, vi } from 'vitest';
-import { Vault4 } from '../../../src/vault/vault4';
-import collection from '../collection-pages/fixtures/collection.json';
-import collectionPage1 from '../collection-pages/fixtures/page-1.json';
-import collectionPage2 from '../collection-pages/fixtures/page-2.json';
-import annotationCollection from './fixtures/annotation-collection.json';
-import annotationPage1 from './fixtures/annotation-page-1.json';
-import annotationPage2 from './fixtures/annotation-page-2.json';
+import { validateAuthoredPresentation4 } from "@iiif/parser/presentation-4/validator";
+import { describe, expect, test, vi } from "vitest";
+import { Vault4 } from "../../../src/vault/vault4";
+import collection from "../collection-pages/fixtures/collection.json";
+import collectionPage1 from "../collection-pages/fixtures/page-1.json";
+import collectionPage2 from "../collection-pages/fixtures/page-2.json";
+import annotationCollection from "./fixtures/annotation-collection.json";
+import annotationPage1 from "./fixtures/annotation-page-1.json";
+import annotationPage2 from "./fixtures/annotation-page-2.json";
 
 function fixtureFetcher(fixtures: Array<{ id: string }>) {
   const byId = new Map(fixtures.map((fixture) => [fixture.id, fixture]));
@@ -19,19 +19,15 @@ function fixtureFetcher(fixtures: Array<{ id: string }>) {
   });
 }
 
-describe('Vault page chains', () => {
-  test.each([
-    collection,
-    collectionPage1,
-    collectionPage2,
-    annotationCollection,
-    annotationPage1,
-    annotationPage2,
-  ])('uses valid Presentation 4 fixture $id', (fixture) => {
-    expect(validateAuthoredPresentation4(fixture).valid).toBe(true);
-  });
+describe("Vault page chains", () => {
+  test.each([collection, collectionPage1, collectionPage2, annotationCollection, annotationPage1, annotationPage2])(
+    "uses valid Presentation 4 fixture $id",
+    (fixture) => {
+      expect(validateAuthoredPresentation4(fixture).valid).toBe(true);
+    }
+  );
 
-  test('loads a complete CollectionPage chain in order', async () => {
+  test("loads a complete CollectionPage chain in order", async () => {
     const fetcher = fixtureFetcher([collection, collectionPage1, collectionPage2]);
     const vault = new Vault4({ customFetcher: fetcher });
     await vault.load(collection.id);
@@ -44,26 +40,26 @@ describe('Vault page chains', () => {
       isFullyLoaded: true,
       totalItems: 3,
       pages: [
-        { id: collectionPage1.id, type: 'CollectionPage', startIndex: 0, pageLength: 2, order: 0 },
-        { id: collectionPage2.id, type: 'CollectionPage', startIndex: 2, pageLength: 1, order: 1 },
+        { id: collectionPage1.id, type: "CollectionPage", startIndex: 0, pageLength: 2, order: 0 },
+        { id: collectionPage2.id, type: "CollectionPage", startIndex: 2, pageLength: 1, order: 1 },
       ],
     });
     expect(vault.get(collection.id)).toMatchObject({
-      label: { en: ['Paged collection'] },
-      first: { id: collectionPage1.id, type: 'CollectionPage' },
+      label: { en: ["Paged collection"] },
+      first: { id: collectionPage1.id, type: "CollectionPage" },
       total: 3,
     });
     expect(vault.getPaginatedItems(collection.id)).toEqual([
-      { id: 'https://example.org/iiif/manifest/1', type: 'Manifest' },
-      { id: 'https://example.org/iiif/manifest/2', type: 'Manifest' },
-      { id: 'https://example.org/iiif/manifest/3', type: 'Manifest' },
+      { id: "https://example.org/iiif/manifest/1", type: "Manifest" },
+      { id: "https://example.org/iiif/manifest/2", type: "Manifest" },
+      { id: "https://example.org/iiif/manifest/3", type: "Manifest" },
     ]);
-    expect(validateAuthoredPresentation4(vault.toPresentation4({ id: collection.id, type: 'Collection' })).valid).toBe(
+    expect(validateAuthoredPresentation4(vault.toPresentation4({ id: collection.id, type: "Collection" })).valid).toBe(
       true
     );
   });
 
-  test('loads AnnotationPage chains and deduplicates references', async () => {
+  test("loads AnnotationPage chains and deduplicates references", async () => {
     const secondPageWithDuplicate = {
       ...annotationPage2,
       items: [annotationPage1.items[0], ...annotationPage2.items],
@@ -79,31 +75,31 @@ describe('Vault page chains', () => {
       isFullyLoaded: true,
       totalItems: 2,
       pages: [
-        { id: annotationPage1.id, type: 'AnnotationPage', startIndex: 0, order: 0 },
-        { id: annotationPage2.id, type: 'AnnotationPage', startIndex: 1, order: 1 },
+        { id: annotationPage1.id, type: "AnnotationPage", startIndex: 0, order: 0 },
+        { id: annotationPage2.id, type: "AnnotationPage", startIndex: 1, order: 1 },
       ],
     });
     expect(vault.getPaginatedItems(annotationCollection.id)).toEqual([
-      { id: 'https://example.org/iiif/annotation/1', type: 'Annotation' },
-      { id: 'https://example.org/iiif/annotation/2', type: 'Annotation' },
+      { id: "https://example.org/iiif/annotation/1", type: "Annotation" },
+      { id: "https://example.org/iiif/annotation/2", type: "Annotation" },
     ]);
     const serialized = vault.toPresentation4<any>({
       id: annotationCollection.id,
-      type: 'AnnotationCollection',
+      type: "AnnotationCollection",
     } as any);
     expect(serialized).toMatchObject({
       id: annotationCollection.id,
-      first: { id: annotationPage1.id, type: 'AnnotationPage' },
-      last: { id: annotationPage2.id, type: 'AnnotationPage' },
+      first: { id: annotationPage1.id, type: "AnnotationPage" },
+      last: { id: annotationPage2.id, type: "AnnotationPage" },
       total: 2,
     });
     expect(serialized.items).toBeUndefined();
   });
 
-  test('stops safely on a cyclic next link', async () => {
+  test("stops safely on a cyclic next link", async () => {
     const cyclicPage = {
       ...collectionPage1,
-      next: { id: collectionPage1.id, type: 'CollectionPage' },
+      next: { id: collectionPage1.id, type: "CollectionPage" },
     };
     const vault = new Vault4({
       customFetcher: fixtureFetcher([collection, cyclicPage]),
@@ -119,7 +115,7 @@ describe('Vault page chains', () => {
     });
   });
 
-  test('records a broken page without losing the loaded prefix', async () => {
+  test("records a broken page without losing the loaded prefix", async () => {
     const vault = new Vault4({
       customFetcher: fixtureFetcher([collection, collectionPage1]),
     });
@@ -133,10 +129,10 @@ describe('Vault page chains', () => {
     expect(vault.getPaginatedItems(collection.id)).toHaveLength(2);
   });
 
-  test('returns no pagination state for an unknown resource', async () => {
+  test("returns no pagination state for an unknown resource", async () => {
     const vault = new Vault4();
 
-    expect(vault.getPaginationState('https://example.org/iiif/missing')).toBeNull();
-    await expect(vault.loadPageChain('https://example.org/iiif/missing')).resolves.toBeNull();
+    expect(vault.getPaginationState("https://example.org/iiif/missing")).toBeNull();
+    await expect(vault.loadPageChain("https://example.org/iiif/missing")).resolves.toBeNull();
   });
 });

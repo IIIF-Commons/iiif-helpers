@@ -5,7 +5,7 @@ import {
   getId,
   getImageServices,
   isLevel0,
-} from '@iiif/parser/image-3';
+} from "@iiif/parser/image-3";
 import type {
   ContentResource as ContentResourceV3,
   IIIFExternalWebResource as IIIFExternalWebResourceV3,
@@ -13,7 +13,7 @@ import type {
   ImageService as ImageServiceV3,
   ImageSize as ImageSizeV3,
   ImageTile as ImageTileV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   ContentResource as ContentResourceV4,
   ContentResourceLike as IIIFExternalWebResourceV4,
@@ -21,13 +21,13 @@ import type {
   ImageService as ImageServiceV4,
   ImageSize as ImageSizeV4,
   ImageTile as ImageTileV4,
-} from '@iiif/parser/presentation-4/types';
-import { getImageCandidates } from './get-image-candidates';
-import { getImageServerFromId } from './get-image-server-from-id';
-import { imageSizesMatch } from './image-sizes-match';
-import { pickBestFromCandidates } from './pick-best-from-candidates';
-import { sampledTilesToTiles } from './sampled-tiles-to-tiles';
-import type { ImageCandidate, ImageCandidateRequest } from './types';
+} from "@iiif/parser/presentation-4/types";
+import { getImageCandidates } from "./get-image-candidates";
+import { getImageServerFromId } from "./get-image-server-from-id";
+import { imageSizesMatch } from "./image-sizes-match";
+import { pickBestFromCandidates } from "./pick-best-from-candidates";
+import { sampledTilesToTiles } from "./sampled-tiles-to-tiles";
+import type { ImageCandidate, ImageCandidateRequest } from "./types";
 
 type ContentResource = ContentResourceV3 | ContentResourceV4;
 type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
@@ -136,7 +136,7 @@ export class ImageServiceLoader {
         verified: false,
         server: null,
         result: {
-          context: service['@context'] || [],
+          context: service["@context"] || [],
           sampledProfile: service.profile,
           resourceServiceRatio: imageServiceRequest && service.height ? imageServiceRequest.height / service.height : 1,
           sampledSizes: service.sizes || [],
@@ -204,10 +204,10 @@ export class ImageServiceLoader {
 
     if (!this.imageServices[serviceUrl]) {
       this.imageServices[serviceUrl] = {
-        '@context': imageServer.result.context,
-        '@id': getId(resource),
+        "@context": imageServer.result.context,
+        "@id": getId(resource),
         id: getId(resource),
-        protocol: 'http://iiif.io/api/image',
+        protocol: "http://iiif.io/api/image",
         tiles: source?.tiles || sampledTilesToTiles(resource.width, resource.height, imageServer.result.sampledTiles),
         sizes:
           source?.sizes ||
@@ -275,7 +275,7 @@ export class ImageServiceLoader {
     const isValid =
       prediction.height === imageService.height &&
       prediction.width === imageService.width &&
-      prediction['@context'] === imageService['@context'] &&
+      prediction["@context"] === imageService["@context"] &&
       imageSizesMatch(prediction.sizes || [], imageService.sizes || []);
     // @todo profiles match.
 
@@ -294,7 +294,7 @@ export class ImageServiceLoader {
   }
 
   canLoadSync(service: ImageServiceRequest | ImageService | string): boolean {
-    const serviceId = typeof service === 'string' ? service : getId(service);
+    const serviceId = typeof service === "string" ? service : getId(service);
     const canonical = canonicalServiceUrl(serviceId);
     if (this.imageServices[canonical]) {
       return true;
@@ -332,19 +332,19 @@ export class ImageServiceLoader {
     }
 
     if (!this.config.enableFetching) {
-      throw new Error('Fetching is not enabled');
+      throw new Error("Fetching is not enabled");
     }
 
     const json = (await this.fetch(serviceUrl).then((service) => service.json())) as ImageService;
 
-    if (!json.id && (json as any)['@id']) {
-      json.id = (json as any)['@id'];
+    if (!json.id && (json as any)["@id"]) {
+      json.id = (json as any)["@id"];
     }
 
     if (json.id !== serviceId) {
       json.id = serviceId;
-      if (json['@id']) {
-        json['@id'] = serviceId;
+      if (json["@id"]) {
+        json["@id"] = serviceId;
       }
     }
 

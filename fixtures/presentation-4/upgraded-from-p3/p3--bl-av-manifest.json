@@ -3,88 +3,60 @@
   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/manifest.json",
   "type": "Manifest",
   "label": {
-    "en": [
-      "C604/16 C604/17 Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"
-    ]
+    "en": ["C604/16 C604/17 Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
   },
   "metadata": [
     {
       "label": {
-        "en": [
-          "Full title"
-        ]
+        "en": ["Full title"]
       },
       "value": {
-        "en": [
-          "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"
-        ]
+        "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
       }
     },
     {
       "label": {
-        "en": [
-          "Collection"
-        ]
+        "en": ["Collection"]
       },
       "value": {
-        "en": [
-          "Peter Kennedy Collection"
-        ]
+        "en": ["Peter Kennedy Collection"]
       }
     },
     {
       "label": {
-        "en": [
-          "Format"
-        ]
+        "en": ["Format"]
       },
       "value": {
-        "en": [
-          "1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"
-        ]
+        "en": ["1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"]
       }
     },
     {
       "label": {
-        "en": [
-          "Usage"
-        ]
+        "en": ["Usage"]
       },
       "value": {
-        "en": [
-          "<span>Rights unassigned - staff access only</span>"
-        ]
+        "en": ["<span>Rights unassigned - staff access only</span>"]
       }
     },
     {
       "label": {
-        "en": [
-          "Held by"
-        ]
+        "en": ["Held by"]
       },
       "value": {
-        "en": [
-          "The British Library"
-        ]
+        "en": ["The British Library"]
       }
     },
     {
       "label": {
-        "en": [
-          "Digitised by"
-        ]
+        "en": ["Digitised by"]
       },
       "value": {
-        "en": [
-          "The British Library, 2018"
-        ]
+        "en": ["The British Library, 2018"]
       }
     },
     {
       "label": {
-        "en": [
-          "Digitisation funded by"
-        ]
+        "en": ["Digitisation funded by"]
       },
       "value": {
         "en": [
@@ -94,47 +66,32 @@
     },
     {
       "label": {
-        "en": [
-          "Identifier"
-        ]
+        "en": ["Identifier"]
       },
       "value": {
-        "en": [
-          "C604/16-C604/17"
-        ]
+        "en": ["C604/16-C604/17"]
       }
     },
     {
       "label": {
-        "en": [
-          "Shelfmark"
-        ]
+        "en": ["Shelfmark"]
       },
       "value": {
-        "en": [
-          "C604/16",
-          "C604/17"
-        ]
+        "en": ["C604/16", "C604/17"]
       }
     },
     {
       "label": {
-        "en": [
-          "Link to catalogue"
-        ]
+        "en": ["Link to catalogue"]
       },
       "value": {
-        "en": [
-          "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"
-        ]
+        "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"]
       }
     }
   ],
   "requiredStatement": {
     "label": {
-      "en": [
-        "Usage"
-      ]
+      "en": ["Usage"]
     },
     "value": {
       "en": [
@@ -147,9 +104,7 @@
       "id": "https://www.bl.uk/about-us",
       "type": "Agent",
       "label": {
-        "en": [
-          "The British Library"
-        ]
+        "en": ["The British Library"]
       },
       "homepage": [
         {
@@ -157,9 +112,7 @@
           "type": "Text",
           "format": "text/html",
           "label": {
-            "en": [
-              "The British Library"
-            ]
+            "en": ["The British Library"]
           }
         }
       ],
@@ -200,23 +153,17 @@
       "type": "Text",
       "format": "text/html",
       "label": {
-        "en": [
-          "View at the British Library"
-        ]
+        "en": ["View at the British Library"]
       }
     }
   ],
-  "behavior": [
-    "auto-advance"
-  ],
+  "behavior": ["auto-advance"],
   "items": [
     {
       "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004",
       "type": "Timeline",
       "label": {
-        "en": [
-          "Tape 1 Side 1"
-        ]
+        "en": ["Tape 1 Side 1"]
       },
       "duration": 1417.56,
       "items": [
@@ -227,9 +174,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004/anno1/1",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "target": {
                 "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=0,1417.56",
                 "type": "Timeline"
@@ -280,9 +225,7 @@
       "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006",
       "type": "Timeline",
       "label": {
-        "en": [
-          "Tape 2 Side 1"
-        ]
+        "en": ["Tape 2 Side 1"]
       },
       "duration": 1520.04,
       "items": [
@@ -293,9 +236,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/1",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "target": {
                 "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=0,378.72",
                 "type": "Timeline"
@@ -341,9 +282,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/2",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "target": {
                 "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=378.72,1374.4",
                 "type": "Timeline"
@@ -389,9 +328,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006/anno2/3",
               "type": "Annotation",
-              "motivation": [
-                "painting"
-              ],
+              "motivation": ["painting"],
               "target": {
                 "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1374.4,1520.04",
                 "type": "Timeline"
@@ -444,88 +381,60 @@
       "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/top",
       "type": "Range",
       "label": {
-        "en": [
-          "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)"
-        ]
+        "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier (01:07:55)"]
       },
       "metadata": [
         {
           "label": {
-            "en": [
-              "Full title"
-            ]
+            "en": ["Full title"]
           },
           "value": {
-            "en": [
-              "Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"
-            ]
+            "en": ["Wiltshire and Dorset, dub of disks / Fanny Rumble, A. Collins, Perrier"]
           }
         },
         {
           "label": {
-            "en": [
-              "Collection"
-            ]
+            "en": ["Collection"]
           },
           "value": {
-            "en": [
-              "Peter Kennedy Collection"
-            ]
+            "en": ["Peter Kennedy Collection"]
           }
         },
         {
           "label": {
-            "en": [
-              "Format"
-            ]
+            "en": ["Format"]
           },
           "value": {
-            "en": [
-              "1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"
-            ]
+            "en": ["1 tape reel 18 cm 19 cm/sec 1 tape reel 18 cm 19 cm/sec and 38 cm/sec"]
           }
         },
         {
           "label": {
-            "en": [
-              "Usage"
-            ]
+            "en": ["Usage"]
           },
           "value": {
-            "en": [
-              "<span>Rights unassigned - staff access only</span>"
-            ]
+            "en": ["<span>Rights unassigned - staff access only</span>"]
           }
         },
         {
           "label": {
-            "en": [
-              "Held by"
-            ]
+            "en": ["Held by"]
           },
           "value": {
-            "en": [
-              "The British Library"
-            ]
+            "en": ["The British Library"]
           }
         },
         {
           "label": {
-            "en": [
-              "Digitised by"
-            ]
+            "en": ["Digitised by"]
           },
           "value": {
-            "en": [
-              "The British Library, 2018"
-            ]
+            "en": ["The British Library, 2018"]
           }
         },
         {
           "label": {
-            "en": [
-              "Digitisation funded by"
-            ]
+            "en": ["Digitisation funded by"]
           },
           "value": {
             "en": [
@@ -535,47 +444,32 @@
         },
         {
           "label": {
-            "en": [
-              "Identifier"
-            ]
+            "en": ["Identifier"]
           },
           "value": {
-            "en": [
-              "C604/16-C604/17"
-            ]
+            "en": ["C604/16-C604/17"]
           }
         },
         {
           "label": {
-            "en": [
-              "Shelfmark"
-            ]
+            "en": ["Shelfmark"]
           },
           "value": {
-            "en": [
-              "C604/16",
-              "C604/17"
-            ]
+            "en": ["C604/16", "C604/17"]
           }
         },
         {
           "label": {
-            "en": [
-              "Link to catalogue"
-            ]
+            "en": ["Link to catalogue"]
           },
           "value": {
-            "en": [
-              "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"
-            ]
+            "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA7608156'>View the catalogue record</a>"]
           }
         }
       ],
       "requiredStatement": {
         "label": {
-          "en": [
-            "Usage"
-          ]
+          "en": ["Usage"]
         },
         "value": {
           "en": [
@@ -588,9 +482,7 @@
           "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000002/top",
           "type": "Audio",
           "label": {
-            "en": [
-              "Download this recording"
-            ]
+            "en": ["Download this recording"]
           },
           "format": "audio/mp4"
         }
@@ -600,139 +492,92 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000007",
           "type": "Range",
           "label": {
-            "en": [
-              "The turmut hoeing (02:29)"
-            ]
+            "en": ["The turmut hoeing (02:29)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "The turmut hoeing"
-                ]
+                "en": ["The turmut hoeing"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
-                "en": [
-                  "Perrier, Fred (singer, male)",
-                  "unidentified (singers)",
-                  "Kennedy, Peter, (sound recordist)"
-                ]
+                "en": ["Perrier, Fred (singer, male)", "unidentified (singers)", "Kennedy, Peter, (sound recordist)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "2 min. 29 sec."
-                ]
+                "en": ["2 min. 29 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "Accents and dialects - English language - England: Wiltshire"
-                ]
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -742,45 +587,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C1"
-                ]
+                "en": ["C604/16 C1"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176753'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176753'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -794,9 +625,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -809,9 +638,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000007",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -826,9 +653,7 @@
         {
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000007/nn2",
           "type": "Range",
-          "behavior": [
-            "no-nav"
-          ],
+          "behavior": ["no-nav"],
           "items": [
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=148.76,148.8",
@@ -840,138 +665,92 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000009",
           "type": "Range",
           "label": {
-            "en": [
-              "She stole my heart away (02:08)"
-            ]
+            "en": ["She stole my heart away (02:08)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "She stole my heart away"
-                ]
+                "en": ["She stole my heart away"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
-                "en": [
-                  "Perrier, Fred (singer, male)",
-                  "Kennedy, Peter, (sound recordist)"
-                ]
+                "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "2 min. 07 sec."
-                ]
+                "en": ["2 min. 07 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "Accents and dialects - English language - England: Wiltshire"
-                ]
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -981,45 +760,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C2"
-                ]
+                "en": ["C604/16 C2"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176766'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176766'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -1032,9 +797,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -1047,9 +810,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000009",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -1065,138 +826,92 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000b",
           "type": "Range",
           "label": {
-            "en": [
-              "Dumble dum dollicky (Richard of Taunton Dean) (03:01)"
-            ]
+            "en": ["Dumble dum dollicky (Richard of Taunton Dean) (03:01)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "Dumble dum dollicky (Richard of Taunton Dean)"
-                ]
+                "en": ["Dumble dum dollicky (Richard of Taunton Dean)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
-                "en": [
-                  "Rumble, Fanny (singer, female)",
-                  "Kennedy, Peter, (sound recordist)"
-                ]
+                "en": ["Rumble, Fanny (singer, female)", "Kennedy, Peter, (sound recordist)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "3 min. 00 sec."
-                ]
+                "en": ["3 min. 00 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "English"
-                ]
+                "en": ["English"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -1206,58 +921,40 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C3"
-                ]
+                "en": ["C604/16 C3"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176767'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176767'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
-                "en": [
-                  "Dubbed from BBC 78 rpm disc 21494."
-                ]
+                "en": ["Dubbed from BBC 78 rpm disc 21494."]
               }
             }
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -1270,9 +967,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000b",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -1288,138 +983,92 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000d",
           "type": "Range",
           "label": {
-            "en": [
-              "Mrs Fanny Rumble talks about herself (01:44)"
-            ]
+            "en": ["Mrs Fanny Rumble talks about herself (01:44)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "Mrs Fanny Rumble talks about herself"
-                ]
+                "en": ["Mrs Fanny Rumble talks about herself"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
-                "en": [
-                  "Rumble, Fanny (speaker, female)",
-                  "Kennedy, Peter, (sound recordist / speaker, male)"
-                ]
+                "en": ["Rumble, Fanny (speaker, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "1 min. 44 sec."
-                ]
+                "en": ["1 min. 44 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "Accents and dialects - English language - England: Wiltshire"
-                ]
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -1429,45 +1078,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C4"
-                ]
+                "en": ["C604/16 C4"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176768'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176768'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -1479,9 +1114,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -1494,9 +1127,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000d",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -1512,28 +1143,20 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00000f",
           "type": "Range",
           "label": {
-            "en": [
-              "What shall I wear to the wedding, John? (03:25)"
-            ]
+            "en": ["What shall I wear to the wedding, John? (03:25)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "What shall I wear to the wedding, John?"
-                ]
+                "en": ["What shall I wear to the wedding, John?"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
                 "en": [
@@ -1545,106 +1168,71 @@
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "3 min. 24 sec."
-                ]
+                "en": ["3 min. 24 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "English"
-                ]
+                "en": ["English"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -1654,45 +1242,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C5"
-                ]
+                "en": ["C604/16 C5"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176769'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176769'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -1704,9 +1278,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -1719,9 +1291,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00000f",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -1737,28 +1307,20 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000011",
           "type": "Range",
           "label": {
-            "en": [
-              "Country courtship (05:50)"
-            ]
+            "en": ["Country courtship (05:50)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "Country courtship"
-                ]
+                "en": ["Country courtship"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
                 "en": [
@@ -1770,106 +1332,71 @@
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-08 (recorded)"
-                ]
+                "en": ["1954-10-08 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Wool, Dorset, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Wool, Dorset, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "5 min. 50 sec."
-                ]
+                "en": ["5 min. 50 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "Accents and dialects - English language - England: Dorset"
-                ]
+                "en": ["Accents and dialects - English language - England: Dorset"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -1879,45 +1406,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C6"
-                ]
+                "en": ["C604/16 C6"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176770'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176770'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -1930,9 +1443,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -1945,9 +1456,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000011",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -1963,28 +1472,20 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013",
           "type": "Range",
           "label": {
-            "en": [
-              "Herbert Prince (05:00)"
-            ]
+            "en": ["Herbert Prince (05:00)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "Herbert Prince"
-                ]
+                "en": ["Herbert Prince"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
                 "en": [
@@ -1995,106 +1496,71 @@
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Warminster, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "5 min. 00 sec."
-                ]
+                "en": ["5 min. 00 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "Accents and dialects - English language - England: Wiltshire"
-                ]
+                "en": ["Accents and dialects - English language - England: Wiltshire"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -2104,45 +1570,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/16 C7-8"
-                ]
+                "en": ["C604/16 C7-8"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/16"
-                ]
+                "en": ["C604/16"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176833'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176833'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -2156,9 +1608,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -2171,9 +1621,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000013",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -2182,9 +1630,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013/nn1",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1117.28,1119.76",
@@ -2196,138 +1642,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000014",
               "type": "Range",
               "label": {
-                "en": [
-                  "Introductory talk: 'The young sailor cut down in his prime' (01:25)"
-                ]
+                "en": ["Introductory talk: 'The young sailor cut down in his prime' (01:25)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "Introductory talk: 'The young sailor cut down in his prime'"
-                    ]
+                    "en": ["Introductory talk: 'The young sailor cut down in his prime'"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Prince, Herbert (speaker, male)",
-                      "Kennedy, Peter, (sound recordist / speaker, male)"
-                    ]
+                    "en": ["Prince, Herbert (speaker, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Warminster, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "1 min. 25 sec."
-                    ]
+                    "en": ["1 min. 25 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -2337,45 +1737,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/16 C7"
-                    ]
+                    "en": ["C604/16 C7"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/16"
-                    ]
+                    "en": ["C604/16"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176825'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176825'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -2387,9 +1773,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -2402,9 +1786,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000014",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -2419,9 +1801,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000014/nn2",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1204.96,1209.4",
@@ -2433,138 +1813,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000015",
               "type": "Range",
               "label": {
-                "en": [
-                  "The young sailor cut down in his prime (02:49)"
-                ]
+                "en": ["The young sailor cut down in his prime (02:49)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "The young sailor cut down in his prime"
-                    ]
+                    "en": ["The young sailor cut down in his prime"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Prince, Herbert (singer, male)",
-                      "Kennedy, Peter, (sound recordist)"
-                    ]
+                    "en": ["Prince, Herbert (singer, male)", "Kennedy, Peter, (sound recordist)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Warminster, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Warminster, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "2 min. 48 sec."
-                    ]
+                    "en": ["2 min. 48 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "English"
-                    ]
+                    "en": ["English"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -2574,58 +1908,40 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/16 C8"
-                    ]
+                    "en": ["C604/16 C8"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/16"
-                    ]
+                    "en": ["C604/16"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176829'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8176829'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
-                    "en": [
-                      "Dubbed from BBC 78 rpm disc 21497."
-                    ]
+                    "en": ["Dubbed from BBC 78 rpm disc 21497."]
                   }
                 }
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -2638,9 +1954,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000015",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -2655,9 +1969,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000013/nn2",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000004#t=1377.96,1417.56",
@@ -2671,28 +1983,20 @@
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000019",
           "type": "Range",
           "label": {
-            "en": [
-              "Fanny Rumble / Albert Collins / Fred Perrier (25:17)"
-            ]
+            "en": ["Fanny Rumble / Albert Collins / Fred Perrier (25:17)"]
           },
           "metadata": [
             {
               "label": {
-                "en": [
-                  "Full title"
-                ]
+                "en": ["Full title"]
               },
               "value": {
-                "en": [
-                  "Fanny Rumble / Albert Collins / Fred Perrier"
-                ]
+                "en": ["Fanny Rumble / Albert Collins / Fred Perrier"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Creator"
-                ]
+                "en": ["Creator"]
               },
               "value": {
                 "en": [
@@ -2706,106 +2010,71 @@
             },
             {
               "label": {
-                "en": [
-                  "Date"
-                ]
+                "en": ["Date"]
               },
               "value": {
-                "en": [
-                  "1954-10-06 (recorded)"
-                ]
+                "en": ["1954-10-06 (recorded)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Place of creation"
-                ]
+                "en": ["Place of creation"]
               },
               "value": {
-                "en": [
-                  "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                  "England (place of origin)"
-                ]
+                "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Duration"
-                ]
+                "en": ["Duration"]
               },
               "value": {
-                "en": [
-                  "25 min. 20 sec."
-                ]
+                "en": ["25 min. 20 sec."]
               }
             },
             {
               "label": {
-                "en": [
-                  "Language"
-                ]
+                "en": ["Language"]
               },
               "value": {
-                "en": [
-                  "English"
-                ]
+                "en": ["English"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Collection"
-                ]
+                "en": ["Collection"]
               },
               "value": {
-                "en": [
-                  "Peter Kennedy Collection"
-                ]
+                "en": ["Peter Kennedy Collection"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Usage"
-                ]
+                "en": ["Usage"]
               },
               "value": {
-                "en": [
-                  "<span>Rights unassigned - staff access only</span>"
-                ]
+                "en": ["<span>Rights unassigned - staff access only</span>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Held by"
-                ]
+                "en": ["Held by"]
               },
               "value": {
-                "en": [
-                  "The British Library"
-                ]
+                "en": ["The British Library"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitised by"
-                ]
+                "en": ["Digitised by"]
               },
               "value": {
-                "en": [
-                  "The British Library, 2018"
-                ]
+                "en": ["The British Library, 2018"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Digitisation funded by"
-                ]
+                "en": ["Digitisation funded by"]
               },
               "value": {
                 "en": [
@@ -2815,45 +2084,31 @@
             },
             {
               "label": {
-                "en": [
-                  "Identifier"
-                ]
+                "en": ["Identifier"]
               },
               "value": {
-                "en": [
-                  "C604/17 C1-C8"
-                ]
+                "en": ["C604/17 C1-C8"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Shelfmark"
-                ]
+                "en": ["Shelfmark"]
               },
               "value": {
-                "en": [
-                  "C604/17"
-                ]
+                "en": ["C604/17"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Link to catalogue"
-                ]
+                "en": ["Link to catalogue"]
               },
               "value": {
-                "en": [
-                  "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177150'>View the catalogue record</a>"
-                ]
+                "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177150'>View the catalogue record</a>"]
               }
             },
             {
               "label": {
-                "en": [
-                  "Description"
-                ]
+                "en": ["Description"]
               },
               "value": {
                 "en": [
@@ -2870,9 +2125,7 @@
           ],
           "requiredStatement": {
             "label": {
-              "en": [
-                "Usage"
-              ]
+              "en": ["Usage"]
             },
             "value": {
               "en": [
@@ -2885,9 +2138,7 @@
               "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000019",
               "type": "Audio",
               "label": {
-                "en": [
-                  "Download this recording"
-                ]
+                "en": ["Download this recording"]
               },
               "format": "audio/mp4"
             }
@@ -2896,9 +2147,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000019/nn1",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=0,28.04",
@@ -2910,28 +2159,20 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001a",
               "type": "Range",
               "label": {
-                "en": [
-                  "O what shall I wear to the wedding, John? (03:57)"
-                ]
+                "en": ["O what shall I wear to the wedding, John? (03:57)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "O what shall I wear to the wedding, John?"
-                    ]
+                    "en": ["O what shall I wear to the wedding, John?"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
                     "en": [
@@ -2943,106 +2184,71 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "3 min. 58 sec."
-                    ]
+                    "en": ["3 min. 58 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "English"
-                    ]
+                    "en": ["English"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -3052,58 +2258,40 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C1"
-                    ]
+                    "en": ["C604/17 C1"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177128'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177128'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
-                    "en": [
-                      "Preceded by talk."
-                    ]
+                    "en": ["Preceded by talk."]
                   }
                 }
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -3116,9 +2304,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001a",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -3133,9 +2319,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001a/nn2",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=644.12,718.6400000000001",
@@ -3147,28 +2331,20 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001b",
               "type": "Range",
               "label": {
-                "en": [
-                  "O what shall I wear to the wedding, John? (02:47)"
-                ]
+                "en": ["O what shall I wear to the wedding, John? (02:47)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "O what shall I wear to the wedding, John?"
-                    ]
+                    "en": ["O what shall I wear to the wedding, John?"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
                     "en": [
@@ -3181,106 +2357,71 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "2 min. 47 sec."
-                    ]
+                    "en": ["2 min. 47 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "English"
-                    ]
+                    "en": ["English"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -3290,45 +2431,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C2"
-                    ]
+                    "en": ["C604/17 C2"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177132'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177132'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -3341,9 +2468,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -3356,9 +2481,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001b",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -3373,9 +2496,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001b/nn3",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=885.52,885.6",
@@ -3387,28 +2508,20 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001c",
               "type": "Range",
               "label": {
-                "en": [
-                  "The vly on the turmut (03:10)"
-                ]
+                "en": ["The vly on the turmut (03:10)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "The vly on the turmut"
-                    ]
+                    "en": ["The vly on the turmut"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
                     "en": [
@@ -3420,106 +2533,71 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "3 min. 10 sec."
-                    ]
+                    "en": ["3 min. 10 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -3529,45 +2607,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C3"
-                    ]
+                    "en": ["C604/17 C3"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177136'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177136'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -3580,9 +2644,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -3595,9 +2657,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001c",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -3612,9 +2672,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001c/nn4",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1075.6,1148.8000000000002",
@@ -3626,28 +2684,20 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001d",
               "type": "Range",
               "label": {
-                "en": [
-                  "The vly on the turmut (01:37)"
-                ]
+                "en": ["The vly on the turmut (01:37)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "The vly on the turmut"
-                    ]
+                    "en": ["The vly on the turmut"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
                     "en": [
@@ -3659,106 +2709,71 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "1 min. 37 sec."
-                    ]
+                    "en": ["1 min. 37 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -3768,45 +2783,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C4"
-                    ]
+                    "en": ["C604/17 C4"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177139'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177139'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -3819,9 +2820,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -3834,9 +2833,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001d",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -3851,9 +2848,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001d/nn5",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1245.68,1250.72",
@@ -3865,138 +2860,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001e",
               "type": "Range",
               "label": {
-                "en": [
-                  "Twas on a Monday morning (02:04)"
-                ]
+                "en": ["Twas on a Monday morning (02:04)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "Twas on a Monday morning"
-                    ]
+                    "en": ["Twas on a Monday morning"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Perrier, Fred (singer, male)",
-                      "Kennedy, Peter, (sound recordist / speaker, male)"
-                    ]
+                    "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "2 min. 08 sec."
-                    ]
+                    "en": ["2 min. 08 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -4006,45 +2955,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C5"
-                    ]
+                    "en": ["C604/17 C5"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177140'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177140'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -4057,9 +2992,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -4072,9 +3005,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001e",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -4089,9 +3020,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001e/nn6",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=1374.4,1376.2",
@@ -4103,138 +3032,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x00001f",
               "type": "Range",
               "label": {
-                "en": [
-                  "Twas on a Monday morning (02:22)"
-                ]
+                "en": ["Twas on a Monday morning (02:22)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "Twas on a Monday morning"
-                    ]
+                    "en": ["Twas on a Monday morning"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Perrier, Fred (singer, male)",
-                      "Kennedy, Peter, (sound recordist / speaker, male)"
-                    ]
+                    "en": ["Perrier, Fred (singer, male)", "Kennedy, Peter, (sound recordist / speaker, male)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "2 min. 22 sec."
-                    ]
+                    "en": ["2 min. 22 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -4244,45 +3127,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C6"
-                    ]
+                    "en": ["C604/17 C6"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177149'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177149'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -4295,9 +3164,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -4310,9 +3177,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x00001f",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -4328,138 +3193,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000020",
               "type": "Range",
               "label": {
-                "en": [
-                  "Dumble dum dollicky (04:23)"
-                ]
+                "en": ["Dumble dum dollicky (04:23)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "Dumble dum dollicky"
-                    ]
+                    "en": ["Dumble dum dollicky"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Rumble, Fanny (singer, female)",
-                      "Kennedy, Peter, (sound recordist / speaker, male)"
-                    ]
+                    "en": ["Rumble, Fanny (singer, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "2 min. 08 sec."
-                    ]
+                    "en": ["2 min. 08 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -4469,45 +3288,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C7"
-                    ]
+                    "en": ["C604/17 C7"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177146'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177146'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -4520,9 +3325,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -4535,9 +3338,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000020",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -4552,9 +3353,7 @@
             {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000020/nn8",
               "type": "Range",
-              "behavior": [
-                "no-nav"
-              ],
+              "behavior": ["no-nav"],
               "items": [
                 {
                   "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000006#t=264.64,266.08",
@@ -4566,138 +3365,92 @@
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000021",
               "type": "Range",
               "label": {
-                "en": [
-                  "Talk about herself (01:53)"
-                ]
+                "en": ["Talk about herself (01:53)"]
               },
               "metadata": [
                 {
                   "label": {
-                    "en": [
-                      "Full title"
-                    ]
+                    "en": ["Full title"]
                   },
                   "value": {
-                    "en": [
-                      "Talk about herself"
-                    ]
+                    "en": ["Talk about herself"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Creator"
-                    ]
+                    "en": ["Creator"]
                   },
                   "value": {
-                    "en": [
-                      "Rumble, Fanny (speaker, female)",
-                      "Kennedy, Peter, (sound recordist / speaker, male)"
-                    ]
+                    "en": ["Rumble, Fanny (speaker, female)", "Kennedy, Peter, (sound recordist / speaker, male)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Date"
-                    ]
+                    "en": ["Date"]
                   },
                   "value": {
-                    "en": [
-                      "1954-10-06 (recorded)"
-                    ]
+                    "en": ["1954-10-06 (recorded)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Place of creation"
-                    ]
+                    "en": ["Place of creation"]
                   },
                   "value": {
-                    "en": [
-                      "Tilshead, Shrewton, Wiltshire, England, UK (recorded)",
-                      "England (place of origin)"
-                    ]
+                    "en": ["Tilshead, Shrewton, Wiltshire, England, UK (recorded)", "England (place of origin)"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Duration"
-                    ]
+                    "en": ["Duration"]
                   },
                   "value": {
-                    "en": [
-                      "1 min. 52 sec."
-                    ]
+                    "en": ["1 min. 52 sec."]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Language"
-                    ]
+                    "en": ["Language"]
                   },
                   "value": {
-                    "en": [
-                      "Accents and dialects - English language - England: Wiltshire"
-                    ]
+                    "en": ["Accents and dialects - English language - England: Wiltshire"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Collection"
-                    ]
+                    "en": ["Collection"]
                   },
                   "value": {
-                    "en": [
-                      "Peter Kennedy Collection"
-                    ]
+                    "en": ["Peter Kennedy Collection"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Usage"
-                    ]
+                    "en": ["Usage"]
                   },
                   "value": {
-                    "en": [
-                      "<span>Rights unassigned - staff access only</span>"
-                    ]
+                    "en": ["<span>Rights unassigned - staff access only</span>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Held by"
-                    ]
+                    "en": ["Held by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library"
-                    ]
+                    "en": ["The British Library"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitised by"
-                    ]
+                    "en": ["Digitised by"]
                   },
                   "value": {
-                    "en": [
-                      "The British Library, 2018"
-                    ]
+                    "en": ["The British Library, 2018"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Digitisation funded by"
-                    ]
+                    "en": ["Digitisation funded by"]
                   },
                   "value": {
                     "en": [
@@ -4707,45 +3460,31 @@
                 },
                 {
                   "label": {
-                    "en": [
-                      "Identifier"
-                    ]
+                    "en": ["Identifier"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17 C8"
-                    ]
+                    "en": ["C604/17 C8"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Shelfmark"
-                    ]
+                    "en": ["Shelfmark"]
                   },
                   "value": {
-                    "en": [
-                      "C604/17"
-                    ]
+                    "en": ["C604/17"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Link to catalogue"
-                    ]
+                    "en": ["Link to catalogue"]
                   },
                   "value": {
-                    "en": [
-                      "<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177148'>View the catalogue record</a>"
-                    ]
+                    "en": ["<a href='http://explore.bl.uk/BLVU1:LSCOP-ALL:BLLSA8177148'>View the catalogue record</a>"]
                   }
                 },
                 {
                   "label": {
-                    "en": [
-                      "Description"
-                    ]
+                    "en": ["Description"]
                   },
                   "value": {
                     "en": [
@@ -4756,9 +3495,7 @@
               ],
               "requiredStatement": {
                 "label": {
-                  "en": [
-                    "Usage"
-                  ]
+                  "en": ["Usage"]
                 },
                 "value": {
                   "en": [
@@ -4771,9 +3508,7 @@
                   "id": "https://api.bl.uk/item/download/ark:/81055/vdc_100082592360.0x000002/ark:/81055/vdc_100082592360.0x000021",
                   "type": "Audio",
                   "label": {
-                    "en": [
-                      "Download this recording"
-                    ]
+                    "en": ["Download this recording"]
                   },
                   "format": "audio/mp4"
                 }
@@ -4790,9 +3525,7 @@
         {
           "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/top/nn8",
           "type": "Range",
-          "behavior": [
-            "no-nav"
-          ],
+          "behavior": ["no-nav"],
           "items": [
             {
               "id": "https://api.bl.uk/metadata/iiif/#t=378.72,1520.04",
@@ -4807,9 +3540,7 @@
     "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/poster",
     "type": "Canvas",
     "label": {
-      "en": [
-        "world"
-      ]
+      "en": ["world"]
     },
     "width": 962,
     "height": 962,
@@ -4821,9 +3552,7 @@
           {
             "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/a1/a1",
             "type": "Annotation",
-            "motivation": [
-              "painting"
-            ],
+            "motivation": ["painting"],
             "target": {
               "id": "https://api.bl.uk/metadata/iiif/ark:/81055/vdc_100082592360.0x000002/c/poster",
               "type": "Canvas"

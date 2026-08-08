@@ -1,10 +1,10 @@
-import { getId } from '@iiif/parser/image-3';
-import type { ImageService as ImageServiceV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageService as ImageServiceV4 } from '@iiif/parser/presentation-4/types';
-import mitt, { type Emitter, type Handler } from 'mitt';
-import { createStore } from 'zustand/vanilla';
-import type { StoreApi } from '../store-api';
-import { ImageServiceLoader } from './image-service-loader';
+import { getId } from "@iiif/parser/image-3";
+import type { ImageService as ImageServiceV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageService as ImageServiceV4 } from "@iiif/parser/presentation-4/types";
+import mitt, { type Emitter, type Handler } from "mitt";
+import { createStore } from "zustand/vanilla";
+import type { StoreApi } from "../store-api";
+import { ImageServiceLoader } from "./image-service-loader";
 
 type ImageService = ImageServiceV3 | ImageServiceV4;
 
@@ -18,7 +18,7 @@ export interface ImageServiceStore {
   loaded: Record<
     string,
     {
-      status: 'loading' | 'done' | 'error';
+      status: "loading" | "done" | "error";
       service: ImageService | null;
       error?: boolean;
       errorMesage?: string;
@@ -40,14 +40,14 @@ export interface ImageServiceStoreOptions {
 }
 
 export type ImageServiceStoreEvents = {
-  'image-service.loaded': {
+  "image-service.loaded": {
     id: string;
     service: ImageService | null;
   };
-  'image-service.loading': {
+  "image-service.loading": {
     id: string;
   };
-  'image-service.error': {
+  "image-service.error": {
     id: string;
     error: Error;
   };
@@ -66,19 +66,19 @@ export function createImageServiceStore(options: ImageServiceStoreOptions = {}):
     loaded: {},
 
     loadServiceSync: (service, detail, backgroundRequest) => {
-      const id = service.id || (service['@id'] as string);
+      const id = service.id || (service["@id"] as string);
       const existing = get().loaded[id];
 
-      if (existing && existing.status === 'done') {
+      if (existing && existing.status === "done") {
         return existing.service;
       }
 
-      if (existing && existing.status === 'loading') {
+      if (existing && existing.status === "loading") {
         return null;
       }
 
-      if (existing && existing.status === 'error') {
-        throw new Error('Failed to load image service');
+      if (existing && existing.status === "error") {
+        throw new Error("Failed to load image service");
       }
 
       const request = {
@@ -94,14 +94,14 @@ export function createImageServiceStore(options: ImageServiceStoreOptions = {}):
           loaded: {
             ...state.loaded,
             [id]: {
-              status: 'done',
+              status: "done",
               service: loaded,
               real: true,
             },
           },
         }));
 
-        events.emit('image-service.loaded', { id, service: loaded });
+        events.emit("image-service.loaded", { id, service: loaded });
       } else {
         if (backgroundRequest) {
           get()
@@ -116,30 +116,30 @@ export function createImageServiceStore(options: ImageServiceStoreOptions = {}):
     },
 
     loadService: async (service: ImageService, detail) => {
-      const id = service.id || (service['@id'] as string);
+      const id = service.id || (service["@id"] as string);
       const existing = get().loaded[id];
 
-      if (existing && existing.status === 'done') {
+      if (existing && existing.status === "done") {
         return existing.service;
       }
 
-      if (existing && existing.status === 'loading') {
+      if (existing && existing.status === "loading") {
         return new Promise<ImageService>((resolve, reject) => {
-          const handler: Handler<ImageServiceStoreEvents['image-service.loaded']> = (e) => {
+          const handler: Handler<ImageServiceStoreEvents["image-service.loaded"]> = (e) => {
             if (e.id === id) {
-              events.off('image-service.loaded', handler);
+              events.off("image-service.loaded", handler);
               resolve(e.service || service);
             }
           };
-          events.on('image-service.loaded', handler);
+          events.on("image-service.loaded", handler);
         });
       }
 
-      if (existing && existing.status === 'error' && !detail?.force) {
-        throw new Error('Failed to load image service');
+      if (existing && existing.status === "error" && !detail?.force) {
+        throw new Error("Failed to load image service");
       }
 
-      events.emit('image-service.loading', { id });
+      events.emit("image-service.loading", { id });
       try {
         const request = {
           id: getId(service),
@@ -154,18 +154,18 @@ export function createImageServiceStore(options: ImageServiceStoreOptions = {}):
           loaded: {
             ...state.loaded,
             [id]: {
-              status: 'done',
+              status: "done",
               service: loaded,
               real: (loaded as any).real,
             },
           },
         }));
 
-        events.emit('image-service.loaded', { id, service: loaded });
+        events.emit("image-service.loaded", { id, service: loaded });
 
         return loaded;
       } catch (error: any) {
-        events.emit('image-service.error', { id, error });
+        events.emit("image-service.error", { id, error });
         throw error;
       }
     },

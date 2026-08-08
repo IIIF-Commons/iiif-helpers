@@ -1,24 +1,24 @@
 import type {
   ContentResource as ContentResourceV3,
   IIIFExternalWebResource as IIIFExternalWebResourceV3,
-} from '@iiif/parser/presentation-3/types';
+} from "@iiif/parser/presentation-3/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV3,
   CanvasNormalized as CanvasNormalizedV3,
-} from '@iiif/parser/presentation-3-normalized/types';
+} from "@iiif/parser/presentation-3-normalized/types";
 import type {
   ContentResource as ContentResourceV4,
   ContentResourceLike as IIIFExternalWebResourceV4,
-} from '@iiif/parser/presentation-4/types';
+} from "@iiif/parser/presentation-4/types";
 import type {
   AnnotationNormalized as AnnotationNormalizedV4,
   CanvasNormalized as CanvasNormalizedV4,
-} from '@iiif/parser/presentation-4-normalized/types';
-import { resolveAnnotationValues } from '../annotation-values';
-import { type CompatVault, compatVault } from '../compat';
-import { parseSpecificResource } from './parse-specific-resource';
-import { getSelectorTransformAttributes, resolveSelectorStyle } from '../annotation-targets/css-selectors';
-import type { ComplexChoice, Paintables } from './types';
+} from "@iiif/parser/presentation-4-normalized/types";
+import { resolveAnnotationValues } from "../annotation-values";
+import { type CompatVault, compatVault } from "../compat";
+import { parseSpecificResource } from "./parse-specific-resource";
+import { getSelectorTransformAttributes, resolveSelectorStyle } from "../annotation-targets/css-selectors";
+import type { ComplexChoice, Paintables } from "./types";
 
 type CanvasNormalized = CanvasNormalizedV3 | CanvasNormalizedV4;
 type AnnotationNormalized = AnnotationNormalizedV3 | AnnotationNormalizedV4;
@@ -34,10 +34,10 @@ function getInlineStylesheets(stylesheet: unknown): Record<string, string> | und
   const result: Record<string, string> = {};
 
   for (const sheet of stylesheets as any[]) {
-    if (sheet?.type !== 'CssStylesheet' || !('value' in sheet)) {
+    if (sheet?.type !== "CssStylesheet" || !("value" in sheet)) {
       continue;
     }
-    const value = Array.isArray(sheet.value) ? sheet.value.join('\n') : sheet.value;
+    const value = Array.isArray(sheet.value) ? sheet.value.join("\n") : sheet.value;
     if (value) {
       result[sheet.id || `inline-${Object.keys(result).length}`] = value;
     }
@@ -49,7 +49,7 @@ function getInlineStylesheets(stylesheet: unknown): Record<string, string> | und
 export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault) {
   function getAllPaintingAnnotations(canvasOrId: string | CanvasNormalized | undefined | null) {
     const canvas = canvasOrId
-      ? typeof canvasOrId === 'string'
+      ? typeof canvasOrId === "string"
         ? vault.get<CanvasNormalized>(canvasOrId)
         : canvasOrId
       : null;
@@ -76,12 +76,12 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
     const types: string[] = [];
     const choices: ComplexChoice = {
       items: [],
-      type: 'complex-choice',
+      type: "complex-choice",
     };
-    const items: Paintables['items'] = [];
+    const items: Paintables["items"] = [];
 
     for (const annotation of paintingAnnotations) {
-      if (annotation.type !== 'Annotation') {
+      if (annotation.type !== "Annotation") {
         throw new Error(`getPaintables() accept either a canvas or list of annotations`);
       }
 
@@ -106,7 +106,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
         const choiceGroups = new Map<string, { pathIndex: number; bodies: typeof bodies }>();
         for (const candidate of bodies) {
           candidate.aggregatePath.forEach((step, pathIndex) => {
-            if (step.type !== 'Choice') return;
+            if (step.type !== "Choice") return;
             const key = JSON.stringify(candidate.aggregatePath.slice(0, pathIndex));
             const group = choiceGroups.get(key) || { pathIndex, bodies: [] };
             group.bodies.push(candidate);
@@ -123,11 +123,13 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
           );
           if (!selected.size) {
             const candidate = group.bodies[0];
-            selected.add(candidate.aggregateDefaults[group.pathIndex] ?? candidate.aggregatePath[group.pathIndex].index);
+            selected.add(
+              candidate.aggregateDefaults[group.pathIndex] ?? candidate.aggregatePath[group.pathIndex].index
+            );
           }
           selectedChoiceIndexes.set(key, selected);
           choices.items.push({
-            type: 'single-choice',
+            type: "single-choice",
             items: group.bodies.map(({ body, aggregatePath }) => ({
               id: body.id,
               label: (body as any).label as any,
@@ -139,7 +141,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
 
         for (const { body, aggregatePath, specificResources } of bodies) {
           const isSelected = aggregatePath.every((step, pathIndex) => {
-            if (step.type !== 'Choice') return true;
+            if (step.type !== "Choice") return true;
             const key = JSON.stringify(aggregatePath.slice(0, pathIndex));
             return selectedChoiceIndexes.get(key)?.has(step.index);
           });
@@ -147,7 +149,7 @@ export function createPaintingAnnotationsHelper(vault: CompatVault = compatVault
             continue;
           }
 
-          const type = (body.type || 'unknown').toLowerCase();
+          const type = (body.type || "unknown").toLowerCase();
           if (types.indexOf(type) === -1) {
             types.push(type);
           }

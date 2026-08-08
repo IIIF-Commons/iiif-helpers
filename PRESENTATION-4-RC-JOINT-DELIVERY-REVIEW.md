@@ -182,7 +182,7 @@ The runtime store keeps entity buckets, identity mapping, request state, and met
 
 - `Vault` uses the root parser normalizer and v2/v3 serializers.
 - `Vault4` copies the complete Vault implementation, swaps in the v4 normalizer and serializer, and adds `toPresentation4`.
-The public package exposes `./vault` and `./vault-4`. Root/global Vault still means the v3 Vault.
+  The public package exposes `./vault` and `./vault-4`. Root/global Vault still means the v3 Vault.
 
 ### Helpers
 
@@ -479,18 +479,18 @@ Split the next pass by contract and subsystem. Prefer one table-driven helper co
 
 ## Ownership across the two repositories
 
-| Concern | Parser owns | Helpers owns | Joint gate |
-| --- | --- | --- | --- |
-| Version detection and upgrade/downgrade | Yes | No | Inputs select the requested profile, never the consumer schema implicitly. |
-| Wire types, cardinality, validation, serialization | Yes | No | Serialized Vault resources validate with no internal leaks. |
-| Normalized entity/store schema and type-to-store mapping | Source of truth | Imports/hosts state | Mapping closure and exact schema compatibility. |
-| Loading, requests, events, metadata, mutation, paging fetch | No | Yes | Parser output remains correct after Vault lifecycle operations. |
-| Annotation aggregate semantics | Represents/preserves | Resolves for domain helpers | Same semantic results across equivalent v2/v3/v4 inputs. |
-| Services and unknown extensions | Preserves opaque | Does not reinterpret | Round-trip/no-mutation assertions. |
-| Shared helper domain behavior | No | Yes | Vault and Vault4 contract suite. |
-| Scene/Activation | Accurate types/preservation | Optional domain helpers | Valid vertical-slice fixtures and explicit unsupported behavior. |
-| Fixture provenance | Canonical pinned corpus | Consumes/subsets | Same IIIF/api SHA/checksums. |
-| Package compatibility | Parser tarball | Helpers tarball and peer | Install and test exact pair before either stable release. |
+| Concern                                                     | Parser owns                 | Helpers owns                | Joint gate                                                                 |
+| ----------------------------------------------------------- | --------------------------- | --------------------------- | -------------------------------------------------------------------------- |
+| Version detection and upgrade/downgrade                     | Yes                         | No                          | Inputs select the requested profile, never the consumer schema implicitly. |
+| Wire types, cardinality, validation, serialization          | Yes                         | No                          | Serialized Vault resources validate with no internal leaks.                |
+| Normalized entity/store schema and type-to-store mapping    | Source of truth             | Imports/hosts state         | Mapping closure and exact schema compatibility.                            |
+| Loading, requests, events, metadata, mutation, paging fetch | No                          | Yes                         | Parser output remains correct after Vault lifecycle operations.            |
+| Annotation aggregate semantics                              | Represents/preserves        | Resolves for domain helpers | Same semantic results across equivalent v2/v3/v4 inputs.                   |
+| Services and unknown extensions                             | Preserves opaque            | Does not reinterpret        | Round-trip/no-mutation assertions.                                         |
+| Shared helper domain behavior                               | No                          | Yes                         | Vault and Vault4 contract suite.                                           |
+| Scene/Activation                                            | Accurate types/preservation | Optional domain helpers     | Valid vertical-slice fixtures and explicit unsupported behavior.           |
+| Fixture provenance                                          | Canonical pinned corpus     | Consumes/subsets            | Same IIIF/api SHA/checksums.                                               |
+| Package compatibility                                       | Parser tarball              | Helpers tarball and peer    | Install and test exact pair before either stable release.                  |
 
 ## Recommended architecture
 
@@ -560,16 +560,16 @@ Helpers should consume the same commit/checksums in joint CI. Avoid a third fixt
 
 ### Required matrix
 
-| Input | Parser target | Vault | Expected Helpers contract |
-| --- | --- | --- | --- |
-| v2 | v3 compatibility | Vault | Existing v3 behavior unchanged |
-| v3 | v3 compatibility | Vault | Existing v3 behavior unchanged |
-| v4 non-3D | v3 compatibility | Vault | Domain-equivalent v3 behavior; Timeline projected to Canvas |
-| v4 3D | v3 compatibility | Vault | Explicit unsupported diagnostics; no malformed partial store |
-| v2 | v4 native | Vault4 | Upgraded v4 state and domain-equivalent helpers |
-| v3 | v4 native | Vault4 | Upgraded v4 state and domain-equivalent helpers |
-| v4 non-3D | v4 native | Vault4 | Native v4 state and helpers |
-| v4 3D | v4 native | Vault4 | Claimed vertical slices work; unsupported details remain raw/diagnosed |
+| Input     | Parser target    | Vault  | Expected Helpers contract                                              |
+| --------- | ---------------- | ------ | ---------------------------------------------------------------------- |
+| v2        | v3 compatibility | Vault  | Existing v3 behavior unchanged                                         |
+| v3        | v3 compatibility | Vault  | Existing v3 behavior unchanged                                         |
+| v4 non-3D | v3 compatibility | Vault  | Domain-equivalent v3 behavior; Timeline projected to Canvas            |
+| v4 3D     | v3 compatibility | Vault  | Explicit unsupported diagnostics; no malformed partial store           |
+| v2        | v4 native        | Vault4 | Upgraded v4 state and domain-equivalent helpers                        |
+| v3        | v4 native        | Vault4 | Upgraded v4 state and domain-equivalent helpers                        |
+| v4 non-3D | v4 native        | Vault4 | Native v4 state and helpers                                            |
+| v4 3D     | v4 native        | Vault4 | Claimed vertical slices work; unsupported details remain raw/diagnosed |
 
 ### Assertions in every supported cell
 
@@ -708,16 +708,16 @@ Record the exact parser version range, exact pair tested, supported Node range, 
 
 The following was measured during this review using Helpers HEAD and the sibling parser HEAD linked locally because the committed preview dependency is unavailable:
 
-| Check | Result |
-| --- | --- |
-| Helpers branch scope | 111 files, approximately +41,415 / -623 |
-| Parser fixture validation over Helpers v4 corpus | **8 valid / 14 invalid** |
-| Node 22 Vitest with current parser branch | **276/278 pass; 2 failures caused by parser/Helpers shape drift** |
-| Node 24 Vitest | **8 failures, including six brittle floating-point snapshots** |
-| Build | Pass |
-| `publint` | Pass with missing `engines.node` suggestion |
-| Typecheck | **Fail: unused private Vitest-module import in production `search1.ts`** |
-| Fresh install from committed dependency | **Blocked: dead preview peer URL / missing integrity** |
+| Check                                            | Result                                                                   |
+| ------------------------------------------------ | ------------------------------------------------------------------------ |
+| Helpers branch scope                             | 111 files, approximately +41,415 / -623                                  |
+| Parser fixture validation over Helpers v4 corpus | **8 valid / 14 invalid**                                                 |
+| Node 22 Vitest with current parser branch        | **276/278 pass; 2 failures caused by parser/Helpers shape drift**        |
+| Node 24 Vitest                                   | **8 failures, including six brittle floating-point snapshots**           |
+| Build                                            | Pass                                                                     |
+| `publint`                                        | Pass with missing `engines.node` suggestion                              |
+| Typecheck                                        | **Fail: unused private Vitest-module import in production `search1.ts`** |
+| Fresh install from committed dependency          | **Blocked: dead preview peer URL / missing integrity**                   |
 
 The runtime pass count is useful evidence that much existing behavior remains intact. It is not a conformance result: invalid fixtures, disabled TypeScript checking, copied snapshots, unchecked generic returns, and a locally linked unpublished parser can all hide release failures.
 
@@ -726,18 +726,18 @@ The runtime pass count is useful evidence that much existing behavior remains in
 The completion pass was verified on Node 24 with the pinned `c9991fe` Parser
 preview:
 
-| Command | Result |
-| --- | --- |
-| `pnpm exec vitest run` | Pass: 36 files, 262 tests |
-| `pnpm run typecheck` | Pass |
-| `pnpm run build` | Pass |
-| `pnpm run lint` | Pass |
-| Presentation 4 `@ts-nocheck` audit | Pass: none |
-| `pnpm run test:presentation-4:packed` | Pass: parser 2.3.0 preview + Helpers 1.6.1, 42 public subpaths |
-| Parser full suite | Pass: 37 files, 426 tests |
-| Parser authored/converted fixture type gates | Pass: 33/33 and 99/99 |
-| Parser authored and converted normalized fixture gate | Pass: 132/132 |
-| Parser converted-fixture validation | Pass: 99/99 valid |
+| Command                                               | Result                                                         |
+| ----------------------------------------------------- | -------------------------------------------------------------- |
+| `pnpm exec vitest run`                                | Pass: 36 files, 262 tests                                      |
+| `pnpm run typecheck`                                  | Pass                                                           |
+| `pnpm run build`                                      | Pass                                                           |
+| `pnpm run lint`                                       | Pass                                                           |
+| Presentation 4 `@ts-nocheck` audit                    | Pass: none                                                     |
+| `pnpm run test:presentation-4:packed`                 | Pass: parser 2.3.0 preview + Helpers 1.6.1, 42 public subpaths |
+| Parser full suite                                     | Pass: 37 files, 426 tests                                      |
+| Parser authored/converted fixture type gates          | Pass: 33/33 and 99/99                                          |
+| Parser authored and converted normalized fixture gate | Pass: 132/132                                                  |
+| Parser converted-fixture validation                   | Pass: 99/99 valid                                              |
 
 ## Definition of done
 

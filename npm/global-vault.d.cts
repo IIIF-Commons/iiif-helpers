@@ -1,4 +1,4 @@
-import type { Vault } from '../dist/vault.cjs';
+import type { Vault } from "../dist/vault.cjs";
 
 declare function getGlobalVault(): Vault;
 

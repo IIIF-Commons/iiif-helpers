@@ -51,16 +51,16 @@ Notes:
 Use the root package when you want the common surface area:
 
 ```ts
-import { Vault, createThumbnailHelper, getValue, expandTarget } from '@iiif/helpers';
+import { Vault, createThumbnailHelper, getValue, expandTarget } from "@iiif/helpers";
 ```
 
 Use subpath imports when you want a smaller, more explicit import surface or when you need packages that are not re-exported from the root:
 
 ```ts
-import { getCanvasTranscription } from '@iiif/helpers/transcriptions';
-import { createStore } from '@iiif/helpers/vault/store';
-import { entityActions } from '@iiif/helpers/vault/actions';
-import { Vault as NodeVault } from '@iiif/helpers/vault-node';
+import { getCanvasTranscription } from "@iiif/helpers/transcriptions";
+import { createStore } from "@iiif/helpers/vault/store";
+import { entityActions } from "@iiif/helpers/vault/actions";
+import { Vault as NodeVault } from "@iiif/helpers/vault-node";
 ```
 
 The root entry point re-exports the main helper packages, but it does **not** re-export:
@@ -75,17 +75,17 @@ The root entry point re-exports the main helper packages, but it does **not** re
 ## Quick Start
 
 ```ts
-import { Vault, getValue, createThumbnailHelper } from '@iiif/helpers';
+import { Vault, getValue, createThumbnailHelper } from "@iiif/helpers";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://iiif.io/api/cookbook/recipe/0005-image-service/manifest.json');
+const manifest = await vault.loadManifest("https://iiif.io/api/cookbook/recipe/0005-image-service/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const firstCanvas = vault.get(manifest.items[0]);
-const label = getValue(manifest.label, { language: 'en-GB' });
+const label = getValue(manifest.label, { language: "en-GB" });
 
 const thumbnails = await createThumbnailHelper(vault).getBestThumbnailAtSize(firstCanvas, {
   width: 300,
@@ -180,9 +180,9 @@ Important notes:
 Example:
 
 ```ts
-import { expandTarget } from '@iiif/helpers/annotation-targets';
+import { expandTarget } from "@iiif/helpers/annotation-targets";
 
-const target = expandTarget('https://example.org/canvas-1#xywh=100,200,300,400');
+const target = expandTarget("https://example.org/canvas-1#xywh=100,200,300,400");
 
 console.log(target.selector?.type);
 // BoxSelector
@@ -191,11 +191,11 @@ console.log(target.selector?.type);
 Selector-only example:
 
 ```ts
-import { parseSelector } from '@iiif/helpers/annotation-targets';
+import { parseSelector } from "@iiif/helpers/annotation-targets";
 
 const parsed = parseSelector({
-  type: 'FragmentSelector',
-  value: 'xywh=10,20,300,400&t=5,12.5',
+  type: "FragmentSelector",
+  value: "xywh=10,20,300,400&t=5,12.5",
 });
 
 console.log(parsed.selector);
@@ -241,19 +241,19 @@ import {
   serialiseContentState,
   validateContentState,
   normaliseContentState,
-} from '@iiif/helpers/content-state';
+} from "@iiif/helpers/content-state";
 
 const encoded = serialiseContentState({
-  id: 'https://example.org/canvas-1#xywh=100,200,300,400',
-  type: 'Canvas',
-  partOf: [{ id: 'https://example.org/manifest-1', type: 'Manifest' }],
+  id: "https://example.org/canvas-1#xywh=100,200,300,400",
+  type: "Canvas",
+  partOf: [{ id: "https://example.org/manifest-1", type: "Manifest" }],
 });
 
 const parsed = parseContentState(encoded);
 const [valid, error] = validateContentState(parsed, true);
 
 if (!valid) {
-  throw new Error(error?.reason ?? 'Invalid content state');
+  throw new Error(error?.reason ?? "Invalid content state");
 }
 
 const normalized = normaliseContentState(parsed);
@@ -279,15 +279,15 @@ It stores event handlers in vault meta so you can attach UI behavior to resource
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createEventsHelper } from '@iiif/helpers/events';
+import { Vault } from "@iiif/helpers";
+import { createEventsHelper } from "@iiif/helpers/events";
 
 const vault = new Vault();
 const events = createEventsHelper(vault);
-const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+const annotation = { id: "https://example.org/annotation/1", type: "Annotation" };
 
-events.addEventListener(annotation, 'onClick', (_event, resource) => {
-  console.log('Clicked', resource.id);
+events.addEventListener(annotation, "onClick", (_event, resource) => {
+  console.log("Clicked", resource.id);
 });
 
 const props = events.getListenersAsProps(annotation);
@@ -310,9 +310,9 @@ It fetches a Manifest or Collection and upgrades the response through `@iiif/par
 Example:
 
 ```ts
-import { fetch as fetchIiif } from '@iiif/helpers/fetch';
+import { fetch as fetchIiif } from "@iiif/helpers/fetch";
 
-const resource = await fetchIiif('https://example.org/manifest.json');
+const resource = await fetchIiif("https://example.org/manifest.json");
 ```
 
 ### `@iiif/helpers/i18n`
@@ -338,20 +338,20 @@ Typical uses:
 Example:
 
 ```ts
-import { getValue, iiifString } from '@iiif/helpers/i18n';
+import { getValue, iiifString } from "@iiif/helpers/i18n";
 
-const label = getValue({ fr: ['Titre'], en: ['Title'] }, { language: 'fr' });
-const summary = iiifString`Label: ${{ en: ['An English label'] }}`;
+const label = getValue({ fr: ["Titre"], en: ["Title"] }, { language: "fr" });
+const summary = iiifString`Label: ${{ en: ["An English label"] }}`;
 ```
 
 Fallback example:
 
 ```ts
-import { buildLocaleString } from '@iiif/helpers/i18n';
+import { buildLocaleString } from "@iiif/helpers/i18n";
 
-const label = buildLocaleString({ en: ['English title'], fr: ['Titre francais'], none: ['Untitled'] }, 'cy-GB', {
-  fallbackLanguages: ['en-GB', 'en'],
-  defaultText: 'Untitled manifest',
+const label = buildLocaleString({ en: ["English title"], fr: ["Titre francais"], none: ["Untitled"] }, "cy-GB", {
+  fallbackLanguages: ["en-GB", "en"],
+  defaultText: "Untitled manifest",
 });
 ```
 
@@ -397,20 +397,20 @@ Important notes:
 Example:
 
 ```ts
-import { ImageServiceLoader, getImageCandidates, pickBestFromCandidates } from '@iiif/helpers/image-service';
+import { ImageServiceLoader, getImageCandidates, pickBestFromCandidates } from "@iiif/helpers/image-service";
 
 const loader = new ImageServiceLoader();
 
 const resource = {
-  id: 'https://example.org/image/full/max/0/default.jpg',
-  type: 'Image',
+  id: "https://example.org/image/full/max/0/default.jpg",
+  type: "Image",
   width: 1200,
   height: 800,
   service: [
     {
-      id: 'https://example.org/image',
-      type: 'ImageService3',
-      profile: 'level1',
+      id: "https://example.org/image",
+      type: "ImageService3",
+      profile: "level1",
     },
   ],
 } as any;
@@ -442,31 +442,31 @@ Use it when you want archive-style time browsing or date facets built directly f
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createDateNavigation } from '@iiif/helpers/nav-date';
+import { Vault } from "@iiif/helpers";
+import { createDateNavigation } from "@iiif/helpers/nav-date";
 
 const vault = new Vault();
-const collection = vault.loadSync('https://example.org/collection', {
-  id: 'https://example.org/collection',
-  type: 'Collection',
-  label: { en: ['Archive'] },
+const collection = vault.loadSync("https://example.org/collection", {
+  id: "https://example.org/collection",
+  type: "Collection",
+  label: { en: ["Archive"] },
   items: [
     {
-      id: 'https://example.org/manifest/1986',
-      type: 'Manifest',
-      label: { en: ['Issue 1986'] },
-      navDate: '1986-01-01T00:00:00+00:00',
+      id: "https://example.org/manifest/1986",
+      type: "Manifest",
+      label: { en: ["Issue 1986"] },
+      navDate: "1986-01-01T00:00:00+00:00",
     },
     {
-      id: 'https://example.org/manifest/1987',
-      type: 'Manifest',
-      label: { en: ['Issue 1987'] },
-      navDate: '1987-01-01T00:00:00+00:00',
+      id: "https://example.org/manifest/1987",
+      type: "Manifest",
+      label: { en: ["Issue 1987"] },
+      navDate: "1987-01-01T00:00:00+00:00",
     },
   ],
 });
 
-const years = createDateNavigation(vault, collection!, 'year');
+const years = createDateNavigation(vault, collection!, "year");
 
 for (const year of years) {
   console.log(year.label.en?.[0], year.count);
@@ -502,14 +502,14 @@ This is useful when you are rendering mixed media, alternative image choices, or
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createPaintingAnnotationsHelper } from '@iiif/helpers/painting-annotations';
+import { Vault } from "@iiif/helpers";
+import { createPaintingAnnotationsHelper } from "@iiif/helpers/painting-annotations";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const canvas = vault.get(manifest.items[0]);
@@ -558,14 +558,14 @@ Important notes:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { rangeToTableOfContentsTree, isRangeContiguous } from '@iiif/helpers/ranges';
+import { Vault } from "@iiif/helpers";
+import { rangeToTableOfContentsTree, isRangeContiguous } from "@iiif/helpers/ranges";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest || !manifest.structures?.length) {
-  throw new Error('Manifest has no ranges');
+  throw new Error("Manifest has no ranges");
 }
 
 const range = vault.get(manifest.structures[0]);
@@ -597,23 +597,23 @@ What it provides:
 Example:
 
 ```ts
-import { createSearch1Store, createSearch1AutocompleteStore } from '@iiif/helpers/search1';
+import { createSearch1Store, createSearch1AutocompleteStore } from "@iiif/helpers/search1";
 
 const service = {
-  '@id': 'https://example.org/search',
-  profile: 'http://iiif.io/api/search/1/search',
+  "@id": "https://example.org/search",
+  profile: "http://iiif.io/api/search/1/search",
   service: {
-    '@id': 'https://example.org/search/autocomplete',
-    profile: 'http://iiif.io/api/search/1/autocomplete',
+    "@id": "https://example.org/search/autocomplete",
+    profile: "http://iiif.io/api/search/1/autocomplete",
   },
 } as any;
 
 const store = createSearch1Store(service);
-await store.getState().search({ q: '1615' });
+await store.getState().search({ q: "1615" });
 store.getState().highlightHit(0);
 
 const autocomplete = createSearch1AutocompleteStore(service);
-await autocomplete.getState().search('wunder');
+await autocomplete.getState().search("wunder");
 ```
 
 ### `@iiif/helpers/sequences`
@@ -643,14 +643,14 @@ Use it when you need to answer questions like:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { getManifestSequence, getVisibleCanvasesFromCanvasId } from '@iiif/helpers/sequences';
+import { Vault } from "@iiif/helpers";
+import { getManifestSequence, getVisibleCanvasesFromCanvasId } from "@iiif/helpers/sequences";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const [items, pageGroups] = getManifestSequence(vault, manifest);
@@ -680,16 +680,16 @@ It is useful when style information lives outside the IIIF resource but still ne
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createStylesHelper } from '@iiif/helpers/styles';
+import { Vault } from "@iiif/helpers";
+import { createStylesHelper } from "@iiif/helpers/styles";
 
 const vault = new Vault();
 const styles = createStylesHelper(vault);
-const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+const annotation = { id: "https://example.org/annotation/1", type: "Annotation" };
 
 vault.batch(() => {
-  styles.applyStyles(annotation, 'selected', { background: 'red' });
-  styles.applyStyles(annotation, 'hovered', { background: 'pink' });
+  styles.applyStyles(annotation, "selected", { background: "red" });
+  styles.applyStyles(annotation, "hovered", { background: "pink" });
 });
 
 console.log(styles.getAppliedStyles(annotation));
@@ -728,14 +728,14 @@ What it does:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createThumbnailHelper, getThumbnail } from '@iiif/helpers/thumbnail';
+import { Vault } from "@iiif/helpers";
+import { createThumbnailHelper, getThumbnail } from "@iiif/helpers/thumbnail";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const canvas = vault.get(manifest.items[0]);
@@ -789,14 +789,14 @@ Important notes:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { manifestHasTranscriptions, getCanvasTranscription } from '@iiif/helpers/transcriptions';
+import { Vault } from "@iiif/helpers";
+import { manifestHasTranscriptions, getCanvasTranscription } from "@iiif/helpers/transcriptions";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const hasTranscriptions = await manifestHasTranscriptions(vault, manifest);
@@ -848,19 +848,19 @@ Those wrapped objects resolve nested references through getters and expose helpe
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
+import { Vault } from "@iiif/helpers/vault";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const firstCanvas = vault.get(manifest.items[0]);
-vault.setMetaValue([firstCanvas.id, 'ui', 'selected'], true);
+vault.setMetaValue([firstCanvas.id, "ui", "selected"], true);
 
-console.log(vault.getResourceMeta(firstCanvas.id, 'ui'));
+console.log(vault.getResourceMeta(firstCanvas.id, "ui"));
 
 const wrapped = vault.getObject(manifest);
 console.log(wrapped.items[0].id);
@@ -882,10 +882,10 @@ The `Vault` class in this package extends the core vault and configures a Node-f
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault-node';
+import { Vault } from "@iiif/helpers/vault-node";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 console.log(manifest?.id);
 ```
@@ -913,22 +913,22 @@ Use it when you are integrating the vault store directly or building custom tool
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
-import { entityActions } from '@iiif/helpers/vault/actions';
+import { Vault } from "@iiif/helpers/vault";
+import { entityActions } from "@iiif/helpers/vault/actions";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 vault.dispatch(
   entityActions.modifyEntityField({
     id: manifest.id,
-    type: 'Manifest',
-    key: 'label',
-    value: { en: ['Updated title'] },
+    type: "Manifest",
+    key: "label",
+    value: { en: ["Updated title"] },
   })
 );
 ```
@@ -949,12 +949,12 @@ The store is built with vanilla Zustand plus Redux-style reducers. Use it when y
 Example:
 
 ```ts
-import { emptyManifest } from '@iiif/parser';
-import { createStore } from '@iiif/helpers/vault/store';
-import { entityActions } from '@iiif/helpers/vault/actions';
+import { emptyManifest } from "@iiif/parser";
+import { createStore } from "@iiif/helpers/vault/store";
+import { entityActions } from "@iiif/helpers/vault/actions";
 
 const store = createStore();
-const manifestId = 'https://example.org/manifest-1';
+const manifestId = "https://example.org/manifest-1";
 
 store.dispatch(
   entityActions.importEntities({
@@ -963,7 +963,7 @@ store.dispatch(
         [manifestId]: {
           ...emptyManifest,
           id: manifestId,
-          type: 'Manifest',
+          type: "Manifest",
           items: [],
         },
       },
@@ -974,9 +974,9 @@ store.dispatch(
 store.dispatch(
   entityActions.modifyEntityField({
     id: manifestId,
-    type: 'Manifest',
-    key: 'label',
-    value: { en: ['An example label'] },
+    type: "Manifest",
+    key: "label",
+    value: { en: ["An example label"] },
   })
 );
 
@@ -1006,21 +1006,21 @@ These are useful when you want to:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
-import { createFetchHelper } from '@iiif/helpers/vault/utility';
+import { Vault } from "@iiif/helpers/vault";
+import { createFetchHelper } from "@iiif/helpers/vault/utility";
 
 const vault = new Vault();
 
 const fetchManifest = createFetchHelper(vault, async (url: string) => {
   return {
     id: url,
-    type: 'Manifest',
-    label: { en: ['Generated manifest'] },
+    type: "Manifest",
+    label: { en: ["Generated manifest"] },
     items: [],
   };
 });
 
-const manifest = await fetchManifest('https://example.org/manifest.json');
+const manifest = await fetchManifest("https://example.org/manifest.json");
 console.log(manifest?.id);
 ```
 
@@ -1037,7 +1037,7 @@ It returns `globalThis.IIIF_VAULT` if one already exists, and if not, it will tr
 Example:
 
 ```ts
-import { getGlobalVault } from '@iiif/helpers/vault/global-vault';
+import { getGlobalVault } from "@iiif/helpers/vault/global-vault";
 
 const vault = getGlobalVault();
 console.log(vault);
@@ -1093,7 +1093,7 @@ happens once when a resource is loaded; helpers consume the resulting model.
 No version branch is needed:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
+import { Vault } from "@iiif/helpers/vault";
 
 const vault = new Vault();
 const manifest = await vault.loadManifest(manifestUrl);
@@ -1110,7 +1110,7 @@ silently dropping it.
 ### Presentation 4 applications
 
 ```ts
-import { Vault4 } from '@iiif/helpers/vault-4';
+import { Vault4 } from "@iiif/helpers/vault-4";
 
 const vault = new Vault4();
 const manifest = await vault.loadManifest(manifestUrl);
@@ -1179,8 +1179,8 @@ by painting, thumbnail, and transcription helpers.
 Two optional subpaths expose the first tested 3D vertical slices:
 
 ```ts
-import { createSceneHelper } from '@iiif/helpers/scenes';
-import { createActivationsHelper } from '@iiif/helpers/activations';
+import { createSceneHelper } from "@iiif/helpers/scenes";
+import { createActivationsHelper } from "@iiif/helpers/activations";
 
 const scenes = createSceneHelper(vault4);
 const paintables = scenes.getPaintables(scene);

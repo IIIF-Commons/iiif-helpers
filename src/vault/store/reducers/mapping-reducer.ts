@@ -1,4 +1,4 @@
-import { MappingActions, ADD_MAPPING, ADD_MAPPINGS } from '../../actions';
+import { MappingActions, ADD_MAPPING, ADD_MAPPINGS } from "../../actions";
 
 export const mappingReducer = (state: Record<string, string> = {}, action: MappingActions) => {
   switch (action.type) {

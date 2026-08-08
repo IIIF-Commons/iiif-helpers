@@ -1,6 +1,6 @@
 export type FixedSizeImage = {
   id: string;
-  type: 'fixed';
+  type: "fixed";
   width: number;
   height: number;
   unsafe?: boolean;
@@ -8,7 +8,7 @@ export type FixedSizeImage = {
 
 export type FixedSizeImageService = {
   id: string;
-  type: 'fixed-service';
+  type: "fixed-service";
   width: number;
   height: number;
   level?: number | null;
@@ -17,7 +17,7 @@ export type FixedSizeImageService = {
 
 export type VariableSizeImage = {
   id: string;
-  type: 'variable';
+  type: "variable";
   minWidth: number;
   maxWidth: number;
   minHeight: number;
@@ -28,7 +28,7 @@ export type VariableSizeImage = {
 
 export type UnknownSizeImage = {
   id: string;
-  type: 'unknown';
+  type: "unknown";
 };
 
 export type ImageCandidate = FixedSizeImage | VariableSizeImage | UnknownSizeImage | FixedSizeImageService;

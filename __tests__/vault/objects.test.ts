@@ -1,16 +1,16 @@
-import { Vault } from '../../src/vault';
-import { describe, test, expect } from 'vitest';
-import invariant from 'tiny-invariant';
-import fixture from '../../fixtures/presentation-3/has-part.json';
+import { Vault } from "../../src/vault";
+import { describe, test, expect } from "vitest";
+import invariant from "tiny-invariant";
+import fixture from "../../fixtures/presentation-3/has-part.json";
 
-describe('Objects helper', () => {
-  test('equality', async () => {
+describe("Objects helper", () => {
+  test("equality", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifestObject(fixture.id, fixture);
 
     invariant(manifest);
 
-    expect(manifest.items[0].id).toEqual('https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1');
+    expect(manifest.items[0].id).toEqual("https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1");
     expect(manifest.items[0]).toEqual(manifest.items[0]); // Equality matches.
 
     expect(manifest.rendering).toEqual([]); // Property not in the original.
@@ -39,7 +39,7 @@ describe('Objects helper', () => {
     `);
 
     // @ts-ignore
-    expect(manifest.items[0].thumbnail.service).toMatchInlineSnapshot('undefined');
+    expect(manifest.items[0].thumbnail.service).toMatchInlineSnapshot("undefined");
 
     // @ts-ignore
     expect(manifest.items[0].items[0].items[0].body[0].service).toMatchInlineSnapshot(`

@@ -2,7 +2,7 @@ name: Update documentation
 
 on:
   push:
-    branches: [ 'main' ]
+    branches: ["main"]
     paths:
       - ".github/workflows/update-docs.yml"
       - "docs/**"

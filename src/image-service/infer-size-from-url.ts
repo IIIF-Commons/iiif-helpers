@@ -1,4 +1,4 @@
-import { ImageCandidate } from './types';
+import { ImageCandidate } from "./types";
 
 /**
  * Extracts the height and width from an image URL
@@ -16,9 +16,9 @@ export function inferImageSizeFromUrl(image: string): ImageCandidate {
     // const rotation = parseInt(match[6], 10);
     const format = match[7];
 
-    if ((region === 'max' || region === 'full') && width && height && format) {
+    if ((region === "max" || region === "full") && width && height && format) {
       return {
-        type: 'fixed',
+        type: "fixed",
         id: image,
         height,
         width,
@@ -26,5 +26,5 @@ export function inferImageSizeFromUrl(image: string): ImageCandidate {
     }
   }
 
-  return { type: 'unknown', id: image };
+  return { type: "unknown", id: image };
 }

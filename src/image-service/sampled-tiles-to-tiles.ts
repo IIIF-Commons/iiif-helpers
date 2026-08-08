@@ -1,5 +1,5 @@
-import type { ImageTile as ImageTileV3 } from '@iiif/parser/presentation-3/types';
-import type { ImageTile as ImageTileV4 } from '@iiif/parser/presentation-4/types';
+import type { ImageTile as ImageTileV3 } from "@iiif/parser/presentation-3/types";
+import type { ImageTile as ImageTileV4 } from "@iiif/parser/presentation-4/types";
 
 type ImageTile = ImageTileV3 | ImageTileV4;
 

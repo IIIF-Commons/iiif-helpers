@@ -1,20 +1,20 @@
-import type { Annotation as AnnotationV3, AnyMotivation as AnyMotivationV3 } from '@iiif/parser/presentation-3/types';
-import type { Annotation as AnnotationV4 } from '@iiif/parser/presentation-4/types';
-import { expandTarget } from './annotation-targets/expand-target';
-import type { SupportedTarget } from './annotation-targets/target-types';
+import type { Annotation as AnnotationV3, AnyMotivation as AnyMotivationV3 } from "@iiif/parser/presentation-3/types";
+import type { Annotation as AnnotationV4 } from "@iiif/parser/presentation-4/types";
+import { expandTarget } from "./annotation-targets/expand-target";
+import type { SupportedTarget } from "./annotation-targets/target-types";
 
 type Annotation = AnnotationV3 | AnnotationV4;
-type AnyMotivation = AnyMotivationV3 | (AnnotationV4['motivation'] extends Array<infer T> ? T : never);
+type AnyMotivation = AnyMotivationV3 | (AnnotationV4["motivation"] extends Array<infer T> ? T : never);
 
 export type ContentState =
   | string
-  | (Annotation & { '@context'?: string })
-  | (StateSource & { '@context'?: string })
-  | Array<string | (Annotation & { '@context'?: string }) | (StateSource & { '@context'?: string })>;
+  | (Annotation & { "@context"?: string })
+  | (StateSource & { "@context"?: string })
+  | Array<string | (Annotation & { "@context"?: string }) | (StateSource & { "@context"?: string })>;
 
 export type StateSource = {
   id: string;
-  type: 'Manifest' | 'Canvas' | 'Range';
+  type: "Manifest" | "Canvas" | "Range";
   partOf?:
     | string
     | { id: string; type: string }
@@ -27,8 +27,8 @@ export type StateSource = {
 // Normalised content state?
 export type NormalisedContentState = {
   id: string;
-  type: 'Annotation';
-  motivation: ['contentState', ...string[]];
+  type: "Annotation";
+  motivation: ["contentState", ...string[]];
   target: Array<SupportedTarget>;
   extensions: Record<string, any>;
 };
@@ -37,13 +37,13 @@ type ValidationResponse = readonly [false, { reason?: string }] | readonly [true
 
 export function validateContentState(annotation: ContentState, strict = false): ValidationResponse {
   // Valid content state.
-  if (typeof annotation === 'string') {
-    if (annotation.startsWith('{')) {
+  if (typeof annotation === "string") {
+    if (annotation.startsWith("{")) {
       try {
         const parsed = JSON.parse(annotation);
         return validateContentState(parsed);
       } catch (err) {
-        return [false, { reason: 'Invalid JSON' }];
+        return [false, { reason: "Invalid JSON" }];
       }
     }
     return [true];
@@ -60,20 +60,20 @@ export function validateContentState(annotation: ContentState, strict = false): 
     return [true];
   }
 
-  if (annotation.type === 'Annotation') {
+  if (annotation.type === "Annotation") {
     // We are validating the annotation.
     return [true];
   }
 
-  if (strict && annotation.type === 'Canvas' && !annotation.partOf) {
-    return [false, { reason: 'Canvas without partOf cannot be loaded' }];
+  if (strict && annotation.type === "Canvas" && !annotation.partOf) {
+    return [false, { reason: "Canvas without partOf cannot be loaded" }];
   }
 
   return [true];
 }
 
 export function serialiseContentState(annotation: ContentState): string {
-  return encodeContentState(typeof annotation === 'string' ? annotation : JSON.stringify(annotation));
+  return encodeContentState(typeof annotation === "string" ? annotation : JSON.stringify(annotation));
 }
 
 export function parseContentState(state: string): ContentState;
@@ -82,14 +82,14 @@ export async function parseContentState(state: string, async: true): Promise<Con
 export function parseContentState(state: string, asyncOrFetcher?: boolean): ContentState | Promise<ContentState> {
   state = state.trim();
 
-  if (state[0] === '{') {
+  if (state[0] === "{") {
     // we might have json.
     return asyncOrFetcher ? Promise.resolve(JSON.parse(state)) : JSON.parse(state);
   }
 
-  if (state.startsWith('http')) {
+  if (state.startsWith("http")) {
     if (!asyncOrFetcher) {
-      throw new Error('Cannot fetch remote fetch with async=false in parseContentState');
+      throw new Error("Cannot fetch remote fetch with async=false in parseContentState");
     }
     // resolve.
     return fetch(state).then((r) => r.json());
@@ -100,15 +100,15 @@ export function parseContentState(state: string, asyncOrFetcher?: boolean): Cont
 
 export function encodeContentState(state: string): string {
   const uriEncoded = encodeURIComponent(state); // using built in function
-  const base64 = typeof btoa === 'undefined' ? Buffer.from(uriEncoded, 'utf-8').toString('base64') : btoa(uriEncoded); // using built in function
-  const base64url = base64.replace(/\+/g, '-').replace(/\//g, '_');
-  return base64url.replace(/=/g, '');
+  const base64 = typeof btoa === "undefined" ? Buffer.from(uriEncoded, "utf-8").toString("base64") : btoa(uriEncoded); // using built in function
+  const base64url = base64.replace(/\+/g, "-").replace(/\//g, "_");
+  return base64url.replace(/=/g, "");
 }
 
 export function decodeContentState(encodedContentState: string): string {
   const base64url = restorePadding(encodedContentState);
-  const base64 = base64url.replace(/-/g, '+').replace(/_/g, '/');
-  const base64Decoded = typeof atob === 'undefined' ? Buffer.from(base64, 'base64').toString('utf-8') : atob(base64); // using built in function
+  const base64 = base64url.replace(/-/g, "+").replace(/_/g, "/");
+  const base64Decoded = typeof atob === "undefined" ? Buffer.from(base64, "base64").toString("utf-8") : atob(base64); // using built in function
   return decodeURIComponent(base64Decoded).trim(); // using built in function
 }
 
@@ -117,15 +117,15 @@ function restorePadding(s: string) {
   const pad = s.length % 4;
 
   if (pad === 1) {
-    throw new Error('InvalidLengthError: Input base64url string is the wrong length to determine padding');
+    throw new Error("InvalidLengthError: Input base64url string is the wrong length to determine padding");
   }
 
-  return s + (pad ? '===='.slice(0, 4 - pad) : '');
+  return s + (pad ? "====".slice(0, 4 - pad) : "");
 }
 
 export function normaliseContentState(state: ContentState): NormalisedContentState {
   if (!state) {
-    throw new Error('Content state is empty');
+    throw new Error("Content state is empty");
   }
 
   if (!Array.isArray(state)) {
@@ -134,18 +134,18 @@ export function normaliseContentState(state: ContentState): NormalisedContentSta
     state = [state];
   }
 
-  let annoId = 'vault://virtual-annotation/' + new Date().getTime(); // <-- need a virtual id
-  const motivation: AnyMotivation[] = ['contentState'];
+  let annoId = "vault://virtual-annotation/" + new Date().getTime(); // <-- need a virtual id
+  const motivation: AnyMotivation[] = ["contentState"];
   const targets = [];
 
   for (const source of state) {
-    if (typeof source === 'string') {
+    if (typeof source === "string") {
       // Note: this is unlikely to happen in conjunction with parseContentState()
-      throw new Error('Content state is a [String] type and cannot be inferred');
+      throw new Error("Content state is a [String] type and cannot be inferred");
     }
 
     // If we DO have annotation, then this is all we should be returning.
-    if (source.type === 'Annotation') {
+    if (source.type === "Annotation") {
       annoId = source.id;
       const sourceMotivations = Array.isArray(source.motivation) ? source.motivation : [source.motivation];
       for (const singleMotivation of sourceMotivations) {
@@ -173,8 +173,8 @@ export function normaliseContentState(state: ContentState): NormalisedContentSta
 
   return {
     id: annoId,
-    type: 'Annotation',
-    motivation: motivation as ['contentState', ...string[]],
+    type: "Annotation",
+    motivation: motivation as ["contentState", ...string[]],
     target: targets,
     extensions: {},
   };

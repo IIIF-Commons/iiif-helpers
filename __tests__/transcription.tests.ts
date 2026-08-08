@@ -1,14 +1,14 @@
-import { vttToTranscription, annotationPageToTranscription } from '../src/transcriptions';
-import newsPaperOcr from '../fixtures/annotations/newspaper-ocr.json';
-import { Vault } from '../src';
+import { vttToTranscription, annotationPageToTranscription } from "../src/transcriptions";
+import newsPaperOcr from "../fixtures/annotations/newspaper-ocr.json";
+import { Vault } from "../src";
 
-describe('transcription helper', () => {
-  describe('vtt parsing', () => {
-    test('cookbook vtt parsing', async () => {
+describe("transcription helper", () => {
+  describe("vtt parsing", () => {
+    test("cookbook vtt parsing", async () => {
       expect(
         await vttToTranscription(
           `"WEBVTT\r\n\r\n1\r\n00:00:01.200 --> 00:00:21.000\r\n[music]\r\n\r\n2\r\n00:00:22.200 --> 00:00:26.600\r\nJust before lunch one day, a puppet show \r\nwas put on at school.\r\n\r\n3\r\n00:00:26.700 --> 00:00:31.500\r\nIt was called \"Mister Bungle Goes to Lunch\".\r\n\r\n4\r\n00:00:31.600 --> 00:00:34.500\r\nIt was fun to watch.\r\n\r\n5\r\n00:00:36.100 --> 00:00:41.300\r\nIn the puppet show, Mr. Bungle came to the \r\nboys' room on his way to lunch.\r\n\r\n6\r\n00:00:41.400 --> 00:00:46.200\r\nHe looked at his hands. His hands were dirty \r\nand his hair was messy.\r\n\r\n7\r\n00:00:46.300 --> 00:00:51.100\r\nBut Mr. Bungle didn't stop to wash his hands \r\nor comb his hair.\r\n\r\n8\r\n00:00:51.200 --> 00:00:54.900\r\nHe went right to lunch.\r\n\r\n9\r\n00:00:57.900 --> 00:01:05.700\r\nThen, instead of getting into line at the \r\nlunchroom, Mr. Bungle pushed everyone aside \r\nand went right to the front.\r\n\r\n10\r\n00:01:06.000 --> 00:01:11.800\r\nEven though this made the children laugh, \r\nno one thought that was a fair thing to do.\r\n\r\n11\r\n00:01:11.900 --> 00:01:22.000\r\nThen, in the lunchroom, Mr. Bungle was so \r\nclumsy and impolite that he knocked over \r\neverything. And no one wanted to sit next \r\nto him.\r\n\r\n12\r\n00:01:23.500 --> 00:01:29.000\r\nAnd when he finally knocked his own tray \r\noff the table, that was the end of the puppet \r\nshow.\r\n\r\n13\r\n00:01:30.300 --> 00:01:36.300\r\nThe children knew that even though Mr. Bungle \r\nwas funny to watch, he wouldn't be much fun \r\nto eat with.\r\n\r\n14\r\n00:01:36.400 --> 00:01:42.500\r\nPhil knew that a Mr. Bungle wouldn't have \r\nmany friends. He wouldn't want to be like \r\nMr. Bungle.\r\n\r\n15\r\n00:01:43.900 --> 00:01:49.100\r\nLater Miss Brown said it was time to for \r\nthe children who ate in the cafeteria to \r\ngo to lunch.\r\n\r\n16\r\n00:01:49.200 --> 00:01:52.500\r\nShe hoped there weren't any Mr. Bungles in \r\nthis room.\r\n\r\n17\r\n00:01:58.500 --> 00:02:03.200\r\nPhil stopped to return a book to Miss Brown \r\nwhile his friends went on to the lunchroom.\r\n\r\n18\r\n00:02:03.700 --> 00:02:05.400\r\nHe would have to catch up with them later.\r\n\r\n19\r\n00:02:08.500 --> 00:02:13.000\r\nOne his way to catch up with his friends, \r\nPhil almost walked passed the boys' room.\r\n\r\n20\r\n00:02:13.300 --> 00:02:16.400\r\nBut he stopped and thought we're his hands \r\nclean?\r\n\r\n21\r\n00:02:16.500 --> 00:02:22.800\r\nNo, they were a little dirty. Phil remembered \r\nthat Mr. Bungle didn't wash his hands.\r\n\r\n22\r\n00:02:22.900 --> 00:02:25.600\r\nMr. Bungle's hair was messy too.\r\n\r\n23\r\n00:02:25.800 --> 00:02:28.000\r\nPhil didn't want to be like Mr. Bungle.\r\n\r\n24\r\n00:02:31.200 --> 00:02:36.900\r\nInside the boys' room, Phil was surprised \r\nto see some of his friends washing their \r\nhands too.\r\n\r\n25\r\n00:02:37.300 --> 00:02:40.900\r\nPhil washed his hands well with lots of soap.\r\n\r\n26\r\n00:02:45.400 --> 00:02:47.800\r\nThen he rinsed the soap off.\r\n\r\n27\r\n00:02:51.700 --> 00:02:58.900\r\nPhil dried his hands well too. When he was \r\nfinished, he threw the paper towel in the \r\nbasket where it belonged.\r\n\r\n28\r\n00:02:59.700 --> 00:03:02.200\r\nAnd then he made sure that his hair looked \r\nneat.\r\n\r\n29\r\n00:03:05.500 --> 00:03:08.500\r\nNow Phil and his friends were ready for lunch.\r\n\r\n30\r\n00:03:17.600 --> 00:03:22.300\r\nThere was a line of children waiting to get \r\ninto the lunchroom when Phil got there.\r\n\r\n31\r\n00:03:22.800 --> 00:03:25.100\r\nHe saw some boys he knew at the front of \r\nthe line.\r\n\r\n32\r\n00:03:25.500 --> 00:03:28.600\r\nThey waved for him to go up to the front \r\nwith them.\r\n\r\n33\r\n00:03:29.600 --> 00:03:33.100\r\nBut Phil didn't want to break into line as \r\nMr. Bungle did.\r\n\r\n34\r\n00:03:34.300 --> 00:03:38.500\r\nSo Phil went to the end. That was the fair \r\nthing to do.\r\n\r\n35\r\n00:03:38.600 --> 00:03:41.500\r\nHe would see his other friends inside the \r\nlunchroom.\r\n\r\n36\r\n00:03:42.600 --> 00:03:46.500\r\nThe line moved very fast, and soon Phil was \r\ninside.\r\n\r\n37\r\n00:03:47.600 --> 00:03:49.200\r\nFirst he picked up his tray.\r\n\r\n38\r\n00:03:55.400 --> 00:03:57.300\r\nThen he got his silverware.\r\n\r\n39\r\n00:03:59.500 --> 00:04:04.300\r\nHe put his knife, fork and spoon neatly on \r\nthe tray.\r\n\r\n40\r\n00:04:05.000 --> 00:04:07.500\r\nAnd then he slid his tray along.\r\n\r\n41\r\n00:04:11.900 --> 00:04:15.300\r\nHe always enjoyed looking at the good food \r\nin the cafeteria.\r\n\r\n42\r\n00:04:15.400 --> 00:04:18.200\r\nIt tasted good and was good for him too.\r\n\r\n43\r\n00:04:18.900 --> 00:04:23.200\r\nInstead of having a sandwich today, Phil \r\ndecided to take the hot lunch.\r\n\r\n44\r\n00:04:26.100 --> 00:04:28.300\r\nPhil took some bread and butter too.\r\n\r\n45\r\n00:04:28.500 --> 00:04:31.600\r\nAnd he knew what else he wanted: milk.\r\n\r\n46\r\n00:04:31.700 --> 00:04:35.600\r\nBut Alice took the last carton on the tray.\r\n\r\n47\r\n00:04:35.700 --> 00:04:40.600\r\nMaybe there was more more milk, so he said, \r\n\"May I please have some milk?\"\r\n\r\n48\r\n00:04:41.100 --> 00:04:45.800\r\nPhil remembered to say \"may I\" and \"please\". \r\nThat was very polite.\r\n\r\n49\r\n00:04:45.900 --> 00:04:48.200\r\nYes, there was more milk.\r\n\r\n50\r\n00:04:51.800 --> 00:04:55.500\r\nPhil remembered to say \"thank you\" when he \r\ntook the carton of milk.\r\n\r\n51\r\n00:04:56.700 --> 00:05:01.000\r\nPhil had good manners. He didn't want to \r\nbe like Mr. Bungle in the lunchroom.\r\n\r\n52\r\n00:05:01.500 --> 00:05:04.400\r\nPhil didn't want to forget his dessert.\r\n\r\n53\r\n00:05:05.100 --> 00:05:08.200\r\nThe cake looked delicious [and was huge!].\r\n\r\n54\r\n00:05:10.600 --> 00:05:15.300\r\nAt the end of the line, the lunchroom supervisor \r\nsaid she had noticed how polite Phil was.\r\n\r\n55\r\n00:05:15.400 --> 00:05:17.000\r\nAnd she smiled at him.\r\n\r\n56\r\n00:05:17.100 --> 00:05:19.400\r\nShe wouldn't smile at a Mr. Bungle.\r\n\r\n57\r\n00:05:20.000 --> 00:05:22.600\r\nPhil went to table where his friends were.\r\n\r\n58\r\n00:05:23.500 --> 00:05:29.700\r\nHe put his tray down carefully, pulled out \r\nhis chair quietly and sat down.\r\n\r\n59\r\n00:05:30.100 --> 00:05:33.600\r\nHe knew his friends would like a noisy Mr. \r\nBungle at their table.\r\n\r\n60\r\n00:05:33.800 --> 00:05:36.900\r\nThere was someone Phil liked: Freddy.\r\n\r\n61\r\n00:05:37.400 --> 00:05:39.700\r\nHe always brought his lunch from home.\r\n\r\n62\r\n00:05:39.800 --> 00:05:40.700\r\nIt looked good.\r\n\r\n63\r\n00:05:41.600 --> 00:05:45.000\r\nFreddy had a sandwich, and apple, a cookie, \r\nand milk.\r\n\r\n64\r\n00:05:48.300 --> 00:05:52.100\r\nBefore Phil began to eat, he always put a \r\nnapkin on his lap.\r\n\r\n65\r\n00:05:52.400 --> 00:05:53.900\r\nSo did Freddy.\r\n\r\n66\r\n00:05:55.100 --> 00:05:58.300\r\nEveryone liked Freddy. He was very polite.\r\n\r\n67\r\n00:05:58.400 --> 00:06:01.900\r\nFor example, if he had food in his mouth \r\nwhen someone talked to him,\r\n\r\n68\r\n00:06:02.000 --> 00:06:07.200\r\nhe always took time to chew the food with \r\nhis mouth closed and swallow before he answered.\r\n\r\n69\r\n00:06:08.900 --> 00:06:12.800\r\nPhil noticed how straight and tall Freddy \r\nusually sat.\r\n\r\n70\r\n00:06:12.900 --> 00:06:15.600\r\nFreddy kept his feet on the floor too.\r\n\r\n71\r\n00:06:18.200 --> 00:06:21.500\r\nPhil would rather be like Freddy than like \r\nMr. Bungle.\r\n\r\n72\r\n00:06:21.600 --> 00:06:25.400\r\nAnother polite person everyone liked was \r\nAlice.\r\n\r\n73\r\n00:06:26.700 --> 00:06:33.200\r\nFor example, when Alice sneezed, she covered \r\nher mouth and nose. This protected her friends \r\nat the table from any germs.\r\n\r\n74\r\n00:06:34.500 --> 00:06:38.000\r\nWhile Phil and his friends ate, a boy ran \r\npast their table.\r\n\r\n75\r\n00:06:38.100 --> 00:06:42.300\r\nYou shouldn't run in the lunchroom. Only \r\nMr. Bungle would do that.\r\n\r\n76\r\n00:06:45.800 --> 00:06:49.400\r\nPhil and his friends wouldn't like to have \r\na Mr. Bungle at their table.\r\n\r\n77\r\n00:06:49.600 --> 00:06:52.400\r\nThen lunchtime wouldn't be as much fun as \r\nit is.\r\n\r\n78\r\n00:06:53.500 --> 00:06:56.100\r\nPhil ate slowly and enjoyed his lunch.\r\n\r\n79\r\n00:06:57.500 --> 00:07:00.400\r\nFinally, he had eaten everything except his \r\ndessert.\r\n\r\n80\r\n00:07:01.000 --> 00:07:03.800\r\nHe saved his cake for last.\r\n\r\n81\r\n00:07:03.900 --> 00:07:07.900\r\nOnly a Mr. Bungle would eat his dessert before \r\nhe'd finished the rest of his lunch.\r\n\r\n82\r\n00:07:08.200 --> 00:07:10.200\r\nAnd Phil wan't a Mr. Bungle.\r\n\r\n83\r\n00:07:11.600 --> 00:07:13.000\r\nThe cake was a lie.\r\n\r\n84\r\n00:07:16.800 --> 00:07:18.300\r\nPhil drank his milk carefully.\r\n\r\n85\r\n00:07:18.800 --> 00:07:22.200\r\nSome children are messy when they drink milk, \r\nbut not Phil.\r\n\r\n86\r\n00:07:24.600 --> 00:07:30.500\r\nAs each of Phil's friends finished, they \r\ndidn't leave the table but waited for all \r\nthe others to finish eating too.\r\n\r\n87\r\n00:07:31.800 --> 00:07:34.500\r\nPhil was the last one done.\r\n\r\n88\r\n00:07:34.600 --> 00:07:37.500\r\nHis wiped his mouth and hands carefully with \r\nhis napkin.\r\n\r\n89\r\n00:07:38.500 --> 00:07:40.500\r\nThen he cleaned the table where he sat.\r\n\r\n90\r\n00:07:41.200 --> 00:07:43.700\r\nHe didn't want to leave his place at the \r\ntable dirty.\r\n\r\n91\r\n00:07:44.800 --> 00:07:52.500\r\nEveryone at the table cleaned his own place \r\nwell. But look at that table. It was left \r\nvery messy.\r\n\r\n92\r\n00:07:53.900 --> 00:07:56.500\r\nPhil thought a Mr. Bungle must have sat there.\r\n\r\n93\r\n00:07:58.200 --> 00:08:04.500\r\nBut Phil didn't want to be like Mr. Bungle \r\nso he put his chair neatly into place.\r\n\r\n94\r\n00:08:05.500 --> 00:08:08.600\r\nAnd his table looked fine.\r\n\r\n95\r\n00:08:09.100 --> 00:08:12.500\r\nNot a piece of paper or scrap of food was \r\nleft on it.\r\n\r\n96\r\n00:08:17.000 --> 00:08:19.500\r\nNo Mr. Bungle sat here!\r\n\r\n97\r\n00:08:21.100 --> 00:08:26.400\r\nPhil's friends were careful to put their \r\nwaste papers and empty milk cartons where \r\nthey belonged.\r\n\r\n98\r\n00:08:27.300 --> 00:08:31.600\r\nIn this way, they helped keep the lunchroom \r\nclean.\r\n\r\n99\r\n00:08:31.900 --> 00:08:37.700\r\nPhil was certain that Mr. Bungle wouldn't \r\nput his paper in the waste basket and his \r\nempty carton on the milk tray.\r\n\r\n100\r\n00:08:38.300 --> 00:08:42.600\r\nMr. Bungle probably wouldn't bother to put \r\nhis lunch tray in the right place either.\r\n\r\n101\r\n00:08:42.700 --> 00:08:47.500\r\nBut Phil and his friends did.\r\n\r\n102\r\n00:08:47.600 --> 00:08:53.500\r\nLunch was good today. And then Miss Brown \r\ntold Phil and his friends how proud she was \r\nof them.\r\n\r\n103\r\n00:08:54.000 --> 00:08:57.300\r\nThey had left their table the neatest in \r\nthe luchroom.\r\n\r\n104\r\n00:08:57.400 --> 00:09:02.200\r\nNo one here was a Mr. Bungle. And no one \r\nwanted to be.\r\n\r\n105\r\n00:09:02.800 --> 00:09:09.200\r\nAre you like Mr. Bungle? Mr. Bungle is ashamed \r\nbecause he spoils lunchtime.\r\n\r\n106\r\n00:09:10.500 --> 00:09:12.000\r\nDon't be like Mr. Bungle.\r\n\r\n107\r\n00:09:12.100 --> 00:09:17.600\r\nHave good lunchtime manners and lunch will \r\nbe more fun for everyone.\r\n\r\n"`,
-          'example-2'
+          "example-2"
         )
       ).toMatchInlineSnapshot(`
         {
@@ -2942,7 +2942,7 @@ describe('transcription helper', () => {
       `);
     });
 
-    test('simple vtt parsing', async () => {
+    test("simple vtt parsing", async () => {
       expect(
         await vttToTranscription(
           `WEBVTT - This file has cues.
@@ -2960,7 +2960,7 @@ describe('transcription helper', () => {
 - [ Bats Screeching ]
 - They won't get in your hair. They're after the bugs.
     `,
-          'example-1'
+          "example-1"
         )
       ).toMatchInlineSnapshot(`
       {
@@ -3057,7 +3057,7 @@ describe('transcription helper', () => {
     `);
     });
 
-    test('vtt with comments', async () => {
+    test("vtt with comments", async () => {
       expect(
         await vttToTranscription(
           `WEBVTT - Translation of that film I like
@@ -3081,7 +3081,7 @@ NOTE This last line may not translate well.
 3
 00:02:25.000 --> 00:02:30.000
 - Ta en kopp`,
-          'example-2'
+          "example-2"
         )
       ).toMatchInlineSnapshot(`
         {
@@ -3178,7 +3178,7 @@ NOTE This last line may not translate well.
       `);
     });
 
-    test('vtt with styles and strip tags', async () => {
+    test("vtt with styles and strip tags", async () => {
       expect(
         await vttToTranscription(
           `WEBVTT
@@ -3201,7 +3201,7 @@ STYLE
 - Hello <b>world</b>.
 
 NOTE style blocks cannot appear after the first cue.`,
-          'example-3'
+          "example-3"
         )
       ).toMatchInlineSnapshot(`
         {
@@ -3242,7 +3242,7 @@ NOTE style blocks cannot appear after the first cue.`,
       `);
     });
 
-    test('vtt with cue settings', async () => {
+    test("vtt with cue settings", async () => {
       expect(
         await vttToTranscription(
           `WEBVTT
@@ -3255,7 +3255,7 @@ I think he went down this lane.
 
 00:00:04.000 --> 00:00:06.500 position:45%,line-right align:center size:35%
 What are you waiting for?`,
-          'example-4'
+          "example-4"
         )
       ).toMatchInlineSnapshot(`
         {
@@ -3346,7 +3346,7 @@ What are you waiting for?`,
       `);
     });
 
-    test('utk webvtt parsing', async () => {
+    test("utk webvtt parsing", async () => {
       const transcript = `WEBVTT
 
 00:00:03.630 --> 00:00:06.540
@@ -3437,7 +3437,7 @@ from it. It was just a plan that was on somebody's
 bookshelf.
 `;
 
-      const parsed = await vttToTranscription(transcript, 'example');
+      const parsed = await vttToTranscription(transcript, "example");
 
       expect(parsed).toMatchInlineSnapshot(`
         {
@@ -4179,8 +4179,8 @@ bookshelf.
     });
   });
 
-  describe('annotationPageToTranscription', () => {
-    test('wellcome example', async () => {
+  describe("annotationPageToTranscription", () => {
+    test("wellcome example", async () => {
       const vault = new Vault();
       vault.loadSync(newsPaperOcr.id, newsPaperOcr);
 
