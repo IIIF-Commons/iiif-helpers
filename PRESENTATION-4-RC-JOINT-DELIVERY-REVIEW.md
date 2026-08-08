@@ -42,8 +42,8 @@ The first joint delivery slice is now implemented:
   `c9991fe` pkg.pr.new artifact as its development dependency.
 - Existing `Vault` accepts supported v4 through the parser's fixed v3
   compatibility view, while `Vault4` remains an explicit lifetime choice.
-- `VaultAuto` remains source-compatible but is deprecated with its state-loss
-  limitation documented.
+- The replay-based automatic Vault switching experiment has been removed; Vault
+  profile selection is explicit for the lifetime of the instance.
 - Vault4 stores Collection Page as a first-class entity and can load, get, wrap,
   and serialize pages without implicit fetching.
 - A shared annotation-value resolver preserves Choice, Composite, List, and
@@ -104,7 +104,7 @@ The next milestone should add explicit CollectionPage and AnnotationPage chain
 loading to the shared runtime, including broken/cyclic link behavior, before
 removing the old `@ts-nocheck` fixture suites and broadening helper parity.
 
-It also supersedes the deleted `VAULT-3-4.md` plan. That plan led to the current replay-based `VaultAuto`; this review recommends not shipping that design.
+It also supersedes the deleted `VAULT-3-4.md` plan. That plan led to a replay-based automatic switching experiment that was removed before release.
 
 ## Executive summary
 
@@ -121,7 +121,7 @@ The Helpers branch has several good foundations:
 It is not ready to ship with the parser branch. The two branches currently amplify each other's failures:
 
 1. Default `Vault` sends v4 input directly through the v3 normalizer. A v4 Timeline is mapped as `Timeline`, stored as `Canvas`, cannot be resolved, and serializes as `"__$UNSET$__"`.
-2. `VaultAuto` changes the application's data model because of a later input document. It replaces the store and replays only original loads, losing edits, metadata, subscriptions, request state, pagination state, wrappers, custom reducer state, and references previously returned by `getStore()`.
+2. The now-removed automatic switching experiment changed the application's data model because of a later input document. It replaced the store and replayed only original loads, losing edits, metadata, subscriptions, request state, pagination state, wrappers, custom reducer state, and references previously returned by `getStore()`.
 3. `Vault4` is approximately 650 copied lines of `Vault` with different parser imports. Its store declarations are still predominantly v3 types with selected v4 unions and extensive casts.
 4. Body/target aggregate semantics are lost across targets, painting, thumbnails, transcriptions, Scenes, and Activations. Most code handles a direct array, a single value, or `Choice`/`List`, but not the distinct semantics of `Choice`, `Composite`, `List`, and `Independents`.
 5. Collection Page support is based on the Presentation 3 paging convention. P4 pages are tested as `Collection`, `total` is used instead of `totalItems`, and real `CollectionPage` is routed to `ContentResource`.
@@ -182,9 +182,7 @@ The runtime store keeps entity buckets, identity mapping, request state, and met
 
 - `Vault` uses the root parser normalizer and v2/v3 serializers.
 - `Vault4` copies the complete Vault implementation, swaps in the v4 normalizer and serializer, and adds `toPresentation4`.
-- `VaultAuto` starts with `Vault`, probes every load with the v4 normalizer, and replaces the active Vault with `Vault4` when its switching rule matches. Earlier source documents are cloned into a journal and replayed.
-
-The public package exposes `./vault`, `./vault-4`, and `./vault-auto`. Root/global Vault still means the v3 Vault.
+The public package exposes `./vault` and `./vault-4`. Root/global Vault still means the v3 Vault.
 
 ### Helpers
 
@@ -208,9 +206,9 @@ New Scene and Activation modules sit alongside the shared helpers. Selectors hav
 
 ## Prioritized findings
 
-### P0. `VaultAuto` cannot preserve a live application
+### Resolved P0. Automatic Vault switching cannot preserve a live application
 
-`VaultAuto` chooses the consumer schema from the content of an input document. Its switch creates a new Vault and store and replays only cloned source payloads.
+The removed automatic switching implementation chose the consumer schema from the content of an input document. Its switch created a new Vault and store and replayed only cloned source payloads.
 
 The failure is reproducible:
 
@@ -233,14 +231,14 @@ The edited label reverts to the source value and the original subscription no lo
 
 The switching rule also does not match the deleted plan: `sourceVersion === 4` switches every v4 resource, not only Scene-bearing resources.
 
-Required change: remove `VaultAuto` from the initial public release. If it has no demonstrated use beyond its own tests, delete it and its export. Runtime migration between two different normalized models should only return after a concrete product requires a deliberately lossy export/import operation.
+Resolution: the implementation, tests, build entry, and package export were removed before the initial public release. Runtime migration between two different normalized models should only return after a concrete product requires a deliberately lossy export/import operation.
 
 Acceptance criteria:
 
 - An application's selected Vault schema never changes because of input.
 - `Vault` accepts supported v4 through the parser's v3 projection.
 - `Vault4` is explicit at construction.
-- No release documentation or helper requires `VaultAuto`.
+- No release documentation or helper requires automatic Vault switching.
 
 ### P0. Default Vault inherits the parser's broken v4 path
 
@@ -339,7 +337,6 @@ The v4 data model uses one body/target object and aggregate wrappers. Current be
 - Painting handles Choice but not Composite, List, or Independents.
 - Thumbnail and transcription can treat an aggregate wrapper as if it were a content body.
 - Scene and Activation unwrap only `List`.
-- `VaultAuto.resolveAnnotationBodies/Targets` does not recursively expand aggregates and is not used by shipped helpers.
 - Different modules repeat small `asArray`, List unwrapping, and Specific Resource parsing implementations.
 
 Required change: create one small, shared annotation-value resolver used by both Vault profiles and all relevant helpers. It must preserve:
@@ -466,7 +463,7 @@ Keep this layer optional until the two non-3D contracts are green. Publish it th
 
 - README remains `TBC` and has no two-mode migration guide.
 - Older docs show obsolete package names and Presentation 3-only assumptions.
-- package smoke tests do not import `vault-4`, `vault-auto`, Scene, or Activation.
+- package smoke tests do not import Scene or Activation.
 - the CJS smoke test performs a live external fetch and makes no assertion.
 - TypeScript package tests are not run by CI.
 - published declarations refer to packages that are only dev dependencies, which needs an isolated-consumer check.

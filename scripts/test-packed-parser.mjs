@@ -68,15 +68,28 @@ try {
   const typeConsumer = allPublicSpecifiers
     .map((specifier, index) => `import * as publicModule${index} from ${JSON.stringify(specifier)};\nvoid publicModule${index};`)
     .join('\n');
+  const cjsTypeConsumer = allPublicSpecifiers
+    .map((specifier, index) => `import publicModule${index} = require(${JSON.stringify(specifier)});\nvoid publicModule${index};`)
+    .join('\n');
   writeFileSync(join(temporaryRoot, 'consumer.ts'), typeConsumer);
+  writeFileSync(join(temporaryRoot, 'consumer.cts'), cjsTypeConsumer);
 
-  for (const [name, compilerOptions] of [
+  for (const [name, compilerOptions, consumer] of [
     [
       'nodenext',
       {
         module: 'NodeNext',
         moduleResolution: 'NodeNext',
       },
+      './consumer.ts',
+    ],
+    [
+      'nodenext-cjs',
+      {
+        module: 'NodeNext',
+        moduleResolution: 'NodeNext',
+      },
+      './consumer.cts',
     ],
     [
       'bundler',
@@ -84,6 +97,7 @@ try {
         module: 'ESNext',
         moduleResolution: 'Bundler',
       },
+      './consumer.ts',
     ],
   ]) {
     const configPath = join(temporaryRoot, `tsconfig.${name}.json`);
@@ -97,7 +111,7 @@ try {
           noEmit: true,
           skipLibCheck: false,
         },
-        files: ['./consumer.ts'],
+        files: [consumer],
       })
     );
     execFileSync('pnpm', ['exec', 'tsc', '--project', configPath], {

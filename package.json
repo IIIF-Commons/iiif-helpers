@@ -30,7 +30,7 @@
     },
     "./events": {
       "require": {
-        "types": "./dist/events.d.ts",
+        "types": "./dist/events.d.cts",
         "default": "./dist/events.cjs"
       },
       "import": {
@@ -40,7 +40,7 @@
     },
     "./i18n": {
       "require": {
-        "types": "./dist/i18n.d.ts",
+        "types": "./dist/i18n.d.cts",
         "default": "./dist/i18n.cjs"
       },
       "import": {
@@ -50,7 +50,7 @@
     },
     "./styles": {
       "require": {
-        "types": "./dist/styles.d.ts",
+        "types": "./dist/styles.d.cts",
         "default": "./dist/styles.cjs"
       },
       "import": {
@@ -60,7 +60,7 @@
     },
     "./thumbnail": {
       "require": {
-        "types": "./dist/thumbnail.d.ts",
+        "types": "./dist/thumbnail.d.cts",
         "default": "./dist/thumbnail.cjs"
       },
       "import": {
@@ -70,7 +70,7 @@
     },
     "./annotation-targets": {
       "require": {
-        "types": "./dist/annotation-targets.d.ts",
+        "types": "./dist/annotation-targets.d.cts",
         "default": "./dist/annotation-targets.cjs"
       },
       "import": {
@@ -80,7 +80,7 @@
     },
     "./content-state": {
       "require": {
-        "types": "./dist/content-state.d.ts",
+        "types": "./dist/content-state.d.cts",
         "default": "./dist/content-state.cjs"
       },
       "import": {
@@ -90,7 +90,7 @@
     },
     "./fetch": {
       "require": {
-        "types": "./dist/fetch.d.ts",
+        "types": "./dist/fetch.d.cts",
         "default": "./dist/fetch.cjs"
       },
       "import": {
@@ -100,7 +100,7 @@
     },
     "./painting-annotations": {
       "require": {
-        "types": "./dist/painting-annotations.d.ts",
+        "types": "./dist/painting-annotations.d.cts",
         "default": "./dist/painting-annotations.cjs"
       },
       "import": {
@@ -110,7 +110,7 @@
     },
     "./ranges": {
       "require": {
-        "types": "./dist/ranges.d.ts",
+        "types": "./dist/ranges.d.cts",
         "default": "./dist/ranges.cjs"
       },
       "import": {
@@ -120,7 +120,7 @@
     },
     "./sequences": {
       "require": {
-        "types": "./dist/sequences.d.ts",
+        "types": "./dist/sequences.d.cts",
         "default": "./dist/sequences.cjs"
       },
       "import": {
@@ -130,7 +130,7 @@
     },
     "./search1": {
       "require": {
-        "types": "./dist/search1.d.ts",
+        "types": "./dist/search1.d.cts",
         "default": "./dist/search1.cjs"
       },
       "import": {
@@ -140,7 +140,7 @@
     },
     "./search2": {
       "require": {
-        "types": "./dist/search2.d.ts",
+        "types": "./dist/search2.d.cts",
         "default": "./dist/search2.cjs"
       },
       "import": {
@@ -150,7 +150,7 @@
     },
     "./image-service": {
       "require": {
-        "types": "./dist/image-service.d.ts",
+        "types": "./dist/image-service.d.cts",
         "default": "./dist/image-service.cjs"
       },
       "import": {
@@ -160,7 +160,7 @@
     },
     "./nav-date": {
       "require": {
-        "types": "./dist/nav-date.d.ts",
+        "types": "./dist/nav-date.d.cts",
         "default": "./dist/nav-date.cjs"
       },
       "import": {
@@ -170,7 +170,7 @@
     },
     "./vault": {
       "require": {
-        "types": "./dist/vault.d.ts",
+        "types": "./dist/vault.d.cts",
         "default": "./dist/vault.cjs"
       },
       "import": {
@@ -180,7 +180,7 @@
     },
     "./vault-4": {
       "require": {
-        "types": "./dist/vault-4.d.ts",
+        "types": "./dist/vault-4.d.cts",
         "default": "./dist/vault-4.cjs"
       },
       "import": {
@@ -188,19 +188,9 @@
         "default": "./dist/vault-4.js"
       }
     },
-    "./vault-auto": {
-      "require": {
-        "types": "./dist/vault-auto.d.ts",
-        "default": "./dist/vault-auto.cjs"
-      },
-      "import": {
-        "types": "./dist/vault-auto.d.ts",
-        "default": "./dist/vault-auto.js"
-      }
-    },
     "./vault-node": {
       "require": {
-        "types": "./dist/vault-node.d.ts",
+        "types": "./dist/vault-node.d.cts",
         "default": "./dist/vault-node.cjs"
       },
       "import": {
@@ -210,7 +200,7 @@
     },
     "./vault/global-vault": {
       "require": {
-        "types": "./npm/global-vault.d.ts",
+        "types": "./npm/global-vault.d.cts",
         "default": "./npm/global-vault.cjs"
       },
       "import": {
@@ -220,7 +210,7 @@
     },
     "./vault/actions": {
       "require": {
-        "types": "./dist/vault-actions.d.ts",
+        "types": "./dist/vault-actions.d.cts",
         "default": "./dist/vault-actions.cjs"
       },
       "import": {
@@ -230,7 +220,7 @@
     },
     "./vault/store": {
       "require": {
-        "types": "./dist/vault-store.d.ts",
+        "types": "./dist/vault-store.d.cts",
         "default": "./dist/vault-store.cjs"
       },
       "import": {
@@ -240,7 +230,7 @@
     },
     "./vault/utility": {
       "require": {
-        "types": "./dist/vault-utility.d.ts",
+        "types": "./dist/vault-utility.d.cts",
         "default": "./dist/vault-utility.cjs"
       },
       "import": {
@@ -250,7 +240,7 @@
     },
     "./transcriptions": {
       "require": {
-        "types": "./dist/transcriptions.d.ts",
+        "types": "./dist/transcriptions.d.cts",
         "default": "./dist/transcriptions.cjs"
       },
       "import": {
@@ -260,7 +250,7 @@
     },
     "./scenes": {
       "require": {
-        "types": "./dist/scenes.d.ts",
+        "types": "./dist/scenes.d.cts",
         "default": "./dist/scenes.cjs"
       },
       "import": {
@@ -270,7 +260,7 @@
     },
     "./activations": {
       "require": {
-        "types": "./dist/activations.d.ts",
+        "types": "./dist/activations.d.cts",
         "default": "./dist/activations.cjs"
       },
       "import": {

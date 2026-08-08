@@ -54,6 +54,7 @@ const require = createRequire(import.meta.url);
 for (const specifier of publicSubpaths) {
   assert(require(specifier), `CJS require failed for ${specifier}`);
 }
+assert.equal(typeof require(`${helpersPackage}/vault/global-vault`), 'function');
 
 console.log(
   `Packed @iiif/parser → @iiif/helpers integration passed for ${publicSubpaths.length} ESM/CJS subpaths.`
