@@ -8,7 +8,7 @@ and be slower to load.
 Work-in-progress vault-driven thumbnails.
 
 ```ts
-import { createThumbnailHelper } from '@iiif/vault-helpers/thumbnail';
+import { createThumbnailHelper } from "@iiif/vault-helpers/thumbnail";
 
 const vault = new Vault();
 const helper = createThumbnailHelper(vault);
@@ -18,6 +18,7 @@ const thumbnail = helper.getBestThumbnailAtSize(canvas, { width: 256, height: 25
 ```
 
 Available options:
+
 ```ts
 interface Options {
   width?: number;

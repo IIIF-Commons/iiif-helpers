@@ -1,107 +1,111 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Vault Example</title>
     <style>
-        .container {
-            display: grid;
-            grid-template-columns: auto auto;
-        }
+      .container {
+        display: grid;
+        grid-template-columns: auto auto;
+      }
 
-        .selector-container {
-          display: grid;
-          border: 1px solid black;
-        }
+      .selector-container {
+        display: grid;
+        border: 1px solid black;
+      }
 
-        .selector-container canvas,
-        .selector-container svg {
-          grid-area: 1 / 1 / 1 / 1;
-        }
+      .selector-container canvas,
+      .selector-container svg {
+        grid-area: 1 / 1 / 1 / 1;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-<div class="container">
-</div>
-<script type="module">
-  import { parseSelector } from '../src';
+  <body>
+    <div class="container"></div>
+    <script type="module">
+      import { parseSelector } from "../src";
 
-  const rect = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg"><g><rect x="100" y="100" width="300" height="300" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const circle = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg"><g><circle r="147.5" cy="199.83333" cx="225.5" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const ellipse = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 800 150" width="800" height="150" xmlns="http://www.w3.org/2000/svg"><g><ellipse ry="31.5" rx="346.5" id="svg_2" cy="77.83333" cx="399.5" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const cubicBezier = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 200 250" width="200" height="250" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const quadraticBezier = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333 q -270.12536,222.67568 -108.78352,-65.06757" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const polygon = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><polygon points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>'
-  };
-  const polyline = {
-    type: 'SvgSelector',
-    value: '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><polyline points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>'
-  };
+      const rect = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg"><g><rect x="100" y="100" width="300" height="300" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const circle = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 400 400" width="400" height="400" xmlns="http://www.w3.org/2000/svg"><g><circle r="147.5" cy="199.83333" cx="225.5" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const ellipse = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 800 150" width="800" height="150" xmlns="http://www.w3.org/2000/svg"><g><ellipse ry="31.5" rx="346.5" id="svg_2" cy="77.83333" cx="399.5" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const cubicBezier = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 200 250" width="200" height="250" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333c-270.12536,222.67568 -108.78352,-65.06757 -80.05978,107" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const quadraticBezier = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><path d="m200.00001,83.33333 q -270.12536,222.67568 -108.78352,-65.06757" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const polygon = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><polygon points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
+      };
+      const polyline = {
+        type: "SvgSelector",
+        value:
+          '<svg viewBox="0 0 200 200" width="200" height="200" xmlns="http://www.w3.org/2000/svg"><g><polyline points="100,100 150,25 150,75 200,0" stroke="#000" fill="#fff"/></g></svg>',
+      };
 
-  function append(element) {
-    document.getElementsByClassName("container")[0].appendChild(element);
-  }
+      function append(element) {
+        document.getElementsByClassName("container")[0].appendChild(element);
+      }
 
-  function renderSelector(selector, label) {
-    const container = document.createElement("div");
-    container.className = "selector-container";
-    const parsed = parseSelector(selector).selector;
-    console.log(parsed);
-    const svgElem = new DOMParser().parseFromString(parsed.svg, 'image/svg+xml').rootElement;
-    for (const [key, value] of Object.entries(parsed.style ?? {})) {
-      svgElem.firstElementChild.style[key] = value;
-    }
-    container.appendChild(svgElem);
-    const canvas = document.createElement('canvas');
-    container.appendChild(canvas);
-    canvas.width = parsed.spatial.x + parsed.spatial.width + 8;
-    canvas.height = parsed.spatial.y + parsed.spatial.height+ 8;
-    container.style.width = `${canvas.width}px`;
-    container.style.height = `${canvas.height}px`;
-    svgElem.removeAttribute('viewBox');
-    svgElem.style.width = `${canvas.width - 8}px`;
-    svgElem.style.height = `${canvas.height - 8}px`;
-    const ctx = canvas.getContext('2d');
-    for (const pt of parsed.points) {
-      ctx.beginPath();
-      ctx.fillStyle = 'red';
-      ctx.fillRect(pt[0] - 2, pt[1] - 2, 4, 4);
-      ctx.closePath();
-    }
-    ctx.beginPath();
-    ctx.setLineDash([6]);
-    ctx.strokeStyle = 'green';
-    ctx.strokeRect(parsed.spatial.x, parsed.spatial.y, parsed.spatial.width, parsed.spatial.height);
-    ctx.closePath();
-    append(container);
-  }
+      function renderSelector(selector, label) {
+        const container = document.createElement("div");
+        container.className = "selector-container";
+        const parsed = parseSelector(selector).selector;
+        console.log(parsed);
+        const svgElem = new DOMParser().parseFromString(parsed.svg, "image/svg+xml").rootElement;
+        for (const [key, value] of Object.entries(parsed.style ?? {})) {
+          svgElem.firstElementChild.style[key] = value;
+        }
+        container.appendChild(svgElem);
+        const canvas = document.createElement("canvas");
+        container.appendChild(canvas);
+        canvas.width = parsed.spatial.x + parsed.spatial.width + 8;
+        canvas.height = parsed.spatial.y + parsed.spatial.height + 8;
+        container.style.width = `${canvas.width}px`;
+        container.style.height = `${canvas.height}px`;
+        svgElem.removeAttribute("viewBox");
+        svgElem.style.width = `${canvas.width - 8}px`;
+        svgElem.style.height = `${canvas.height - 8}px`;
+        const ctx = canvas.getContext("2d");
+        for (const pt of parsed.points) {
+          ctx.beginPath();
+          ctx.fillStyle = "red";
+          ctx.fillRect(pt[0] - 2, pt[1] - 2, 4, 4);
+          ctx.closePath();
+        }
+        ctx.beginPath();
+        ctx.setLineDash([6]);
+        ctx.strokeStyle = "green";
+        ctx.strokeRect(parsed.spatial.x, parsed.spatial.y, parsed.spatial.width, parsed.spatial.height);
+        ctx.closePath();
+        append(container);
+      }
 
-  renderSelector(rect, 'Rectangle');
-  renderSelector(circle, 'Circle');
-  renderSelector(ellipse, 'Ellipse');
-  renderSelector(polygon, 'Polygon');
-  renderSelector(polyline, 'Polyline');
-  renderSelector(quadraticBezier, 'Quadratic Bezier');
-  renderSelector(cubicBezier, 'Cubic Bezier');
-</script>
-</body>
-
+      renderSelector(rect, "Rectangle");
+      renderSelector(circle, "Circle");
+      renderSelector(ellipse, "Ellipse");
+      renderSelector(polygon, "Polygon");
+      renderSelector(polyline, "Polyline");
+      renderSelector(quadraticBezier, "Quadratic Bezier");
+      renderSelector(cubicBezier, "Cubic Bezier");
+    </script>
+  </body>
 </html>

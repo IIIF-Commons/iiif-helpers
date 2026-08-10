@@ -1,33 +1,34 @@
-import { normaliseContentState, parseContentState, serialiseContentState } from '../src/content-state';
+import { normaliseContentState, parseContentState, serialiseContentState } from "../src/content-state";
 
 const fixture1 =
-  'JTdCJTIyaWQlMjIlM0ElMjJodHRwcyUzQSUyRiUyRmV4YW1wbGUub3JnJTJGb2JqZWN0MSUyRmNhbnZhczclMjN4eXdoJTNEMTAwMCUyQzIwMDAlMkMxMDAwJTJDMjAwMCUyMiUyQyUyMnR5cGUlMjIlM0ElMjJDYW52YXMlMjIlMkMlMjJwYXJ0T2YlMjIlM0ElNUIlN0IlMjJpZCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZvYmplY3QxJTJGbWFuaWZlc3QlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q';
+  "JTdCJTIyaWQlMjIlM0ElMjJodHRwcyUzQSUyRiUyRmV4YW1wbGUub3JnJTJGb2JqZWN0MSUyRmNhbnZhczclMjN4eXdoJTNEMTAwMCUyQzIwMDAlMkMxMDAwJTJDMjAwMCUyMiUyQyUyMnR5cGUlMjIlM0ElMjJDYW52YXMlMjIlMkMlMjJwYXJ0T2YlMjIlM0ElNUIlN0IlMjJpZCUyMiUzQSUyMmh0dHBzJTNBJTJGJTJGZXhhbXBsZS5vcmclMkZvYmplY3QxJTJGbWFuaWZlc3QlMjIlMkMlMjJ0eXBlJTIyJTNBJTIyTWFuaWZlc3QlMjIlN0QlNUQlN0Q";
 
-describe('content state', () => {
-  test('Encoding example from specification', () => {
+describe("content state", () => {
+  test("Encoding example from specification", () => {
     expect(
       serialiseContentState({
-        id: 'https://example.org/object1/canvas7#xywh=1000,2000,1000,2000',
-        type: 'Canvas',
-        partOf: [{ id: 'https://example.org/object1/manifest', type: 'Manifest' }],
+        id: "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+        type: "Canvas",
+        partOf: [{ id: "https://example.org/object1/manifest", type: "Manifest" }],
       })
     ).toEqual(fixture1);
   });
 
-  test('Parse example from specification', () => {
+  test("Parse example from specification", () => {
     expect(parseContentState(fixture1)).toEqual({
-      id: 'https://example.org/object1/canvas7#xywh=1000,2000,1000,2000',
-      type: 'Canvas',
-      partOf: [{ id: 'https://example.org/object1/manifest', type: 'Manifest' }],
+      id: "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+      type: "Canvas",
+      partOf: [{ id: "https://example.org/object1/manifest", type: "Manifest" }],
     });
   });
 
-  test('Normalisation', () => {
+  test("Normalisation", () => {
     const parsed = parseContentState(fixture1);
     const normalised = normaliseContentState(parsed);
 
     expect(normalised).toMatchInlineSnapshot(
-      { id: expect.any(String) }, `
+      { id: expect.any(String) },
+      `
       {
         "extensions": {},
         "id": Any<String>,
@@ -75,12 +76,13 @@ describe('content state', () => {
         ],
         "type": "Annotation",
       }
-    `);
+    `
+    );
   });
 
-  describe('Normalisation variations', function () {
-    test('2.2.3. Target Body', () => {
-      expect(normaliseContentState({ id: 'https://example.org/manifest-1', type: 'Manifest' })).toMatchInlineSnapshot(
+  describe("Normalisation variations", function () {
+    test("2.2.3. Target Body", () => {
+      expect(normaliseContentState({ id: "https://example.org/manifest-1", type: "Manifest" })).toMatchInlineSnapshot(
         { id: expect.any(String) },
         `
         {
@@ -105,12 +107,12 @@ describe('content state', () => {
       `
       );
     });
-    test('Simple canvas', () => {
+    test("Simple canvas", () => {
       expect(
         normaliseContentState({
-          id: 'https://example.org/canvas-1',
-          type: 'Canvas',
-          partOf: 'https://example.org/manifest-1',
+          id: "https://example.org/canvas-1",
+          type: "Canvas",
+          partOf: "https://example.org/manifest-1",
         })
       ).toMatchInlineSnapshot(
         { id: expect.any(String) },
@@ -144,16 +146,16 @@ describe('content state', () => {
       );
     });
 
-    test('2.2.1 Full annotation', () => {
+    test("2.2.1 Full annotation", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/Annotation-server/bookmarks/b1',
-          type: 'Annotation',
-          motivation: ['contentState'],
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/Annotation-server/bookmarks/b1",
+          type: "Annotation",
+          motivation: ["contentState"],
           target: {
-            id: 'https://example.org/iiif/item1/manifest',
-            type: 'Manifest',
+            id: "https://example.org/iiif/item1/manifest",
+            type: "Manifest",
           },
         } as any)
       ).toMatchInlineSnapshot(`
@@ -179,20 +181,20 @@ describe('content state', () => {
       `);
     });
 
-    test('2.2.5 Limitations', () => {
+    test("2.2.5 Limitations", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/import/1',
-          type: 'Annotation',
-          motivation: ['contentState'],
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/import/1",
+          type: "Annotation",
+          motivation: ["contentState"],
           target: {
-            id: 'https://example.org/object1/canvas7#xywh=1000,2000,1000,2000',
-            type: 'Canvas',
+            id: "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+            type: "Canvas",
             partOf: [
               {
-                id: 'https://example.org/object1/manifest',
-                type: 'Manifest',
+                id: "https://example.org/object1/manifest",
+                type: "Manifest",
               },
             ],
           },
@@ -248,20 +250,21 @@ describe('content state', () => {
       `);
     });
 
-    test('2.2.5.1 Reduced', () => {
+    test("2.2.5.1 Reduced", () => {
       expect(
         normaliseContentState({
-          id: 'https://example.org/object1/canvas7#xywh=1000,2000,1000,2000',
-          type: 'Canvas',
+          id: "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+          type: "Canvas",
           partOf: [
             {
-              id: 'https://example.org/object1/manifest',
-              type: 'Manifest',
+              id: "https://example.org/object1/manifest",
+              type: "Manifest",
             },
           ],
         })
       ).toMatchInlineSnapshot(
-        { id: expect.any(String) }, `
+        { id: expect.any(String) },
+        `
         {
           "extensions": {},
           "id": Any<String>,
@@ -309,23 +312,24 @@ describe('content state', () => {
           ],
           "type": "Annotation",
         }
-      `);
+      `
+      );
     });
 
-    test('3.1 linking', () => {
+    test("3.1 linking", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/content-states/1',
-          type: 'Annotation',
-          motivation: ['contentState'],
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/content-states/1",
+          type: "Annotation",
+          motivation: ["contentState"],
           target: {
-            id: 'http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json',
-            type: 'Canvas',
+            id: "http://dams.llgc.org.uk/iiif/2.0/4389767/canvas/4389772.json",
+            type: "Canvas",
             partOf: [
               {
-                id: 'http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json',
-                type: 'Manifest',
+                id: "http://dams.llgc.org.uk/iiif/2.0/4389767/manifest.json",
+                type: "Manifest",
               },
             ],
           },
@@ -359,20 +363,20 @@ describe('content state', () => {
       `);
     });
 
-    test('5.1 A region of a Canvas in a Manifest', () => {
+    test("5.1 A region of a Canvas in a Manifest", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/import/1',
-          type: 'Annotation',
-          motivation: ['contentState'],
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/import/1",
+          type: "Annotation",
+          motivation: ["contentState"],
           target: {
-            id: 'https://example.org/object1/canvas7#xywh=1000,2000,1000,2000',
-            type: 'Canvas',
+            id: "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+            type: "Canvas",
             partOf: [
               {
-                id: 'https://example.org/object1/manifest',
-                type: 'Manifest',
+                id: "https://example.org/object1/manifest",
+                type: "Manifest",
               },
             ],
           },
@@ -428,28 +432,28 @@ describe('content state', () => {
       `);
     });
 
-    test('5.2. Start Playing at a Point in a Recording', () => {
+    test("5.2. Start Playing at a Point in a Recording", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/import/2',
-          type: 'Annotation',
-          motivation: ['contentState'],
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/import/2",
+          type: "Annotation",
+          motivation: ["contentState"],
           target: {
-            type: 'SpecificResource',
+            type: "SpecificResource",
             source: {
-              id: 'https://example.org/iiif/id1/canvas1',
-              type: 'Canvas',
+              id: "https://example.org/iiif/id1/canvas1",
+              type: "Canvas",
               partOf: [
                 {
-                  id: 'https://example.org/iiif/id1/manifest',
-                  type: 'Manifest',
+                  id: "https://example.org/iiif/id1/manifest",
+                  type: "Manifest",
                 },
               ],
             },
 
             selector: {
-              type: 'PointSelector',
+              type: "PointSelector",
               t: 14.5,
             },
           },
@@ -495,32 +499,32 @@ describe('content state', () => {
       `);
     });
 
-    test('5.3 multiple targets', () => {
+    test("5.3 multiple targets", () => {
       expect(
         normaliseContentState({
-          '@context': 'http://iiif.io/api/presentation/3/context.json',
-          id: 'https://example.org/import/3',
-          type: 'Annotation',
-          motivation: 'contentState',
+          "@context": "http://iiif.io/api/presentation/3/context.json",
+          id: "https://example.org/import/3",
+          type: "Annotation",
+          motivation: "contentState",
           target: [
             {
-              id: 'https://example.org/iiif/item1/canvas37',
-              type: 'Canvas',
+              id: "https://example.org/iiif/item1/canvas37",
+              type: "Canvas",
               partOf: [
                 {
-                  id: 'https://example.org/iiif/item1/manifest',
-                  type: 'Manifest',
+                  id: "https://example.org/iiif/item1/manifest",
+                  type: "Manifest",
                 },
               ],
             },
 
             {
-              id: 'https://example.org/iiif/item2/canvas99',
-              type: 'Canvas',
+              id: "https://example.org/iiif/item2/canvas99",
+              type: "Canvas",
               partOf: [
                 {
-                  id: 'https://example.org/iiif/item2/manifest',
-                  type: 'Manifest',
+                  id: "https://example.org/iiif/item2/manifest",
+                  type: "Manifest",
                 },
               ],
             },

@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import arcToCurve from 'svg-arc-to-cubic-bezier';
-import parseSvgPath from 'parse-svg-path';
+import arcToCurve from "svg-arc-to-cubic-bezier";
+import parseSvgPath from "parse-svg-path";
 import absSvgPath, {
   AbsoluteCubicBezierCommand,
   AbsoluteLineCommand,
   AbsoluteMoveCommand,
   AbsoluteQuadraticBezierCommand,
-} from 'abs-svg-path';
+} from "abs-svg-path";
 
 export type NormalizedSvgPathCommand =
   | AbsoluteMoveCommand
@@ -14,7 +14,7 @@ export type NormalizedSvgPathCommand =
   | AbsoluteCubicBezierCommand
   | AbsoluteQuadraticBezierCommand;
 
-export type NormalizedSvgPathCommandType = 'M' | 'L' | 'C' | 'Q';
+export type NormalizedSvgPathCommandType = "M" | "L" | "C" | "Q";
 
 /** Parse an SVG path and normalize it so it only contains Moves, Lines and Cubic or Quadratic Bézier curves
  *  in their absolute form. */
@@ -22,7 +22,7 @@ export function parseAndNormalizeSvgPath(path: string): NormalizedSvgPathCommand
   const parsed = parseSvgPath(path);
   const absolute = absSvgPath(parsed);
 
-  let prevCmd: 'M' | 'L' | 'H' | 'V' | 'C' | 'S' | 'Q' | 'T' | 'A' | 'Z' | undefined;
+  let prevCmd: "M" | "L" | "H" | "V" | "C" | "S" | "Q" | "T" | "A" | "Z" | undefined;
   let startX = 0;
   let startY = 0;
   let bezierX = 0;
@@ -36,42 +36,42 @@ export function parseAndNormalizeSvgPath(path: string): NormalizedSvgPathCommand
     let seg = absolute[i];
     const cmd = seg[0];
     switch (cmd) {
-      case 'M':
+      case "M":
         startX = seg[1];
         startY = seg[2];
         break;
-      case 'H':
-        seg = ['L', seg[1], startY];
+      case "H":
+        seg = ["L", seg[1], startY];
         break;
-      case 'V':
-        seg = ['L', startX, seg[1]];
+      case "V":
+        seg = ["L", startX, seg[1]];
         break;
-      case 'S':
+      case "S":
         {
           let cx = x;
           let cy = y;
-          if (prevCmd === 'C' || prevCmd == 'S') {
+          if (prevCmd === "C" || prevCmd == "S") {
             cx += cx - bezierX;
             cy += cy - bezierY;
           }
-          seg = ['C', cx, cy, seg[1], seg[2], seg[3], seg[4]];
+          seg = ["C", cx, cy, seg[1], seg[2], seg[3], seg[4]];
         }
         break;
-      case 'T':
-        if (prevCmd === 'Q' || prevCmd == 'T') {
+      case "T":
+        if (prevCmd === "Q" || prevCmd == "T") {
           quadX = x * 2 - quadX!;
           quadY = y * 2 - quadY!;
         } else {
           quadX = x;
           quadY = y;
         }
-        seg = ['Q', quadX, quadY, seg[1], seg[2]];
+        seg = ["Q", quadX, quadY, seg[1], seg[2]];
         break;
-      case 'Q':
+      case "Q":
         quadX = seg[1];
         quadY = seg[2];
         break;
-      case 'A':
+      case "A":
         {
           const curves = arcToCurve({
             px: x,
@@ -88,7 +88,7 @@ export function parseAndNormalizeSvgPath(path: string): NormalizedSvgPathCommand
             continue;
           }
           for (const [j, curve] of curves.entries()) {
-            seg = ['C', curve.x1, curve.y1, curve.x2, curve.y2, curve.x, curve.y];
+            seg = ["C", curve.x1, curve.y1, curve.x2, curve.y2, curve.x, curve.y];
             if (j < curves.length - 1) {
               out.push(seg);
             }
@@ -97,15 +97,15 @@ export function parseAndNormalizeSvgPath(path: string): NormalizedSvgPathCommand
           seg = seg as NormalizedSvgPathCommand;
         }
         break;
-      case 'Z':
-        seg = ['L', startX, startY];
+      case "Z":
+        seg = ["L", startX, startY];
         break;
     }
 
     prevCmd = cmd;
     x = seg[seg.length - 2] as number;
     y = seg[seg.length - 1] as number;
-    if (['C', 'Q', 'A'].indexOf(cmd) > -1) {
+    if (["C", "Q", "A"].indexOf(cmd) > -1) {
       bezierX = seg[seg.length - 4] as number;
       bezierY = seg[seg.length - 3] as number;
     } else {

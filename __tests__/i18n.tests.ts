@@ -5,7 +5,7 @@ import { buildLocaleString, getValue, getAvailableLanguagesFromResource, iiifStr
 import { describe, test, expect } from "vitest";
 import delftExample from "../fixtures/exhibitions/novieten.json";
 import compositeTest from "../fixtures/cookbook/composite.json";
-import type { InternationalString } from "@iiif/presentation-3";
+import type { InternationalString } from "@iiif/parser/presentation-3/types";
 
 describe("i18n helper", () => {
   describe("buildLocaleString()", () => {
@@ -49,9 +49,11 @@ describe("i18n helper", () => {
     test("it can match fallback languages", () => {
       expect(buildLocaleString({ en: ["A"], none: ["_"] }, "cy-GB", { fallbackLanguages: ["en-GB"] })).toEqual("A");
       expect(buildLocaleString({ en: ["_"], none: ["A"] }, "cy-GB", { fallbackLanguages: [] })).toEqual("A");
-      expect(buildLocaleString({ en: ["_"], none: ["A"], "@none": ["_"] }, "cy-GB", { fallbackLanguages: [] })).toEqual(
-        "A",
-      );
+      expect(
+        buildLocaleString({ en: ["_"], none: ["A"], "@none": ["_"] }, "cy-GB", {
+          fallbackLanguages: [],
+        })
+      ).toEqual("A");
       expect(buildLocaleString({ en: ["_"], "@none": ["A"] }, "cy-GB", { fallbackLanguages: [] })).toEqual("A");
     });
 
@@ -113,7 +115,7 @@ describe("i18n helper", () => {
       const summary = { en: ["An english summary"] };
 
       expect(iiifString`Label: ${label}, Summary: ${summary}`).toEqual(
-        "Label: An english label, Summary: An english summary",
+        "Label: An english label, Summary: An english summary"
       );
     });
 

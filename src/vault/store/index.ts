@@ -1,15 +1,15 @@
-import { createStore as create } from 'zustand/vanilla';
-import type { StoreApi } from 'zustand/vanilla';
-import { redux, devtools, subscribeWithSelector } from 'zustand/middleware';
-import { mappingReducer } from './reducers/mapping-reducer';
-import { entitiesReducer } from './reducers/entities-reducer';
-import { requestReducer } from './reducers/request-reducer';
-import { metaReducer } from './reducers/meta-reducer';
-import { combineReducers } from '../utility/combine-reducers';
-import { AllActions, IIIFStore } from '../types';
-import { BatchAction } from '../actions';
-import { createBatchReducer } from './reducers/batch-reducer';
-import { getDefaultEntities } from '../utility';
+import { createStore as create } from "zustand/vanilla";
+import { redux, devtools, subscribeWithSelector } from "zustand/middleware";
+import type { SelectorStoreApi } from "../../store-api";
+import { mappingReducer } from "./reducers/mapping-reducer";
+import { entitiesReducer } from "./reducers/entities-reducer";
+import { requestReducer } from "./reducers/request-reducer";
+import { metaReducer } from "./reducers/meta-reducer";
+import { combineReducers } from "../utility/combine-reducers";
+import { AllActions, IIIFStore } from "../types";
+import { BatchAction } from "../actions";
+import { createBatchReducer } from "./reducers/batch-reducer";
+import { getDefaultEntities } from "../utility";
 
 export const reducers = combineReducers({
   mapping: mappingReducer,
@@ -35,21 +35,23 @@ function getDefaultState(): IIIFStore {
     },
   };
 }
-export type VaultStoreState = StoreApi<IIIFStore & { dispatch: (action: AllActions | BatchAction) => void }> & {
-  dispatch: (action: AllActions | BatchAction) => void;
+type VaultAction = AllActions | BatchAction;
+
+export type VaultStoreState = SelectorStoreApi<IIIFStore & { dispatch: (action: VaultAction) => VaultAction }> & {
+  dispatch: (action: VaultAction) => VaultAction;
 };
 
-export function createStore(options: CreateStoreOptions = {}) {
+export function createStore(options: CreateStoreOptions = {}): VaultStoreState {
   const {
     enableDevtools = false,
-    iiifStoreName = 'iiif',
+    iiifStoreName = "iiif",
     defaultState = getDefaultState(),
     customReducers = {},
   } = options;
 
   const rootReducer = createBatchReducer(combineReducers({ [iiifStoreName]: reducers, ...customReducers }));
-  const enabled = Boolean(typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION__);
-  const dv: typeof devtools = !enabled || process.env.NODE_ENV === 'test' ? (a: any, r: any) => a : devtools;
+  const enabled = Boolean(typeof window !== "undefined" && (window as any).__REDUX_DEVTOOLS_EXTENSION__);
+  const dv: typeof devtools = !enabled || process.env.NODE_ENV === "test" ? (a: any, r: any) => a : devtools;
 
   return create(
     //
@@ -64,4 +66,4 @@ export function createStore(options: CreateStoreOptions = {}) {
   );
 }
 
-export type VaultZustandStore = ReturnType<typeof createStore>;
+export type VaultZustandStore = VaultStoreState;

@@ -1,22 +1,22 @@
-import { describe, expect, test } from 'vitest';
-import wunderAutoComplete from '../fixtures/search1/autocomplete.json';
-import searchResponse from '../fixtures/search1/search.json';
-import { createSearch1AutocompleteStore, createSearch1Store } from '../src/search1';
-import invariant from 'tiny-invariant';
+import { describe, expect, test } from "vitest";
+import wunderAutoComplete from "../fixtures/search1/autocomplete.json";
+import searchResponse from "../fixtures/search1/search.json";
+import { createSearch1AutocompleteStore, createSearch1Store } from "../src/search1";
+import invariant from "tiny-invariant";
 
-describe('Search 1 helper', () => {
-  test('Search 1 autocomplete example', async () => {
+describe("Search 1 helper", () => {
+  test("Search 1 autocomplete example", async () => {
     const helper = createSearch1AutocompleteStore(
       {
-        '@id': 'https://iiif.wellcomecollection.org/search/v1/b18035723',
-        '@type': 'SearchService1',
-        profile: 'http://iiif.io/api/search/1/search',
-        label: 'Search within this manifest',
+        "@id": "https://iiif.wellcomecollection.org/search/v1/b18035723",
+        "@type": "SearchService1",
+        profile: "http://iiif.io/api/search/1/search",
+        label: "Search within this manifest",
         service: {
-          '@id': 'https://iiif.wellcomecollection.org/search/autocomplete/v1/b18035723',
-          '@type': 'AutoCompleteService1',
-          profile: 'http://iiif.io/api/search/1/autocomplete',
-          label: 'Autocomplete words in this manifest',
+          "@id": "https://iiif.wellcomecollection.org/search/autocomplete/v1/b18035723",
+          "@type": "AutoCompleteService1",
+          profile: "http://iiif.io/api/search/1/autocomplete",
+          label: "Autocomplete words in this manifest",
         },
       } as any,
       {
@@ -26,13 +26,13 @@ describe('Search 1 helper', () => {
       }
     );
 
-    invariant(helper, 'Helper should be defined');
+    invariant(helper, "Helper should be defined");
 
     const $action = helper.getState();
 
-    await $action.search('wunder');
+    await $action.search("wunder");
 
-    expect(helper.getState().errorMessage).toBe('');
+    expect(helper.getState().errorMessage).toBe("");
     expect(helper.getState().error).toBe(false);
     expect(helper.getState().loading).toBe(false);
     expect(helper.getState().ignored).toMatchInlineSnapshot(`[]`);
@@ -82,12 +82,12 @@ describe('Search 1 helper', () => {
     `);
   });
 
-  test('Search 1 example', async () => {
+  test("Search 1 example", async () => {
     const search = createSearch1Store(
       {
-        '@context': 'http://iiif.io/api/search/1/context.json',
-        '@id': 'https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231',
-        profile: 'http://iiif.io/api/search/1/search',
+        "@context": "http://iiif.io/api/search/1/context.json",
+        "@id": "https://api.digitale-sammlungen.de/iiif/services/search/v1/bsb10267231",
+        profile: "http://iiif.io/api/search/1/search",
       },
       {
         fetcher: async (url: string, options: RequestInit) => {
@@ -100,9 +100,9 @@ describe('Search 1 helper', () => {
 
     expect($actions.hasSearch).toBe(true);
 
-    await $actions.search({ q: 'test' });
+    await $actions.search({ q: "test" });
 
-    expect(search.getState().errorMessage).toBe('');
+    expect(search.getState().errorMessage).toBe("");
     expect(search.getState().error).toBe(false);
     expect(search.getState().loading).toBe(false);
     expect(search.getState().lastQuery).toMatchInlineSnapshot(`

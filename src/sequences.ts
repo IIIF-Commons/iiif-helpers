@@ -1,17 +1,28 @@
-import { Reference } from '@iiif/presentation-3';
-import { CanvasNormalized, ManifestNormalized, RangeNormalized } from '@iiif/presentation-3-normalized';
-import { findAllCanvasesInRange } from './ranges';
-import { compatVault, CompatVault } from './compat';
+import type { Reference as ReferenceV3 } from "@iiif/parser/presentation-3/types";
+import type {
+  CanvasNormalized as CanvasNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
+  RangeNormalized as RangeNormalizedV3,
+} from "@iiif/parser/presentation-3-normalized/types";
+import type { Reference as ReferenceV4 } from "@iiif/parser/presentation-4/types";
+import type {
+  CanvasNormalized as CanvasNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+  RangeNormalized as RangeNormalizedV4,
+} from "@iiif/parser/presentation-4-normalized/types";
+import { type CompatVault, compatVault } from "./compat";
+import { findAllCanvasesInRange } from "./ranges";
+
+type Reference<T extends string = string> = ReferenceV3<T> | ReferenceV4<T>;
+type ManifestOrRange = ManifestNormalizedV3 | RangeNormalizedV3 | ManifestNormalizedV4 | RangeNormalizedV4;
+type CanvasNormalized = CanvasNormalizedV3 | CanvasNormalizedV4;
 
 export function createSequenceHelper(vault: CompatVault = compatVault) {
   return {
-    getVisibleCanvasesFromCanvasId: (
-      manifestOrRange: ManifestNormalized | RangeNormalized,
-      canvasId: string | null,
-      preventPaged = false
-    ) => getVisibleCanvasesFromCanvasId(vault, manifestOrRange, canvasId, preventPaged),
+    getVisibleCanvasesFromCanvasId: (manifestOrRange: ManifestOrRange, canvasId: string | null, preventPaged = false) =>
+      getVisibleCanvasesFromCanvasId(vault, manifestOrRange, canvasId, preventPaged),
     getManifestSequence: (
-      manifestOrRange: ManifestNormalized | RangeNormalized,
+      manifestOrRange: ManifestOrRange,
       options: { disablePaging?: boolean; skipNonPaged?: boolean } = {}
     ) => getManifestSequence(vault, manifestOrRange, options),
   };
@@ -50,10 +61,10 @@ export function createSequenceHelper(vault: CompatVault = compatVault) {
  */
 export function getVisibleCanvasesFromCanvasId(
   vault: CompatVault = compatVault,
-  manifestOrRange: ManifestNormalized | RangeNormalized,
+  manifestOrRange: ManifestOrRange,
   canvasId: string | null,
   preventPaged = false
-): Reference<'Canvas'>[] {
+): Reference<"Canvas">[] {
   const behavior = manifestOrRange.behavior || [];
   const fullCanvas = canvasId ? vault.get<CanvasNormalized>(canvasId) : null;
   if (!fullCanvas) {
@@ -61,15 +72,15 @@ export function getVisibleCanvasesFromCanvasId(
   }
 
   const canvasBehavior = fullCanvas.behavior || [];
-  const isPaged = preventPaged ? false : behavior.includes('paged');
-  const isContinuous = isPaged ? false : behavior.includes('continuous');
-  const isIndividuals = isPaged || isContinuous ? false : behavior.includes('individuals');
-  const isCanvasFacingPages = canvasBehavior.includes('facing-pages');
-  const isCanvasNonPaged = canvasBehavior.includes('non-paged');
+  const isPaged = preventPaged ? false : behavior.includes("paged");
+  const isContinuous = isPaged ? false : behavior.includes("continuous");
+  const isIndividuals = isPaged || isContinuous ? false : behavior.includes("individuals");
+  const isCanvasFacingPages = canvasBehavior.includes("facing-pages");
+  const isCanvasNonPaged = canvasBehavior.includes("non-paged");
 
   // Individuals should just be the default.
   if (isCanvasFacingPages || isCanvasNonPaged || isIndividuals || preventPaged) {
-    return [{ id: fullCanvas.id, type: 'Canvas' }];
+    return [{ id: fullCanvas.id, type: "Canvas" }];
   }
 
   const [manifestItems, ordering] = getManifestSequence(vault, manifestOrRange);
@@ -90,20 +101,25 @@ export function getVisibleCanvasesFromCanvasId(
     }
   }
 
-  return [{ id: fullCanvas.id, type: 'Canvas' }];
+  return [{ id: fullCanvas.id, type: "Canvas" }];
 }
 
 export function getManifestSequence(
   vault: CompatVault = compatVault,
-  manifestOrRange: ManifestNormalized | RangeNormalized,
+  manifestOrRange: ManifestOrRange,
   { disablePaging, skipNonPaged }: { disablePaging?: boolean; skipNonPaged?: boolean } = {}
-): [Reference<'Canvas'>[], number[][]] {
+): [Reference<"Canvas">[], number[][]] {
   const behavior = manifestOrRange.behavior || [];
-  const isPaged = behavior.includes('paged');
-  const isContinuous = isPaged ? false : behavior.includes('continuous');
-  const isIndividuals = isPaged || isContinuous ? false : behavior.includes('individuals');
-  const manifestItems =
-    manifestOrRange.type === 'Manifest' ? manifestOrRange.items : findAllCanvasesInRange(vault, manifestOrRange);
+  const isPaged = behavior.includes("paged");
+  const isContinuous = isPaged ? false : behavior.includes("continuous");
+  const isIndividuals = isPaged || isContinuous ? false : behavior.includes("individuals");
+  const manifestItems = (
+    manifestOrRange.type === "Manifest"
+      ? (manifestOrRange.items as any[]).flatMap((item) =>
+          typeof item === "string" ? [{ id: item, type: "Canvas" }] : item?.type === "Canvas" ? [item] : []
+        )
+      : findAllCanvasesInRange(vault, manifestOrRange)
+  ) as Reference<"Canvas">[];
 
   // Continuous should just return all items together.
   if (isContinuous) {
@@ -129,9 +145,9 @@ export function getManifestSequence(
   let offset = 0;
   let flushNextPaged = false;
   for (let i = 0; i < manifestItems.length; i++) {
-    const canvas = vault.get<CanvasNormalized>(manifestItems[i]);
+    const canvas = vault.get<CanvasNormalized>(manifestItems[i] as any);
     const canvasBehavior = canvas.behavior || [];
-    if (canvasBehavior.includes('non-paged')) {
+    if (canvasBehavior.includes("non-paged")) {
       if (i === offset) {
         offset++;
       }
@@ -143,7 +159,7 @@ export function getManifestSequence(
       continue;
     }
 
-    if (i === offset || canvasBehavior.includes('facing-pages')) {
+    if (i === offset || canvasBehavior.includes("facing-pages")) {
       // Flush and push a single.
       if (currentOrdering.length) {
         flushNextPaged = true;

@@ -1,4 +1,4 @@
-import { FixedSizeImage, ImageCandidateRequest } from './types';
+import { FixedSizeImage, ImageCandidateRequest } from "./types";
 
 export function isBestMatch(
   request: Required<ImageCandidateRequest>,

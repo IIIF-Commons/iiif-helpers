@@ -1,33 +1,47 @@
 /// <reference types="geojson" />
 
 import {
+  frameResource,
+  HAS_PART,
+  isSpecificResource,
+  PART_OF,
+  type SerializeConfig,
+  serialize,
+  serializeConfigPresentation2,
+  serializeConfigPresentation3,
+} from "@iiif/parser";
+import type { Collection, Manifest, Reference, SpecificResource } from "@iiif/parser/presentation-3/types";
+import type {
+  AnnotationCollectionNormalized,
+  AnnotationNormalized,
+  AnnotationPageNormalized,
+  CanvasNormalized,
+  CollectionNormalized,
+  ManifestNormalized,
+  RangeNormalized,
+  ResourceProviderNormalized,
+  ServiceNormalized,
+} from "@iiif/parser/presentation-3-normalized/types";
+import mitt, { type Emitter } from "mitt";
+import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from "./actions";
+import { createStore, type VaultZustandStore } from "./store";
+import type {
   ActionFromType,
   AllActions,
   Entities,
   IIIFStore,
   NormalizedEntity,
+  PaginationPageNormalized,
   PaginationState,
   RefToNormalized,
   RequestState,
-} from './types';
-import { Collection, Manifest, Reference, SpecificResource } from '@iiif/presentation-3';
-import {
-  frameResource,
-  HAS_PART,
-  isSpecificResource,
-  PART_OF,
-  serialize,
-  SerializeConfig,
-  serializeConfigPresentation2,
-  serializeConfigPresentation3,
-} from '@iiif/parser';
-import { BATCH_ACTIONS, BatchAction, batchActions, entityActions, metaActions } from './actions';
-import { createFetchHelper, areInputsEqual } from './utility';
-import { createStore, VaultZustandStore } from './store';
-import mitt, { Emitter } from 'mitt';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
-import { isWrapped, ReactiveWrapped, wrapObject } from './utility/objects';
-import { resolveType } from './utility/resolve-type';
+  VaultLoadReport,
+} from "./types";
+import { areInputsEqual, createFetchHelper } from "./utility";
+import { type ActionListFromResource, actionListFromResourceV3 } from "./utility/action-list-from-resource";
+import { defaultFetcher } from "./utility/default-fetcher";
+import { isWrapped, type ReactiveWrapped, wrapObject } from "./utility/objects";
+import { resolveType } from "./utility/resolve-type";
 
 export type VaultOptions = {
   reducers: Record<string, any>;
@@ -44,24 +58,87 @@ export type GetOptions = {
 };
 export type GetObjectOptions = GetOptions & { reactive?: boolean };
 
-type AllActionsType = AllActions['type'];
+type AllActionsType = Extract<AllActions["type"], string>;
 
-export type EntityRef<Ref extends keyof Entities> = IIIFStore['iiif']['entities'][Ref][string];
+export type EntityRef<Ref extends keyof Entities> = IIIFStore["iiif"]["entities"][Ref][string];
 
-export class Vault {
-  private readonly options: VaultOptions;
+function referenceId(reference: unknown): string | null {
+  if (typeof reference === "string") {
+    return reference;
+  }
+  if (reference && typeof reference === "object" && typeof (reference as any).id === "string") {
+    return (reference as any).id;
+  }
+  return null;
+}
+
+function uniqueReferences(references: any[]): Array<{ id: string; type: string }> {
+  const seen = new Set<string>();
+  const unique: Array<{ id: string; type: string }> = [];
+  for (const reference of references) {
+    if (!reference || typeof reference.id !== "string" || typeof reference.type !== "string") {
+      continue;
+    }
+    const key = `${reference.type}\0${reference.id}`;
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push({ id: reference.id, type: reference.type });
+    }
+  }
+  return unique;
+}
+
+export type VaultTypeMap = {
+  Manifest: unknown;
+  Collection: unknown;
+  ManifestNormalized: unknown;
+  CollectionNormalized: unknown;
+  Normalized?: object;
+};
+
+export type Vault3TypeMap = {
+  Manifest: Manifest;
+  Collection: Collection;
+  ManifestNormalized: ManifestNormalized;
+  CollectionNormalized: CollectionNormalized;
+  Normalized: {
+    Manifest: ManifestNormalized;
+    Collection: CollectionNormalized;
+    Canvas: CanvasNormalized;
+    AnnotationPage: AnnotationPageNormalized;
+    AnnotationCollection: AnnotationCollectionNormalized;
+    Annotation: AnnotationNormalized;
+    Range: RangeNormalized;
+    Service: ServiceNormalized;
+    Agent: ResourceProviderNormalized;
+  };
+};
+
+export type RefToNormalizedFor<Ref extends { type?: string }, Types extends VaultTypeMap> = Ref["type"] extends string
+  ? Ref["type"] extends keyof NonNullable<Types["Normalized"]>
+    ? NonNullable<Types["Normalized"]>[Ref["type"]]
+    : RefToNormalized<Ref>
+  : RefToNormalized<Ref>;
+
+export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
+  readonly presentationVersion: 3 | 4 = 3;
+  protected readonly options: VaultOptions;
   private readonly store: VaultZustandStore;
   private readonly emitter: Emitter<any>;
   private isBatching = false;
   private batchQueue: AllActions[] = [];
   remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
-  staticFetcher: (str: string, json: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
+  staticFetcher: (
+    str: string,
+    json: any,
+    mapper?: (resource: any) => any
+  ) => Promise<NormalizedEntity | undefined> | NormalizedEntity | undefined;
 
   constructor(options?: Partial<VaultOptions>, store?: VaultZustandStore) {
     this.options = Object.assign(
       {
         reducers: {},
-        customFetcher: this.defaultFetcher,
+        customFetcher: defaultFetcher,
         enableDevtools: true,
       },
       options || {}
@@ -74,21 +151,19 @@ export class Vault {
         enableDevtools: this.options.enableDevtools,
       });
     this.emitter = mitt();
-    this.remoteFetcher = createFetchHelper(this, this.options.customFetcher) as any;
-    this.staticFetcher = createFetchHelper(this, (id: string, json: any) => json);
+    this.remoteFetcher = createFetchHelper(this as Vault<any>, this.options.customFetcher || defaultFetcher, {
+      actionListFromResource: this.getActionListFromResource(),
+    }) as any;
+    this.staticFetcher = createFetchHelper(this as Vault<any>, (id: string, json: any) => json, {
+      actionListFromResource: this.getActionListFromResource(),
+    });
   }
 
-  defaultFetcher = (url: string) => {
-    return fetch(url).then((r) => {
-      if (r.status === 200) {
-        return r.json();
-      } else {
-        const err = new Error(`${r.status} ${r.statusText}`);
-        err.name = `HTTPError`;
-        throw err;
-      }
-    });
-  };
+  protected getActionListFromResource(): ActionListFromResource {
+    return actionListFromResourceV3;
+  }
+
+  defaultFetcher = defaultFetcher;
 
   batch(cb: (vault: this) => void) {
     this.isBatching = true;
@@ -137,12 +212,18 @@ export class Vault {
     if (!this.isBatching) {
       if (action.type === BATCH_ACTIONS) {
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(realAction.type, { action: realAction, state: this.store.getState() });
+          this.emitter.emit(realAction.type, {
+            action: realAction,
+            state: this.store.getState(),
+          });
         }
         this.store.dispatch(action);
         const state = this.getState();
         for (const realAction of action.payload.actions) {
-          this.emitter.emit(`after:${realAction.type}`, { action: realAction, state });
+          this.emitter.emit(`after:${realAction.type}`, {
+            action: realAction,
+            state,
+          });
         }
         return;
       }
@@ -157,7 +238,7 @@ export class Vault {
     }
   }
 
-  on<Type extends AllActions['type']>(
+  on<Type extends AllActionsType>(
     event: Type | `after:${Type}`,
     handler: (ctx: { action: ActionFromType<Type>; state: IIIFStore }) => void
   ) {
@@ -183,30 +264,33 @@ export class Vault {
     reference: string | Partial<R>,
     type?: string | GetOptions,
     options?: GetOptions
-  ): RefToNormalized<R>;
+  ): RefToNormalizedFor<R, Types>;
   hydrate<R extends { type?: string }>(
     reference: string[] | Partial<R>[],
     type?: string | GetOptions,
     options?: GetOptions
-  ): RefToNormalized<R>[];
+  ): RefToNormalizedFor<R, Types>[];
   hydrate<R extends { type?: string }>(
     reference: string | R | NormalizedEntity | string[] | R[] | NormalizedEntity[],
     type?: string | GetOptions,
     options: GetOptions = {}
-  ): RefToNormalized<R> | RefToNormalized<R>[] {
-    return this.get<R>(reference as any, type as any, { ...options, skipSelfReturn: false });
+  ): RefToNormalizedFor<R, Types> | RefToNormalizedFor<R, Types>[] {
+    return this.get<R>(reference as any, type as any, {
+      ...options,
+      skipSelfReturn: false,
+    });
   }
 
   get<R extends { type?: string }>(
-    reference: string | Partial<R> | Reference<R['type']> | SpecificResource<R>,
+    reference: string | Partial<R> | Reference<R["type"]> | SpecificResource<R>,
     type?: string | GetOptions,
     options?: GetOptions
-  ): RefToNormalized<R>;
+  ): RefToNormalizedFor<R, Types>;
   get<R extends { type?: string }>(
-    reference: string[] | Partial<R>[] | Reference<R['type']>[] | SpecificResource<R>[],
+    reference: string[] | Partial<R>[] | Reference<R["type"]>[] | SpecificResource<R>[],
     type?: string | GetOptions,
     options?: GetOptions
-  ): RefToNormalized<R>[];
+  ): RefToNormalizedFor<R, Types>[];
   get<R extends { type?: string }>(
     reference:
       | string
@@ -219,14 +303,14 @@ export class Vault {
       | SpecificResource<R>[],
     type?: string | GetOptions,
     options: GetOptions = {}
-  ): RefToNormalized<R> | RefToNormalized<R>[] {
-    if (typeof type !== 'string') {
+  ): RefToNormalizedFor<R, Types> | RefToNormalizedFor<R, Types>[] {
+    if (typeof type !== "string") {
       options = type || {};
       type = undefined;
     }
 
     const { skipSelfReturn = true } = options || {};
-    let parent = options.parent ? (typeof options.parent === 'string' ? options.parent : options.parent.id) : undefined;
+    let parent = options.parent ? (typeof options.parent === "string" ? options.parent : options.parent.id) : undefined;
 
     // Multiples.
     if (Array.isArray(reference)) {
@@ -240,13 +324,13 @@ export class Vault {
     }
 
     // String IDs.
-    if (typeof reference === 'string') {
+    if (typeof reference === "string") {
       const _type: any = resolveType(type ? type : state.iiif.mapping[reference]);
       if (!_type) {
         if (skipSelfReturn) {
           return null as any;
         }
-        return { id: reference, type: 'unknown' } as any;
+        return { id: reference, type: "unknown" } as any;
       }
       reference = { id: reference, type: _type };
     }
@@ -254,10 +338,10 @@ export class Vault {
     if (reference && (reference as any).partOf && !parent && !options.skipPartOfCheck) {
       const first = Array.isArray((reference as any).partOf) ? (reference as any).partOf[0] : (reference as any).partOf;
       if (first) {
-        if (typeof first === 'string') {
+        if (typeof first === "string") {
           parent = first;
         }
-        if (typeof first.id === 'string') {
+        if (typeof first.id === "string") {
           parent = first.id;
         }
       }
@@ -269,7 +353,7 @@ export class Vault {
     if (!entities) {
       const request = state.iiif.requests[_id];
       if (request && request.resourceUri !== _id) {
-        return this.get(request.resourceUri, options);
+        return this.get(request.resourceUri, options) as any;
       }
 
       if (skipSelfReturn) {
@@ -302,10 +386,10 @@ export class Vault {
   }
 
   deep(input?: any, prev?: any) {
-    if (typeof input === 'undefined') {
+    if (typeof input === "undefined") {
       return this.get(prev, { skipSelfReturn: false });
     }
-    if (typeof input === 'function') {
+    if (typeof input === "function") {
       try {
         const next = input(this.get(prev, { skipSelfReturn: false }));
         const fn: any = (newInput: any) => this.deep(newInput, next);
@@ -322,18 +406,26 @@ export class Vault {
     return fn;
   }
 
-  loadManifest(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<ManifestNormalized | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.load<ManifestNormalized>(_id, json, mapper);
+  loadManifest(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<Types["ManifestNormalized"] | undefined> {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.load<Types["ManifestNormalized"]>(_id, json, mapper);
   }
 
-  loadCollection(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<CollectionNormalized | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.load<CollectionNormalized>(_id, json, mapper);
+  loadCollection(
+    id: string | Reference<any>,
+    json?: unknown,
+    mapper?: (resource: any) => any
+  ): Promise<Types["CollectionNormalized"] | undefined> {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.load<Types["CollectionNormalized"]>(_id, json, mapper);
   }
 
   load<T>(id: string | Reference<any>, json?: unknown, mapper?: (resource: any) => any): Promise<T | undefined> {
-    const _id = typeof id === 'string' ? id : id.id;
+    const _id = typeof id === "string" ? id : id.id;
     if (json) {
       return Promise.resolve(this.staticFetcher(_id, json, mapper)) as Promise<T | undefined>;
     }
@@ -341,18 +433,26 @@ export class Vault {
   }
 
   loadSync<T>(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): T | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
+    const _id = typeof id === "string" ? id : id.id;
     return this.staticFetcher(_id, json, mapper) as T | undefined;
   }
 
-  loadManifestSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): ManifestNormalized | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<ManifestNormalized>(_id, json, mapper);
+  loadManifestSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): Types["ManifestNormalized"] | undefined {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.loadSync<Types["ManifestNormalized"]>(_id, json, mapper);
   }
 
-  loadCollectionSync(id: string | Reference<any>, json: unknown, mapper?: (resource: any) => any): CollectionNormalized | undefined {
-    const _id = typeof id === 'string' ? id : id.id;
-    return this.loadSync<CollectionNormalized>(_id, json, mapper);
+  loadCollectionSync(
+    id: string | Reference<any>,
+    json: unknown,
+    mapper?: (resource: any) => any
+  ): Types["CollectionNormalized"] | undefined {
+    const _id = typeof id === "string" ? id : id.id;
+    return this.loadSync<Types["CollectionNormalized"]>(_id, json, mapper);
   }
 
   areInputsEqual(newInputs: readonly unknown[] | unknown, lastInputs: readonly unknown[] | unknown) {
@@ -361,18 +461,18 @@ export class Vault {
 
   subscribe<T>(
     selector: (state: IIIFStore) => T,
-    subscription: (state: T, vault: Vault) => void,
+    subscription: (state: T, vault: this) => void,
     skipInitial: boolean
   ): () => void;
-  subscribe<T>(subscription: (state: T, vault: Vault) => void, skipInitial?: boolean): () => void;
+  subscribe<T>(subscription: (state: T, vault: this) => void, skipInitial?: boolean): () => void;
   subscribe<T>(
-    selector: ((state: IIIFStore) => T) | ((state: T, vault: Vault) => void),
-    subscription?: ((state: T, vault: Vault) => void) | boolean,
+    selector: ((state: IIIFStore) => T) | ((state: T, vault: this) => void),
+    subscription?: ((state: T, vault: this) => void) | boolean,
     skipInitial?: boolean
   ): () => void {
     if (
-      typeof skipInitial === 'undefined' &&
-      (typeof subscription === 'undefined' || subscription === false || subscription === true)
+      typeof skipInitial === "undefined" &&
+      (typeof subscription === "undefined" || subscription === false || subscription === true)
     ) {
       skipInitial = subscription;
       subscription = selector as any;
@@ -386,7 +486,7 @@ export class Vault {
   }
 
   async ensureLoaded(_id: string | Reference<any>): Promise<void> {
-    const id = typeof _id === 'string' ? _id : _id.id;
+    const id = typeof _id === "string" ? _id : _id.id;
     if (!this.requestStatus(id)) {
       await this.load(id);
     }
@@ -398,27 +498,30 @@ export class Vault {
     });
   }
 
-
   // Pagination built on "meta".
   getPaginationState<T = any>(resource: string | Reference): PaginationState | null {
     // This will return the pagination state of a resource from it's meta.
     // If there is no pagination state, it will create it if needed.
-    const id = typeof resource === 'string' ? resource : resource.id;
+    const id = typeof resource === "string" ? resource : resource.id;
     if (!id) return null;
 
-    const existing = this.getResourceMeta(id, '@vault/pagination');
+    const existing = this.getResourceMeta(id, "@vault/pagination");
     if (existing?.state) {
       return existing.state;
     }
 
-    const fullResource = this.get(resource);
-    if (fullResource.first) {
+    const fullResource: any = this.get(resource);
+    if (fullResource?.first) {
+      const firstPage = referenceId(fullResource.first);
+      if (!firstPage) {
+        return null;
+      }
       const initialState: PaginationState = {
         currentPage: null,
         currentPageIndex: null,
         isFetching: false,
         isFullyLoaded: false,
-        next: fullResource.first,
+        next: firstPage,
         page: 1,
         pages: [],
         previous: null,
@@ -426,7 +529,7 @@ export class Vault {
         currentLength: 0,
       };
 
-      this.setMetaValue([id, '@vault/pagination', 'state'], initialState)
+      this.setMetaValue([id, "@vault/pagination", "state"], initialState);
 
       return initialState;
     }
@@ -436,8 +539,11 @@ export class Vault {
     return null;
   }
 
-  async loadNextPage(resource: string | Reference, json?: any): Promise<[PaginationState | null, CollectionNormalized | null]> {
-    const id = typeof resource === 'string' ? resource : resource.id;
+  async loadNextPage(
+    resource: string | Reference,
+    json?: any
+  ): Promise<[PaginationState | null, PaginationPageNormalized | null]> {
+    const id = typeof resource === "string" ? resource : resource.id;
     if (!id) return [null, null];
 
     // This will get the pagination state and fetch the next page and load it into the vault.
@@ -450,88 +556,163 @@ export class Vault {
       return [state, null];
     }
 
-    const nextPage = typeof state.next === 'string' ? state.next : (state.next as any).id;
+    const nextPage = referenceId(state.next);
+    if (!nextPage) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        isFullyLoaded: true,
+        error: new Error("Page reference does not have an id"),
+      };
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
+      return [errState, null];
+    }
+
+    if (state.currentPage === nextPage || state.pages.some((page) => page.id === nextPage)) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        isFullyLoaded: true,
+        error: new Error(`Pagination cycle detected at ${nextPage}`),
+      };
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
+      return [errState, null];
+    }
     const previousPage = state.currentPage;
+    const paginatedResourceBeforeLoad: any = this.get(id);
 
     // 1. Update the meta state.
     const newState: PaginationState = {
       ...state,
       isFetching: true,
     };
-    this.setMetaValue([id, '@vault/pagination', 'state'], newState);
+    this.setMetaValue([id, "@vault/pagination", "state"], newState);
 
     // 2. Make the fetch request.
-    let collectionPage;
+    let page;
     try {
-      collectionPage = await this.loadCollection(nextPage, json, mapped => {
+      page = await this.load<PaginationPageNormalized>(nextPage, json, (mapped) => {
         // This is required because the page MIGHT have the same id.
-        const { id, ['@id']: _id, ...properties } = mapped || {};
+        const { id, ["@id"]: _id, ...properties } = mapped || {};
 
         if (_id) {
-          return { ['@id']: nextPage, ...properties };
+          return { ["@id"]: nextPage, ...properties };
         }
 
         return { id: nextPage, ...properties };
-      })
+      });
     } catch (err) {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
         error: err,
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
-    if (!collectionPage) {
+    if (!page) {
       const errState: PaginationState = {
         ...state,
         isFetching: false,
-        error: new Error("Collection not found"),
+        error: new Error(`Page not found: ${nextPage}`),
       };
-      this.setMetaValue([id, '@vault/pagination', 'state'], errState);
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
       return [errState, null];
     }
 
-    const fullCollection = this.get(id);
-    const combinedItems = [
-        ...(fullCollection.items || []),
-        ...(collectionPage.items || []),
-      ].map(resource => ({
-        id: resource.id, type: resource.type
-      }));
+    const typedPage: any = page;
+    this.dispatch(
+      entityActions.importEntities({
+        entities: {
+          [paginatedResourceBeforeLoad.type]: {
+            [id]: paginatedResourceBeforeLoad,
+          },
+        },
+      })
+    );
+    const expectedPageType =
+      paginatedResourceBeforeLoad.type === "AnnotationCollection"
+        ? "AnnotationPage"
+        : referenceId(paginatedResourceBeforeLoad.first) === nextPage &&
+            (paginatedResourceBeforeLoad.first as any)?.type
+          ? (paginatedResourceBeforeLoad.first as any).type
+          : undefined;
+    if (
+      (expectedPageType === "AnnotationPage" && typedPage.type !== "AnnotationPage") ||
+      (paginatedResourceBeforeLoad.type === "Collection" && !["Collection", "CollectionPage"].includes(typedPage.type))
+    ) {
+      const errState: PaginationState = {
+        ...state,
+        isFetching: false,
+        error: new Error(`Expected ${expectedPageType || "collection"} page, received ${typedPage.type || "unknown"}`),
+      };
+      this.setMetaValue([id, "@vault/pagination", "state"], errState);
+      return [errState, null];
+    }
 
-    this.modifyEntityField({ id, type: "Collection" }, "items", combinedItems);
+    const existingItems = this.getPaginatedItems(resource);
+    const pageItems = typedPage.items || [];
+    const combinedItems = uniqueReferences([...existingItems, ...pageItems]);
+    if (typedPage.type === "Collection") {
+      this.modifyEntityField({ id, type: paginatedResourceBeforeLoad.type }, "items", combinedItems);
+    }
     const latestState = this.getPaginationState(resource);
     if (!latestState) throw new Error("Pagination state not found");
+    const next = referenceId(typedPage.next);
     const successState: PaginationState = {
       ...latestState,
       isFetching: false,
       error: null,
-      currentPage: collectionPage.id,
-      next: (collectionPage as any).next?.id || null,
+      currentPage: typedPage.id || null,
+      next,
       currentPageIndex: latestState.pages.length,
       currentLength: combinedItems.length,
       pages: [
         ...latestState.pages,
         {
-          id: collectionPage.id,
-          type: "Collection",
-          startIndex: fullCollection.items.length,
-          pageLength: collectionPage.items.length,
-          order: typeof latestState.currentPageIndex === 'number' ? latestState.currentPageIndex + 1 : 0,
-        }
+          id: typedPage.id,
+          type: typedPage.type,
+          startIndex: typeof typedPage.startIndex === "number" ? typedPage.startIndex : existingItems.length,
+          pageLength: pageItems.length,
+          order: typeof latestState.currentPageIndex === "number" ? latestState.currentPageIndex + 1 : 0,
+        },
       ],
-      isFullyLoaded: !(collectionPage as any).next,
+      isFullyLoaded: !next,
       previous: previousPage,
       page: latestState.pages.length + 1,
     };
 
-    this.setMetaValue([id, '@vault/pagination', 'state'], successState);
+    this.setMetaValue([id, "@vault/pagination", "state"], successState);
 
-    return [successState, collectionPage];
+    return [successState, page];
   }
 
+  getPaginatedItems(resource: string | Reference): Array<{ id: string; type: string }> {
+    const state = this.getPaginationState(resource);
+    if (!state) {
+      return [];
+    }
+    return uniqueReferences(
+      state.pages.flatMap((page) => {
+        const loadedPage: any = this.get({ id: page.id, type: page.type });
+        return loadedPage?.items || [];
+      })
+    );
+  }
+
+  async loadPageChain(resource: string | Reference): Promise<PaginationState | null> {
+    let state = this.getPaginationState(resource);
+    while (state && !state.isFullyLoaded && state.next && !state.error) {
+      [state] = await this.loadNextPage(resource);
+    }
+    return state;
+  }
+
+  getLoadReport(resource: string | Reference): VaultLoadReport | undefined {
+    const id = typeof resource === "string" ? resource : resource.id;
+    return this.getResourceMeta<{ "@vault/load": { report: VaultLoadReport } }>(id, "@vault/load")?.report;
+  }
 
   getResourceMeta<T = any>(resource: string): Partial<T> | undefined;
   getResourceMeta<T = any, Key extends keyof T = keyof T>(resource: string, metaKey: Key): T[Key] | undefined;
@@ -555,36 +736,42 @@ export class Vault {
     reference: string | Partial<R>,
     type?: string | GetObjectOptions,
     options?: GetObjectOptions
-  ): RefToNormalized<R>;
+  ): RefToNormalizedFor<R, Types>;
   getObject<R extends { type?: string }>(
     reference: string | R | NormalizedEntity,
     type?: string | GetObjectOptions,
     options: GetObjectOptions = {}
-  ): RefToNormalized<R> {
+  ): RefToNormalizedFor<R, Types> {
     const { reactive, ...otherOptions } = options;
-    return wrapObject(this.get(reference as any, type, otherOptions), this, reactive) as any;
+    return wrapObject(this.get(reference as any, type, otherOptions), this as Vault<any>, reactive) as any;
   }
 
   async loadObject<Type, NormalizedType = any>(
     id: string | Reference<any>,
     json?: any
   ): Promise<ReactiveWrapped<Type, NormalizedType>> {
-    return wrapObject<Type, NormalizedType>(await this.load(id, json), this);
+    return wrapObject<Type, NormalizedType>(await this.load(id, json), this as Vault<any>);
   }
   async loadManifestObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Manifest, ManifestNormalized>> {
-    return wrapObject<Manifest, ManifestNormalized>(await this.loadManifest(id, json), this);
+  ): Promise<ReactiveWrapped<Types["Manifest"], Types["ManifestNormalized"]>> {
+    return wrapObject<Types["Manifest"], Types["ManifestNormalized"]>(
+      await this.loadManifest(id, json),
+      this as Vault<any>
+    );
   }
   async loadCollectionObject(
     id: string | Reference<any>,
     json?: any
-  ): Promise<ReactiveWrapped<Collection, CollectionNormalized>> {
-    return wrapObject<Collection, CollectionNormalized>(await this.loadCollection(id, json), this);
+  ): Promise<ReactiveWrapped<Types["Collection"], Types["CollectionNormalized"]>> {
+    return wrapObject<Types["Collection"], Types["CollectionNormalized"]>(
+      await this.loadCollection(id, json),
+      this as Vault<any>
+    );
   }
   wrapObject<T extends string>(objectType: Reference<T>) {
-    return wrapObject(this.get(objectType, { skipSelfReturn: false }), this);
+    return wrapObject(this.get(objectType, { skipSelfReturn: false }), this as Vault<any>);
   }
   isWrapped(object: any) {
     return isWrapped(object);
@@ -594,7 +781,7 @@ export class Vault {
     newValueOrUpdate: Value | ((oldValue: Value | undefined) => Value)
   ) {
     this.dispatch(
-      typeof newValueOrUpdate === 'function'
+      typeof newValueOrUpdate === "function"
         ? metaActions.setMetaValueDynamic({
             id,
             meta: meta as any,

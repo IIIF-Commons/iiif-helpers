@@ -1,14 +1,14 @@
-import invariant from 'tiny-invariant';
-import { describe, expect, test } from 'vitest';
-import choice from '../fixtures/cookbook/choice.json';
-import composite from '../fixtures/cookbook/composite.json';
-import multimedia from '../fixtures/cookbook/multimedia.json';
-import ldmax from '../fixtures/presentation-3/ldmax.json';
-import { createPaintingAnnotationsHelper } from '../src/painting-annotations';
-import { Vault } from '../src/vault';
+import invariant from "tiny-invariant";
+import { describe, expect, test } from "vitest";
+import choice from "../fixtures/cookbook/choice.json";
+import composite from "../fixtures/cookbook/composite.json";
+import multimedia from "../fixtures/cookbook/multimedia.json";
+import ldmax from "../fixtures/presentation-3/ldmax.json";
+import { createPaintingAnnotationsHelper } from "../src/painting-annotations";
+import { Vault } from "../src/vault";
 
-describe('getPaintables', () => {
-  test('extracting composite images', async () => {
+describe("getPaintables", () => {
+  test("extracting composite images", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(choice.id, choice);
 
@@ -16,7 +16,7 @@ describe('getPaintables', () => {
     invariant(manifest);
   });
 
-  test('extracting choice', async () => {
+  test("extracting choice", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(composite.id, composite);
 
@@ -29,14 +29,14 @@ describe('getPaintables', () => {
 
     expect(paintables.items).toHaveLength(2);
     expect(paintables.items[0].resource.id).toEqual(
-      'https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg'
+      "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg"
     );
     expect(paintables.items[1].resource.id).toEqual(
-      'https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature/full/max/0/native.jpg'
+      "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux_miniature/full/max/0/native.jpg"
     );
   });
 
-  test('multimedia', async () => {
+  test("multimedia", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(multimedia.id, multimedia);
 
@@ -56,45 +56,45 @@ describe('getPaintables', () => {
     );
   });
 
-  test('preserves styleClass from painting body specific resource', async () => {
+  test("preserves styleClass from painting body specific resource", async () => {
     const vault = new Vault();
-    const manifest = await vault.loadManifest('https://example.org/manifest', {
-      '@context': 'http://iiif.io/api/presentation/3/context.json',
-      id: 'https://example.org/manifest',
-      type: 'Manifest',
-      label: { en: ['Rotated image service'] },
+    const manifest = await vault.loadManifest("https://example.org/manifest", {
+      "@context": "http://iiif.io/api/presentation/3/context.json",
+      id: "https://example.org/manifest",
+      type: "Manifest",
+      label: { en: ["Rotated image service"] },
       items: [
         {
-          id: 'https://example.org/canvas',
-          type: 'Canvas',
+          id: "https://example.org/canvas",
+          type: "Canvas",
           width: 2105,
           height: 1523,
           items: [
             {
-              id: 'https://example.org/page',
-              type: 'AnnotationPage',
+              id: "https://example.org/page",
+              type: "AnnotationPage",
               items: [
                 {
-                  id: 'https://example.org/annotation',
-                  type: 'Annotation',
-                  motivation: 'painting',
+                  id: "https://example.org/annotation",
+                  type: "Annotation",
+                  motivation: "painting",
                   stylesheet: {
-                    type: 'CssStylesheet',
-                    value: '.rotated { transform-origin: 761px 1344px; transform: rotate(90deg) translateY(-582px); }',
+                    type: "CssStylesheet",
+                    value: ".rotated { transform-origin: 761px 1344px; transform: rotate(90deg) translateY(-582px); }",
                   },
                   body: {
-                    id: 'https://example.org/body',
-                    type: 'SpecificResource',
-                    styleClass: 'rotated',
+                    id: "https://example.org/body",
+                    type: "SpecificResource",
+                    styleClass: "rotated",
                     source: {
-                      id: 'https://example.org/image/full/max/0/default.jpg',
-                      type: 'Image',
-                      format: 'image/jpeg',
+                      id: "https://example.org/image/full/max/0/default.jpg",
+                      type: "Image",
+                      format: "image/jpeg",
                       width: 1523,
                       height: 2105,
                     },
                   },
-                  target: 'https://example.org/canvas',
+                  target: "https://example.org/canvas",
                 },
               ],
             },
@@ -110,29 +110,29 @@ describe('getPaintables', () => {
     const paintables = painting.getPaintables(canvases[0]);
 
     expect(paintables.items[0]).toMatchObject({
-      annotationId: 'https://example.org/annotation',
+      annotationId: "https://example.org/annotation",
       resource: {
-        id: 'https://example.org/image/full/max/0/default.jpg',
+        id: "https://example.org/image/full/max/0/default.jpg",
       },
       rotation: 90,
-      rotationOrigin: { x: 761, y: 1344, unit: 'pixel' },
+      rotationOrigin: { x: 761, y: 1344, unit: "pixel" },
       style: {
-        transform: 'rotate(90deg) translateY(-582px)',
-        transformOrigin: '761px 1344px',
+        transform: "rotate(90deg) translateY(-582px)",
+        transformOrigin: "761px 1344px",
       },
-      styleClass: 'rotated',
+      styleClass: "rotated",
       transform: {
         rotation: 90,
-        rotationOrigin: { x: 761, y: 1344, unit: 'pixel' },
-        transform: 'rotate(90deg) translateY(-582px)',
-        transformOrigin: '761px 1344px',
-        translate: { x: 0, y: -582, unit: 'pixel' },
+        rotationOrigin: { x: 761, y: 1344, unit: "pixel" },
+        transform: "rotate(90deg) translateY(-582px)",
+        transformOrigin: "761px 1344px",
+        translate: { x: 0, y: -582, unit: "pixel" },
       },
-      translate: { x: 0, y: -582, unit: 'pixel' },
+      translate: { x: 0, y: -582, unit: "pixel" },
     });
   });
 
-  test('ldmax', async () => {
+  test("ldmax", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(ldmax.id, ldmax);
 

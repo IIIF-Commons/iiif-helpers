@@ -4,20 +4,48 @@
 // "navDate": "1986-01-01T00:00:00+00:00"
 // "navDate": "1987-01-01T00:00:00+00:00"
 
-import { Collection, InternationalString, Manifest } from '@iiif/presentation-3';
-import { CompatVault } from './compat';
-import { CollectionNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
+import type {
+  Collection as CollectionV3,
+  InternationalString as InternationalStringV3,
+  Manifest as ManifestV3,
+} from "@iiif/parser/presentation-3/types";
+import type {
+  CollectionNormalized as CollectionNormalizedV3,
+  ManifestNormalized as ManifestNormalizedV3,
+} from "@iiif/parser/presentation-3-normalized/types";
+import type {
+  Collection as CollectionV4,
+  LanguageMap as InternationalStringV4,
+  Manifest as ManifestV4,
+} from "@iiif/parser/presentation-4/types";
+import type {
+  CollectionNormalized as CollectionNormalizedV4,
+  ManifestNormalized as ManifestNormalizedV4,
+} from "@iiif/parser/presentation-4-normalized/types";
+import type { CompatVault } from "./compat";
+
+type InternationalString = InternationalStringV3 | InternationalStringV4;
+type DateNavigationInput =
+  | ManifestV3
+  | CollectionV3
+  | ManifestNormalizedV3
+  | CollectionNormalizedV3
+  | ManifestV4
+  | CollectionV4
+  | ManifestNormalizedV4
+  | CollectionNormalizedV4
+  | string;
 
 export interface DateNavigationResource {
   id: string;
-  type: 'Manifest' | 'Canvas';
+  type: "Manifest" | "Canvas";
   label: InternationalString;
   navDate: string;
 }
 
 export interface DateNavigationDay {
   id: string;
-  type: 'day';
+  type: "day";
   count: number;
   label: InternationalString;
   day: number;
@@ -26,7 +54,7 @@ export interface DateNavigationDay {
 
 export interface DateNavigationMonth {
   id: string;
-  type: 'month';
+  type: "month";
   month: number;
   count: number;
   label: InternationalString;
@@ -35,7 +63,7 @@ export interface DateNavigationMonth {
 
 export interface DateNavigationYear {
   id: string;
-  type: 'year';
+  type: "year";
   year: number;
   count: number;
   label: InternationalString;
@@ -44,7 +72,7 @@ export interface DateNavigationYear {
 
 export interface DateNavigationDecade {
   id: string;
-  type: 'decade';
+  type: "decade";
   yearStart: number;
   yearEnd: number;
   label: InternationalString;
@@ -54,7 +82,7 @@ export interface DateNavigationDecade {
 
 export interface DateNavigationCentury {
   id: string;
-  type: 'century';
+  type: "century";
   yearStart: number;
   yearEnd: number;
   label: InternationalString;
@@ -69,12 +97,12 @@ export type DateNavigationTypes =
   | DateNavigationMonth
   | DateNavigationDay;
 
-export function createDateNavigation<T extends DateNavigationTypes, Type = T['type']>(
+export function createDateNavigation<T extends DateNavigationTypes, Type = T["type"]>(
   vault: CompatVault,
-  manifestOrCollection: Manifest | Collection | ManifestNormalized | CollectionNormalized | string,
+  manifestOrCollection: DateNavigationInput,
   inputType?: Type
 ) {
-  const type = inputType || 'century';
+  const type = inputType || "century";
   const items: T[] = [];
 
   const centuries: DateNavigationCentury[] = [];
@@ -94,7 +122,9 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
     return items;
   }
 
-  for (const item of resource.items) {
+  for (const itemRef of resource.items) {
+    const item = itemRef.navDate ? itemRef : (vault.get<any>(itemRef) as typeof itemRef | undefined) || itemRef;
+
     if (item.navDate) {
       const d = new Date(item.navDate);
       const year = d.getFullYear();
@@ -107,13 +137,13 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         centuryItem = {
           id: `${resource.id}/century/${century}`,
           label: { en: [`${century} - ${century + 99}`] },
-          type: 'century',
+          type: "century",
           yearStart: century,
           yearEnd: century + 99,
           count: 1,
           items: [],
         };
-        if (type === 'century') {
+        if (type === "century") {
           items.push(centuryItem as T);
         }
         centuries.push(centuryItem);
@@ -126,14 +156,14 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         decadeItem = {
           id: `${resource.id}/decade/${decade}`,
           label: { en: [`${decade} - ${decade + 9}`] },
-          type: 'decade',
+          type: "decade",
           yearStart: decade,
           yearEnd: decade + 9,
           count: 1,
           items: [],
         };
         centuryItem.items.push(decadeItem);
-        if (type === 'decade') {
+        if (type === "decade") {
           items.push(decadeItem as T);
         }
       } else {
@@ -144,13 +174,13 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         yearItem = {
           id: `${resource.id}/year/${year}`,
           label: { en: [`${year}`] },
-          type: 'year',
+          type: "year",
           year: year,
           count: 1,
           items: [],
         };
         decadeItem.items.push(yearItem);
-        if (type === 'year') {
+        if (type === "year") {
           items.push(yearItem as T);
         }
       } else {
@@ -163,18 +193,18 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
           // Month as string
           label: {
             en: [
-              type === 'month'
-                ? `${d.toLocaleString('default', { month: 'long' })} ${year}`
-                : `${d.toLocaleString('default', { month: 'long' })}`,
+              type === "month"
+                ? `${d.toLocaleString("default", { month: "long" })} ${year}`
+                : `${d.toLocaleString("default", { month: "long" })}`,
             ],
           },
-          type: 'month',
+          type: "month",
           month: month,
           count: 1,
           items: [],
         };
         yearItem.items.push(monthItem);
-        if (type === 'month') {
+        if (type === "month") {
           items.push(monthItem as T);
         }
       } else {
@@ -185,13 +215,13 @@ export function createDateNavigation<T extends DateNavigationTypes, Type = T['ty
         dayItem = {
           id: `${resource.id}/day/${year}/${month + 1}/${day}`,
           label: { en: [`${d.toDateString()}`] },
-          type: 'day',
+          type: "day",
           day: day,
           count: 1,
           items: [],
         };
         monthItem.items.push(dayItem);
-        if (type === 'day') {
+        if (type === "day") {
           items.push(dayItem as T);
         }
       } else {

@@ -1,6 +1,6 @@
-import { CompatibleStore } from '@iiif/parser';
+import { CompatibleStore } from "@iiif/parser";
 
-export function isReferenceList(state: CompatibleStore['entities'], id: string, type: string, key: string) {
+export function isReferenceList(state: CompatibleStore["entities"], id: string, type: string, key: string) {
   return !(
     !state[type] ||
     !state[type][id] ||

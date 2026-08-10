@@ -1,4 +1,4 @@
-import { Vault } from '../vault';
+import { Vault } from "../vault";
 
 function defineProperty(name: string, prototype: any, vault: Vault, enumerable = true) {
   prototype[DEFINED] = prototype[DEFINED] || [];
@@ -9,7 +9,7 @@ function defineProperty(name: string, prototype: any, vault: Vault, enumerable =
   Object.defineProperty(prototype, name, {
     enumerable,
     get(): any {
-      if (typeof prototype[REFS][name] === 'undefined') {
+      if (typeof prototype[REFS][name] === "undefined") {
         return undefined;
       }
 
@@ -43,10 +43,10 @@ function defineProperty(name: string, prototype: any, vault: Vault, enumerable =
   });
 }
 
-export const REFS = Symbol.for('_refs_');
-export const REACTIVE = Symbol.for('_reactive_');
-export const DEFINED = Symbol.for('_defined_');
-export const PARENT = Symbol.for('_parent_');
+export const REFS = Symbol.for("_refs_");
+export const REACTIVE = Symbol.for("_reactive_");
+export const DEFINED = Symbol.for("_defined_");
+export const PARENT = Symbol.for("_parent_");
 
 export type WrappedObject<OG = any> = {
   subscribe(subscription: (object: any, vault: Vault) => void, skipInitial?: boolean): () => void;
@@ -61,50 +61,34 @@ export type WrappedObject<OG = any> = {
   toJSON(): any;
 };
 
+type ReactiveProperty<Value> = Value extends readonly (infer Item)[]
+  ? ReactiveWrapped<Item, Item>[]
+  : Value extends object
+    ? ReactiveWrapped<Value, Value>
+    : Value;
+
+type HydratedProperty =
+  | "items"
+  | "annotations"
+  | "structures"
+  | "seeAlso"
+  | "rendering"
+  | "partOf"
+  | "start"
+  | "supplementary"
+  | "homepage"
+  | "thumbnail"
+  | "placeholderContainer"
+  | "accompanyingContainer"
+  | "placeholderCanvas"
+  | "accompanyingCanvas"
+  | "provider"
+  | "body"
+  | "logo";
+
 export type ReactiveWrapped<Full = any, T = any> = {} & WrappedObject<Full> &
-  Omit<
-    Full,
-    | 'items'
-    | 'annotations'
-    | 'structures'
-    | 'seeAlso'
-    | 'rendering'
-    | 'partOf'
-    | 'start'
-    | 'supplementary'
-    | 'homepage'
-    | 'thumbnail'
-    | 'placeholderCanvas'
-    | 'accompanyingCanvas'
-    | 'provider'
-    | 'body'
-    | 'logo'
-  > & {
-    items: Full extends { items: (infer A)[] }
-      ? (Full['items'][number] & ReactiveWrapped<any, Full['items'][number]>)[]
-      : never;
-    annotations: Full extends { annotations: (infer A)[] }
-      ? ReactiveWrapped<any, Full['annotations'][number]>[]
-      : never;
-    structures: Full extends { structures: (infer A)[] } ? ReactiveWrapped<any, Full['structures'][number]>[] : never;
-    seeAlso: Full extends { seeAlso: (infer A)[] } ? ReactiveWrapped<any, Full['seeAlso'][number]>[] : never;
-    rendering: Full extends { rendering: (infer A)[] } ? ReactiveWrapped<any, Full['rendering'][number]>[] : never;
-    partOf: Full extends { partOf: (infer A)[] } ? ReactiveWrapped<any, Full['partOf'][number]>[] : never;
-    start: Full extends { start: (infer A)[] } ? ReactiveWrapped<any, Full['start'][number]>[] : never;
-    supplementary: Full extends { supplementary: (infer A)[] }
-      ? ReactiveWrapped<any, Full['supplementary'][number]>[]
-      : never;
-    homepage: Full extends { homepage: (infer A)[] } ? ReactiveWrapped<any, Full['homepage'][number]>[] : never;
-    thumbnail: Full extends { thumbnail: (infer A)[] } ? ReactiveWrapped<any, Full['thumbnail'][number]>[] : never;
-    placeholderCanvas: Full extends { placeholderCanvas: (infer A)[] }
-      ? ReactiveWrapped<any, Full['placeholderCanvas'][number]>[]
-      : never;
-    accompanyingCanvas: Full extends { accompanyingCanvas: (infer A)[] }
-      ? ReactiveWrapped<any, Full['accompanyingCanvas'][number]>[]
-      : never;
-    provider: Full extends { provider: (infer A)[] } ? ReactiveWrapped<any, Full['provider'][number]>[] : never;
-    body: Full extends { body: (infer A)[] } ? ReactiveWrapped<any, Full['body'][number]>[] : never;
-    logo: Full extends { logo: (infer A)[] } ? ReactiveWrapped<any, Full['logo'][number]>[] : never;
+  Omit<Full, HydratedProperty> & {
+    [Key in Extract<keyof Full, HydratedProperty>]: ReactiveProperty<Full[Key]>;
   };
 
 function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string): ReactiveWrapped<T, OG> {
@@ -116,15 +100,15 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
     [PARENT]: null | string;
     [REACTIVE]: null | (() => void);
   } = {
-    id: '',
-    type: 'unknown',
+    id: "",
+    type: "unknown",
     [DEFINED]: [],
     [REFS]: {},
     [PARENT]: parent || null,
     [REACTIVE]: null,
 
     is(refOrObject: any) {
-      if (typeof refOrObject === 'string') {
+      if (typeof refOrObject === "string") {
         return this.id === refOrObject;
       }
 
@@ -169,10 +153,10 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
 
     unwrap() {
       if (!this.id) {
-        throw new Error('Invalid object');
+        throw new Error("Invalid object");
       }
       const parent = this[PARENT];
-      return vault.get(this.id, { parent: parent ? { id: parent, type: 'unknown' } : undefined });
+      return vault.get(this.id, { parent: parent ? { id: parent, type: "unknown" } : undefined });
     },
 
     toPresentation3() {
@@ -203,6 +187,8 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
         supplementary: that.supplementary,
         homepage: that.homepage,
         thumbnail: that.thumbnail,
+        placeholderContainer: that.placeholderContainer,
+        accompanyingContainer: that.accompanyingContainer,
         placeholderCanvas: that.placeholderCanvas,
         accompanyingCanvas: that.accompanyingCanvas,
         provider: that.provider,
@@ -220,29 +206,31 @@ function createPrototype<T, OG>(vault: Vault, reactive = false, parent?: string)
   };
 
   // Structural
-  defineProperty('items', prototype, vault);
-  defineProperty('annotations', prototype, vault);
-  defineProperty('structures', prototype, vault);
+  defineProperty("items", prototype, vault);
+  defineProperty("annotations", prototype, vault);
+  defineProperty("structures", prototype, vault);
 
   // Linking
-  defineProperty('seeAlso', prototype, vault);
+  defineProperty("seeAlso", prototype, vault);
   // defineProperty('service', prototype, vault);
   // defineProperty('services', prototype, vault);
-  defineProperty('rendering', prototype, vault);
-  defineProperty('partOf', prototype, vault);
-  defineProperty('start', prototype, vault, false);
-  defineProperty('supplementary', prototype, vault);
-  defineProperty('homepage', prototype, vault);
+  defineProperty("rendering", prototype, vault);
+  defineProperty("partOf", prototype, vault);
+  defineProperty("start", prototype, vault, false);
+  defineProperty("supplementary", prototype, vault);
+  defineProperty("homepage", prototype, vault);
 
   // Descriptive
-  defineProperty('thumbnail', prototype, vault);
-  defineProperty('placeholderCanvas', prototype, vault, false);
-  defineProperty('accompanyingCanvas', prototype, vault, false);
-  defineProperty('provider', prototype, vault);
+  defineProperty("thumbnail", prototype, vault);
+  defineProperty("placeholderContainer", prototype, vault, false);
+  defineProperty("accompanyingContainer", prototype, vault, false);
+  defineProperty("placeholderCanvas", prototype, vault, false);
+  defineProperty("accompanyingCanvas", prototype, vault, false);
+  defineProperty("provider", prototype, vault);
 
   // Annotation
-  defineProperty('body', prototype, vault);
-  defineProperty('logo', prototype, vault);
+  defineProperty("body", prototype, vault);
+  defineProperty("logo", prototype, vault);
 
   return prototype as any;
 }

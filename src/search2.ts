@@ -1,17 +1,18 @@
-import type { Manifest } from '@iiif/presentation-3';
-import type { ManifestNormalized } from '@iiif/presentation-3-normalized';
-import { createStore } from 'zustand/vanilla';
+import type { Manifest } from "@iiif/parser/presentation-3/types";
+import type { ManifestNormalized } from "@iiif/parser/presentation-3-normalized/types";
+import { createStore } from "zustand/vanilla";
+import type { StoreApi } from "./store-api";
 
 export type Search2Service = {
   id: string;
-  type: 'SearchService2' | string;
+  type: "SearchService2" | string;
   service?: Search2AutocompleteService | Search2AutocompleteService[];
   [key: string]: any;
 };
 
 export type Search2AutocompleteService = {
   id: string;
-  type: 'AutoCompleteService2' | string;
+  type: "AutoCompleteService2" | string;
   [key: string]: any;
 };
 
@@ -27,7 +28,7 @@ export type Search2AutocompleteQueryParams = Search2QueryParams & {
 };
 
 export type Search2Term = {
-  type?: 'Term' | string;
+  type?: "Term" | string;
   value: string;
   total?: number;
   label?: Record<string, string[]>;
@@ -37,16 +38,16 @@ export type Search2Term = {
 };
 
 export type Search2TermPage = {
-  '@context'?: string;
+  "@context"?: string;
   id: string;
-  type: 'TermPage' | string;
+  type: "TermPage" | string;
   ignored?: string[];
   items: Search2Term[];
 };
 
 export type Search2Annotation = {
   id?: string;
-  '@id'?: string;
+  "@id"?: string;
   type?: string;
   motivation?: string;
   body?: any;
@@ -55,9 +56,9 @@ export type Search2Annotation = {
 };
 
 export type Search2AnnotationPage = {
-  '@context'?: string;
+  "@context"?: string;
   id?: string;
-  type: 'AnnotationPage' | string;
+  type: "AnnotationPage" | string;
   ignored?: string[];
   items?: Search2Annotation[];
   annotations?: Search2AnnotationPage[];
@@ -73,7 +74,7 @@ export type Search2Selector = {
 };
 
 export type Search2Hit = {
-  '@type': 'search:Hit';
+  "@type": "search:Hit";
   annotations: string[];
   selectors: Search2Selector[];
   match?: string;
@@ -94,7 +95,13 @@ export interface Search2AutocompleteStore {
   clearSearch: () => void;
   search: (
     query: string,
-    options?: { motivation?: string; date?: string; user?: string; min?: number; headers?: HeadersInit }
+    options?: {
+      motivation?: string;
+      date?: string;
+      user?: string;
+      min?: number;
+      headers?: HeadersInit;
+    }
   ) => void | Promise<void>;
 }
 
@@ -126,16 +133,16 @@ export interface Search2Store {
 type FetcherReturn<T> = Promise<[T | null, error: string | null] | readonly [T | null, error: string | null]>;
 type Fetcher<T> = (query: string, options: { signal: AbortSignal; headers?: HeadersInit }) => FetcherReturn<T>;
 
-const getId = (resource: { id?: string; '@id'?: string }): string => resource.id || resource['@id'] || '';
+const getId = (resource: { id?: string; "@id"?: string }): string => resource.id || resource["@id"] || "";
 const asArray = <T>(value: T | T[] | undefined): T[] => (Array.isArray(value) ? value : value ? [value] : []);
 
 export function findSearch2Service(manifest: ManifestNormalized | Manifest): Search2Service | null {
   const services = asArray((manifest as any)?.service);
-  return (services.find((service: any) => service?.type === 'SearchService2') as Search2Service) || null;
+  return (services.find((service: any) => service?.type === "SearchService2") as Search2Service) || null;
 }
 
 export function findSearch2AutocompleteService(service: Search2Service): Search2AutocompleteService | undefined {
-  return asArray(service?.service).find((nested: any) => nested?.type === 'AutoCompleteService2');
+  return asArray(service?.service).find((nested: any) => nested?.type === "AutoCompleteService2");
 }
 
 function defaultFetcher(
@@ -145,8 +152,8 @@ function defaultFetcher(
   return fetch(query, {
     signal,
     headers: {
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
+      "Content-Type": "application/json",
+      Accept: "application/json",
       ...(headers || {}),
     },
   }).then(async (response) => {
@@ -158,16 +165,16 @@ function defaultFetcher(
 }
 
 function appendSearchParams(params: URLSearchParams, query: Search2QueryParams) {
-  if (query.q) params.set('q', query.q);
-  if (query.motivation) params.set('motivation', query.motivation);
-  if (query.date) params.set('date', query.date);
-  if (query.user) params.set('user', query.user);
+  if (query.q) params.set("q", query.q);
+  if (query.motivation) params.set("motivation", query.motivation);
+  if (query.date) params.set("date", query.date);
+  if (query.user) params.set("user", query.user);
 }
 
 function getBodyValue(body: any): string {
   const bodies = asArray(body);
   const textualBody = bodies.find((item) => item?.value);
-  return textualBody?.value || '';
+  return textualBody?.value || "";
 }
 
 function getSelectors(target: any): Search2Selector[] {
@@ -181,15 +188,15 @@ function createHitsFromMatchAnnotations(page: Search2AnnotationPage): Search2Hit
       const targets = asArray(annotation.target);
       const annotations = targets.map((target) => target?.source).filter(Boolean);
       const selectors = targets.flatMap(getSelectors);
-      const textQuote = selectors.find((selector) => selector.type === 'TextQuoteSelector') || selectors[0] || {};
+      const textQuote = selectors.find((selector) => selector.type === "TextQuoteSelector") || selectors[0] || {};
 
       return {
-        '@type': 'search:Hit',
+        "@type": "search:Hit",
         annotations,
         selectors,
-        before: textQuote.prefix || '',
-        match: textQuote.exact || '',
-        after: textQuote.suffix || '',
+        before: textQuote.prefix || "",
+        match: textQuote.exact || "",
+        after: textQuote.suffix || "",
       } as Search2Hit;
     })
     .filter((hit) => hit.annotations.length > 0);
@@ -197,19 +204,19 @@ function createHitsFromMatchAnnotations(page: Search2AnnotationPage): Search2Hit
 
 function createFallbackHits(resources: Search2Annotation[]): Search2Hit[] {
   return resources.map((resource) => ({
-    '@type': 'search:Hit',
+    "@type": "search:Hit",
     annotations: [getId(resource)].filter(Boolean),
     selectors: [],
-    before: '',
+    before: "",
     match: getBodyValue(resource.body),
-    after: '',
+    after: "",
   }));
 }
 
 export const createSearch2AutocompleteStore = (
   service?: Search2Service | undefined,
   options?: { fetcher?: Fetcher<Search2TermPage> }
-) => {
+): StoreApi<Search2AutocompleteStore> => {
   const fetcher = options?.fetcher || defaultFetcher;
   const autocomplete = service ? findSearch2AutocompleteService(service) : undefined;
   const autocompleteEndpoint = autocomplete ? getId(autocomplete) : undefined;
@@ -223,7 +230,7 @@ export const createSearch2AutocompleteStore = (
     endpoint: autocompleteEndpoint,
     loading: false,
     error: false,
-    errorMessage: '',
+    errorMessage: "",
     ignored: [],
 
     setSearchService(newService: Search2Service) {
@@ -236,7 +243,7 @@ export const createSearch2AutocompleteStore = (
           loading: false,
           lastQuery: null,
           error: false,
-          errorMessage: '',
+          errorMessage: "",
           ignored: [],
         });
       }
@@ -248,7 +255,13 @@ export const createSearch2AutocompleteStore = (
 
     async search(
       query: string,
-      options: { motivation?: string; date?: string; user?: string; min?: number; headers?: HeadersInit } = {}
+      options: {
+        motivation?: string;
+        date?: string;
+        user?: string;
+        min?: number;
+        headers?: HeadersInit;
+      } = {}
     ) {
       const endpoint = get().endpoint;
       if (get().hasAutocomplete === false) {
@@ -267,8 +280,8 @@ export const createSearch2AutocompleteStore = (
         date: options.date,
         user: options.user,
       });
-      if (typeof options.min === 'number') {
-        params.set('min', String(options.min));
+      if (typeof options.min === "number") {
+        params.set("min", String(options.min));
       }
 
       const shouldLoad = !!query && (query.length >= 3 || !!options.motivation || !!options.date || !!options.user);
@@ -291,8 +304,8 @@ export const createSearch2AutocompleteStore = (
       return fetcher(`${endpoint}?${params.toString()}`, {
         signal: abort.signal,
         headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+          "Content-Type": "application/json",
+          Accept: "application/json",
           ...(options.headers || {}),
         },
       }).then(([json, error]) => {
@@ -305,7 +318,7 @@ export const createSearch2AutocompleteStore = (
             ignored: json.ignored || [],
             results: json.items || [],
             error: false,
-            errorMessage: '',
+            errorMessage: "",
           });
         } else {
           set({ results: [], error: true, errorMessage: error || undefined });
@@ -320,15 +333,15 @@ export const createSearch2Store = (
   options?: {
     fetcher?: Fetcher<Search2AnnotationPage>;
   }
-) => {
+): StoreApi<Search2Store> => {
   const fetcher = options?.fetcher || defaultFetcher;
 
   const searchService =
-    typeof service === 'string'
+    typeof service === "string"
       ? {
-          '@context': 'http://iiif.io/api/search/2/context.json',
+          "@context": "http://iiif.io/api/search/2/context.json",
           id: service,
-          type: 'SearchService2',
+          type: "SearchService2",
           service: [],
         }
       : service;
@@ -350,13 +363,13 @@ export const createSearch2Store = (
     hitIndex: -1,
     hasSearch: !!searchService,
     hasAutocomplete: searchService ? !!findSearch2AutocompleteService(searchService) : false,
-    errorMessage: '',
+    errorMessage: "",
     ignored: [],
 
     async search(query: Search2QueryParams, options: { headers?: HeadersInit } = {}) {
       const endpoint = get().endpoint;
       if (!endpoint) {
-        throw new Error('No search service found.');
+        throw new Error("No search service found.");
       }
       if (abort && !abort.signal.aborted) {
         abort.abort();
@@ -388,7 +401,7 @@ export const createSearch2Store = (
             hits: hits.length ? hits : createFallbackHits(resources),
             ignored: json.ignored || [],
             error: false,
-            errorMessage: '',
+            errorMessage: "",
             loading: false,
           });
         } else {
@@ -413,14 +426,14 @@ export const createSearch2Store = (
         resources: [],
         hits: [],
         error: false,
-        errorMessage: '',
+        errorMessage: "",
         ignored: [],
         highlight: { results: null, hit: null },
       });
     },
 
     clearSearch() {
-      set({ resources: [], hits: [], error: false, errorMessage: '' });
+      set({ resources: [], hits: [], error: false, errorMessage: "" });
     },
 
     highlightHit(index: number) {

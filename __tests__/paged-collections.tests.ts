@@ -1,56 +1,55 @@
-import { describe, test, expect } from 'vitest';
-import { Vault } from '../src/vault';
+import { describe, test, expect } from "vitest";
+import { Vault } from "../src/vault";
 
-describe('Paged collections', () => {
-
-  test('Single page of collections', async () => {
+describe("Paged collections", () => {
+  test("Single page of collections", async () => {
     const collection = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
-      id: 'https://example.org/collection',
-      type: 'Collection',
-      label: { en: ['Example Collection'] },
-      first: {id: 'https://example.org/collection?page=1', type: 'Collection'},
+      id: "https://example.org/collection",
+      type: "Collection",
+      label: { en: ["Example Collection"] },
+      first: { id: "https://example.org/collection?page=1", type: "Collection" },
       total: 3,
     };
 
     const collectionPage1 = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
-      id: 'https://example.org/collection',
-      type: 'Collection',
-      label: { en: ['Example Collection Page 1'] },
-      next: {id: 'https://example.org/collection?page=2', type: 'Collection'},
+      id: "https://example.org/collection",
+      type: "Collection",
+      label: { en: ["Example Collection Page 1"] },
+      next: { id: "https://example.org/collection?page=2", type: "Collection" },
       items: [
         {
           "@context": "https://iiif.io/api/presentation/3/context.json",
-          id: 'https://example.org/collection/item1',
-          type: 'Manifest',
-          label: { en: ['Example Manifest 1'] },
-          thumbnail: 'https://example.org/collection/item1/thumbnail',
+          id: "https://example.org/collection/item1",
+          type: "Manifest",
+          label: { en: ["Example Manifest 1"] },
+          thumbnail: "https://example.org/collection/item1/thumbnail",
         },
         {
           "@context": "https://iiif.io/api/presentation/3/context.json",
-          id: 'https://example.org/collection/item2',
-          type: 'Manifest',
-          label: { en: ['Example Manifest 2'] },
-          thumbnail: 'https://example.org/collection/item2/thumbnail',
-        }
+          id: "https://example.org/collection/item2",
+          type: "Manifest",
+          label: { en: ["Example Manifest 2"] },
+          thumbnail: "https://example.org/collection/item2/thumbnail",
+        },
       ],
     };
 
     const collectionPage2 = {
       "@context": "https://iiif.io/api/presentation/3/context.json",
-      id: 'https://example.org/collection',
-      type: 'Collection',
-      label: { en: ['Example Collection Page 2'] },
-      prev: { id: 'https://example.org/collection?page=1', type: 'Collection' },
+      id: "https://example.org/collection",
+      type: "Collection",
+      label: { en: ["Example Collection Page 2"] },
+      prev: { id: "https://example.org/collection?page=1", type: "Collection" },
       items: [
         {
           "@context": "https://iiif.io/api/presentation/3/context.json",
-          id: 'https://example.org/collection/item3',
-          type: 'Manifest',
-          label: { en: ['Example Manifest 3'] },
-          thumbnail: 'https://example.org/collection/item3/thumbnail',
-        }
+          id: "https://example.org/collection/item3",
+          type: "Manifest",
+          label: { en: ["Example Manifest 3"] },
+          thumbnail: "https://example.org/collection/item3/thumbnail",
+        },
       ],
     };
 
@@ -60,11 +59,17 @@ describe('Paged collections', () => {
     vault.loadCollectionSync("https://example.org/collection", collection);
 
     const fullCollection = vault.get("https://example.org/collection");
-    expect(fullCollection.first).toEqual({ id: 'https://example.org/collection?page=1', type: "Collection" });
+    expect(fullCollection.first).toEqual({
+      id: "https://example.org/collection?page=1",
+      type: "Collection",
+    });
 
     // 2. We check if its a paginated collection
     //
-    const pagination = vault.getPaginationState({ id: "https://example.org/collection", type: "Collection" });
+    const pagination = vault.getPaginationState({
+      id: "https://example.org/collection",
+      type: "Collection",
+    });
 
     expect(pagination).toMatchInlineSnapshot(`
       {
@@ -73,10 +78,7 @@ describe('Paged collections', () => {
         "currentPageIndex": null,
         "isFetching": false,
         "isFullyLoaded": false,
-        "next": {
-          "id": "https://example.org/collection?page=1",
-          "type": "Collection",
-        },
+        "next": "https://example.org/collection?page=1",
         "page": 1,
         "pages": [],
         "previous": null,
@@ -89,7 +91,10 @@ describe('Paged collections', () => {
     //
     // 3. Load the next page.
     //
-    const [state1, page1] = await vault.loadNextPage({ id: "https://example.org/collection", type: "Collection" }, collectionPage1);
+    const [state1, page1] = await vault.loadNextPage(
+      { id: "https://example.org/collection", type: "Collection" },
+      collectionPage1
+    );
     //       ^ single page returned
 
     expect(state1).toMatchInlineSnapshot(`
@@ -194,13 +199,19 @@ describe('Paged collections', () => {
       }
     `);
 
-    const fullCollectionWithPage1 = vault.get({ id: "https://example.org/collection", type: "Collection" });
+    const fullCollectionWithPage1 = vault.get({
+      id: "https://example.org/collection",
+      type: "Collection",
+    });
     //       ^ collection pages are appended to the original collection
 
     expect(fullCollectionWithPage1.items).toHaveLength(2);
 
     // 4. Load next page.
-    const [state2, page2] = await vault.loadNextPage({ id: "https://example.org/collection", type: "Collection" }, collectionPage2);
+    const [state2, page2] = await vault.loadNextPage(
+      { id: "https://example.org/collection", type: "Collection" },
+      collectionPage2
+    );
 
     expect(state2).toMatchInlineSnapshot(`
       {
@@ -234,12 +245,18 @@ describe('Paged collections', () => {
     `);
 
     // 5. Check the full collection length again.
-    const fullCollectionWithPage2 = vault.get({ id: "https://example.org/collection", type: "Collection" });
+    const fullCollectionWithPage2 = vault.get({
+      id: "https://example.org/collection",
+      type: "Collection",
+    });
     expect(fullCollectionWithPage2.items).toHaveLength(3);
 
     // 4. Get all loaded pages.
     //
-    const paginationFinal = vault.getPaginationState({ id: "https://example.org/collection", type: "Collection" })!;
+    const paginationFinal = vault.getPaginationState({
+      id: "https://example.org/collection",
+      type: "Collection",
+    })!;
     const allPages = vault.get(paginationFinal.pages);
     //       ^ Array of collections.
 
@@ -381,6 +398,4 @@ describe('Paged collections', () => {
       ]
     `);
   });
-
-
 });

@@ -1,10 +1,10 @@
 export type CompatVault = {
-  get: import('./vault').Vault['get'];
-  setMetaValue: import('./vault').Vault['setMetaValue'];
-  getResourceMeta: import('./vault').Vault['getResourceMeta'];
-  load: import('./vault').Vault['load'];
-  requestStatus: import('./vault').Vault['requestStatus'];
-  subscribe: import('./vault').Vault['subscribe'];
+  get: import("./vault").Vault["get"];
+  setMetaValue: import("./vault").Vault["setMetaValue"];
+  getResourceMeta: import("./vault").Vault["getResourceMeta"];
+  load: import("./vault").Vault["load"];
+  requestStatus: import("./vault").Vault["requestStatus"];
+  subscribe: (...args: any[]) => () => void;
 };
 
 const metaState: any = {};
@@ -15,7 +15,7 @@ export const compatVault: CompatVault = {
   setMetaValue([id, meta, key], value) {
     const oldValue = compatVault.getResourceMeta(id, meta);
     const oldValueItem = oldValue ? oldValue[key] : undefined;
-    const newValue = typeof value === 'function' ? (value as any)(oldValueItem) : value;
+    const newValue = typeof value === "function" ? (value as any)(oldValueItem) : value;
     metaState[id] = {
       ...(metaState[id] || {}),
       [meta]: {
@@ -37,7 +37,7 @@ export const compatVault: CompatVault = {
     return resourceMeta[metaKey];
   }) as any,
   async load(id: string | { type: any; id: string }) {
-    const idToLoad = typeof id === 'string' ? id : id.id;
+    const idToLoad = typeof id === "string" ? id : id.id;
 
     // @todo this could do an upgrade..
     return fetch(idToLoad).then((response) => response.json());

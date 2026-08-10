@@ -31,8 +31,16 @@
  */
 export type Point = { x: number; y: number };
 
+function stablePoints(points: Point[]): Point[] {
+  // V8 versions can differ in the 12th decimal for this Math.pow-based subdivision.
+  return points.map(({ x, y }) => ({
+    x: Number(x.toFixed(11)),
+    y: Number(y.toFixed(11)),
+  }));
+}
+
 export function flattenQuadraticBezier(start: Point, control: Point, end: Point, tolerance = 1): Point[] {
-  return new QuadraticBezier(start, control, end).subdivide(tolerance);
+  return stablePoints(new QuadraticBezier(start, control, end).subdivide(tolerance));
 }
 
 export function flattenCubicBezier(
@@ -42,9 +50,11 @@ export function flattenCubicBezier(
   endControl: Point,
   tolerance = 1
 ): Point[] {
-  return new CubicBezier(
-    new Float64Array([start.x, start.y, startControl.x, startControl.y, end.x, end.y, endControl.x, endControl.y])
-  ).subdivide(tolerance) as Point[];
+  return stablePoints(
+    new CubicBezier(
+      new Float64Array([start.x, start.y, startControl.x, startControl.y, end.x, end.y, endControl.x, endControl.y])
+    ).subdivide(tolerance) as Point[]
+  );
 }
 
 function hypot2(p: Point): number {

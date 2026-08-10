@@ -1,6 +1,6 @@
-import { canonicalServiceUrl, fixedSizesFromScales, isImageService, supportsCustomSizes } from '@iiif/parser/image-3';
-import type { ImageService } from '@iiif/presentation-3';
-import { describe, expect, test } from 'vitest';
+import { canonicalServiceUrl, fixedSizesFromScales, isImageService, supportsCustomSizes } from "@iiif/parser/image-3";
+import type { ImageService } from "@iiif/parser/presentation-3/types";
+import { describe, expect, test } from "vitest";
 import {
   getCustomSizeFromService,
   getFixedSizeFromImage,
@@ -13,24 +13,24 @@ import {
   imageSizesMatch,
   inferImageSizeFromUrl,
   pickBestFromCandidates,
-} from '../src/image-service';
+} from "../src/image-service";
 
-describe('image utilities', () => {
-  describe('imageSizesMatch', () => {
-    test('lengths dont match - early exit check', () => {
+describe("image utilities", () => {
+  describe("imageSizesMatch", () => {
+    test("lengths dont match - early exit check", () => {
       expect(imageSizesMatch([], [{ height: 100, width: 120 }])).toEqual(false);
       expect(imageSizesMatch([{ height: 100, width: 120 }], [])).toEqual(false);
     });
 
-    test('lengths dont match - same values, in same order', () => {
+    test("lengths dont match - same values, in same order", () => {
       expect(imageSizesMatch([{ height: 100, width: 120 }], [{ height: 100, width: 120 }])).toEqual(true);
     });
 
-    test('lengths match, sizes different', () => {
+    test("lengths match, sizes different", () => {
       expect(imageSizesMatch([{ height: 100, width: 100 }], [{ width: 200, height: 200 }])).toEqual(false);
     });
 
-    test('same sizes, out of order', () => {
+    test("same sizes, out of order", () => {
       expect(
         imageSizesMatch(
           [
@@ -47,7 +47,7 @@ describe('image utilities', () => {
       ).toEqual(true);
     });
 
-    test('out of order, but some different', () => {
+    test("out of order, but some different", () => {
       expect(
         imageSizesMatch(
           [
@@ -65,8 +65,8 @@ describe('image utilities', () => {
     });
   });
 
-  describe('fixedSizesFromScales', () => {
-    test('matches list of scale', () => {
+  describe("fixedSizesFromScales", () => {
+    test("matches list of scale", () => {
       expect(fixedSizesFromScales(1024, 2048, [2, 4, 8])).toEqual([
         { height: 1024, width: 512 },
         { height: 512, width: 256 },
@@ -75,72 +75,72 @@ describe('image utilities', () => {
     });
   });
 
-  describe('getFixedSizeFromImage', () => {
-    test('unknown case - string', () => {
-      expect(getFixedSizeFromImage('http://example.org/image.jpg' as any)).toEqual({
-        id: 'http://example.org/image.jpg',
-        type: 'unknown',
+  describe("getFixedSizeFromImage", () => {
+    test("unknown case - string", () => {
+      expect(getFixedSizeFromImage("http://example.org/image.jpg" as any)).toEqual({
+        id: "http://example.org/image.jpg",
+        type: "unknown",
       });
     });
 
-    test('not an iamge', () => {
+    test("not an iamge", () => {
       expect(
         getFixedSizeFromImage({
-          id: 'http://example.org/audio.mp3',
-          type: 'Sound',
+          id: "http://example.org/audio.mp3",
+          type: "Sound",
         })
       ).toEqual(null);
     });
 
-    test('no id provided, invalid image but valid content resource.. technically', () => {
-      expect(getFixedSizeFromImage({ type: 'Image', value: 'some textual value' } as any)).toEqual(null);
+    test("no id provided, invalid image but valid content resource.. technically", () => {
+      expect(getFixedSizeFromImage({ type: "Image", value: "some textual value" } as any)).toEqual(null);
     });
 
-    test('almost an image, but no dimensions', () => {
+    test("almost an image, but no dimensions", () => {
       expect(
         getFixedSizeFromImage({
-          id: 'http://example.org/image.jpg',
-          type: 'Image',
+          id: "http://example.org/image.jpg",
+          type: "Image",
         })
       ).toEqual({
-        type: 'unknown',
-        id: 'http://example.org/image.jpg',
+        type: "unknown",
+        id: "http://example.org/image.jpg",
       });
 
       expect(
         getFixedSizeFromImage({
-          id: 'http://example.org/image.jpg',
+          id: "http://example.org/image.jpg",
           width: 1000,
-          type: 'Image',
+          type: "Image",
         })
       ).toEqual({
-        type: 'unknown',
-        id: 'http://example.org/image.jpg',
+        type: "unknown",
+        id: "http://example.org/image.jpg",
       });
 
       expect(
         getFixedSizeFromImage({
-          id: 'http://example.org/image.jpg',
+          id: "http://example.org/image.jpg",
           height: 1000,
-          type: 'Image',
+          type: "Image",
         })
       ).toEqual({
-        type: 'unknown',
-        id: 'http://example.org/image.jpg',
+        type: "unknown",
+        id: "http://example.org/image.jpg",
       });
     });
 
-    test('image with enough information to be an image', () => {
+    test("image with enough information to be an image", () => {
       expect(
         getFixedSizeFromImage({
-          id: 'http://example.org/image.jpg',
-          type: 'Image',
+          id: "http://example.org/image.jpg",
+          type: "Image",
           width: 1000,
           height: 2000,
         })
       ).toEqual({
-        id: 'http://example.org/image.jpg',
-        type: 'fixed',
+        id: "http://example.org/image.jpg",
+        type: "fixed",
         width: 1000,
         height: 2000,
         unsafe: true,
@@ -148,40 +148,40 @@ describe('image utilities', () => {
     });
   });
 
-  describe('getFixedSizesFromService', () => {
-    test('no service', () => {
+  describe("getFixedSizesFromService", () => {
+    test("no service", () => {
       expect(
         getFixedSizesFromService({
-          id: 'http://example.org/service1.json',
-          profile: 'some-profile',
+          id: "http://example.org/service1.json",
+          profile: "some-profile",
         } as any)
       ).toEqual([]);
     });
 
-    test('simple service with size', () => {
+    test("simple service with size", () => {
       expect(
         getFixedSizesFromService({
-          id: 'http://example.org/service1.json',
-          profile: 'level2',
+          id: "http://example.org/service1.json",
+          profile: "level2",
           sizes: [{ width: 1024, height: 2048 }],
         })
       ).toEqual([
         {
           height: 2048,
           level: 2,
-          id: 'http://example.org/service1.json',
-          type: 'fixed-service',
+          id: "http://example.org/service1.json",
+          type: "fixed-service",
           version: 2,
           width: 1024,
         },
       ]);
     });
 
-    test('simple service with multiple sizes', () => {
+    test("simple service with multiple sizes", () => {
       expect(
         getFixedSizesFromService({
-          id: 'http://example.org/service1.json',
-          profile: 'level2',
+          id: "http://example.org/service1.json",
+          profile: "level2",
           sizes: [
             { width: 1024, height: 2048 },
             { width: 512, height: 1024 },
@@ -190,16 +190,16 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 2048,
-          id: 'http://example.org/service1.json',
-          type: 'fixed-service',
+          id: "http://example.org/service1.json",
+          type: "fixed-service",
           version: 2,
           level: 2,
           width: 1024,
         },
         {
           height: 1024,
-          id: 'http://example.org/service1.json',
-          type: 'fixed-service',
+          id: "http://example.org/service1.json",
+          type: "fixed-service",
           version: 2,
           level: 2,
           width: 512,
@@ -208,156 +208,156 @@ describe('image utilities', () => {
     });
   });
 
-  describe('canonicalServiceUrl', () => {
-    test('already canonical', () => {
-      expect(canonicalServiceUrl('http://example.org/image-1/info.json')).toEqual(
-        'http://example.org/image-1/info.json'
+  describe("canonicalServiceUrl", () => {
+    test("already canonical", () => {
+      expect(canonicalServiceUrl("http://example.org/image-1/info.json")).toEqual(
+        "http://example.org/image-1/info.json"
       );
     });
 
-    test('trailing slash', () => {
-      expect(canonicalServiceUrl('http://example.org/image-1/')).toEqual('http://example.org/image-1/info.json');
+    test("trailing slash", () => {
+      expect(canonicalServiceUrl("http://example.org/image-1/")).toEqual("http://example.org/image-1/info.json");
     });
 
-    test('no trailing slash', () => {
-      expect(canonicalServiceUrl('http://example.org/image-1')).toEqual('http://example.org/image-1/info.json');
+    test("no trailing slash", () => {
+      expect(canonicalServiceUrl("http://example.org/image-1")).toEqual("http://example.org/image-1/info.json");
     });
 
-    describe('getImageServerFromId', () => {
-      test('already a server', () => {
-        expect(getImageServerFromId('example.org')).toEqual('example.org');
+    describe("getImageServerFromId", () => {
+      test("already a server", () => {
+        expect(getImageServerFromId("example.org")).toEqual("example.org");
       });
 
-      test('server with protocol, which gets stripped off', () => {
-        expect(getImageServerFromId('https://example.org')).toEqual('example.org');
+      test("server with protocol, which gets stripped off", () => {
+        expect(getImageServerFromId("https://example.org")).toEqual("example.org");
       });
 
-      test('server wit path', () => {
-        expect(getImageServerFromId('https://example.org/some-image/something/here.json')).toEqual('example.org');
+      test("server wit path", () => {
+        expect(getImageServerFromId("https://example.org/some-image/something/here.json")).toEqual("example.org");
       });
     });
   });
 
-  describe('supportsCustomSizes', () => {
-    test('non image services', () => {
+  describe("supportsCustomSizes", () => {
+    test("non image services", () => {
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: 'not-image-service' as any,
+          id: "http://example.org/service/1",
+          profile: "not-image-service" as any,
         })
       ).toEqual(false);
     });
 
-    test('IIIF image service profile', () => {
+    test("IIIF image service profile", () => {
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
         })
       ).toEqual(true);
 
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: 'level2',
-        })
-      ).toEqual(true);
-    });
-
-    test('level 0 image service should not work', () => {
-      expect(
-        supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: 'level0',
-        })
-      ).toEqual(false);
-    });
-
-    test('level 0 with extras should work', () => {
-      expect(
-        supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['regionByPx', 'sizeByW'] }],
-        })
-      ).toEqual(true);
-
-      expect(
-        supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['regionByPx', 'sizeByWh'] }],
-        })
-      ).toEqual(true);
-
-      expect(
-        supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['regionByPx', 'sizeByWh', 'sizeByW'] }],
+          id: "http://example.org/service/1",
+          profile: "level2",
         })
       ).toEqual(true);
     });
 
-    test('level 0 with extras but not enough', () => {
+    test("level 0 image service should not work", () => {
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['regionByPx'] }],
+          id: "http://example.org/service/1",
+          profile: "level0",
+        })
+      ).toEqual(false);
+    });
+
+    test("level 0 with extras should work", () => {
+      expect(
+        supportsCustomSizes({
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["regionByPx", "sizeByW"] }],
+        })
+      ).toEqual(true);
+
+      expect(
+        supportsCustomSizes({
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["regionByPx", "sizeByWh"] }],
+        })
+      ).toEqual(true);
+
+      expect(
+        supportsCustomSizes({
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["regionByPx", "sizeByWh", "sizeByW"] }],
+        })
+      ).toEqual(true);
+    });
+
+    test("level 0 with extras but not enough", () => {
+      expect(
+        supportsCustomSizes({
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["regionByPx"] }],
         })
       ).toEqual(false);
 
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['sizeByWh'] }],
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["sizeByWh"] }],
         })
       ).toEqual(false);
 
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['sizeByWh', 'sizeByW'] }],
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["sizeByWh", "sizeByW"] }],
         })
       ).toEqual(false);
 
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', { supports: ['sizeByW'] }],
+          id: "http://example.org/service/1",
+          profile: ["level0", { supports: ["sizeByW"] }],
         })
       ).toEqual(false);
 
       expect(
         supportsCustomSizes({
-          id: 'http://example.org/service/1',
-          profile: ['level0', {}],
+          id: "http://example.org/service/1",
+          profile: ["level0", {}],
         })
       ).toEqual(false);
     });
   });
 
-  describe('getCustomSizeFromService', () => {
-    test('not an image service', () => {
+  describe("getCustomSizeFromService", () => {
+    test("not an image service", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: 'not-an-image-service' as any,
+          id: "http://example.org/service/1",
+          profile: "not-an-image-service" as any,
         })
       ).toEqual([]);
     });
 
-    test('an image service without custom sizes', () => {
+    test("an image service without custom sizes", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: 'level0',
+          id: "http://example.org/service/1",
+          profile: "level0",
         })
       ).toEqual([]);
     });
 
-    test('an image service with custom sizes', () => {
+    test("an image service with custom sizes", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: 'level0',
+          id: "http://example.org/service/1",
+          profile: "level0",
           sizes: [
             { width: 100, height: 200 },
             { width: 200, height: 400 },
@@ -366,166 +366,166 @@ describe('image utilities', () => {
       ).toEqual([]);
     });
 
-    test('an image service with scales', () => {
+    test("an image service with scales", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 256,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service with scales', () => {
+    test("an image service with scales", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           tiles: [{ width: 256, height: 512, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 512,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service with scales', () => {
+    test("an image service with scales", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1', {}],
+          id: "http://example.org/service/1",
+          profile: ["level1", {}],
           tiles: [{ width: 256, height: 512, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 512,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service with invalid tile', () => {
+    test("an image service with invalid tile", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1'],
+          id: "http://example.org/service/1",
+          profile: ["level1"],
           tiles: [{ width: 0, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([]);
     });
 
-    test('an image service without tiles (invalid)', () => {
+    test("an image service without tiles (invalid)", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1'],
+          id: "http://example.org/service/1",
+          profile: ["level1"],
         })
       ).toEqual([]);
     });
 
-    test('an image service with scales + maxWidth', () => {
+    test("an image service with scales + maxWidth", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1', { maxWidth: 1000 }],
+          id: "http://example.org/service/1",
+          profile: ["level1", { maxWidth: 1000 }],
           tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 1000,
           maxWidth: 1000,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service with scales + maxHeight', () => {
+    test("an image service with scales + maxHeight", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1', { maxHeight: 1000 }],
+          id: "http://example.org/service/1",
+          profile: ["level1", { maxHeight: 1000 }],
           tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 1000,
           maxWidth: 1000,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service ith both maxHeight + maxWidth', () => {
+    test("an image service ith both maxHeight + maxWidth", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1', { maxHeight: 1000, maxWidth: 2000 }],
+          id: "http://example.org/service/1",
+          profile: ["level1", { maxHeight: 1000, maxWidth: 2000 }],
           tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 1000,
           maxWidth: 2000,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('an image service ith both maxHeight + maxWidth', () => {
+    test("an image service ith both maxHeight + maxWidth", () => {
       expect(
         getCustomSizeFromService({
-          id: 'http://example.org/service/1',
-          profile: ['level1', { maxHeight: 1000, maxWidth: 2000 }],
+          id: "http://example.org/service/1",
+          profile: ["level1", { maxHeight: 1000, maxWidth: 2000 }],
           tiles: [{ width: 256, height: 512, scaleFactors: [1, 2, 4, 8] }],
         })
       ).toEqual([
         {
-          id: 'http://example.org/service/1',
+          id: "http://example.org/service/1",
           maxHeight: 1000,
           maxWidth: 2000,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
@@ -533,37 +533,37 @@ describe('image utilities', () => {
     });
   });
 
-  describe('getSmallestScaleFactorAsSingleImage', () => {
-    test('no height or width', () => {
+  describe("getSmallestScaleFactorAsSingleImage", () => {
+    test("no height or width", () => {
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
         })
       ).toEqual(null);
 
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           width: 1000,
         })
       ).toEqual(null);
 
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           height: 1000,
         })
       ).toEqual(null);
     });
 
-    test('simple tiles - but too large', () => {
+    test("simple tiles - but too large", () => {
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           height: 1024,
           width: 2048,
           tiles: [{ width: 256, scaleFactors: [1, 2, 3, 4] }],
@@ -571,30 +571,30 @@ describe('image utilities', () => {
       ).toEqual(null);
     });
 
-    test('simple tiles', () => {
+    test("simple tiles", () => {
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           height: 1024,
           width: 2048,
           tiles: [{ width: 256, scaleFactors: [1, 2, 3, 4, 8] }],
         })
       ).toEqual({
         height: 128,
-        id: 'http://example.org/service/1',
-        type: 'fixed-service',
+        id: "http://example.org/service/1",
+        type: "fixed-service",
         version: 2,
         width: 256,
         level: 1,
       });
     });
 
-    test('invalid tiles', () => {
+    test("invalid tiles", () => {
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           height: 1024,
           width: 2048,
           tiles: [{ width: 0, scaleFactors: [1, 2, 3, 4, 8] }],
@@ -602,11 +602,11 @@ describe('image utilities', () => {
       ).toEqual(null);
     });
 
-    test('multiple tiles', () => {
+    test("multiple tiles", () => {
       expect(
         getSmallestScaleFactorAsSingleImage({
-          id: 'http://example.org/service/1',
-          profile: 'level1',
+          id: "http://example.org/service/1",
+          profile: "level1",
           height: 1024,
           width: 2048,
           tiles: [
@@ -616,8 +616,8 @@ describe('image utilities', () => {
         })
       ).toEqual({
         height: 256,
-        id: 'http://example.org/service/1',
-        type: 'fixed-service',
+        id: "http://example.org/service/1",
+        type: "fixed-service",
         version: 2,
         width: 512,
         level: 1,
@@ -625,25 +625,25 @@ describe('image utilities', () => {
     });
   });
 
-  describe('isImageService', () => {
-    test('not image service', () => {
+  describe("isImageService", () => {
+    test("not image service", () => {
       expect(
         isImageService({
-          id: 'http://example.org/service/1',
-          profile: '',
+          id: "http://example.org/service/1",
+          profile: "",
         })
       ).toEqual(false);
     });
   });
 
-  describe('getImageCandidates', () => {
+  describe("getImageCandidates", () => {
     const loader = new ImageServiceLoader();
-    test('static image resource', () => {
+    test("static image resource", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/image.jpg',
-            type: 'Image',
+            id: "http://example.org/image.jpg",
+            type: "Image",
             width: 100,
             height: 200,
           },
@@ -653,36 +653,36 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 200,
-          id: 'http://example.org/image.jpg',
-          type: 'fixed',
+          id: "http://example.org/image.jpg",
+          type: "fixed",
           width: 100,
           unsafe: true,
         },
       ]);
     });
 
-    test('just a url', () => {
-      expect(getImageCandidates('http://example.org/image.jpg' as any, false, loader)).toEqual([
+    test("just a url", () => {
+      expect(getImageCandidates("http://example.org/image.jpg" as any, false, loader)).toEqual([
         {
-          id: 'http://example.org/image.jpg',
-          type: 'unknown',
+          id: "http://example.org/image.jpg",
+          type: "unknown",
         },
       ]);
     });
 
-    test('image with embedded service (level 0)', () => {
+    test("image with embedded service (level 0)", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/image.jpg',
+            id: "http://example.org/image.jpg",
             width: 1200,
             height: 800,
-            type: 'Image',
+            type: "Image",
             service: [
               {
-                id: 'http://example.org/image/service',
-                profile: 'level0',
-                protocol: 'ttp://iiif.io/api/image',
+                id: "http://example.org/image/service",
+                profile: "level0",
+                protocol: "ttp://iiif.io/api/image",
               },
             ],
           },
@@ -692,27 +692,27 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 800,
-          id: 'http://example.org/image.jpg',
-          type: 'fixed',
+          id: "http://example.org/image.jpg",
+          type: "fixed",
           width: 1200,
           unsafe: true,
         },
       ]);
     });
 
-    test('image with embedded service (level 0 + sizes)', () => {
+    test("image with embedded service (level 0 + sizes)", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/image.jpg',
+            id: "http://example.org/image.jpg",
             width: 1200,
             height: 800,
-            type: 'Image',
+            type: "Image",
             service: [
               {
-                id: 'http://example.org/image/service',
-                profile: 'level0',
-                protocol: 'ttp://iiif.io/api/image',
+                id: "http://example.org/image/service",
+                profile: "level0",
+                protocol: "ttp://iiif.io/api/image",
                 sizes: [
                   { width: 600, height: 400 },
                   { width: 300, height: 200 },
@@ -726,23 +726,23 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 800,
-          id: 'http://example.org/image.jpg',
-          type: 'fixed',
+          id: "http://example.org/image.jpg",
+          type: "fixed",
           unsafe: true,
           width: 1200,
         },
         {
           height: 400,
-          id: 'http://example.org/image/service',
-          type: 'fixed-service',
+          id: "http://example.org/image/service",
+          type: "fixed-service",
           version: 2,
           level: 0,
           width: 600,
         },
         {
           height: 200,
-          id: 'http://example.org/image/service',
-          type: 'fixed-service',
+          id: "http://example.org/image/service",
+          type: "fixed-service",
           version: 2,
           level: 0,
           width: 300,
@@ -750,19 +750,19 @@ describe('image utilities', () => {
       ]);
     });
 
-    test('image with embedded server (level0 + tiles)', () => {
+    test("image with embedded server (level0 + tiles)", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/image.jpg',
+            id: "http://example.org/image.jpg",
             width: 1200,
             height: 800,
-            type: 'Image',
+            type: "Image",
             service: [
               {
-                id: 'http://example.org/image/service',
-                profile: ['level0', { supports: ['regionByPx', 'sizeByW'] }],
-                protocol: 'ttp://iiif.io/api/image',
+                id: "http://example.org/image/service",
+                profile: ["level0", { supports: ["regionByPx", "sizeByW"] }],
+                protocol: "ttp://iiif.io/api/image",
                 tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8, 16] }],
               },
             ],
@@ -773,37 +773,37 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 800,
-          id: 'http://example.org/image.jpg',
-          type: 'fixed',
+          id: "http://example.org/image.jpg",
+          type: "fixed",
           unsafe: true,
           width: 1200,
         },
         {
-          id: 'http://example.org/image/service',
+          id: "http://example.org/image/service",
           maxHeight: 256,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 0,
         },
       ]);
     });
 
-    test('image with embedded server (level1 + tiles)', () => {
+    test("image with embedded server (level1 + tiles)", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/image.jpg',
+            id: "http://example.org/image.jpg",
             width: 1200,
             height: 800,
-            type: 'Image',
+            type: "Image",
             service: [
               {
-                id: 'http://example.org/image/service',
-                profile: 'level1',
-                protocol: 'ttp://iiif.io/api/image',
+                id: "http://example.org/image/service",
+                profile: "level1",
+                protocol: "ttp://iiif.io/api/image",
                 tiles: [{ width: 256, scaleFactors: [1, 2, 4, 8, 16] }],
               },
             ],
@@ -814,30 +814,30 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 800,
-          id: 'http://example.org/image.jpg',
-          type: 'fixed',
+          id: "http://example.org/image.jpg",
+          type: "fixed",
           unsafe: true,
           width: 1200,
         },
         {
-          id: 'http://example.org/image/service',
+          id: "http://example.org/image/service",
           maxHeight: 256,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
           level: 1,
         },
       ]);
     });
 
-    test('non image example', () => {
+    test("non image example", () => {
       expect(
         getImageCandidates(
           {
-            id: 'http://example.org/audio.mp3',
-            type: 'Sound',
+            id: "http://example.org/audio.mp3",
+            type: "Sound",
           },
           false,
           loader
@@ -845,17 +845,17 @@ describe('image utilities', () => {
       ).toEqual([]);
     });
 
-    test('example thumbnail service', () => {
+    test("example thumbnail service", () => {
       expect(
         getImageCandidates(
           {
-            id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg',
-            type: 'Image',
+            id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg",
+            type: "Image",
             service: [
               {
-                '@context': 'http://iiif.io/api/image/2/context.json',
-                id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393',
-                protocol: 'http://iiif.io/api/image',
+                "@context": "http://iiif.io/api/image/2/context.json",
+                id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393",
+                protocol: "http://iiif.io/api/image",
                 height: 1024,
                 width: 732,
                 sizes: [
@@ -876,7 +876,7 @@ describe('image utilities', () => {
                     height: 1024,
                   },
                 ],
-                profile: ['http://iiif.io/api/image/2/level0.json'],
+                profile: ["http://iiif.io/api/image/2/level0.json"],
               },
             ],
           },
@@ -886,38 +886,38 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 100,
-          id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg',
-          type: 'fixed',
+          id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg",
+          type: "fixed",
           width: 72,
         },
         {
           height: 100,
-          id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393',
-          type: 'fixed-service',
+          id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393",
+          type: "fixed-service",
           version: 2,
           width: 72,
           level: 0,
         },
         {
           height: 200,
-          id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393',
-          type: 'fixed-service',
+          id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393",
+          type: "fixed-service",
           version: 2,
           width: 143,
           level: 0,
         },
         {
           height: 400,
-          id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393',
-          type: 'fixed-service',
+          id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393",
+          type: "fixed-service",
           version: 2,
           width: 286,
           level: 0,
         },
         {
           height: 1024,
-          id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393',
-          type: 'fixed-service',
+          id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393",
+          type: "fixed-service",
           version: 2,
           width: 732,
           level: 0,
@@ -926,11 +926,11 @@ describe('image utilities', () => {
     });
   });
 
-  describe('getImageCandidates - dereferenced', () => {
+  describe("getImageCandidates - dereferenced", () => {
     const image1: ImageService = {
-      '@context': 'http://iiif.io/api/image/2/context.json',
-      id: 'https://damsssl.llgc.org.uk/iiif/2.0/image/4694557',
-      protocol: 'http://iiif.io/api/image',
+      "@context": "http://iiif.io/api/image/2/context.json",
+      id: "https://damsssl.llgc.org.uk/iiif/2.0/image/4694557",
+      protocol: "http://iiif.io/api/image",
       width: 4961,
       height: 6716,
       tiles: [
@@ -941,27 +941,27 @@ describe('image utilities', () => {
         },
       ],
       profile: [
-        'http://iiif.io/api/image/2/level1.json',
+        "http://iiif.io/api/image/2/level1.json",
         {
-          formats: ['jpg'],
-          qualities: ['native', 'color', 'gray'],
+          formats: ["jpg"],
+          qualities: ["native", "color", "gray"],
           supports: [
-            'regionByPct',
-            'sizeByForcedWh',
-            'sizeByWh',
-            'sizeAboveFull',
-            'rotationBy90s',
-            'mirroring',
-            'gray',
+            "regionByPct",
+            "sizeByForcedWh",
+            "sizeByWh",
+            "sizeAboveFull",
+            "rotationBy90s",
+            "mirroring",
+            "gray",
           ],
         },
       ],
     };
 
     const image2: ImageService = {
-      '@context': 'http://iiif.io/api/image/2/context.json',
-      id: 'https://damsssl.llgc.org.uk/iiif/2.0/image/4694558',
-      protocol: 'http://iiif.io/api/image',
+      "@context": "http://iiif.io/api/image/2/context.json",
+      id: "https://damsssl.llgc.org.uk/iiif/2.0/image/4694558",
+      protocol: "http://iiif.io/api/image",
       width: 4968,
       height: 6719,
       tiles: [
@@ -972,18 +972,18 @@ describe('image utilities', () => {
         },
       ],
       profile: [
-        'http://iiif.io/api/image/2/level1.json',
+        "http://iiif.io/api/image/2/level1.json",
         {
-          formats: ['jpg'],
-          qualities: ['native', 'color', 'gray'],
+          formats: ["jpg"],
+          qualities: ["native", "color", "gray"],
           supports: [
-            'regionByPct',
-            'sizeByForcedWh',
-            'sizeByWh',
-            'sizeAboveFull',
-            'rotationBy90s',
-            'mirroring',
-            'gray',
+            "regionByPct",
+            "sizeByForcedWh",
+            "sizeByWh",
+            "sizeAboveFull",
+            "rotationBy90s",
+            "mirroring",
+            "gray",
           ],
         },
       ],
@@ -1020,7 +1020,7 @@ describe('image utilities', () => {
     //   ],
     // };
 
-    test('simple nlw example', async () => {
+    test("simple nlw example", async () => {
       const loader = new ImageServiceLoader();
       loader.setConfig({ enableFetching: false });
 
@@ -1031,7 +1031,7 @@ describe('image utilities', () => {
         getImageCandidates(
           {
             id: image1.id,
-            type: 'Image',
+            type: "Image",
             width: image1.width as number,
             height: image1.height as number,
             service: [
@@ -1048,43 +1048,43 @@ describe('image utilities', () => {
       ).toEqual([
         {
           height: 6716,
-          id: 'https://damsssl.llgc.org.uk/iiif/2.0/image/4694557',
-          type: 'fixed',
+          id: "https://damsssl.llgc.org.uk/iiif/2.0/image/4694557",
+          type: "fixed",
           unsafe: true,
           width: 4961,
         },
         {
-          id: 'https://damsssl.llgc.org.uk/iiif/2.0/image/4694557',
+          id: "https://damsssl.llgc.org.uk/iiif/2.0/image/4694557",
           level: 1,
           maxHeight: 256,
           maxWidth: 256,
           minHeight: 0,
           minWidth: 0,
-          type: 'variable',
+          type: "variable",
           version: 2,
         },
       ]);
     });
   });
 
-  describe('pickBestFromCandidates', () => {
-    test('image url only option', () => {
+  describe("pickBestFromCandidates", () => {
+    test("image url only option", () => {
       expect(
         pickBestFromCandidates(
           {
             width: 100,
             height: 100,
           },
-          [() => [{ id: 'http://example.org/image.jpg', type: 'unknown' }]]
+          [() => [{ id: "http://example.org/image.jpg", type: "unknown" }]]
         )
       ).toEqual({
-        best: { id: 'http://example.org/image.jpg', type: 'unknown' },
+        best: { id: "http://example.org/image.jpg", type: "unknown" },
         log: [],
         fallback: [],
       });
     });
 
-    test('exact match', () => {
+    test("exact match", () => {
       expect(
         pickBestFromCandidates(
           {
@@ -1093,10 +1093,10 @@ describe('image utilities', () => {
           },
           [
             () => [
-              { id: 'http://example.org/image.jpg', type: 'unknown' },
+              { id: "http://example.org/image.jpg", type: "unknown" },
               {
-                id: 'http://example.org/image-1.jpg',
-                type: 'fixed',
+                id: "http://example.org/image-1.jpg",
+                type: "fixed",
                 width: 100,
                 height: 100,
               },
@@ -1105,8 +1105,8 @@ describe('image utilities', () => {
         )
       ).toEqual({
         best: {
-          id: 'http://example.org/image-1.jpg',
-          type: 'fixed',
+          id: "http://example.org/image-1.jpg",
+          type: "fixed",
           width: 100,
           height: 100,
         },
@@ -1115,7 +1115,7 @@ describe('image utilities', () => {
       });
     });
 
-    test('candidates are chosen in order', () => {
+    test("candidates are chosen in order", () => {
       expect(() =>
         pickBestFromCandidates({ width: 100, height: 100 }, [
           // Because typescript.
@@ -1123,12 +1123,12 @@ describe('image utilities', () => {
             if (true as false) {
               throw new Error();
             }
-            return [{ id: '', type: 'unknown' }] as ImageCandidate[];
+            return [{ id: "", type: "unknown" }] as ImageCandidate[];
           },
           () => [
             {
-              id: 'http://example.org/image-1.jpg',
-              type: 'fixed',
+              id: "http://example.org/image-1.jpg",
+              type: "fixed",
               width: 100,
               height: 100,
             },
@@ -1137,7 +1137,7 @@ describe('image utilities', () => {
       ).toThrow();
     });
 
-    test('good candidate, then better candidate, all options for a fallback', () => {
+    test("good candidate, then better candidate, all options for a fallback", () => {
       expect(
         pickBestFromCandidates(
           {
@@ -1148,15 +1148,15 @@ describe('image utilities', () => {
           [
             () => [
               {
-                id: 'http://example.org/image-1.jpg',
-                type: 'fixed',
+                id: "http://example.org/image-1.jpg",
+                type: "fixed",
                 width: 50,
                 height: 50,
               },
-              { id: 'http://example.org/image.jpg', type: 'unknown' },
+              { id: "http://example.org/image.jpg", type: "unknown" },
               {
-                id: 'http://example.org/image-2.jpg',
-                type: 'fixed',
+                id: "http://example.org/image-2.jpg",
+                type: "fixed",
                 width: 100,
                 height: 100,
               },
@@ -1166,24 +1166,24 @@ describe('image utilities', () => {
       ).toEqual({
         best: {
           height: 100,
-          id: 'http://example.org/image-2.jpg',
-          type: 'fixed',
+          id: "http://example.org/image-2.jpg",
+          type: "fixed",
           width: 100,
         },
         log: [],
         fallback: [
           {
             height: 50,
-            id: 'http://example.org/image-1.jpg',
-            type: 'fixed',
+            id: "http://example.org/image-1.jpg",
+            type: "fixed",
             width: 50,
           },
-          { id: 'http://example.org/image.jpg', type: 'unknown' },
+          { id: "http://example.org/image.jpg", type: "unknown" },
         ],
       });
     });
 
-    test('safe image service option', () => {
+    test("safe image service option", () => {
       expect(
         pickBestFromCandidates(
           {
@@ -1193,10 +1193,10 @@ describe('image utilities', () => {
           },
           [
             () => [
-              { id: 'http://example.org/image.jpg', type: 'unknown' },
+              { id: "http://example.org/image.jpg", type: "unknown" },
               {
-                id: 'http://service.com/path/info.json',
-                type: 'fixed-service',
+                id: "http://service.com/path/info.json",
+                type: "fixed-service",
                 version: 2,
                 width: 256,
                 height: 256,
@@ -1208,8 +1208,8 @@ describe('image utilities', () => {
       ).toEqual({
         best: {
           height: 256,
-          id: 'http://service.com/path/full/256,/0/default.jpg',
-          type: 'fixed',
+          id: "http://service.com/path/full/256,/0/default.jpg",
+          type: "fixed",
           unsafe: false,
           width: 256,
         },
@@ -1218,7 +1218,7 @@ describe('image utilities', () => {
       });
     });
 
-    test('preferFixedSize', () => {
+    test("preferFixedSize", () => {
       expect(
         pickBestFromCandidates(
           {
@@ -1230,10 +1230,10 @@ describe('image utilities', () => {
           },
           [
             () => [
-              { id: 'http://example.org/image.jpg', type: 'unknown' },
+              { id: "http://example.org/image.jpg", type: "unknown" },
               {
-                id: 'http://service.com/path/info.json',
-                type: 'fixed-service',
+                id: "http://service.com/path/info.json",
+                type: "fixed-service",
                 version: 3,
                 width: 256,
                 height: 256,
@@ -1242,8 +1242,8 @@ describe('image utilities', () => {
             ],
             () => [
               {
-                id: 'http://example.org/image-2.jpg',
-                type: 'fixed',
+                id: "http://example.org/image-2.jpg",
+                type: "fixed",
                 width: 110,
                 height: 110,
               },
@@ -1253,31 +1253,31 @@ describe('image utilities', () => {
       ).toEqual({
         best: {
           height: 110,
-          id: 'http://example.org/image-2.jpg',
-          type: 'fixed',
+          id: "http://example.org/image-2.jpg",
+          type: "fixed",
           width: 110,
         },
         log: [],
         fallback: [
           {
             height: 100,
-            id: 'http://service.com/path/full/100,/0/default.jpg',
-            type: 'fixed',
+            id: "http://service.com/path/full/100,/0/default.jpg",
+            type: "fixed",
             unsafe: true,
             width: 100,
           },
-          { id: 'http://example.org/image.jpg', type: 'unknown' },
+          { id: "http://example.org/image.jpg", type: "unknown" },
         ],
       });
     });
 
-    test('when match found, second list is not touched', () => {
+    test("when match found, second list is not touched", () => {
       expect(() =>
         pickBestFromCandidates({ width: 100, height: 100 }, [
           () => [
             {
-              id: 'http://example.org/image-1.jpg',
-              type: 'fixed',
+              id: "http://example.org/image-1.jpg",
+              type: "fixed",
               width: 100,
               height: 100,
             },
@@ -1287,19 +1287,19 @@ describe('image utilities', () => {
             if (true as false) {
               throw new Error();
             }
-            return [{ id: '', type: 'unknown' }] as ImageCandidate[];
+            return [{ id: "", type: "unknown" }] as ImageCandidate[];
           },
         ])
       ).not.toThrow();
     });
 
-    test('when unsafe match found, second list is IS touched', () => {
+    test("when unsafe match found, second list is IS touched", () => {
       expect(() =>
         pickBestFromCandidates({ width: 100, height: 100 }, [
           () => [
             {
-              id: 'http://example.org/image-1.jpg',
-              type: 'fixed',
+              id: "http://example.org/image-1.jpg",
+              type: "fixed",
               unsafe: true,
               width: 100,
               height: 100,
@@ -1310,23 +1310,23 @@ describe('image utilities', () => {
             if (true as false) {
               throw new Error();
             }
-            return [{ id: '', type: 'unknown' }] as ImageCandidate[];
+            return [{ id: "", type: "unknown" }] as ImageCandidate[];
           },
         ])
       ).toThrow();
     });
   });
 
-  describe('inferSizeFromUrl', () => {
-    test('simple image', () => {
+  describe("inferSizeFromUrl", () => {
+    test("simple image", () => {
       expect(
         inferImageSizeFromUrl(
-          'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg'
+          "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg"
         )
       ).toEqual({
         height: 100,
-        id: 'https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg',
-        type: 'fixed',
+        id: "https://dlcs.io/thumbs/wellcome/1/f327de6b-06ef-47ec-b98f-ee79c1685393/full/72,100/0/default.jpg",
+        type: "fixed",
         width: 72,
       });
     });

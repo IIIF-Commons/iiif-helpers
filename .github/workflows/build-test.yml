@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['22']
+        node: ["22", "24"]
 
     name: Node ${{ matrix.node }} build
     steps:
@@ -21,7 +21,7 @@ jobs:
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 9
+          version: 11.13.0
           run_install: false
 
       - name: Get pnpm store directory
@@ -39,7 +39,13 @@ jobs:
 
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
+      - run: pnpm run typecheck
+      - run: pnpm run fmt:check
+      - run: pnpm run lint
+      - run: pnpm run lint:pkg
       - run: pnpm run test
+        if: matrix.node == '24'
       - run: node pkg-tests/node-load.cjs
       - run: node pkg-tests/node-load.mjs
       - run: pnpm dlx pkg-pr-new publish
+        if: matrix.node == '24'

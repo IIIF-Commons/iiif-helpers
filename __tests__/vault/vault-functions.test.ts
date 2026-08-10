@@ -1,32 +1,32 @@
-import { toRef } from '@iiif/parser';
-import type { StructuralProperties } from '@iiif/presentation-3';
-import type { AnnotationNormalized, ManifestNormalized } from '@iiif/presentation-3-normalized';
-import invariant from 'tiny-invariant';
-import { describe, expect, test } from 'vitest';
-import exhibit from '../../fixtures/presentation-3/exhibit-2.json';
-import hasPart from '../../fixtures/presentation-3/has-part.json';
-import { Vault } from '../../src/vault';
+import { toRef } from "@iiif/parser";
+import type { StructuralProperties } from "@iiif/parser/presentation-3/types";
+import type { AnnotationNormalized, ManifestNormalized } from "@iiif/parser/presentation-3-normalized/types";
+import invariant from "tiny-invariant";
+import { describe, expect, test } from "vitest";
+import exhibit from "../../fixtures/presentation-3/exhibit-2.json";
+import hasPart from "../../fixtures/presentation-3/has-part.json";
+import { Vault } from "../../src/vault";
 import {
   addReference,
   changeReferenceIdentifier,
   moveEntities,
   moveEntity,
   updateReference,
-} from '../../src/vault/actions';
-import { rangeMaker } from '../helpers';
+} from "../../src/vault/actions";
+import { rangeMaker } from "../helpers";
 
-describe('Vault functions', () => {
-  test('Loading without an ID', async () => {
+describe("Vault functions", () => {
+  test("Loading without an ID", async () => {
     const vault = new Vault();
 
-    const ref = await vault.load<AnnotationNormalized>('https://example.org/annotation1', {
-      type: 'Annotation',
-      motivation: ['bookmarking'],
-      target: 'https://example.org/some-manifest',
+    const ref = await vault.load<AnnotationNormalized>("https://example.org/annotation1", {
+      type: "Annotation",
+      motivation: ["bookmarking"],
+      target: "https://example.org/some-manifest",
     });
 
-    expect(ref!.id).toEqual('https://example.org/annotation1');
-    expect(vault.get('https://example.org/annotation1')).toBeDefined();
+    expect(ref!.id).toEqual("https://example.org/annotation1");
+    expect(vault.get("https://example.org/annotation1")).toBeDefined();
 
     expect(vault.getState().iiif.requests).toMatchInlineSnapshot(`
       {
@@ -41,27 +41,27 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('Loading multiple with an ID', async () => {
+  test("Loading multiple with an ID", async () => {
     const vault = new Vault();
 
-    const ref1 = await vault.load<AnnotationNormalized>('https://example.org/annotation1', {
-      id: 'https://example.org/annotation1',
-      type: 'Annotation',
-      motivation: ['bookmarking'],
-      target: 'https://example.org/some-manifest',
+    const ref1 = await vault.load<AnnotationNormalized>("https://example.org/annotation1", {
+      id: "https://example.org/annotation1",
+      type: "Annotation",
+      motivation: ["bookmarking"],
+      target: "https://example.org/some-manifest",
     });
 
-    const ref2 = await vault.load<AnnotationNormalized>('https://example.org/annotation2', {
-      id: 'https://example.org/annotation2',
-      type: 'Annotation',
-      motivation: ['bookmarking'],
-      target: 'https://example.org/some-manifest',
+    const ref2 = await vault.load<AnnotationNormalized>("https://example.org/annotation2", {
+      id: "https://example.org/annotation2",
+      type: "Annotation",
+      motivation: ["bookmarking"],
+      target: "https://example.org/some-manifest",
     });
 
-    expect(ref1!.id).toEqual('https://example.org/annotation1');
-    expect(ref2!.id).toEqual('https://example.org/annotation2');
-    expect(vault.get('https://example.org/annotation1')).toBeDefined();
-    expect(vault.get('https://example.org/annotation2')).toBeDefined();
+    expect(ref1!.id).toEqual("https://example.org/annotation1");
+    expect(ref2!.id).toEqual("https://example.org/annotation2");
+    expect(vault.get("https://example.org/annotation1")).toBeDefined();
+    expect(vault.get("https://example.org/annotation2")).toBeDefined();
 
     expect(vault.getState().iiif.requests).toMatchInlineSnapshot(`
       {
@@ -87,7 +87,7 @@ describe('Vault functions', () => {
   const first = (i: StructuralProperties<any>) => i.items[0];
   const nth = (n: number) => (i: any) => i[n];
 
-  test('Loading specific resources', async () => {
+  test("Loading specific resources", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(exhibit.id, exhibit);
 
@@ -103,28 +103,28 @@ describe('Vault functions', () => {
     const specificResource = canvases(nth(5));
 
     const ytAnnotation = youtubeCanvas(first)(first)((a: any) => a.body[0])();
-    expect(ytAnnotation.type).toEqual('Video');
+    expect(ytAnnotation.type).toEqual("Video");
 
     const textAnnotation = textBody(first)(first)((a: any) => a.body[0])();
-    expect(textAnnotation.format).toEqual('text/html');
+    expect(textAnnotation.format).toEqual("text/html");
 
     const specificAnno = specificResource(first)(first)();
     // Specific resource
     const specificResourceRef = specificAnno.body[0];
-    expect(specificResourceRef.type).toEqual('SpecificResource');
+    expect(specificResourceRef.type).toEqual("SpecificResource");
 
     // Resolving the image.
-    expect(vault.get(specificResourceRef).type).toEqual('Image');
+    expect(vault.get(specificResourceRef).type).toEqual("Image");
     expect(vault.get(specificResourceRef).id).toEqual(
-      'https://dlc.services/iiif-img/7/21/81efc6f1-2c2a-42ba-8001-c7e598d91110/full/full/0/default.jpg'
+      "https://dlc.services/iiif-img/7/21/81efc6f1-2c2a-42ba-8001-c7e598d91110/full/full/0/default.jpg"
     );
 
     // Target
-    expect(specificAnno.target.type).toEqual('SpecificResource');
-    expect(vault.get(specificAnno.target).type).toEqual('Canvas');
+    expect(specificAnno.target.type).toEqual("SpecificResource");
+    expect(vault.get(specificAnno.target).type).toEqual("Canvas");
   });
 
-  test('updating identifier', async () => {
+  test("updating identifier", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
     invariant(manifest);
@@ -133,14 +133,14 @@ describe('Vault functions', () => {
     vault.dispatch(
       changeReferenceIdentifier({
         id: canvas.id,
-        type: 'Canvas',
-        key: 'thumbnail',
+        type: "Canvas",
+        key: "thumbnail",
         index: 0,
         reference: {
-          id: 'https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg',
-          type: 'ContentResource',
+          id: "https://iiif.io/api/image/3.0/example/reference/918ecd18c2592080851777620de9bcb5-gottingen/full/max/0/default.jpg",
+          type: "ContentResource",
         },
-        newIdentifier: 'https://example.org/my-new-thumb.json',
+        newIdentifier: "https://example.org/my-new-thumb.json",
       })
     );
 
@@ -182,7 +182,7 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('updating reference', async () => {
+  test("updating reference", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(hasPart.id, JSON.parse(JSON.stringify(hasPart)));
     invariant(manifest);
@@ -192,10 +192,10 @@ describe('Vault functions', () => {
     vault.dispatch(
       addReference({
         id: manifest.id,
-        type: 'Manifest',
-        key: 'items',
+        type: "Manifest",
+        key: "items",
         index: 1,
-        reference: { id: canvas.id, type: 'Canvas' },
+        reference: { id: canvas.id, type: "Canvas" },
       })
     );
 
@@ -203,12 +203,12 @@ describe('Vault functions', () => {
     vault.dispatch(
       addReference({
         id: manifest.id,
-        type: 'Manifest',
-        key: 'items',
+        type: "Manifest",
+        key: "items",
         index: 1,
         reference: {
-          type: 'SpecificResource',
-          source: { id: canvas.id, type: 'Canvas' },
+          type: "SpecificResource",
+          source: { id: canvas.id, type: "Canvas" },
         },
       })
     );
@@ -217,38 +217,38 @@ describe('Vault functions', () => {
     const newItemList = vault.get(refList);
 
     expect(refList).toEqual([
-      { id: canvas.id, type: 'Canvas' },
+      { id: canvas.id, type: "Canvas" },
       {
-        type: 'SpecificResource',
-        source: { id: canvas.id, type: 'Canvas' },
+        type: "SpecificResource",
+        source: { id: canvas.id, type: "Canvas" },
       },
-      { id: canvas.id, type: 'Canvas' },
+      { id: canvas.id, type: "Canvas" },
     ]);
 
     expect(newItemList).toHaveLength(3);
 
     expect(newItemList.map((r) => r.id)).toEqual([
-      'https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1',
-      'https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1',
-      'https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1',
+      "https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1",
+      "https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1",
+      "https://iiif.io/api/cookbook/recipe/0005-image-service/canvas/p1",
     ]);
 
     expect(newItemList.map((r) => r.label)).toEqual([
-      { en: ['Canvas with a single IIIF image'] },
-      { en: ['Canvas with a single IIIF image'] },
-      { en: ['Canvas with a single IIIF image'] },
+      { en: ["Canvas with a single IIIF image"] },
+      { en: ["Canvas with a single IIIF image"] },
+      { en: ["Canvas with a single IIIF image"] },
     ]);
 
     vault.dispatch(
       updateReference({
         id: manifest.id,
-        type: 'Manifest',
-        key: 'items',
+        type: "Manifest",
+        key: "items",
         index: 1,
         reference: {
-          type: 'SpecificResource',
-          source: { id: canvas.id, type: 'Canvas' },
-          selector: { type: 'FragmentSelector', value: 'xywh=1,2,3,' },
+          type: "SpecificResource",
+          source: { id: canvas.id, type: "Canvas" },
+          selector: { type: "FragmentSelector", value: "xywh=1,2,3," },
         },
       })
     );
@@ -258,34 +258,34 @@ describe('Vault functions', () => {
     expect(newItems).toHaveLength(3);
 
     expect(vault.get(manifest).items).toEqual([
-      { id: canvas.id, type: 'Canvas' },
+      { id: canvas.id, type: "Canvas" },
       {
-        type: 'SpecificResource',
-        source: { id: canvas.id, type: 'Canvas' },
-        selector: { type: 'FragmentSelector', value: 'xywh=1,2,3,' },
+        type: "SpecificResource",
+        source: { id: canvas.id, type: "Canvas" },
+        selector: { type: "FragmentSelector", value: "xywh=1,2,3," },
       },
-      { id: canvas.id, type: 'Canvas' },
+      { id: canvas.id, type: "Canvas" },
     ]);
   });
 
-  test('reordering multiple range items', async () => {
+  test("reordering multiple range items", async () => {
     // todo.
   });
 
-  test('re-parent range items', async () => {
+  test("re-parent range items", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
       ])
     );
@@ -296,23 +296,23 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntity({
         subject: {
-          id: 'https://example.org/canvas1',
-          type: 'Canvas',
+          id: "https://example.org/canvas1",
+          type: "Canvas",
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas2",
@@ -321,7 +321,7 @@ describe('Vault functions', () => {
         ]
       `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas5",
@@ -331,20 +331,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('re-parent range items at index', async () => {
+  test("re-parent range items at index", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
       ])
     );
@@ -355,24 +355,24 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntity({
         subject: {
-          id: 'https://example.org/canvas1',
-          type: 'Canvas',
+          id: "https://example.org/canvas1",
+          type: "Canvas",
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           index: 0,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas2",
@@ -381,7 +381,7 @@ describe('Vault functions', () => {
         ]
       `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas1",
@@ -391,20 +391,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('re-parent range items at index (middle)', async () => {
+  test("re-parent range items at index (middle)", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
       ])
     );
@@ -415,24 +415,24 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntity({
         subject: {
-          id: 'https://example.org/canvas1',
-          type: 'Canvas',
+          id: "https://example.org/canvas1",
+          type: "Canvas",
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           index: 1,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas2",
@@ -441,7 +441,7 @@ describe('Vault functions', () => {
         ]
       `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas5",
@@ -451,20 +451,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('re-parent range items at index (same target)', async () => {
+  test("re-parent range items at index (same target)", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
       ])
     );
@@ -475,24 +475,24 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntity({
         subject: {
-          id: 'https://example.org/canvas1',
-          type: 'Canvas',
+          id: "https://example.org/canvas1",
+          type: "Canvas",
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
           index: 1,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas2",
@@ -503,20 +503,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('move multiple items into a new range (type=list)', async () => {
+  test("move multiple items into a new range (type=list)", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
-        c.range('https://example.org/range2', []),
+        c.range("https://example.org/range2", []),
       ])
     );
 
@@ -526,37 +526,37 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'list',
+          type: "list",
           items: [
             {
-              id: 'https://example.org/canvas4',
-              type: 'Canvas',
+              id: "https://example.org/canvas4",
+              type: "Canvas",
             },
             {
-              id: 'https://example.org/canvas5',
-              type: 'Canvas',
+              id: "https://example.org/canvas5",
+              type: "Canvas",
             },
             {
-              id: 'https://example.org/canvas6',
-              type: 'Canvas',
+              id: "https://example.org/canvas6",
+              type: "Canvas",
             },
           ],
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           index: 0,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas1",
@@ -565,7 +565,7 @@ describe('Vault functions', () => {
         ]
       `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas4",
@@ -575,20 +575,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('move multiple items into a new range (type=slice)', async () => {
+  test("move multiple items into a new range (type=slice)", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
-        c.range('https://example.org/range2', []),
+        c.range("https://example.org/range2", []),
       ])
     );
 
@@ -598,25 +598,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 3, // inclusive.
           length: 3,
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           index: 0,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas1",
@@ -625,7 +625,7 @@ describe('Vault functions', () => {
         ]
       `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas4",
@@ -635,20 +635,20 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('move multiple items into a new range (type=slice) same range', async () => {
+  test("move multiple items into a new range (type=slice) same range", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
-        c.range('https://example.org/range2', []),
+        c.range("https://example.org/range2", []),
       ])
     );
 
@@ -658,25 +658,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 3, // inclusive.
           length: 3,
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
           index: 1,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
         [
           "https://example.org/canvas1",
@@ -689,37 +689,37 @@ describe('Vault functions', () => {
       `);
   });
 
-  test('moving ranges to different ranges', async () => {
+  test("moving ranges to different ranges", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/english', [
-          c.range('https://example.org/english/1', [
-            c.canvas('https://example.org/canvas1'),
-            c.canvas('https://example.org/canvas2'),
-            c.canvas('https://example.org/canvas3'),
-            c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/english", [
+          c.range("https://example.org/english/1", [
+            c.canvas("https://example.org/canvas1"),
+            c.canvas("https://example.org/canvas2"),
+            c.canvas("https://example.org/canvas3"),
+            c.canvas("https://example.org/canvas4"),
           ]),
-          c.range('https://example.org/english/2', [
-            c.canvas('https://example.org/canvas5'),
-            c.canvas('https://example.org/canvas6'),
-            c.canvas('https://example.org/canvas7'),
-            c.canvas('https://example.org/canvas8'),
+          c.range("https://example.org/english/2", [
+            c.canvas("https://example.org/canvas5"),
+            c.canvas("https://example.org/canvas6"),
+            c.canvas("https://example.org/canvas7"),
+            c.canvas("https://example.org/canvas8"),
           ]),
         ]),
-        c.range('https://example.org/french', [
-          c.range('https://example.org/french/1', [
-            c.canvas('https://example.org/canvas9'),
-            c.canvas('https://example.org/canvas10'),
-            c.canvas('https://example.org/canvas11'),
-            c.canvas('https://example.org/canvas12'),
+        c.range("https://example.org/french", [
+          c.range("https://example.org/french/1", [
+            c.canvas("https://example.org/canvas9"),
+            c.canvas("https://example.org/canvas10"),
+            c.canvas("https://example.org/canvas11"),
+            c.canvas("https://example.org/canvas12"),
           ]),
-          c.range('https://example.org/french/2', [
-            c.canvas('https://example.org/canvas13'),
-            c.canvas('https://example.org/canvas14'),
-            c.canvas('https://example.org/canvas15'),
-            c.canvas('https://example.org/canvas16'),
+          c.range("https://example.org/french/2", [
+            c.canvas("https://example.org/canvas13"),
+            c.canvas("https://example.org/canvas14"),
+            c.canvas("https://example.org/canvas15"),
+            c.canvas("https://example.org/canvas16"),
           ]),
         ]),
       ])
@@ -731,26 +731,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'list',
-          items: [{ id: 'https://example.org/french/1', type: 'Range' }],
+          type: "list",
+          items: [{ id: "https://example.org/french/1", type: "Range" }],
         },
         from: {
-          id: 'https://example.org/french',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/french",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/english',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/english",
+          type: "Range",
+          key: "items",
           index: 6,
         },
       })
     );
 
-    expect(
-      vault.get({ id: 'https://example.org/english', type: 'Range' }).items.map((t) => toRef(t)!.id)
-    ).toMatchInlineSnapshot(`
+    expect(vault.get({ id: "https://example.org/english", type: "Range" }).items.map((t) => toRef(t)!.id))
+      .toMatchInlineSnapshot(`
       [
         "https://example.org/english/1",
         "https://example.org/english/2",
@@ -759,20 +758,20 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('move range slice to different position in same range', async () => {
+  test("move range slice to different position in same range", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
-          c.canvas('https://example.org/canvas7'),
-          c.canvas('https://example.org/canvas8'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
+          c.canvas("https://example.org/canvas7"),
+          c.canvas("https://example.org/canvas8"),
         ]),
       ])
     );
@@ -783,25 +782,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 2, // canvas3, canvas4, canvas5
           length: 3,
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
           index: 6,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas1",
@@ -816,22 +815,22 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('move multiple specific items to beginning of range', async () => {
+  test("move multiple specific items to beginning of range", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas7'),
-          c.canvas('https://example.org/canvas8'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas7"),
+          c.canvas("https://example.org/canvas8"),
         ]),
       ])
     );
@@ -842,33 +841,33 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'list',
+          type: "list",
           items: [
             {
-              id: 'https://example.org/canvas2',
-              type: 'Canvas',
+              id: "https://example.org/canvas2",
+              type: "Canvas",
             },
             {
-              id: 'https://example.org/canvas5',
-              type: 'Canvas',
+              id: "https://example.org/canvas5",
+              type: "Canvas",
             },
           ],
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           index: 0,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas1",
@@ -878,7 +877,7 @@ describe('Vault functions', () => {
       ]
     `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas2",
@@ -889,24 +888,24 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('move slice from middle to end of different range', async () => {
+  test("move slice from middle to end of different range", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
-          c.canvas('https://example.org/canvas4'),
-          c.canvas('https://example.org/canvas5'),
-          c.canvas('https://example.org/canvas6'),
-          c.canvas('https://example.org/canvas7'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
+          c.canvas("https://example.org/canvas4"),
+          c.canvas("https://example.org/canvas5"),
+          c.canvas("https://example.org/canvas6"),
+          c.canvas("https://example.org/canvas7"),
         ]),
-        c.range('https://example.org/range2', [
-          c.canvas('https://example.org/canvas8'),
-          c.canvas('https://example.org/canvas9'),
-          c.canvas('https://example.org/canvas10'),
+        c.range("https://example.org/range2", [
+          c.canvas("https://example.org/canvas8"),
+          c.canvas("https://example.org/canvas9"),
+          c.canvas("https://example.org/canvas10"),
         ]),
       ])
     );
@@ -917,25 +916,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 2, // canvas3, canvas4
           length: 2,
         },
         from: {
-          id: 'https://example.org/range1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/range2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/range2",
+          type: "Range",
+          key: "items",
           // index not specified - should append to end
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/range1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas1",
@@ -946,7 +945,7 @@ describe('Vault functions', () => {
       ]
     `);
 
-    expect(vault.get({ id: 'https://example.org/range2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/range2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas8",
@@ -958,21 +957,21 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('move overlapping slice within nested ranges', async () => {
+  test("move overlapping slice within nested ranges", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/range1', [
-          c.range('https://example.org/nestedRange1', [
-            c.canvas('https://example.org/canvas1'),
-            c.canvas('https://example.org/canvas2'),
-            c.canvas('https://example.org/canvas3'),
-            c.canvas('https://example.org/canvas4'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/range1", [
+          c.range("https://example.org/nestedRange1", [
+            c.canvas("https://example.org/canvas1"),
+            c.canvas("https://example.org/canvas2"),
+            c.canvas("https://example.org/canvas3"),
+            c.canvas("https://example.org/canvas4"),
           ]),
-          c.range('https://example.org/nestedRange2', [
-            c.canvas('https://example.org/canvas5'),
-            c.canvas('https://example.org/canvas6'),
+          c.range("https://example.org/nestedRange2", [
+            c.canvas("https://example.org/canvas5"),
+            c.canvas("https://example.org/canvas6"),
           ]),
         ]),
       ])
@@ -984,25 +983,25 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 1, // canvas2, canvas3
           length: 2,
         },
         from: {
-          id: 'https://example.org/nestedRange1',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/nestedRange1",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/nestedRange2',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/nestedRange2",
+          type: "Range",
+          key: "items",
           index: 1,
         },
       })
     );
 
-    expect(vault.get({ id: 'https://example.org/nestedRange1', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/nestedRange1", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas1",
@@ -1010,7 +1009,7 @@ describe('Vault functions', () => {
       ]
     `);
 
-    expect(vault.get({ id: 'https://example.org/nestedRange2', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/nestedRange2", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas5",
@@ -1021,21 +1020,21 @@ describe('Vault functions', () => {
     `);
   });
 
-  test('move entire range contents using slice with full length', async () => {
+  test("move entire range contents using slice with full length", async () => {
     const vault = new Vault();
 
     const [range, { getManifest }] = rangeMaker((c) =>
-      c.range('https://example.org/rangeTop', [
-        c.range('https://example.org/sourceRange', [
-          c.canvas('https://example.org/canvas1'),
-          c.canvas('https://example.org/canvas2'),
-          c.canvas('https://example.org/canvas3'),
+      c.range("https://example.org/rangeTop", [
+        c.range("https://example.org/sourceRange", [
+          c.canvas("https://example.org/canvas1"),
+          c.canvas("https://example.org/canvas2"),
+          c.canvas("https://example.org/canvas3"),
         ]),
-        c.range('https://example.org/targetRange', [
+        c.range("https://example.org/targetRange", [
           //
-          c.canvas('https://example.org/canvas4'),
+          c.canvas("https://example.org/canvas4"),
         ]),
-        c.range('https://example.org/emptyRange', []),
+        c.range("https://example.org/emptyRange", []),
       ])
     );
 
@@ -1046,29 +1045,29 @@ describe('Vault functions', () => {
     vault.dispatch(
       moveEntities({
         subjects: {
-          type: 'slice',
+          type: "slice",
           startIndex: 0,
           length: 3, // all items
         },
         from: {
-          id: 'https://example.org/sourceRange',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/sourceRange",
+          type: "Range",
+          key: "items",
         },
         to: {
-          id: 'https://example.org/emptyRange',
-          type: 'Range',
-          key: 'items',
+          id: "https://example.org/emptyRange",
+          type: "Range",
+          key: "items",
           index: 0,
         },
       })
     );
 
     expect(
-      vault.get({ id: 'https://example.org/sourceRange', type: 'Range' }).items.map((t) => toRef(t)!.id)
+      vault.get({ id: "https://example.org/sourceRange", type: "Range" }).items.map((t) => toRef(t)!.id)
     ).toMatchInlineSnapshot(`[]`);
 
-    expect(vault.get({ id: 'https://example.org/emptyRange', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/emptyRange", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas1",
@@ -1077,7 +1076,7 @@ describe('Vault functions', () => {
       ]
     `);
 
-    expect(vault.get({ id: 'https://example.org/targetRange', type: 'Range' }).items.map((t) => toRef(t)!.id))
+    expect(vault.get({ id: "https://example.org/targetRange", type: "Range" }).items.map((t) => toRef(t)!.id))
       .toMatchInlineSnapshot(`
       [
         "https://example.org/canvas4",

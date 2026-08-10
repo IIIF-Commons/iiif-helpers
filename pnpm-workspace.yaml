@@ -1,0 +1,5 @@
+autoInstallPeers: false
+allowBuilds:
+  esbuild: true
+minimumReleaseAgeExclude:
+  - "@iiif/parser@4.0.0"

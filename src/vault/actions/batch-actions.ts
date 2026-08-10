@@ -1,10 +1,10 @@
-import { ActionType } from 'typesafe-actions';
-import { createAction } from '../utility/typesafe-actions-runtime';
-import { AllActions, EntityStore } from '../types';
+import { ActionType } from "typesafe-actions";
+import { createAction } from "../utility/typesafe-actions-runtime";
+import { AllActions, EntityStore } from "../types";
 
-export const BATCH_ACTIONS = '@iiif/BATCH';
+export const BATCH_ACTIONS = "@iiif/BATCH";
 
-export const BATCH_IMPORT = '@iiif/BATCH_IMPORT';
+export const BATCH_IMPORT = "@iiif/BATCH_IMPORT";
 
 export const batchActions = createAction(BATCH_ACTIONS)<{ actions: AllActions[] }>();
 

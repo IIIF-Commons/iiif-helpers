@@ -1,4 +1,4 @@
-import { MetaActions, SET_META_VALUE, SET_META_VALUE_DYNAMIC, UNSET_META_VALUE } from '../../actions';
+import { MetaActions, SET_META_VALUE, SET_META_VALUE_DYNAMIC, UNSET_META_VALUE } from "../../actions";
 
 type MetaState = Record<string, Record<string, Record<string, any>>>;
 

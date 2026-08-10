@@ -1,11 +1,11 @@
-import novieten from '../fixtures/exhibitions/novieten.json';
-import { Vault } from '../src/vault';
-import invariant from 'tiny-invariant';
-import { createPaintingAnnotationsHelper } from '../src/painting-annotations';
-import { expandTarget } from '../src';
+import novieten from "../fixtures/exhibitions/novieten.json";
+import { Vault } from "../src/vault";
+import invariant from "tiny-invariant";
+import { createPaintingAnnotationsHelper } from "../src/painting-annotations";
+import { expandTarget } from "../src";
 
-describe('Exhibition helpers', () => {
-  test('parsing exhibition', async () => {
+describe("Exhibition helpers", () => {
+  test("parsing exhibition", async () => {
     const vault = new Vault();
     const manifest = await vault.loadManifest(novieten.id, novieten);
 
@@ -19,7 +19,7 @@ describe('Exhibition helpers', () => {
     expect(paintables.items).toHaveLength(1);
 
     const expandedSelector = expandTarget({
-      type: 'SpecificResource',
+      type: "SpecificResource",
       source: paintables.items[0].resource,
       selector: paintables.items[0].selector,
     });

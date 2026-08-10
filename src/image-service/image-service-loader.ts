@@ -1,25 +1,40 @@
 import {
-  isLevel0,
-  getId,
   canonicalServiceUrl,
   extractFixedSizeScales,
   fixedSizesFromScales,
+  getId,
   getImageServices,
-} from '@iiif/parser/image-3';
-import {
-  ContentResource,
-  IIIFExternalWebResource,
-  ImageProfile,
-  ImageSize,
-  ImageTile,
-  ImageService,
-} from '@iiif/presentation-3';
-import { getImageServerFromId } from './get-image-server-from-id';
-import { sampledTilesToTiles } from './sampled-tiles-to-tiles';
-import { ImageCandidate, ImageCandidateRequest } from './types';
-import { pickBestFromCandidates } from './pick-best-from-candidates';
-import { getImageCandidates } from './get-image-candidates';
-import { imageSizesMatch } from './image-sizes-match';
+  isLevel0,
+} from "@iiif/parser/image-3";
+import type {
+  ContentResource as ContentResourceV3,
+  IIIFExternalWebResource as IIIFExternalWebResourceV3,
+  ImageProfile as ImageProfileV3,
+  ImageService as ImageServiceV3,
+  ImageSize as ImageSizeV3,
+  ImageTile as ImageTileV3,
+} from "@iiif/parser/presentation-3/types";
+import type {
+  ContentResource as ContentResourceV4,
+  ContentResourceLike as IIIFExternalWebResourceV4,
+  ImageProfile as ImageProfileV4,
+  ImageService as ImageServiceV4,
+  ImageSize as ImageSizeV4,
+  ImageTile as ImageTileV4,
+} from "@iiif/parser/presentation-4/types";
+import { getImageCandidates } from "./get-image-candidates";
+import { getImageServerFromId } from "./get-image-server-from-id";
+import { imageSizesMatch } from "./image-sizes-match";
+import { pickBestFromCandidates } from "./pick-best-from-candidates";
+import { sampledTilesToTiles } from "./sampled-tiles-to-tiles";
+import type { ImageCandidate, ImageCandidateRequest } from "./types";
+
+type ContentResource = ContentResourceV3 | ContentResourceV4;
+type IIIFExternalWebResource = IIIFExternalWebResourceV3 | IIIFExternalWebResourceV4;
+type ImageProfile = ImageProfileV3 | ImageProfileV4;
+type ImageSize = ImageSizeV3 | ImageSizeV4;
+type ImageTile = ImageTileV3 | ImageTileV4;
+type ImageService = ImageServiceV3 | ImageServiceV4;
 
 export type ImageServer = {
   root: string;
@@ -121,7 +136,7 @@ export class ImageServiceLoader {
         verified: false,
         server: null,
         result: {
-          context: service['@context'] || [],
+          context: service["@context"] || [],
           sampledProfile: service.profile,
           resourceServiceRatio: imageServiceRequest && service.height ? imageServiceRequest.height / service.height : 1,
           sampledSizes: service.sizes || [],
@@ -189,10 +204,10 @@ export class ImageServiceLoader {
 
     if (!this.imageServices[serviceUrl]) {
       this.imageServices[serviceUrl] = {
-        '@context': imageServer.result.context,
-        '@id': getId(resource),
+        "@context": imageServer.result.context,
+        "@id": getId(resource),
         id: getId(resource),
-        protocol: 'http://iiif.io/api/image',
+        protocol: "http://iiif.io/api/image",
         tiles: source?.tiles || sampledTilesToTiles(resource.width, resource.height, imageServer.result.sampledTiles),
         sizes:
           source?.sizes ||
@@ -225,12 +240,12 @@ export class ImageServiceLoader {
   async getImageCandidates(unknownResource: ContentResource, dereference = true): Promise<ImageCandidate[]> {
     const resource = unknownResource as IIIFExternalWebResource;
     if (dereference && resource && resource.height && resource.width) {
-      const imageServices = getImageServices(resource);
+      const imageServices = getImageServices(resource as any);
       for (const service of imageServices) {
         const request: ImageServiceRequest = {
           id: getId(service),
-          width: service.width ? service.width : resource.width,
-          height: service.height ? service.height : resource.height,
+          width: Number(service.width ? service.width : resource.width),
+          height: Number(service.height ? service.height : resource.height),
           source: service,
         };
         await this.loadService(request);
@@ -260,7 +275,7 @@ export class ImageServiceLoader {
     const isValid =
       prediction.height === imageService.height &&
       prediction.width === imageService.width &&
-      prediction['@context'] === imageService['@context'] &&
+      prediction["@context"] === imageService["@context"] &&
       imageSizesMatch(prediction.sizes || [], imageService.sizes || []);
     // @todo profiles match.
 
@@ -279,7 +294,7 @@ export class ImageServiceLoader {
   }
 
   canLoadSync(service: ImageServiceRequest | ImageService | string): boolean {
-    const serviceId = typeof service === 'string' ? service : getId(service);
+    const serviceId = typeof service === "string" ? service : getId(service);
     const canonical = canonicalServiceUrl(serviceId);
     if (this.imageServices[canonical]) {
       return true;
@@ -317,19 +332,19 @@ export class ImageServiceLoader {
     }
 
     if (!this.config.enableFetching) {
-      throw new Error('Fetching is not enabled');
+      throw new Error("Fetching is not enabled");
     }
 
     const json = (await this.fetch(serviceUrl).then((service) => service.json())) as ImageService;
 
-    if (!json.id && (json as any)['@id']) {
-      json.id = (json as any)['@id'];
+    if (!json.id && (json as any)["@id"]) {
+      json.id = (json as any)["@id"];
     }
 
     if (json.id !== serviceId) {
       json.id = serviceId;
-      if (json['@id']) {
-        json['@id'] = serviceId;
+      if (json["@id"]) {
+        json["@id"] = serviceId;
       }
     }
 

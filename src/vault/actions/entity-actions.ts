@@ -1,27 +1,27 @@
-import type { InternationalString, SpecificResource } from '@iiif/presentation-3';
-import type { ActionType } from 'typesafe-actions';
+import type { InternationalString, SpecificResource } from "@iiif/parser/presentation-3/types";
+import type { ActionType } from "typesafe-actions";
 
-import type { Entities } from '../types';
-import { createAction } from '../utility/typesafe-actions-runtime';
+import type { Entities } from "../types";
+import { createAction } from "../utility/typesafe-actions-runtime";
 
-export const IMPORT_ENTITIES = '@iiif/IMPORT_ENTITIES';
+export const IMPORT_ENTITIES = "@iiif/IMPORT_ENTITIES";
 
-export const MODIFY_ENTITY_FIELD = '@iiif/MODIFY_ENTITY_FIELD';
+export const MODIFY_ENTITY_FIELD = "@iiif/MODIFY_ENTITY_FIELD";
 
-export const REORDER_ENTITY_FIELD = '@iiif/REORDER_ENTITY_FIELD';
-export const MOVE_ENTITY = '@iiif/MOVE_ENTITY';
-export const MOVE_ENTITIES = '@iiif/MOVE_ENTITIES';
+export const REORDER_ENTITY_FIELD = "@iiif/REORDER_ENTITY_FIELD";
+export const MOVE_ENTITY = "@iiif/MOVE_ENTITY";
+export const MOVE_ENTITIES = "@iiif/MOVE_ENTITIES";
 
-export const ADD_REFERENCE = '@iiif/ADD_REFERENCE';
-export const UPDATE_REFERENCE = '@iiif/UPDATE_REFERENCE';
-export const CHANGE_REFERENCE_IDENTIFIER = '@iiif/CHANGE_REFERENCE_IDENTIFIER';
+export const ADD_REFERENCE = "@iiif/ADD_REFERENCE";
+export const UPDATE_REFERENCE = "@iiif/UPDATE_REFERENCE";
+export const CHANGE_REFERENCE_IDENTIFIER = "@iiif/CHANGE_REFERENCE_IDENTIFIER";
 
-export const REMOVE_REFERENCE = '@iiif/REMOVE_REFERENCE';
+export const REMOVE_REFERENCE = "@iiif/REMOVE_REFERENCE";
 
-export const ADD_METADATA = '@iiif/ADD_METADATA';
-export const REMOVE_METADATA = '@iiif/REMOVE_METADATA';
-export const UPDATE_METADATA = '@iiif/UPDATE_METADATA';
-export const REORDER_METADATA = '@iiif/REORDER_METADATA';
+export const ADD_METADATA = "@iiif/ADD_METADATA";
+export const REMOVE_METADATA = "@iiif/REMOVE_METADATA";
+export const UPDATE_METADATA = "@iiif/UPDATE_METADATA";
+export const REORDER_METADATA = "@iiif/REORDER_METADATA";
 
 export const importEntities = createAction(IMPORT_ENTITIES)<{
   entities: Partial<Entities>;
@@ -64,7 +64,7 @@ export const moveEntity = createAction(MOVE_ENTITY)<{
 export const moveEntities = createAction(MOVE_ENTITIES)<{
   subjects:
     | {
-        type: 'list';
+        type: "list";
         items: Array<{
           id: string;
           type: keyof Entities;
@@ -72,7 +72,7 @@ export const moveEntities = createAction(MOVE_ENTITIES)<{
         }>;
       }
     | {
-        type: 'slice';
+        type: "slice";
         startIndex: number;
         length: number;
       };

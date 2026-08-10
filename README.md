@@ -1,6 +1,6 @@
 # `@iiif/helpers`
 
-`@iiif/helpers` is a TypeScript utility library for building IIIF applications.
+`@iiif/helpers` is a TypeScript utility library for building IIIF applications with Presentation 2.1, 3.0, and the supported parts of the Presentation 4.0 release candidate.
 
 It combines:
 
@@ -12,7 +12,7 @@ This repository publishes one npm package, `@iiif/helpers`, with a set of focuse
 
 ## What The Library Covers
 
-- IIIF Presentation 2 and 3 loading, upgrading, and normalization
+- IIIF Presentation 2.1, 3.0, and supported Presentation 4 loading, upgrading, and normalization
 - normalized storage and mutation of IIIF entities through the Vault
 - selector parsing for `xywh`, temporal fragments, Image API selectors, and SVG selectors
 - IIIF Content State parsing, encoding, decoding, validation, and normalization
@@ -20,8 +20,9 @@ This repository publishes one npm package, `@iiif/helpers`, with a set of focuse
 - thumbnail and image-service candidate selection
 - painting annotation extraction, choice handling, and media discovery
 - range traversal, table-of-contents generation, and sequence calculation
-- Search API 1 search/autocomplete stores
+- Search API 1 and 2 search/autocomplete stores
 - transcript discovery and extraction from plain text, VTT, and supplemental annotations
+- Presentation 4 Scene inspection and Activation transaction parsing
 - vault-backed UI glue for events and styles
 
 ## Installation
@@ -42,6 +43,7 @@ yarn add @iiif/helpers @iiif/parser
 
 Notes:
 
+- Node.js 22 or newer is required.
 - The package ships ESM, CJS, and TypeScript declarations for each public entry point.
 - If you parse SVG selectors in Node, provide a `DOMParser` implementation such as `jsdom` or `happy-dom`.
 - If you use remote loading in Node, a modern runtime with built-in `fetch` is the simplest setup.
@@ -51,41 +53,42 @@ Notes:
 Use the root package when you want the common surface area:
 
 ```ts
-import { Vault, createThumbnailHelper, getValue, expandTarget } from '@iiif/helpers';
+import { Vault, createThumbnailHelper, getValue, expandTarget } from "@iiif/helpers";
 ```
 
 Use subpath imports when you want a smaller, more explicit import surface or when you need packages that are not re-exported from the root:
 
 ```ts
-import { getCanvasTranscription } from '@iiif/helpers/transcriptions';
-import { createStore } from '@iiif/helpers/vault/store';
-import { entityActions } from '@iiif/helpers/vault/actions';
-import { Vault as NodeVault } from '@iiif/helpers/vault-node';
+import { getCanvasTranscription } from "@iiif/helpers/transcriptions";
+import { Vault4 } from "@iiif/helpers/vault-4";
+import { createStore } from "@iiif/helpers/vault/store";
+import { entityActions } from "@iiif/helpers/vault/actions";
+import { Vault as NodeVault } from "@iiif/helpers/vault-node";
 ```
 
-The root entry point re-exports the main helper packages, but it does **not** re-export:
+The root entry point includes feature helpers such as transcriptions, Search 2, Scenes, and Activations. It does **not** re-export:
 
-- `@iiif/helpers/transcriptions`
+- `@iiif/helpers/vault-4`
 - `@iiif/helpers/vault-node`
 - `@iiif/helpers/vault/actions`
 - `@iiif/helpers/vault/store`
 - `@iiif/helpers/vault/utility`
 - `@iiif/helpers/vault/global-vault`
 
-## Quick Start
+## Presentation 3 Quick Start
 
 ```ts
-import { Vault, getValue, createThumbnailHelper } from '@iiif/helpers';
+import { Vault, getValue, createThumbnailHelper } from "@iiif/helpers";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://iiif.io/api/cookbook/recipe/0005-image-service/manifest.json');
+const manifest = await vault.loadManifest("https://iiif.io/api/cookbook/recipe/0005-image-service/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const firstCanvas = vault.get(manifest.items[0]);
-const label = getValue(manifest.label, { language: 'en-GB' });
+const label = getValue(manifest.label, { language: "en-GB" });
 
 const thumbnails = await createThumbnailHelper(vault).getBestThumbnailAtSize(firstCanvas, {
   width: 300,
@@ -94,6 +97,22 @@ const thumbnails = await createThumbnailHelper(vault).getBestThumbnailAtSize(fir
 
 console.log(label);
 console.log(thumbnails.best);
+```
+
+For a native Presentation 4 normalized model, choose `Vault4` when the application is created:
+
+```ts
+import { Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
+
+if (!manifest) {
+  throw new Error("Manifest failed to load");
+}
+
+const firstContainer = vault.get(manifest.items[0]);
+const presentation4 = vault.toPresentation4(manifest);
 ```
 
 ## Entry Points
@@ -114,15 +133,19 @@ The package is organized as subpath exports. The table below is the complete pub
 | `@iiif/helpers/ranges`               | Yes                              | Range traversal, TOC generation, and range selection helpers.                               |
 | `@iiif/helpers/sequences`            | Yes                              | Visible-canvas and page-order helpers for paged/continuous/individuals behavior.            |
 | `@iiif/helpers/search1`              | Yes                              | Search API 1 search and autocomplete stores.                                                |
+| `@iiif/helpers/search2`              | Yes                              | Search API 2 search and autocomplete stores.                                                |
 | `@iiif/helpers/image-service`        | Yes                              | Image-service loading, prediction, candidate extraction, and selection.                     |
 | `@iiif/helpers/nav-date`             | Yes                              | Date-navigation trees from `navDate` values.                                                |
 | `@iiif/helpers/vault`                | Yes                              | Core `Vault` class, types, and singleton helper.                                            |
+| `@iiif/helpers/vault-4`              | No                               | Native Presentation 4 Vault and profile discriminator.                                      |
 | `@iiif/helpers/vault-node`           | No                               | Node-oriented `Vault` with fetch support.                                                   |
 | `@iiif/helpers/vault/global-vault`   | No                               | Global singleton bridge for browser-global environments.                                    |
 | `@iiif/helpers/vault/actions`        | No                               | Action constants and creators for vault state updates.                                      |
 | `@iiif/helpers/vault/store`          | No                               | Zustand-based store factory and reducers used by the vault.                                 |
 | `@iiif/helpers/vault/utility`        | No                               | Lower-level helpers for fetch pipelines and store access.                                   |
-| `@iiif/helpers/transcriptions`       | No                               | Transcript detection and extraction helpers.                                                |
+| `@iiif/helpers/transcriptions`       | Yes                              | Transcript detection and extraction helpers.                                                |
+| `@iiif/helpers/scenes`               | Yes                              | Presentation 4 Scene paintables, targets, and transforms.                                   |
+| `@iiif/helpers/activations`          | Yes                              | Presentation 4 Activation discovery and transaction parsing.                                |
 
 ## Package Reference
 
@@ -131,6 +154,8 @@ The package is organized as subpath exports. The table below is the complete pub
 The root entry point is a convenience export for the most commonly used helpers. It re-exports:
 
 - `events`
+- `activations`
+- `annotation-values`
 - `styles`
 - `thumbnail`
 - `i18n`
@@ -142,8 +167,11 @@ The root entry point is a convenience export for the most commonly used helpers.
 - `vault`
 - `fetch`
 - `search1`
+- `search2`
+- `scenes`
 - `nav-date`
 - `image-service`
+- `transcriptions`
 
 Use it when you want a single import surface for most browser-side work.
 
@@ -159,6 +187,9 @@ Key exports:
 - `splitCanvasFragment`
 - `isImageApiSelector`
 - `isValidCanvasFragment`
+- `isRectangle`
+- `polygonToBoundingBox`
+- `serializeSupportedSelector`
 - selector and target result types such as `SupportedTarget`, `BoxSelector`, `PointSelector`, `SvgSelector`, `TemporalSelector`, and `TemporalBoxSelector`
 
 What it handles:
@@ -180,9 +211,9 @@ Important notes:
 Example:
 
 ```ts
-import { expandTarget } from '@iiif/helpers/annotation-targets';
+import { expandTarget } from "@iiif/helpers/annotation-targets";
 
-const target = expandTarget('https://example.org/canvas-1#xywh=100,200,300,400');
+const target = expandTarget("https://example.org/canvas-1#xywh=100,200,300,400");
 
 console.log(target.selector?.type);
 // BoxSelector
@@ -191,11 +222,11 @@ console.log(target.selector?.type);
 Selector-only example:
 
 ```ts
-import { parseSelector } from '@iiif/helpers/annotation-targets';
+import { parseSelector } from "@iiif/helpers/annotation-targets";
 
 const parsed = parseSelector({
-  type: 'FragmentSelector',
-  value: 'xywh=10,20,300,400&t=5,12.5',
+  type: "FragmentSelector",
+  value: "xywh=10,20,300,400&t=5,12.5",
 });
 
 console.log(parsed.selector);
@@ -241,19 +272,19 @@ import {
   serialiseContentState,
   validateContentState,
   normaliseContentState,
-} from '@iiif/helpers/content-state';
+} from "@iiif/helpers/content-state";
 
 const encoded = serialiseContentState({
-  id: 'https://example.org/canvas-1#xywh=100,200,300,400',
-  type: 'Canvas',
-  partOf: [{ id: 'https://example.org/manifest-1', type: 'Manifest' }],
+  id: "https://example.org/canvas-1#xywh=100,200,300,400",
+  type: "Canvas",
+  partOf: [{ id: "https://example.org/manifest-1", type: "Manifest" }],
 });
 
 const parsed = parseContentState(encoded);
 const [valid, error] = validateContentState(parsed, true);
 
 if (!valid) {
-  throw new Error(error?.reason ?? 'Invalid content state');
+  throw new Error(error?.reason ?? "Invalid content state");
 }
 
 const normalized = normaliseContentState(parsed);
@@ -279,15 +310,15 @@ It stores event handlers in vault meta so you can attach UI behavior to resource
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createEventsHelper } from '@iiif/helpers/events';
+import { Vault } from "@iiif/helpers";
+import { createEventsHelper } from "@iiif/helpers/events";
 
 const vault = new Vault();
 const events = createEventsHelper(vault);
-const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+const annotation = { id: "https://example.org/annotation/1", type: "Annotation" };
 
-events.addEventListener(annotation, 'onClick', (_event, resource) => {
-  console.log('Clicked', resource.id);
+events.addEventListener(annotation, "onClick", (_event, resource) => {
+  console.log("Clicked", resource.id);
 });
 
 const props = events.getListenersAsProps(annotation);
@@ -310,9 +341,9 @@ It fetches a Manifest or Collection and upgrades the response through `@iiif/par
 Example:
 
 ```ts
-import { fetch as fetchIiif } from '@iiif/helpers/fetch';
+import { fetch as fetchIiif } from "@iiif/helpers/fetch";
 
-const resource = await fetchIiif('https://example.org/manifest.json');
+const resource = await fetchIiif("https://example.org/manifest.json");
 ```
 
 ### `@iiif/helpers/i18n`
@@ -338,25 +369,21 @@ Typical uses:
 Example:
 
 ```ts
-import { getValue, iiifString } from '@iiif/helpers/i18n';
+import { getValue, iiifString } from "@iiif/helpers/i18n";
 
-const label = getValue({ fr: ['Titre'], en: ['Title'] }, { language: 'fr' });
-const summary = iiifString`Label: ${{ en: ['An English label'] }}`;
+const label = getValue({ fr: ["Titre"], en: ["Title"] }, { language: "fr" });
+const summary = iiifString`Label: ${{ en: ["An English label"] }}`;
 ```
 
 Fallback example:
 
 ```ts
-import { buildLocaleString } from '@iiif/helpers/i18n';
+import { buildLocaleString } from "@iiif/helpers/i18n";
 
-const label = buildLocaleString(
-  { en: ['English title'], fr: ['Titre francais'], none: ['Untitled'] },
-  'cy-GB',
-  {
-    fallbackLanguages: ['en-GB', 'en'],
-    defaultText: 'Untitled manifest',
-  }
-);
+const label = buildLocaleString({ en: ["English title"], fr: ["Titre francais"], none: ["Untitled"] }, "cy-GB", {
+  fallbackLanguages: ["en-GB", "en"],
+  defaultText: "Untitled manifest",
+});
 ```
 
 ### `@iiif/helpers/image-service`
@@ -401,24 +428,20 @@ Important notes:
 Example:
 
 ```ts
-import {
-  ImageServiceLoader,
-  getImageCandidates,
-  pickBestFromCandidates,
-} from '@iiif/helpers/image-service';
+import { ImageServiceLoader, getImageCandidates, pickBestFromCandidates } from "@iiif/helpers/image-service";
 
 const loader = new ImageServiceLoader();
 
 const resource = {
-  id: 'https://example.org/image/full/max/0/default.jpg',
-  type: 'Image',
+  id: "https://example.org/image/full/max/0/default.jpg",
+  type: "Image",
   width: 1200,
   height: 800,
   service: [
     {
-      id: 'https://example.org/image',
-      type: 'ImageService3',
-      profile: 'level1',
+      id: "https://example.org/image",
+      type: "ImageService3",
+      profile: "level1",
     },
   ],
 } as any;
@@ -450,31 +473,31 @@ Use it when you want archive-style time browsing or date facets built directly f
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createDateNavigation } from '@iiif/helpers/nav-date';
+import { Vault } from "@iiif/helpers";
+import { createDateNavigation } from "@iiif/helpers/nav-date";
 
 const vault = new Vault();
-const collection = vault.loadSync('https://example.org/collection', {
-  id: 'https://example.org/collection',
-  type: 'Collection',
-  label: { en: ['Archive'] },
+const collection = vault.loadSync("https://example.org/collection", {
+  id: "https://example.org/collection",
+  type: "Collection",
+  label: { en: ["Archive"] },
   items: [
     {
-      id: 'https://example.org/manifest/1986',
-      type: 'Manifest',
-      label: { en: ['Issue 1986'] },
-      navDate: '1986-01-01T00:00:00+00:00',
+      id: "https://example.org/manifest/1986",
+      type: "Manifest",
+      label: { en: ["Issue 1986"] },
+      navDate: "1986-01-01T00:00:00+00:00",
     },
     {
-      id: 'https://example.org/manifest/1987',
-      type: 'Manifest',
-      label: { en: ['Issue 1987'] },
-      navDate: '1987-01-01T00:00:00+00:00',
+      id: "https://example.org/manifest/1987",
+      type: "Manifest",
+      label: { en: ["Issue 1987"] },
+      navDate: "1987-01-01T00:00:00+00:00",
     },
   ],
 });
 
-const years = createDateNavigation(vault, collection!, 'year');
+const years = createDateNavigation(vault, collection!, "year");
 
 for (const year of years) {
   console.log(year.label.en?.[0], year.count);
@@ -510,14 +533,14 @@ This is useful when you are rendering mixed media, alternative image choices, or
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createPaintingAnnotationsHelper } from '@iiif/helpers/painting-annotations';
+import { Vault } from "@iiif/helpers";
+import { createPaintingAnnotationsHelper } from "@iiif/helpers/painting-annotations";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const canvas = vault.get(manifest.items[0]);
@@ -566,17 +589,14 @@ Important notes:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import {
-  rangeToTableOfContentsTree,
-  isRangeContiguous,
-} from '@iiif/helpers/ranges';
+import { Vault } from "@iiif/helpers";
+import { rangeToTableOfContentsTree, isRangeContiguous } from "@iiif/helpers/ranges";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest || !manifest.structures?.length) {
-  throw new Error('Manifest has no ranges');
+  throw new Error("Manifest has no ranges");
 }
 
 const range = vault.get(manifest.structures[0]);
@@ -608,26 +628,53 @@ What it provides:
 Example:
 
 ```ts
-import {
-  createSearch1Store,
-  createSearch1AutocompleteStore,
-} from '@iiif/helpers/search1';
+import { createSearch1Store, createSearch1AutocompleteStore } from "@iiif/helpers/search1";
 
 const service = {
-  '@id': 'https://example.org/search',
-  profile: 'http://iiif.io/api/search/1/search',
+  "@id": "https://example.org/search",
+  profile: "http://iiif.io/api/search/1/search",
   service: {
-    '@id': 'https://example.org/search/autocomplete',
-    profile: 'http://iiif.io/api/search/1/autocomplete',
+    "@id": "https://example.org/search/autocomplete",
+    profile: "http://iiif.io/api/search/1/autocomplete",
   },
 } as any;
 
 const store = createSearch1Store(service);
-await store.getState().search({ q: '1615' });
+await store.getState().search({ q: "1615" });
 store.getState().highlightHit(0);
 
 const autocomplete = createSearch1AutocompleteStore(service);
-await autocomplete.getState().search('wunder');
+await autocomplete.getState().search("wunder");
+```
+
+### `@iiif/helpers/search2`
+
+This package contains helpers for IIIF Search API 2.
+
+Key exports:
+
+- `findSearch2Service`
+- `findSearch2AutocompleteService`
+- `createSearch2Store`
+- `createSearch2AutocompleteStore`
+- Search 2 service, query, result, and store types
+
+The stores manage search and autocomplete requests, abort superseded requests, expose ignored query parameters, and support navigating highlighted hits.
+
+Example:
+
+```ts
+import { createSearch2Store, findSearch2Service } from "@iiif/helpers/search2";
+
+const service = findSearch2Service(manifest);
+
+if (service) {
+  const store = createSearch2Store(service);
+  await store.getState().search({ q: "example", motivation: "commenting" });
+  store.getState().highlightHit(0);
+
+  console.log(store.getState().resources);
+}
 ```
 
 ### `@iiif/helpers/sequences`
@@ -657,17 +704,14 @@ Use it when you need to answer questions like:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import {
-  getManifestSequence,
-  getVisibleCanvasesFromCanvasId,
-} from '@iiif/helpers/sequences';
+import { Vault } from "@iiif/helpers";
+import { getManifestSequence, getVisibleCanvasesFromCanvasId } from "@iiif/helpers/sequences";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const [items, pageGroups] = getManifestSequence(vault, manifest);
@@ -697,16 +741,16 @@ It is useful when style information lives outside the IIIF resource but still ne
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createStylesHelper } from '@iiif/helpers/styles';
+import { Vault } from "@iiif/helpers";
+import { createStylesHelper } from "@iiif/helpers/styles";
 
 const vault = new Vault();
 const styles = createStylesHelper(vault);
-const annotation = { id: 'https://example.org/annotation/1', type: 'Annotation' };
+const annotation = { id: "https://example.org/annotation/1", type: "Annotation" };
 
 vault.batch(() => {
-  styles.applyStyles(annotation, 'selected', { background: 'red' });
-  styles.applyStyles(annotation, 'hovered', { background: 'pink' });
+  styles.applyStyles(annotation, "selected", { background: "red" });
+  styles.applyStyles(annotation, "hovered", { background: "pink" });
 });
 
 console.log(styles.getAppliedStyles(annotation));
@@ -745,14 +789,14 @@ What it does:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import { createThumbnailHelper, getThumbnail } from '@iiif/helpers/thumbnail';
+import { Vault } from "@iiif/helpers";
+import { createThumbnailHelper, getThumbnail } from "@iiif/helpers/thumbnail";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const canvas = vault.get(manifest.items[0]);
@@ -806,17 +850,14 @@ Important notes:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers';
-import {
-  manifestHasTranscriptions,
-  getCanvasTranscription,
-} from '@iiif/helpers/transcriptions';
+import { Vault } from "@iiif/helpers";
+import { manifestHasTranscriptions, getCanvasTranscription } from "@iiif/helpers/transcriptions";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const hasTranscriptions = await manifestHasTranscriptions(vault, manifest);
@@ -840,7 +881,7 @@ Key exports:
 - `globalVault`
 - vault types such as `VaultOptions`, `Entities`, `IIIFStore`, `RequestState`, `MetaState`, and related action/type helpers
 
-The `Vault` is a normalized IIIF resource store with loading, mutation, serialization, subscription, and helper methods.
+The `Vault` is a normalized Presentation 3 resource store with loading, mutation, serialization, subscription, and helper methods. It accepts Presentation 2.1 and 3.0 input, plus supported non-3D Presentation 4 input through the parser's Presentation 3 compatibility projection. Its profile never changes after construction.
 
 Major capabilities:
 
@@ -854,6 +895,7 @@ Major capabilities:
 - serialize resources back to Presentation 2 or Presentation 3 with `toPresentation2()` and `toPresentation3()`
 - manage per-resource meta state with `setMetaValue()` and `getResourceMeta()`
 - paginate paged collections with `getPaginationState()` and `loadNextPage()`
+- inspect the detected source version and normalization diagnostics with `getLoadReport()`
 
 The `Vault` also includes higher-level object wrappers:
 
@@ -868,23 +910,51 @@ Those wrapped objects resolve nested references through getters and expose helpe
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
+import { Vault } from "@iiif/helpers/vault";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 const firstCanvas = vault.get(manifest.items[0]);
-vault.setMetaValue([firstCanvas.id, 'ui', 'selected'], true);
+vault.setMetaValue([firstCanvas.id, "ui", "selected"], true);
 
-console.log(vault.getResourceMeta(firstCanvas.id, 'ui'));
+console.log(vault.getResourceMeta(firstCanvas.id, "ui"));
 
 const wrapped = vault.getObject(manifest);
 console.log(wrapped.items[0].id);
 console.log(wrapped.items[0].unwrap());
+```
+
+### `@iiif/helpers/vault-4`
+
+This package provides the explicit Presentation 4 Vault contract.
+
+Key exports:
+
+- `Vault4`
+- `isVault4`
+- Presentation 4-specific option, reference, and result types
+
+`Vault4` shares the core Vault runtime while using Presentation 4 normalization and serialization. It preserves Canvas, Timeline, Scene, CollectionPage, and other Presentation 4 identities, and can serialize loaded resources with `toPresentation2()`, `toPresentation3()`, or `toPresentation4()`.
+
+Use `isVault4()` instead of `instanceof Vault4` when a Vault may come from another installed copy of `@iiif/helpers`.
+
+Example:
+
+```ts
+import { isVault4, Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
+
+if (manifest && isVault4(vault)) {
+  console.log(vault.getLoadReport(manifest.id));
+  console.log(vault.toPresentation4(manifest));
+}
 ```
 
 ### `@iiif/helpers/vault-node`
@@ -902,10 +972,10 @@ The `Vault` class in this package extends the core vault and configures a Node-f
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault-node';
+import { Vault } from "@iiif/helpers/vault-node";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 console.log(manifest?.id);
 ```
@@ -933,22 +1003,22 @@ Use it when you are integrating the vault store directly or building custom tool
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
-import { entityActions } from '@iiif/helpers/vault/actions';
+import { Vault } from "@iiif/helpers/vault";
+import { entityActions } from "@iiif/helpers/vault/actions";
 
 const vault = new Vault();
-const manifest = await vault.loadManifest('https://example.org/manifest.json');
+const manifest = await vault.loadManifest("https://example.org/manifest.json");
 
 if (!manifest) {
-  throw new Error('Manifest failed to load');
+  throw new Error("Manifest failed to load");
 }
 
 vault.dispatch(
   entityActions.modifyEntityField({
     id: manifest.id,
-    type: 'Manifest',
-    key: 'label',
-    value: { en: ['Updated title'] },
+    type: "Manifest",
+    key: "label",
+    value: { en: ["Updated title"] },
   })
 );
 ```
@@ -969,12 +1039,12 @@ The store is built with vanilla Zustand plus Redux-style reducers. Use it when y
 Example:
 
 ```ts
-import { emptyManifest } from '@iiif/parser';
-import { createStore } from '@iiif/helpers/vault/store';
-import { entityActions } from '@iiif/helpers/vault/actions';
+import { emptyManifest } from "@iiif/parser";
+import { createStore } from "@iiif/helpers/vault/store";
+import { entityActions } from "@iiif/helpers/vault/actions";
 
 const store = createStore();
-const manifestId = 'https://example.org/manifest-1';
+const manifestId = "https://example.org/manifest-1";
 
 store.dispatch(
   entityActions.importEntities({
@@ -983,7 +1053,7 @@ store.dispatch(
         [manifestId]: {
           ...emptyManifest,
           id: manifestId,
-          type: 'Manifest',
+          type: "Manifest",
           items: [],
         },
       },
@@ -994,9 +1064,9 @@ store.dispatch(
 store.dispatch(
   entityActions.modifyEntityField({
     id: manifestId,
-    type: 'Manifest',
-    key: 'label',
-    value: { en: ['An example label'] },
+    type: "Manifest",
+    key: "label",
+    value: { en: ["An example label"] },
   })
 );
 
@@ -1026,21 +1096,21 @@ These are useful when you want to:
 Example:
 
 ```ts
-import { Vault } from '@iiif/helpers/vault';
-import { createFetchHelper } from '@iiif/helpers/vault/utility';
+import { Vault } from "@iiif/helpers/vault";
+import { createFetchHelper } from "@iiif/helpers/vault/utility";
 
 const vault = new Vault();
 
 const fetchManifest = createFetchHelper(vault, async (url: string) => {
   return {
     id: url,
-    type: 'Manifest',
-    label: { en: ['Generated manifest'] },
+    type: "Manifest",
+    label: { en: ["Generated manifest"] },
     items: [],
   };
 });
 
-const manifest = await fetchManifest('https://example.org/manifest.json');
+const manifest = await fetchManifest("https://example.org/manifest.json");
 console.log(manifest?.id);
 ```
 
@@ -1057,7 +1127,7 @@ It returns `globalThis.IIIF_VAULT` if one already exists, and if not, it will tr
 Example:
 
 ```ts
-import { getGlobalVault } from '@iiif/helpers/vault/global-vault';
+import { getGlobalVault } from "@iiif/helpers/vault/global-vault";
 
 const vault = getGlobalVault();
 console.log(vault);
@@ -1069,10 +1139,12 @@ If you are not sure where to start:
 
 - start with `@iiif/helpers` for general browser-side helper work
 - use `@iiif/helpers/vault` when you want normalized loading and resource access
+- use `@iiif/helpers/vault-4` when your application needs a native Presentation 4 model
 - use `@iiif/helpers/thumbnail` and `@iiif/helpers/image-service` for image selection and delivery logic
 - use `@iiif/helpers/annotation-targets` and `@iiif/helpers/content-state` for viewer/deeplink interoperability
 - use `@iiif/helpers/ranges`, `@iiif/helpers/sequences`, and `@iiif/helpers/nav-date` for navigation structures
-- use `@iiif/helpers/search1` and `@iiif/helpers/transcriptions` for discovery and text experiences
+- use `@iiif/helpers/search1`, `@iiif/helpers/search2`, and `@iiif/helpers/transcriptions` for discovery and text experiences
+- use `@iiif/helpers/scenes` and `@iiif/helpers/activations` for the tested Presentation 4 3D helper surface
 
 ## Repo Docs And Demos
 
@@ -1086,6 +1158,138 @@ There are also focused notes and examples in this repository:
 - [Styles](./docs/styles.md)
 - [Thumbnails](./docs/thumbnails.md)
 - [Demos](./demos/index.html)
+
+## Presentation 4
+
+Presentation 4 uses an explicit, lifetime-stable Vault contract. Choose the normalized model when the application is created; loading a resource never replaces the Vault or changes its profile.
+
+### Choose a Vault Contract
+
+| API      | Accepted input                              | Normalized application model | Intended use                                                                              |
+| -------- | ------------------------------------------- | ---------------------------- | ----------------------------------------------------------------------------------------- |
+| `Vault`  | Presentation 2.1, 3.0, supported non-3D 4.0 | Presentation 3               | Existing applications; Presentation 4 Timeline resources are projected to Canvas          |
+| `Vault4` | Presentation 2.1, 3.0, and 4.0              | Presentation 4               | New applications that need Timeline, Scene identity, CollectionPage, or other v4 concepts |
+
+A Vault's normalized version is fixed for its lifetime. Parser conversion
+happens once when a resource is loaded; helpers consume the resulting model.
+
+### Existing Presentation 3 applications
+
+No version branch is needed:
+
+```ts
+import { Vault } from "@iiif/helpers/vault";
+
+const vault = new Vault();
+const manifest = await vault.loadManifest(manifestUrl);
+
+// Canvas for v2/v3 input and for a compatible v4 Timeline projection.
+const firstCanvas = vault.get(manifest.items[0]);
+```
+
+A Presentation 4 Scene cannot be represented faithfully as Presentation 3.
+The compatibility path throws a
+`Presentation4CompatibilityError` with structured diagnostics instead of
+silently dropping it.
+
+### Presentation 4 applications
+
+```ts
+import { Vault4 } from "@iiif/helpers/vault-4";
+
+const vault = new Vault4();
+const manifest = await vault.loadManifest(manifestUrl);
+const firstContainer = vault.get(manifest.items[0]);
+
+const presentation4 = vault.toPresentation4(manifest);
+```
+
+`firstContainer` remains a Canvas, Timeline, or Scene. `Vault4` also accepts
+Presentation 2.1 and 3.0 input and upgrades it once during ingestion.
+
+### Load Reports
+
+Both Vaults retain the detected source version. `Vault4` also retains parser
+normalization warnings such as deterministic ID minting:
+
+```ts
+const report = vault.getLoadReport(manifestUrl);
+
+// {
+//   sourceVersion: 2 | 3 | 4 | "unknown",
+//   diagnostics: [...]
+// }
+```
+
+Reports are stored for both the requested URL and the canonical resource ID
+when they differ.
+
+### Explicit Page Loading
+
+Loading a Collection or AnnotationCollection does not implicitly fetch its
+pages. Page chains are an explicit Vault operation:
+
+```ts
+const collection = await vault.loadCollection(collectionUrl);
+const state = await vault.loadPageChain(collection);
+const members = vault.getPaginatedItems(collection);
+```
+
+CollectionPage and AnnotationPage entities remain independently addressable.
+The derived member list is ordered and deduplicated. Cycles and broken links
+stop safely and are exposed on `state.error`; loaded prefixes are retained.
+
+### Helper Compatibility
+
+Shared helpers accept either fixed Vault profile. Canvas-specific functions remain Canvas-specific; `findAllContainersInRange` and the Container transcription APIs cover Canvas, Timeline, and Scene without relabeling them. Painting, thumbnail, transcription, and Scene helpers consistently resolve nested Choice, Composite, List, Independents, and SpecificResource bodies, including authored Choice defaults.
+
+### Deliberate Scene and Activation Support
+
+Two optional subpaths expose the first tested 3D vertical slices:
+
+```ts
+import { createSceneHelper } from "@iiif/helpers/scenes";
+import { createActivationsHelper } from "@iiif/helpers/activations";
+
+const scenes = createSceneHelper(vault4);
+const paintables = scenes.getPaintables(scene);
+
+const activations = createActivationsHelper(vault4);
+const annotations = activations.getAllActivatingAnnotations(manifest);
+const transaction = activations.parseActivatingAnnotation(annotations[0]);
+```
+
+The initial supported surface is intentionally narrow:
+
+- Model paintables are returned as a known Scene paintable type.
+- SpecificResource selectors, transforms, and action order are preserved.
+- Activating annotations can be collected and parsed into ordered steps.
+- Unrecognized Scene body types remain available as `unknown` with `rawType`.
+
+The helpers do not compose or render Scenes, apply transforms, choose cameras,
+calculate lighting, spatialize audio emitters, or execute activation actions.
+Camera, light, audio-emitter, animation, and nested extension subtrees are not
+normalized into helper-specific models unless a tested vertical slice is added.
+
+## Development
+
+This checkout pins the exact Parser preview used for development and testing.
+Install from the lockfile and run the coordinated gates directly:
+
+```sh
+pnpm install --frozen-lockfile
+pnpm run fmt:check
+pnpm run lint
+pnpm run lint:pkg
+pnpm run typecheck
+pnpm exec vitest run
+```
+
+Run `pnpm fmt` to apply the shared oxfmt configuration. The checked-in Zed settings use oxfmt on save and oxlint on type.
+
+The packed gate installs the pinned Parser preview and a packed Helpers tarball
+into a fresh consumer, imports every public subpath through ESM and CommonJS,
+and compiles NodeNext and Bundler consumers with `skipLibCheck: false`.
 
 ## License
 

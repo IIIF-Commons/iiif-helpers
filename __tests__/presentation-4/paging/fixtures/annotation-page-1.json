@@ -1,0 +1,32 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/annotations/paged/page/1",
+  "type": "AnnotationPage",
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/annotations/paged",
+      "type": "AnnotationCollection"
+    }
+  ],
+  "items": [
+    {
+      "id": "https://example.org/iiif/annotation/1",
+      "type": "Annotation",
+      "motivation": ["commenting"],
+      "body": {
+        "type": "Text",
+        "format": "text/plain",
+        "value": "First note"
+      },
+      "target": {
+        "id": "https://example.org/iiif/canvas/1",
+        "type": "Canvas"
+      }
+    }
+  ],
+  "next": {
+    "id": "https://example.org/iiif/annotations/paged/page/2",
+    "type": "AnnotationPage"
+  },
+  "startIndex": 0
+}

@@ -2,7 +2,7 @@ name: Release NPM package
 
 on:
   push:
-    tags: ['v*']
+    tags: ["v*"]
 
 jobs:
   build:
@@ -13,12 +13,12 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '22.x'
+          node-version: "24.x"
 
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 9
+          version: 11.13.0
           run_install: false
 
       - name: Get pnpm store directory
@@ -36,6 +36,10 @@ jobs:
 
       - run: pnpm i --frozen-lockfile
       - run: pnpm run build
+      - run: pnpm run typecheck
+      - run: pnpm run fmt:check
+      - run: pnpm run lint
+      - run: pnpm run lint:pkg
       - run: pnpm run test
 
   release:
@@ -47,7 +51,7 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: '22.x'
+          node-version: "24.x"
 
       - name: Set tag
         id: tagName
@@ -56,7 +60,7 @@ jobs:
       - uses: pnpm/action-setup@v2
         name: Install pnpm
         with:
-          version: 9
+          version: 11.13.0
           run_install: false
 
       - name: Get pnpm store directory
