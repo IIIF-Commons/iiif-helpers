@@ -37,6 +37,49 @@ function detectSourceVersion(response: unknown): 2 | 3 | 4 | "unknown" {
   return "unknown";
 }
 
+/** Distinguish typed references from authoritative container documents before defaults are added. */
+function containerReferences(response: unknown) {
+  const partial = new Set<string>();
+  const complete = new Set<string>();
+  const seen = new WeakSet<object>();
+  const visit = (value: unknown) => {
+    if (!value || typeof value !== "object" || seen.has(value)) return;
+    seen.add(value);
+    if (Array.isArray(value)) {
+      for (const child of value) visit(child);
+      return;
+    }
+    const resource = value as Record<string, unknown>;
+    const id = resource.id || resource["@id"];
+    const type = resource.type || resource["@type"];
+    if (
+      typeof id === "string" &&
+      [
+        "Canvas",
+        "Scene",
+        "Timeline",
+        "Manifest",
+        "Collection",
+        "AnnotationPage",
+        "sc:Canvas",
+        "sc:Manifest",
+        "sc:Collection",
+      ].includes(String(type))
+    ) {
+      const ownsContent =
+        Object.hasOwn(resource, "items") ||
+        Object.hasOwn(resource, "sequences") ||
+        Object.hasOwn(resource, "images") ||
+        Object.hasOwn(resource, "manifests") ||
+        Object.hasOwn(resource, "members");
+      (resource["iiif-parser:isExternal"] === true || !ownsContent ? partial : complete).add(id);
+    }
+    for (const child of Object.values(resource)) visit(child);
+  };
+  visit(response);
+  return { partial, complete };
+}
+
 function toActionList(
   normalizeFn: (response: unknown) => {
     entities: Record<string, any>;
@@ -57,6 +100,7 @@ function toActionList(
   response: unknown,
   fallbackReport?: { sourceVersion: 2 | 3 | 4 | "unknown"; diagnostics: [] }
 ): AllActions[] {
+  const references = containerReferences(response);
   const {
     entities,
     resource,
@@ -66,6 +110,13 @@ function toActionList(
   } = normalizeFn(response);
   if (resource.id === undefined) {
     return [requestError({ id, message: "ID is not defined in resource." })] as AllActions[];
+  }
+  // Annotation targets and partOf can normalize to empty container defaults.
+  // Mark them partial so they cannot erase an already loaded Scene/Canvas/Timeline.
+  for (const table of Object.values(entities)) {
+    for (const id of references.partial) {
+      if (table[id] && !references.complete.has(id)) table[id]["iiif-parser:isExternal"] = true;
+    }
   }
   // Always import and add mappings.
   const actions: AllActions[] = [importEntities({ entities: entities as any }), addMappings({ mapping })];
