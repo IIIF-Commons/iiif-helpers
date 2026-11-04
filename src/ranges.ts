@@ -208,27 +208,24 @@ export function findSelectedRange(
   range: RangeNormalizedV3 | RangeNormalizedV4,
   canvasId: string
 ): null | RangeNormalizedV3 | RangeNormalizedV4 {
-  for (const inner of range.items) {
-    const item = typeof inner === "string" ? inner : resolveRangeItem(vault, inner);
-    if (typeof item === "string") continue;
-    const parsedId = item.source?.id?.split("#")[0];
-    if (item.type === "Canvas" && item.id?.split("#")[0] === canvasId) {
-      return range;
-    }
-    if (item.type === "SpecificResource" && item.source === canvasId) {
-      return range;
-    }
-    if (item.type === "SpecificResource" && item.source?.type === "Canvas" && canvasId === parsedId) {
-      return range;
-    }
-    if (item.type === "Range") {
-      const found = findSelectedRange(vault, item, canvasId);
-      if (found) {
-        return found;
+  const seen = new Set<string>();
+  const visit = (current: RangeNormalizedV3 | RangeNormalizedV4): typeof current | null => {
+    if (seen.has(current.id)) return null;
+    seen.add(current.id);
+    for (const inner of current.items || []) {
+      const item = typeof inner === "string" ? inner : resolveRangeItem(vault, inner);
+      const source = item?.type === "SpecificResource" ? item.source : item;
+      const id = typeof source === "string" ? source : source?.id;
+      const type = typeof source === "string" ? "Canvas" : source?.type;
+      if (["Canvas", "Timeline", "Scene"].includes(type) && id?.split("#")[0] === canvasId) return current;
+      if (item?.type === "Range") {
+        const found = visit(item);
+        if (found) return found;
       }
     }
-  }
-  return null;
+    return null;
+  };
+  return visit(range);
 }
 
 export interface RangeTableOfContentsNode {

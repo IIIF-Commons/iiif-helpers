@@ -32,13 +32,13 @@ type TargetObject = {
 
 function reference(value: unknown, fallback: SceneTarget["source"]): SceneTarget["source"] {
   if (typeof value === "string") {
-    return { id: value.split("#")[0] || fallback.id, type: fallback.type };
+    return { id: resourceId(value) || fallback.id, type: fallback.type };
   }
   if (value && typeof value === "object") {
     const object = value as { id?: unknown; type?: unknown };
     if (typeof object.id === "string") {
       return {
-        id: object.id.split("#")[0],
+        id: resourceId(object.id),
         type: typeof object.type === "string" ? object.type : fallback.type,
       };
     }
@@ -61,7 +61,15 @@ function selectorChain(selector: Selector): Selector[] {
 function fragmentSelector(value: string): Selector | null {
   const hash = value.indexOf("#");
   if (hash === -1) return null;
-  return { type: "FragmentSelector", value: value.slice(hash + 1) } as Selector;
+  const fragment = value.slice(hash + 1);
+  const parsed = parseFragment(fragment);
+  // Fragments can identify a Scene itself, e.g. manifest.json#scene-p1.
+  // Only recognized spatial/temporal media fragments become selectors.
+  return parsed.point || parsed.temporal ? ({ type: "FragmentSelector", value: fragment } as Selector) : null;
+}
+
+function resourceId(value: string) {
+  return fragmentSelector(value) ? value.slice(0, value.indexOf("#")) : value;
 }
 
 function referenceFragment(value: unknown): Selector | null {
@@ -156,18 +164,15 @@ export function parseSceneTarget(
     temporal: null,
   };
   const preferred =
-    selectors.find((chain) =>
-      chain.some((selector) => {
-        const type = (selector as { type?: string }).type;
-        return (
-          type === "PointSelector" ||
-          type === "FragmentSelector" ||
-          type === "WktSelector" ||
-          type === "WKTSelector" ||
-          type === "PolygonZSelector"
-        );
-      })
-    ) || selectors[0];
+    selectors.find((chain) => {
+      let candidate: Pick<SceneTarget, "point" | "geometry" | "temporal"> = {
+        point: null,
+        geometry: null,
+        temporal: null,
+      };
+      for (const selector of chain) candidate = applySelector(selector, candidate);
+      return candidate.point || candidate.geometry || candidate.temporal;
+    }) || selectors[0];
   for (const selector of preferred || []) interpreted = applySelector(selector, interpreted);
 
   if (!interpreted.point && object?.position) {

@@ -97,6 +97,24 @@ describe("Presentation 4 helper parity", () => {
     expect(sequence).toEqual([{ id: "https://example.org/canvas/1", type: "Canvas" }]);
   });
 
+  test("range selection supports Scenes and Timelines, fragments, missing references, and cycles", () => {
+    const nested = {
+      id: "https://example.org/range/nested",
+      type: "Range",
+      items: [
+        { id: "https://example.org/scene#t=1,2", type: "Scene" },
+        { type: "SpecificResource", source: { id: "https://example.org/timeline", type: "Timeline" } },
+        "https://example.org/canvas#t=1,2",
+      ],
+    } as any;
+    const root = { id: "https://example.org/range/root", type: "Range", items: [nested] } as any;
+    nested.items.unshift(root, { id: "https://example.org/missing", type: "Range" });
+    for (const id of ["scene", "timeline", "canvas"]) {
+      expect(findSelectedRange(compatVault, root, `https://example.org/${id}`)).toBe(nested);
+    }
+    expect(findSelectedRange(compatVault, root, "https://example.org/absent")).toBeNull();
+  });
+
   test("selector arrays receive stylesheets and expanded targets retain v4 interaction fields without mutation", () => {
     const parsed = parseSelector(
       [{ type: "FragmentSelector", value: "xywh=1,2,3,4" }],
