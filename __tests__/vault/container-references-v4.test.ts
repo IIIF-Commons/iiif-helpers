@@ -1,3 +1,5 @@
+import { Vault } from "../../src/vault";
+import { actionListFromResourceV3 } from "../../src/vault/utility/action-list-from-resource";
 import { describe, expect, test } from "vitest";
 import { Vault4 } from "../../src/vault/vault4";
 import { actionListFromResourceV4 } from "../../src/vault/utility/action-list-from-resource";
@@ -70,3 +72,63 @@ describe.each(["Canvas", "Scene", "Timeline"] as const)("%s references in extern
     expect(vault.get<any>(id).label).toBeNull();
   });
 });
+
+test("clears a v2 collection using the collections property", () => {
+  const vault = new Vault();
+  const base = {
+    "@context": "http://iiif.io/api/presentation/2/context.json",
+    "@id": "https://example.org/collection",
+    "@type": "sc:Collection",
+  };
+  const put = (resource: object) =>
+    vault.dispatch(batchActions({ actions: actionListFromResourceV3(base["@id"], resource) }));
+  put({ ...base, collections: [{ "@id": "https://example.org/sub", "@type": "sc:Collection", label: "Sub" }] });
+  put({ ...base, collections: [] });
+  expect(vault.get<any>(base["@id"]).items).toEqual([]);
+});
+
+for (const version of [3, 4] as const)
+  test(`an authoritative v3 page wins over a reference in Vault${version}`, () => {
+    const vault = version === 3 ? new Vault() : new Vault4();
+    const actions = version === 3 ? actionListFromResourceV3 : actionListFromResourceV4;
+    const pageId = "https://example.org/duplicate-page";
+    const put = (id: string, resource: object) => vault.dispatch(batchActions({ actions: actions(id, resource) }));
+    put(pageId, {
+      id: pageId,
+      type: "AnnotationPage",
+      items: [
+        {
+          id: `${pageId}/old`,
+          type: "Annotation",
+          motivation: "commenting",
+          body: { type: "TextualBody", value: "Old" },
+          target: "https://example.org/c1",
+        },
+      ],
+    });
+    const id = "https://example.org/duplicates";
+    put(id, {
+      "@context": "http://iiif.io/api/presentation/3/context.json",
+      id,
+      type: "Manifest",
+      items: [
+        {
+          id: "https://example.org/c1",
+          type: "Canvas",
+          width: 100,
+          height: 100,
+          items: [],
+          annotations: [{ id: pageId, type: "AnnotationPage", items: [] }],
+        },
+        {
+          id: "https://example.org/c2",
+          type: "Canvas",
+          width: 100,
+          height: 100,
+          items: [],
+          annotations: [{ id: pageId, type: "AnnotationPage" }],
+        },
+      ],
+    });
+    expect((vault instanceof Vault4 ? vault.get<any>(pageId) : vault.get<any>(pageId)).items).toEqual([]);
+  });

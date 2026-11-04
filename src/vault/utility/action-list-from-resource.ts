@@ -71,7 +71,8 @@ function containerReferences(response: unknown) {
         Object.hasOwn(resource, "sequences") ||
         Object.hasOwn(resource, "images") ||
         Object.hasOwn(resource, "manifests") ||
-        Object.hasOwn(resource, "members");
+        Object.hasOwn(resource, "members") ||
+        Object.hasOwn(resource, "collections");
       (resource["iiif-parser:isExternal"] === true || !ownsContent ? partial : complete).add(id);
     }
     for (const child of Object.values(resource)) visit(child);
@@ -116,6 +117,11 @@ function toActionList(
   for (const table of Object.values(entities)) {
     for (const id of references.partial) {
       if (table[id] && !references.complete.has(id)) table[id]["iiif-parser:isExternal"] = true;
+    }
+    // Normalization can retain a reference's marker when the same document also
+    // contains an authoritative definition. The complete definition wins.
+    for (const id of references.complete) {
+      if (table[id]?.["iiif-parser:isExternal"]) delete table[id]["iiif-parser:isExternal"];
     }
   }
   // Always import and add mappings.
