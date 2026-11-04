@@ -37,6 +37,45 @@ describe("optional Presentation 4 Activation helpers", () => {
     expect(helper.getActivationsForTarget(commentsWithCameras.id, annotations[0].id)).toEqual([transaction]);
   });
 
+  test("resolves trigger sources inside normalized target Lists", () => {
+    const vault = new Vault4();
+    const scene = {
+      id: "https://example.org/scene",
+      type: "Scene",
+      items: [],
+      annotations: [
+        {
+          id: "https://example.org/page",
+          type: "AnnotationPage",
+          items: [
+            {
+              id: "https://example.org/activation",
+              type: "Annotation",
+              motivation: ["activating"],
+              target: {
+                id: "https://example.org/targets",
+                type: "List",
+                items: [
+                  {
+                    id: "https://example.org/wrapper",
+                    type: "SpecificResource",
+                    source: { id: "https://example.org/comment", type: "Annotation" },
+                    selector: { type: "PointSelector", x: 0, y: 0, z: 0 },
+                  },
+                ],
+              },
+              body: { id: "https://example.org/model", type: "Model" },
+            },
+          ],
+        },
+      ],
+    } as any;
+    vault.loadSync(scene.id, scene);
+    expect(
+      createActivationsHelper(vault).getActivationsForTarget(scene.id, "https://example.org/comment")
+    ).toHaveLength(1);
+  });
+
   test("hydrates ordered SpecificResources inside an aggregate body", () => {
     const manifest = {
       "@context": "http://iiif.io/api/presentation/4/context.json",
