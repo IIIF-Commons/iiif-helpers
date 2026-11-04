@@ -112,6 +112,21 @@ function toActionList(
   if (resource.id === undefined) {
     return [requestError({ id, message: "ID is not defined in resource." })] as AllActions[];
   }
+  // A media-fragment target can normalize to a SpecificResource whose source
+  // uses the base container ID. Align the source-reference guard with the IDs
+  // actually imported by the parser. Keep exact IDs (including opaque Scene
+  // fragments) whenever the parser retained an entity at that ID.
+  for (const ids of [references.partial, references.complete]) {
+    for (const referenceId of ids) {
+      if (mapping[referenceId]) continue;
+      const hash = referenceId.indexOf("#");
+      if (hash < 0) continue;
+      const containerId = referenceId.slice(0, hash);
+      if (["Canvas", "Scene", "Timeline", "Manifest", "Collection", "AnnotationPage"].includes(mapping[containerId])) {
+        ids.add(containerId);
+      }
+    }
+  }
   // Annotation targets and partOf can normalize to empty container defaults.
   // Mark them partial so they cannot erase an already loaded Scene/Canvas/Timeline.
   for (const table of Object.values(entities)) {
