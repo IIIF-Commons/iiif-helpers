@@ -102,7 +102,7 @@ export function createFetchHelper<T>(
       // do nothing, and return?
     }
 
-    vault.dispatch(requestResource({ id: url }));
+    vault.dispatch(requestResource({ id: url }), { origin: "load" });
 
     const importResource = (resource: any) => {
       if (!resource) {
@@ -119,7 +119,7 @@ export function createFetchHelper<T>(
         }
       }
       const toDispatch = actionListFromResourceFn(url, resource);
-      vault.dispatch(batchActions({ actions: toDispatch }));
+      vault.dispatch(batchActions({ actions: toDispatch }), { origin: "load" });
       return resolveIfExists(store.getState(), url);
     };
 
@@ -135,7 +135,7 @@ export function createFetchHelper<T>(
             }
             return importResource(data);
           } catch (err) {
-            vault.dispatch(requestError({ id: url, message: (err as any).toString() }));
+            vault.dispatch(requestError({ id: url, message: (err as any).toString() }), { origin: "load" });
             // Rethrow.
             throw err;
           }
@@ -145,7 +145,7 @@ export function createFetchHelper<T>(
       // Assume it is a resource.
       return importResource(mapper ? mapper(resourceOrPromise) : resourceOrPromise);
     } catch (err) {
-      vault.dispatch(requestError({ id: url, message: (err as any).toString() }));
+      vault.dispatch(requestError({ id: url, message: (err as any).toString() }), { origin: "load" });
       // Rethrow.
       throw err;
     }

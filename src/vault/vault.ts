@@ -23,8 +23,10 @@ import type {
   ServiceNormalized,
 } from "@iiif/parser/presentation-3-normalized/types";
 import mitt, { type Emitter } from "mitt";
-import { BATCH_ACTIONS, type BatchAction, batchActions, entityActions, metaActions } from "./actions";
+import { BATCH_ACTIONS, batchActions, entityActions, metaActions } from "./actions";
 import { createStore, type VaultZustandStore } from "./store";
+import { VaultHistory, historyId } from "./history/history";
+import type { DispatchOptions, HistoryOptions, HistoryResult, VaultAction, VaultCommit } from "./history/types";
 import type {
   ActionFromType,
   AllActions,
@@ -45,6 +47,7 @@ import { resolveType } from "./utility/resolve-type";
 
 export type VaultOptions = {
   reducers: Record<string, any>;
+  history?: boolean | HistoryOptions;
   defaultState?: IIIFStore;
   customFetcher: <T>(url: string, options: T) => unknown | Promise<unknown>;
   enableDevtools: boolean;
@@ -125,8 +128,11 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   protected readonly options: VaultOptions;
   private readonly store: VaultZustandStore;
   private readonly emitter: Emitter<any>;
-  private isBatching = false;
-  private batchQueue: AllActions[] = [];
+  readonly history?: VaultHistory;
+  private batchFrames: Array<{ actions: VaultAction[]; options: DispatchOptions }> = [];
+  private dispatchContext: DispatchOptions = {};
+  private contextGuard?: () => void;
+  private epoch = 0;
   remoteFetcher: (str: string, options?: any, mapper?: (resource: any) => any) => Promise<NormalizedEntity | undefined>;
   staticFetcher: (
     str: string,
@@ -151,6 +157,13 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
         enableDevtools: this.options.enableDevtools,
       });
     this.emitter = mitt();
+    if (this.options.history) {
+      this.history = new VaultHistory(this.store, this.options.history === true ? {} : this.options.history);
+      this.dispatchContext = { actorId: this.history.actorId, sessionId: this.history.sessionId };
+    }
+    this.store.onReset((phase) => {
+      if (phase === "before") this.epoch++;
+    });
     this.remoteFetcher = createFetchHelper(this as Vault<any>, this.options.customFetcher || defaultFetcher, {
       actionListFromResource: this.getActionListFromResource(),
     }) as any;
@@ -165,36 +178,110 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
 
   defaultFetcher = defaultFetcher;
 
+  /** Nested batches are savepoints. Only the outer successful batch publishes. */
   batch(cb: (vault: this) => void) {
-    this.isBatching = true;
+    this.contextGuard?.();
+    const frame = { actions: [] as VaultAction[], options: { ...this.dispatchContext } };
+    const epoch = this.epoch;
+    this.batchFrames.push(frame);
     try {
-      cb(this);
-      this.isBatching = false;
-      this.dispatch(batchActions({ actions: this.batchQueue }));
-    } catch (e) {
-      // Even if we error, we still need to reset the queue.
-      this.batchQueue = [];
-      this.isBatching = false;
-      // And then rethrow.
-      throw e;
+      const result: unknown = cb(this);
+      if (epoch !== this.epoch) throw new Error("Vault state was replaced during a batch");
+      if (result && typeof (result as any).then === "function") {
+        throw new Error("Use asyncBatch with its scoped Vault for asynchronous work");
+      }
+    } catch (error) {
+      this.batchFrames.pop();
+      throw error;
     }
-    this.batchQueue = [];
+    this.batchFrames.pop();
+    if (frame.actions.length) this.dispatch(batchActions({ actions: frame.actions }), frame.options);
   }
 
+  /** Only calls through the callback's scoped Vault are queued across awaits. */
   async asyncBatch(cb: (vault: this) => Promise<void> | void) {
-    this.isBatching = true;
+    const scope = this.createScope(this.dispatchContext);
+    const frame = { actions: [] as VaultAction[], options: { ...this.dispatchContext } };
+    scope.vault.batchFrames.push(frame);
     try {
-      await cb(this);
-      this.isBatching = false;
-      this.dispatch(batchActions({ actions: this.batchQueue }));
-    } catch (e) {
-      // Even if we error, we still need to reset the queue.
-      this.batchQueue = [];
-      this.isBatching = false;
-      // And then rethrow.
-      throw e;
+      await cb(scope.vault);
+      scope.vault.contextGuard?.();
+      if (frame.actions.length) this.dispatch(batchActions({ actions: frame.actions }), frame.options);
+    } finally {
+      scope.close();
     }
-    this.batchQueue = [];
+  }
+
+  /** An interaction groups committed mutations without delaying reads or capturing unrelated work. */
+  beginInteraction(options: Pick<DispatchOptions, "label" | "history"> = {}) {
+    this.contextGuard?.();
+    const ownsGroup = !this.dispatchContext.groupId;
+    const id = this.dispatchContext.groupId || this.history?.openGroup(options) || historyId();
+    const scope = this.createScope({
+      ...this.dispatchContext,
+      ...options,
+      groupId: id,
+      history: options.history ?? this.dispatchContext.history ?? "record",
+    });
+    const finish = () => {
+      scope.close();
+      if (ownsGroup) this.history?.closeGroup(id);
+    };
+    return { id, vault: scope.vault, finish, cancel: finish };
+  }
+
+  async interaction<T>(
+    options: Pick<DispatchOptions, "label" | "history">,
+    cb: (vault: this) => T | Promise<T>
+  ): Promise<T> {
+    const context = this.beginInteraction(options);
+    try {
+      return await cb(context.vault);
+    } finally {
+      context.finish();
+    }
+  }
+
+  private createScope(options: DispatchOptions) {
+    let active = true;
+    const epoch = this.epoch;
+    const guard = this.contextGuard;
+    const vault: this = Object.create(this);
+    vault.batchFrames = [];
+    vault.dispatchContext = { ...options };
+    vault.contextGuard = () => {
+      guard?.();
+      if (
+        !active ||
+        epoch !== this.epoch ||
+        (options.groupId && this.history && !this.history.isOpen(options.groupId))
+      ) {
+        throw new Error("Vault interaction is closed, expired or belongs to replaced state");
+      }
+    };
+    vault.remoteFetcher = createFetchHelper(vault as Vault<any>, this.options.customFetcher || defaultFetcher, {
+      actionListFromResource: this.getActionListFromResource(),
+    }) as any;
+    vault.staticFetcher = createFetchHelper(vault as Vault<any>, (id: string, json: any) => json, {
+      actionListFromResource: this.getActionListFromResource(),
+    });
+    return {
+      vault,
+      close: () => {
+        active = false;
+      },
+    };
+  }
+
+  undo(): HistoryResult {
+    return this.history?.undo() ?? { ok: false, reason: "disabled" };
+  }
+  redo(): HistoryResult {
+    return this.history?.redo() ?? { ok: false, reason: "disabled" };
+  }
+
+  subscribeCommits(listener: (commit: VaultCommit) => void): () => void {
+    return this.store.subscribeCommits(listener);
   }
 
   modifyEntityField(entity: Reference<keyof Entities>, key: string, value: any) {
@@ -208,34 +295,28 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
     );
   }
 
-  dispatch(action: AllActions | BatchAction) {
-    if (!this.isBatching) {
-      if (action.type === BATCH_ACTIONS) {
-        for (const realAction of action.payload.actions) {
-          this.emitter.emit(realAction.type, {
-            action: realAction,
-            state: this.store.getState(),
-          });
-        }
-        this.store.dispatch(action);
-        const state = this.getState();
-        for (const realAction of action.payload.actions) {
-          this.emitter.emit(`after:${realAction.type}`, {
-            action: realAction,
-            state,
-          });
-        }
-        return;
+  dispatch(action: VaultAction, options: DispatchOptions = {}) {
+    this.contextGuard?.();
+    const context = { ...this.dispatchContext, ...options };
+    const frame = this.batchFrames[this.batchFrames.length - 1];
+    if (frame) {
+      for (const key of ["actorId", "sessionId", "groupId", "history"] as const) {
+        if (context[key] !== frame.options[key]) throw new Error("Cannot mix dispatch contexts in a Vault batch");
       }
-
-      this.emitter.emit(action.type, { action, state: this.store.getState() });
-      this.store.dispatch(action);
-      const state = this.store.getState();
-      this.emitter.emit(`after:${action.type}`, { action, state });
+      frame.actions.push(action);
       return;
-    } else {
-      this.batchQueue.push(action as AllActions);
     }
+    const actions: VaultAction[] = [];
+    const flatten = (item: VaultAction) => {
+      if (item.type === BATCH_ACTIONS) item.payload.actions.forEach(flatten);
+      else actions.push(item);
+    };
+    flatten(action);
+    if (!actions.length) return;
+    for (const item of actions) this.emitter.emit(item.type, { action: item, state: this.store.getState() });
+    this.store.dispatch(action, context);
+    const state = this.store.getState();
+    for (const item of actions) this.emitter.emit(`after:${item.type}`, { action: item, state });
   }
 
   on<Type extends AllActionsType>(

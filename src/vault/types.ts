@@ -41,6 +41,7 @@ import type {
 } from "@iiif/parser/presentation-4-normalized/types";
 import type { PayloadAction } from "typesafe-actions";
 import type { EntityActions } from "./actions/entity-actions";
+import type { HistoryActions } from "./actions/history-actions";
 import type { MappingActions } from "./actions/mapping-actions";
 import type { MetaActions } from "./actions/meta-actions";
 import type { RequestActions } from "./actions/request-actions";
@@ -248,7 +249,7 @@ export type IIIFStore<Meta extends MetaState = MetaState> = {
   iiif: EntityStore<Meta>;
 };
 
-export type AllActions = MappingActions | RequestActions | EntityActions | MetaActions;
+export type AllActions = MappingActions | RequestActions | EntityActions | MetaActions | HistoryActions;
 
 export type Reducer<TState, TAction> = (state: TState | undefined, action: TAction) => TState;
 

@@ -1157,6 +1157,7 @@ There are also focused notes and examples in this repository:
 - [Objects](./docs/objects.md)
 - [Styles](./docs/styles.md)
 - [Thumbnails](./docs/thumbnails.md)
+- [Vault transactions and undo/redo](./docs/vault-history.md)
 - [Demos](./demos/index.html)
 
 ## Presentation 4
