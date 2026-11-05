@@ -8,6 +8,7 @@ export default defineConfig((options) => ({
   platform: "browser",
   entry: {
     index: "src/index.ts",
+    diff: "src/diff.ts",
     events: "src/events.ts",
     i18n: "src/i18n.ts",
     "image-service": "src/image-service.ts",

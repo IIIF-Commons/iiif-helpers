@@ -4,6 +4,14 @@ import type { ActionType } from "typesafe-actions";
 import type { Entities } from "../types";
 import { createAction } from "../utility/typesafe-actions-runtime";
 
+/** Exact replacement/deletion, without the merge semantics of importEntities. */
+export const SET_ENTITY = "@iiif/SET_ENTITY";
+export const setEntity = createAction(SET_ENTITY)<{
+  type: keyof Entities;
+  id: string;
+  entity: unknown;
+}>();
+
 export const IMPORT_ENTITIES = "@iiif/IMPORT_ENTITIES";
 
 export const MODIFY_ENTITY_FIELD = "@iiif/MODIFY_ENTITY_FIELD";
@@ -150,6 +158,7 @@ export const reorderMetadata = createAction(REORDER_METADATA)<{
 }>();
 
 export const entityActions = {
+  setEntity,
   importEntities,
   modifyEntityField,
   reorderEntityField,

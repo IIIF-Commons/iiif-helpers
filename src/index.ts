@@ -1,3 +1,4 @@
+export * from "./diff";
 export * from "./activations";
 export * from "./annotation-values";
 export * from "./annotation-targets";
