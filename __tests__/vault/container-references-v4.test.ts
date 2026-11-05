@@ -132,3 +132,54 @@ for (const version of [3, 4] as const)
     });
     expect((vault instanceof Vault4 ? vault.get<any>(pageId) : vault.get<any>(pageId)).items).toEqual([]);
   });
+
+describe.each(["Canvas", "Timeline"] as const)("%s media-fragment references", (type) => {
+  test("loading a timed supplementary page preserves loaded content and metadata", () => {
+    const vault = new Vault4();
+    const id = `https://example.org/${type.toLowerCase()}/track`;
+    vault.loadSync(id, {
+      "@context": "http://iiif.io/api/presentation/4/context.json",
+      id,
+      type,
+      duration: 98.25,
+      width: 100,
+      height: 100,
+      label: { en: ["Side A"] },
+      items: [{ id: `${id}/painting`, type: "AnnotationPage", items: [] }],
+    } as any);
+    const pageId = `${id}/lyrics`;
+    vault.loadSync(pageId, {
+      "@context": "http://iiif.io/api/presentation/4/context.json",
+      id: pageId,
+      type: "AnnotationPage",
+      items: [
+        {
+          id: `${pageId}/line`,
+          type: "Annotation",
+          motivation: ["supplementing"],
+          body: { type: "TextualBody", value: "Lyrics", language: ["de"] },
+          target: { id: `${id}#t=8,10`, type },
+        },
+      ],
+    });
+    expect(vault.get<any>(id)).toMatchObject({ duration: 98.25, label: { en: ["Side A"] } });
+    expect(vault.get<any>(id).items).toHaveLength(1);
+    const annotation = vault.get<any>(`${pageId}/line`);
+    const target = Array.isArray(annotation.target) ? annotation.target[0] : annotation.target;
+    expect(target.source).toMatchObject({ id, type });
+    expect(target.selector).toContainEqual({ type: "FragmentSelector", value: "t=8,10" });
+    vault.dispatch(
+      batchActions({
+        actions: actionListFromResourceV4(id, {
+          "@context": "http://iiif.io/api/presentation/4/context.json",
+          id,
+          type,
+          duration: 0,
+          items: [],
+          label: null,
+        }),
+      })
+    );
+    expect(vault.get<any>(id)).toMatchObject({ duration: 0, items: [], label: null });
+  });
+});

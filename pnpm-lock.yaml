@@ -22,8 +22,8 @@ importers:
         version: 5.1.0
     devDependencies:
       '@iiif/parser':
-        specifier: ^4.0.5
-        version: 4.0.5
+        specifier: ^4.0.6
+        version: 4.0.6
       '@types/jsdom':
         specifier: ^21.1.4
         version: 21.1.4
@@ -351,8 +351,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@iiif/parser@4.0.5':
-    resolution: {integrity: sha512-zTbiLNoZnFngUYEyE485YoC+7+GFpa4H9Ks+6bJkvrg0u2cUgj2pUap+eU7XqwAtd0+fCQQQm9lpKTd1AU9EKg==}
+  '@iiif/parser@4.0.6':
+    resolution: {integrity: sha512-kTagopHUCupiMYZK3+KJLwfPT6zd2MuyjikV51Wq6ZWQnAXqWL19sujDZ9E/F9RBRUVxLosE6SkKTQ3T90Nj1Q==}
     engines: {node: '>=22'}
     hasBin: true
 
@@ -2124,7 +2124,7 @@ snapshots:
   '@esbuild/win32-x64@0.20.2':
     optional: true
 
-  '@iiif/parser@4.0.5': {}
+  '@iiif/parser@4.0.6': {}
 
   '@jest/schemas@29.6.3':
     dependencies:

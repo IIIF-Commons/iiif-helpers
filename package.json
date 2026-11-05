@@ -293,7 +293,7 @@
     "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
-    "@iiif/parser": "^4.0.5",
+    "@iiif/parser": "^4.0.6",
     "@types/jsdom": "^21.1.4",
     "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",
