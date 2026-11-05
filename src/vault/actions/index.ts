@@ -3,3 +3,4 @@ export * from "./mapping-actions";
 export * from "./meta-actions";
 export * from "./request-actions";
 export * from "./batch-actions";
+export * from "./history-actions";
