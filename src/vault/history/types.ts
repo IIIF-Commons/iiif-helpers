@@ -81,3 +81,11 @@ export type HistoryState = {
   readonly canUndo: boolean;
   readonly canRedo: boolean;
 };
+
+/** JSON-safe local checkpoint. Treat snapshots as trusted application data, never remote edit messages. */
+export type VaultHistorySnapshot = {
+  readonly format: "@iiif/helpers/vault-history";
+  readonly version: 1;
+  /** Tagged encoding preserves undefined, sparse arrays and special numbers. */
+  readonly data: import("./values").EncodedValue;
+};

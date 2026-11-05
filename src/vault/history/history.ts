@@ -11,7 +11,9 @@ import type {
   HistoryState,
   LineageChange,
   VaultCommit,
+  VaultHistorySnapshot,
 } from "./types";
+import { readHistorySnapshot } from "./snapshot";
 import { decodeValue, encodeValue, freeze } from "./values";
 
 type Group = Omit<HistoryGroup, "commits" | "status"> & {
@@ -92,6 +94,7 @@ export class VaultHistory {
   private replay?: { group: Group; direction: "undo" | "redo"; heads: Map<string, string> };
   private readonly cleanups: Array<() => void>;
   private disposed = false;
+  private restoring = false;
 
   constructor(
     private readonly store: VaultZustandStore,
@@ -118,7 +121,7 @@ export class VaultHistory {
       store.subscribeCommits(() => this.notify()),
       store.onReset((phase) => {
         if (phase === "before") this.clear(false);
-        else this.notify();
+        else if (!this.restoring) this.notify();
       }),
     ];
   }
@@ -278,6 +281,62 @@ export class VaultHistory {
       canUndo: !!last && last.status === "sealed" && this.canApply(last, "undo"),
       canRedo: !!redo.length && this.canApply(redo[redo.length - 1], "redo"),
     });
+  }
+
+  /** Capture a JSON-safe document and sealed history together. Finish interactions first. */
+  exportSnapshot(): VaultHistorySnapshot {
+    this.assertActive();
+    if (this.store.isDispatching || this.openGroups.size)
+      throw new Error("Cannot snapshot Vault history during an active interaction or commit");
+    this.prune();
+    const { entities, mapping, meta } = this.store.getState().iiif;
+    const metadata = this.options.metadata.filter((namespace) => !namespace.startsWith("@vault/")).sort();
+    const authoredMeta = Object.fromEntries(
+      Object.entries(meta).flatMap(([id, namespaces]) => {
+        const entries = Object.entries(namespaces).filter(([namespace]) => metadata.includes(namespace));
+        return entries.length ? [[id, Object.fromEntries(entries)]] : [];
+      })
+    );
+    return freeze({
+      format: "@iiif/helpers/vault-history",
+      version: 1,
+      data: encodeValue({
+        document: { entities, mapping, meta: authoredMeta },
+        metadata,
+        groups: this.groups,
+        redoOrder: this.redoOrder,
+        heads: [...this.heads],
+      }),
+    });
+  }
+
+  /** Restore a trusted local checkpoint, replacing the document and invalidating old scopes.
+   * Groups become owned by this controller; receiver retention limits still apply.
+   * Never use this to accept history from an untrusted client or restore one peer of a shared store.
+   */
+  restoreSnapshot(snapshot: unknown): void {
+    this.assertActive();
+    if (this.store.isDispatching || this.openGroups.size)
+      throw new Error("Cannot restore Vault history during an active interaction or commit");
+    const metadata = this.options.metadata.filter((namespace) => !namespace.startsWith("@vault/")).sort();
+    const data = readHistorySnapshot(snapshot, metadata);
+    const groups: Group[] = data.groups.map((group) => ({
+      ...group,
+      actorId: this.actorId,
+      sessionId: this.sessionId,
+      commits: group.commits.map((commit) => freeze(commit)),
+    }));
+    this.restoring = true;
+    try {
+      this.store.setState({ iiif: { ...data.document, requests: {} } });
+      this.groups = groups;
+      this.redoOrder = data.redoOrder;
+      this.heads = new Map(data.heads);
+      this.prune();
+    } finally {
+      this.restoring = false;
+    }
+    this.notify();
   }
 
   subscribe(listener: (state: HistoryState) => void): () => void {

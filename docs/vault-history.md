@@ -130,7 +130,7 @@ State subscribers run after history finalization. Reentrant dispatches from subs
 
 `getStore().setState()` clears history before replacement, restores the dispatch entry point even on a full replacement, and invalidates scoped work. A throwing state updater leaves history untouched. Arbitrary object mutation, Redux DevTools time travel, or mutation through non-Vault store internals is not supported history input. `history.clear()` drops retained groups and pending contexts; `history.dispose()` unregisters capture and observers.
 
-Retention limits count whole groups (including redo groups), encoded record bytes and age. Evicted groups never return as partial entries. The engine also releases lineage not needed by retained guards. Records and guard state are in memory only; public snapshots are reviewable diagnostics, not a history import/restore API.
+Retention limits count whole groups (including redo groups), encoded record bytes and age. Evicted groups never return as partial entries. The engine also releases lineage not needed by retained guards. `getState()` exposes reviewable history diagnostics. Use the checkpoint API below to persist document and replay state together.
 
 ## Manifest Editor follow-up inventory
 
@@ -150,3 +150,27 @@ The editor is intentionally unchanged in this phase. The initial source audit id
 | RemoteClientVault and preview bridges                                        | Move dispatch monkey patches to commit observation; do not transmit queued child actions   |
 
 Before remote use, implement authenticated ownership, authoritative revisions and conditional undo requests, request deduplication, acknowledgements, optimistic reconciliation and epoch-aware resynchronization. Local attribution and patch actions alone provide none of these guarantees.
+
+## Local history checkpoints
+
+`VaultHistory.exportSnapshot()` captures a versioned, detached, JSON-safe checkpoint of the normalized document, both stacks, and conflict lineage. `restoreSnapshot()` replaces the receiving document and history together. Both `Vault` and `Vault4` support this through `vault.history`.
+
+```ts
+const vault = new Vault({ history: { metadata: ["my-authored-metadata"] } });
+// Finish field sessions/interactions before capturing.
+const checkpoint = vault.history!.exportSnapshot();
+await projectStore.setItem(projectId, checkpoint); // IndexedDB or another application-owned store
+
+const restored = new Vault({ history: { metadata: ["my-authored-metadata"] } });
+restored.history!.restoreSnapshot(await projectStore.getItem(projectId));
+```
+
+The exported `VaultHistorySnapshot` has a format marker, version `1` and tagged `data`. JSON stringify/parse is lossless, including patch values containing undefined, sparse arrays, NaN, infinities and negative zero. Store the checkpoint as one record: do not combine stacks with a separately exported Presentation JSON document. Normalized entities can include detached resources that redo still needs.
+
+Snapshots include all normalized entities/mappings and only the metadata namespaces selected by the history controller. Requests and operational metadata (`@vault/*`, task state, pending fetches) are not restored. A pending fetch is not resumable work. Applications own storage quotas, debouncing, project identity, storage errors and recovery/export. No storage backend or automatic saving is added by helpers.
+
+Capture/restore rejects active interactions and commits; callers must flush and finish their own pending work first. Capture never closes an interaction on the caller's behalf. Restore validates format, encoding, document shape, groups, redo references, patch paths and lineage records before touching the live store. Its metadata policy must match the receiving controller. Invalid or incompatible snapshots leave the document and history unchanged. Successful restore replaces the document through the normal reset lifecycle, invalidates stale scoped work and emits one completed history notification. It is a reset, not an authored commit or an undoable import.
+
+Restored groups are attributed to the receiving controller's actor/session so a reopened local project can continue editing without preserving an old connection identity. Group/commit IDs and lineage stay intact, including blocked conflicts. The receiving controller's group/byte/age limits apply, so restore can legitimately evict old groups. Snapshots do not override retention policy.
+
+This API is for **trusted local application checkpoints**, not arbitrary downloaded history or remote mutation messages. It is not authentication or a server persistence protocol. Do not restore one controller on a shared authoritative store: a server must coordinate all controllers, identities, document epochs and connected clients as part of its own persistence lifecycle.
