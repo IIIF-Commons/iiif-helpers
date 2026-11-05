@@ -2,6 +2,7 @@ import { isSpecificResource, toRef } from "@iiif/parser";
 import type { Reference, SpecificResource } from "@iiif/parser/presentation-3/types";
 import { changeRefIdentifier } from "../../../shared-utilities";
 import {
+  SET_ENTITY,
   ADD_METADATA,
   ADD_REFERENCE,
   CHANGE_REFERENCE_IDENTIFIER,
@@ -75,6 +76,13 @@ export const entitiesReducer = (state: Entities = getDefaultEntities(), action: 
   };
 
   switch (action.type) {
+    case SET_ENTITY: {
+      const { type, id, entity } = action.payload;
+      const bucket = { ...state[type] };
+      if (entity === undefined) delete bucket[id];
+      else bucket[id] = entity as any;
+      return { ...state, [type]: bucket };
+    }
     case MODIFY_ENTITY_FIELD: {
       // Invalid.
       if (!state[payload(action).type] || !state[payload(action).type][payload(action).id]) {

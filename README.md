@@ -1271,6 +1271,13 @@ calculate lighting, spatialize audio emitters, or execute activation actions.
 Camera, light, audio-emitter, animation, and nested extension subtrees are not
 normalized into helper-specific models unless a tested vertical slice is added.
 
+## Manifest diffs
+
+`@iiif/helpers/diff` compares normalized Presentation 3 snapshots from the Parser
+or Vault, supports reversible Vault mutations, three-way conflicts, selective
+review sessions, and serialized unified diff exports. See the [diff helper guide](docs/diff.md)
+for examples and comparison strategies.
+
 ## Development
 
 This checkout pins the exact Parser preview used for development and testing.

@@ -267,6 +267,16 @@
         "types": "./dist/activations.d.ts",
         "default": "./dist/activations.js"
       }
+    },
+    "./diff": {
+      "require": {
+        "types": "./dist/diff.d.cts",
+        "default": "./dist/diff.cjs"
+      },
+      "import": {
+        "types": "./dist/diff.d.ts",
+        "default": "./dist/diff.js"
+      }
     }
   },
   "publishConfig": {
@@ -289,6 +299,7 @@
   "dependencies": {
     "@terraformer/wkt": "2.2.1",
     "@types/geojson": "7946.0.13",
+    "diff": "8.0.2",
     "mitt": "^3.0.1",
     "typesafe-actions": "^5.1.0"
   },
