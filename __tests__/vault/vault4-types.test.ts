@@ -8,9 +8,21 @@ import type {
 import { describe, expectTypeOf, test } from "vitest";
 import cssManifest from "../../fixtures/cookbook/css.json";
 import p4SceneManifest from "../../fixtures/presentation-4/cookbook/0608-mvm-3d.json";
+import type { VaultInteraction } from "../../src/vault";
 import { isVault4, Vault4 } from "../../src/vault/vault4";
 
 describe("Vault4 types", () => {
+  test("interaction handles preserve the concrete Vault subclass", () => {
+    const vault = new Vault4({ history: true });
+    const context = vault.beginInteraction({ label: "Edit scene" });
+    expectTypeOf(context).toEqualTypeOf<VaultInteraction<Vault4>>();
+    expectTypeOf(context.vault.get({ id: "scene", type: "Scene" })).toMatchTypeOf<SceneNormalized>();
+    const nested = context.vault.beginInteraction();
+    expectTypeOf(nested.vault).toEqualTypeOf<Vault4>();
+    nested.finish();
+    context.finish();
+  });
+
   test("core method signatures remain type-safe", () => {
     const vault = new Vault4();
 

@@ -26,7 +26,14 @@ import mitt, { type Emitter } from "mitt";
 import { BATCH_ACTIONS, batchActions, entityActions, metaActions } from "./actions";
 import { createStore, type VaultZustandStore } from "./store";
 import { VaultHistory, historyId } from "./history/history";
-import type { DispatchOptions, HistoryOptions, HistoryResult, VaultAction, VaultCommit } from "./history/types";
+import type {
+  DispatchOptions,
+  HistoryOptions,
+  HistoryResult,
+  VaultAction,
+  VaultCommit,
+  VaultInteraction,
+} from "./history/types";
 import type {
   ActionFromType,
   AllActions,
@@ -213,7 +220,7 @@ export class Vault<Types extends VaultTypeMap = Vault3TypeMap> {
   }
 
   /** An interaction groups committed mutations without delaying reads or capturing unrelated work. */
-  beginInteraction(options: Pick<DispatchOptions, "label" | "history"> = {}) {
+  beginInteraction(options: Pick<DispatchOptions, "label" | "history"> = {}): VaultInteraction<this> {
     this.contextGuard?.();
     const ownsGroup = !this.dispatchContext.groupId;
     const id = this.dispatchContext.groupId || this.history?.openGroup(options) || historyId();

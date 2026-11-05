@@ -12,6 +12,14 @@ export type DispatchOptions = {
 };
 export type VaultAction = AllActions | BatchAction;
 
+/** A scoped mutation context that preserves the concrete Vault subclass. */
+export type VaultInteraction<VaultType> = {
+  readonly id: string;
+  readonly vault: VaultType;
+  finish(): void;
+  cancel(): void;
+};
+
 export type VaultCommit = {
   readonly id: string;
   readonly revision: number;
