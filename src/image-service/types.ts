@@ -22,6 +22,9 @@ export type VariableSizeImage = {
   maxWidth: number;
   minHeight: number;
   maxHeight: number;
+  /** Full image dimensions, when known, for aspect-preserving requests. */
+  width?: number;
+  height?: number;
   level?: number | null;
   version?: number;
 };

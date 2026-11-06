@@ -1062,6 +1062,8 @@ describe("image utilities", () => {
           minWidth: 0,
           type: "variable",
           version: 2,
+          width: 4961,
+          height: 6716,
         },
       ]);
     });
@@ -1261,7 +1263,7 @@ describe("image utilities", () => {
         fallback: [
           {
             height: 100,
-            id: "http://service.com/path/full/100,/0/default.jpg",
+            id: "http://service.com/path/full/100,100/0/default.jpg",
             type: "fixed",
             unsafe: true,
             width: 100,

@@ -22,6 +22,13 @@ export function getCustomSizeFromService(service: ImageService): ImageCandidate[
     return [];
   }
 
+  const dimensions = service.width && service.height ? { width: service.width, height: service.height } : {};
+  // API 3 uses both dimensions in canonical URLs; tile dimensions describe a
+  // bounding box, not the full image's aspect ratio.
+  if (isImage3(service) && (!dimensions.width || !dimensions.height)) {
+    return [];
+  }
+
   const imagesSizes: ImageCandidate[] = [];
 
   // Check for max width in profile.
@@ -38,10 +45,11 @@ export function getCustomSizeFromService(service: ImageService): ImageCandidate[
             type: "variable",
             minWidth: 0,
             minHeight: 0,
+            ...dimensions,
             maxHeight: (profile.maxHeight || profile.maxWidth) as number,
             maxWidth: (profile.maxWidth || profile.maxHeight) as number,
             level: getImageServiceLevel(service),
-            version: service["@context"] === "http://iiif.io/api/image/3/context.json" ? 3 : 2,
+            version: isImage3(service) ? 3 : 2,
           },
         ];
       }
@@ -58,6 +66,7 @@ export function getCustomSizeFromService(service: ImageService): ImageCandidate[
           type: "variable",
           minHeight: 0,
           minWidth: 0,
+          ...dimensions,
           maxHeight: tile.height || tile.width,
           maxWidth: tile.width,
           level: getImageServiceLevel(service),

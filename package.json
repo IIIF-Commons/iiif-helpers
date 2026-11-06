@@ -304,7 +304,7 @@
     "typesafe-actions": "^5.1.0"
   },
   "devDependencies": {
-    "@iiif/parser": "^4.0.6",
+    "@iiif/parser": "^4.0.7",
     "@types/jsdom": "^21.1.4",
     "@types/svg-arc-to-cubic-bezier": "^3.2.1",
     "@vitejs/plugin-react": "^4.3.4",
@@ -325,7 +325,7 @@
     "zustand": "^4.5.2"
   },
   "peerDependencies": {
-    "@iiif/parser": "^4.0.0"
+    "@iiif/parser": "^4.0.7"
   },
   "optionalDependencies": {
     "abs-svg-path": "^0.1.1",

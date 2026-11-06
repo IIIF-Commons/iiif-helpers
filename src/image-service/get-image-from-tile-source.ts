@@ -15,7 +15,6 @@ export function getImageFromTileSource(
   targetWidth: number,
   targetHeight?: number
 ): FixedSizeImage {
-  // @todo this needs to determine levels 0, 1 + 2.
   const req = createImageServiceRequest({
     "@context":
       image.version === 3 ? "http://iiif.io/api/image/3/context.json" : "http://iiif.io/api/image/2/context.json",
@@ -32,8 +31,11 @@ export function getImageFromTileSource(
   }
 
   req.size.max = false;
+  // API 3 listed sizes use both dimensions, including on static level-0 servers.
+  // The request serializer otherwise defaults to API 2's width-only syntax.
+  req.size.version = image.version === 3 ? 3 : 2;
   req.size.width = targetWidth;
-  req.size.height = targetHeight;
+  req.size.height = targetHeight || Math.ceil((image.height / (image.width || 1)) * targetWidth);
 
   const url = imageServiceRequestToString(req);
 
@@ -41,7 +43,7 @@ export function getImageFromTileSource(
     id: url,
     type: "fixed",
     width: targetWidth,
-    height: targetHeight || (image.height / (image.width || 1)) * targetWidth,
+    height: req.size.height,
     unsafe: image.width > targetWidth,
   };
 }
