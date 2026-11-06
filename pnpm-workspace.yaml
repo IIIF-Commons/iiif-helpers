@@ -2,4 +2,4 @@ autoInstallPeers: false
 allowBuilds:
   esbuild: true
 minimumReleaseAgeExclude:
-  - "@iiif/parser@4.0.0"
+  - "@iiif/parser@4.0.0 || 4.0.7"
