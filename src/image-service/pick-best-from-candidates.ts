@@ -120,16 +120,30 @@ export function pickBestFromCandidates(
       }
       if (candidate.type === "variable") {
         if (candidate.maxWidth) {
+          let width = candidate.maxWidth;
+          let height = candidate.maxWidth;
+          if (candidate.width && candidate.height) {
+            const scale = Math.min(
+              1,
+              (request.width || Infinity) / candidate.width,
+              (request.height || Infinity) / candidate.height,
+              Math.min(candidate.maxWidth, request.maxWidth) / candidate.width,
+              Math.min(candidate.maxHeight, request.maxHeight) / candidate.height
+            );
+            width = Math.max(1, Math.floor(candidate.width * scale));
+            height = Math.ceil((candidate.height / candidate.width) * width);
+          }
           const choice = getImageFromTileSource(
             {
               id: candidate.id,
               type: "fixed-service",
-              width: candidate.maxWidth,
-              height: candidate.maxWidth,
+              width,
+              height,
               level: candidate.level,
               version: candidate.version,
             },
-            candidate.maxWidth
+            width,
+            height
           );
 
           swapChoice(choice, currentChoice);

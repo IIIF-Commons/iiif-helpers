@@ -18,30 +18,31 @@ export function getSmallestScaleFactorAsSingleImage(service: ImageService): Fixe
   }
 
   if (service.tiles) {
-    const tiles = service.tiles.sort((a, b) => {
+    const tiles = [...service.tiles].sort((a, b) => {
       return Math.max(...b.scaleFactors) - Math.max(...a.scaleFactors);
     });
     const len = tiles.length;
     for (let i = 0; i < len; i++) {
       const tile = tiles[i];
       if (!tile) continue;
-      // @todo possible refinement.
-      // const targetSize = tile.width > (tile.height || 0) ? tile.width : tile.height;
-      const targetSize = tile.width;
-      if (!targetSize) {
+      const targetWidth = tile.width;
+      const targetHeight = tile.height || targetWidth;
+      if (!targetWidth || !targetHeight) {
         continue;
       }
       const sizeLen = tile.scaleFactors.length;
-      const sortedScales = tile.scaleFactors.sort();
+      const sortedScales = [...tile.scaleFactors].sort((a, b) => a - b);
       for (let j = 0; j < sizeLen; j++) {
         const size = sortedScales[j];
-        if (!size) continue;
-        if (service.width / size <= targetSize && service.height / size <= targetSize) {
+        if (!Number.isFinite(size) || size <= 0) continue;
+        const width = Math.ceil(service.width / size);
+        const height = Math.ceil(service.height / size);
+        if (width <= targetWidth && height <= targetHeight) {
           return {
             id: getId(service),
             type: "fixed-service",
-            width: (service.width / size) | 0,
-            height: (service.height / size) | 0,
+            width,
+            height,
             level: getImageServiceLevel(service)!,
             version: isImage3(service) ? 3 : 2,
           };

@@ -10,6 +10,7 @@ import type {
 import { getFixedSizeFromImage } from "./get-fixed-size-from-image";
 import { getImageCandidatesFromService } from "./get-image-candidates-from-service";
 import type { ImageServiceLoader, ImageServiceRequest } from "./image-service-loader";
+import { isImage3 } from "./is-image-3";
 import type { ImageCandidate } from "./types";
 
 type ContentResource = ContentResourceV3 | ContentResourceV4;
@@ -77,7 +78,14 @@ export function getImageCandidates(
 
   // Embedded service.
   if (resource.service) {
-    candidates.push(...getImageCandidatesFromService(resource.service as any));
+    // Embedded API 3 services may omit dimensions; use the image's dimensions
+    // to retain its aspect ratio without modifying the shared service object.
+    const services = (resource.service as any[]).map((service) =>
+      isImage3(service) && resource.width && resource.height
+        ? { ...service, width: service.width || resource.width, height: service.height || resource.height }
+        : service
+    );
+    candidates.push(...getImageCandidatesFromService(services));
   }
 
   return candidates;
